@@ -182,5 +182,17 @@ async def test_rotas_publicas_de_consultas_continuam_compartilhadas():
     assert p("/v1/calendario", {"ano": "2026", "periodo": "1"}).escopo == C.COMPARTILHADO
 
 
+# ------------------------------------------------------------------ chave
+async def test_query_com_parametro_repetido_nao_colide():
+    """ISO-06: ``?x=1&x=2`` e ``?x=2&x=1`` davam a MESMA chave (pares ordenados), mas a rota vê o
+    último valor — dava pra envenenar a cópia compartilhada/pública de outra combinação."""
+    ch: dict[str, int] = {}
+    async with _cli(_app(ch)) as c:
+        r1 = await c.get("/v1/publico/eco?x=1&x=2")
+        r2 = await c.get("/v1/publico/eco?x=2&x=1")
+    assert r1.json() == {"x": 2}
+    assert r2.json() == {"x": 1}, "a 2ª ordem recebeu a resposta da 1ª"
+
+
 def _basic(u: str, s: str) -> dict[str, str]:
     return {"Authorization": "Basic " + base64.b64encode(f"{u}:{s}".encode()).decode()}

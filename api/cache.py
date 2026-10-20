@@ -126,7 +126,8 @@ def politica(path: str, q: dict[str, str]) -> Politica:
 
 
 def montar_chave(pol: Politica, path: str, q: list[tuple[str, str]], usuario_hash: str | None) -> str:
-    qs = urlencode(sorted((k, v) for k, v in q if k != "fresco"))
+    # ordena só pelo NOME (sort estável): ?a=1&a=2 ≠ ?a=2&a=1 — a rota vê o ÚLTIMO valor
+    qs = urlencode(sorted(((k, v) for k, v in q if k != "fresco"), key=lambda kv: kv[0]))
     if pol.escopo == ALUNO:
         return f"u:{cache.aluno(usuario_hash or '')}:{path}?{qs}"
     return f"{'p' if pol.escopo == PUBLICO else 'c'}:{path}?{qs}"
