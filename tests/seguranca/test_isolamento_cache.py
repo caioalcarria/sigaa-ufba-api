@@ -279,6 +279,44 @@ async def test_basic_ativo_recebe_hit_e_conta_como_uso():
     assert r is None  # senha errada nunca acha a sessão (a chave leva a senha)
 
 
+# ------------------------------------------------------------- singleflight
+async def test_singleflight_nao_mistura_alunos():
+    ch: dict[str, int] = {}
+    async with _cli(_app(ch)) as c:
+        ra, rb, ra2 = await asyncio.gather(c.get("/v1/eco", headers=A), c.get("/v1/eco", headers=B), c.get("/v1/eco", headers=A2))
+    assert ra.json()["dono"] == ra2.json()["dono"] == "aluno-a"
+    assert rb.json()["dono"] == "aluno-b"
+    assert ch["eco"] == 2  # A e A2 dividem (mesmo aluno); B voa sozinho
+
+
+async def test_lider_com_403_nao_propaga_a_resposta_pros_seguidores():
+    ch: dict[str, int] = {}
+    async with _cli(_app(ch)) as c:
+        t1 = asyncio.create_task(c.get("/v1/negado", headers=A))
+        await asyncio.sleep(0.01)
+        r2 = await c.get("/v1/negado", headers=A2)
+        r1 = await t1
+    assert r1.status_code == 403
+    assert r2.status_code == 200 and r2.json()["dono"] == "aluno-a"
+    assert ch["negado"] == 2
+
+
+async def test_revalidacao_stale_grava_so_na_chave_de_quem_pediu(monkeypatch):
+    monkeypatch.setattr(C, "REGRAS", [(C.re.compile(r"^/v1/eco"), C.Politica(C.ALUNO, 0.1, 30))] + C.REGRAS)
+    ch: dict[str, int] = {}
+    async with _cli(_app(ch)) as c:
+        await c.get("/v1/eco", headers=A)
+        await c.get("/v1/eco", headers=B)
+        await asyncio.sleep(0.15)
+        r = await c.get("/v1/eco", headers=A)
+        assert r.headers["x-cache"] == "STALE"
+        await asyncio.sleep(0.15)
+        chave_a = C.montar_chave(C.politica("/v1/eco", {}), "/v1/eco", [], "aluno-a")
+        chave_b = C.montar_chave(C.politica("/v1/eco", {}), "/v1/eco", [], "aluno-b")
+        assert b"aluno-a" in (await SC.cache.backend.obter(chave_a)).corpo
+        assert b"aluno-b" in (await SC.cache.backend.obter(chave_b)).corpo
+
+
 # --------------------------------------------------------- limpeza / logout
 async def test_resposta_em_voo_durante_a_limpeza_nao_volta_pro_cache():
     """ISO-07: um MISS (ou revalidação/pré-aquecimento) que já tinha saído pro SIGAA terminava
@@ -321,3 +359,27 @@ async def test_preaquecimento_para_no_logout():
         await asyncio.sleep(0.3)
     assert ch["eco"] == 1  # só o do B: o aquecimento do A não rodou depois do logout
     assert await SC.cache.backend.obter(C.montar_chave(C.politica("/v1/eco", {}), "/v1/eco", [], "aluno-a")) is None
+
+
+# ------------------------------------------------------- cabeçalhos / stats
+async def test_cache_control_nunca_public_fora_do_publico():
+    ch: dict[str, int] = {}
+    async with _cli(_app(ch)) as c:
+        for path, h in (("/v1/eco", A), ("/v1/consultas/estruturas/9", A)):
+            await c.get(path, headers=h)
+            r = await c.get(path, headers=h)
+            assert r.headers["cache-control"].startswith("private"), path
+            assert "Authorization" in r.headers["vary"], path
+        r = await c.get("/v1/publico/eco")
+        assert r.headers["cache-control"].startswith("public")
+
+
+async def test_estatisticas_nao_expoem_nada_por_aluno():
+    ch: dict[str, int] = {}
+    async with _cli(_app(ch)) as c:
+        await c.get("/v1/eco", headers=A)
+        r = await c.get("/v1/cache/estatisticas")
+    assert r.status_code == 200
+    corpo = r.text
+    for proibido in ("aluno-a", SC.cache.aluno("aluno-a"), "/v1/eco", "tokA"):
+        assert proibido not in corpo
