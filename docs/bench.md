@@ -29,7 +29,7 @@ cd ~/PROJECTS/UFBA/sigaa-api-perf-<frente>
 ```
 
 Faixas de porta sugeridas (pra ninguém pisar em ninguém): bancada 8110–8119 · sessões 8120–8129 ·
-cache 8130–8139 · cpu 8140–8149 · orquestrador 8150–8159. **Nunca a 8000** (produção).
+cache 8130–8139 · cpu 8140–8149 · integração 8150–8159. **Nunca a 8000** (produção).
 
 ## O SIGAA simulado
 
@@ -110,8 +110,7 @@ direto.** (Correção definitiva sugerida no código: `cliente_anonimo` usar `co
 * As telas são as MESMAS pra todo aluno (o mock não personaliza por usuário) e a turma virtual
   serve um conjunto fixo de páginas (a principal varia por turma entre 4 fixtures).
 * Latência dos fluxos LOGADOS vem do brief (medição anterior) — a calibração nova (`bench/resultados/calibracao_sigaa_real.md`) só pôde usar
-  páginas PÚBLICAS (o login com a credencial do Caio foi bloqueado pelo classificador de dados
-  pessoais e o orquestrador decidiu não gravar telas logadas).
+  páginas PÚBLICAS (por privacidade, telas logadas não são gravadas: o simulado usa as fixtures anonimizadas).
 * O PDF sintético tem 2 páginas/45 componentes: parse ≈ 220 ms (o real ≈ 300 ms).
 * Concorrência DENTRO de uma mesma sessão: o mock não serializa nem quebra (o real pode misturar
   estado de bean JSF); a janela de 10 views segue o MyFaces do SIGAA real.

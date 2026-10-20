@@ -3,7 +3,7 @@
     .venv/bin/python bench/gravar.py tudo --rotulo ufba --reps 2
         1. sobe um proxy gravador (127.0.0.1:8114) → https://sigaa.ufba.br
         2. sobe a API deste worktree (127.0.0.1:8113) com SIGAA_URL=proxy (via bench/_lancador.py)
-        3. faz login com a credencial do LastPass (recon/sess.py::_cred, nunca impressa) e chama o
+        3. faz login com a credencial de bench/credencial.py (env SIGAA_USUARIO/SIGAA_SENHA; nunca impressa) e chama o
            ROTEIRO de rotas em série, ``--reps`` vezes (cada repetição com um login novo)
         4. guarda tudo CRU (com dados pessoais!) em recon/bench_bruto/<rotulo>/ (gitignored) + os
            tempos e2e de cada rota (calibração) em recon/bench_bruto/<rotulo>/calibracao.json
@@ -208,8 +208,8 @@ async def roteiro_publico(api: str, grav: Gravador, reps: int) -> dict:
 
 
 async def roteiro(api: str, grav: Gravador | None, reps: int, so: str | None) -> dict:
-    sys.path.insert(0, str(RAIZ / "recon"))
-    from sess import _cred  # noqa: E402 — lê do LastPass, nunca imprime
+    sys.path.insert(0, str(RAIZ / "bench"))
+    from credencial import credencial as _cred  # noqa: E402 — env SIGAA_USUARIO/SIGAA_SENHA; nunca imprime
 
     usuario, senha = _cred()
     resultado: dict = {"api": api, "reps": [], "logins_s": []}

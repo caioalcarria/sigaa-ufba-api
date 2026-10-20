@@ -24,7 +24,7 @@
    "views_por_sessao": 20
   },
   "git": {
-   "worktree": "~/PROJECTS/UFBA/sigaa-api-perf-bancada",
+   "worktree": "~/sigaa-api-perf-bancada",
    "commit": "c0aa0f3f6ab1da6726b4de44854cfbbdc182e0d8",
    "branch": "perf/bancada",
    "sujo": false

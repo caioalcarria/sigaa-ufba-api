@@ -12,7 +12,7 @@ Cenários (cada rota uma vez fria e N vezes quente, sempre em série):
      oferta/pré-requisitos/estrutura vêm do cache compartilhado (L2), como seria pra um colega do curso;
   4. login → espera o pré-aquecimento → rotas (o app que abre 5 s depois do login).
 
-A credencial vem do LastPass (recon/sess.py) e nunca é impressa. Nada de dado pessoal na saída: só tempos e cabeçalhos.
+A credencial vem de bench/credencial.py (env SIGAA_USUARIO/SIGAA_SENHA) e nunca é impressa. Nada de dado pessoal na saída: só tempos e cabeçalhos.
 """
 
 from __future__ import annotations
@@ -26,13 +26,13 @@ from pathlib import Path
 
 import httpx
 
-sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "recon"))
+sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 ROTAS = ["/v1/portal", "/v1/me", "/v1/turmas", "/v1/historico", "/v1/indices", "/v1/matricula", "/v1/grade-curricular"]
 
 
 def login(api: str) -> tuple[str, float]:
-    from sess import _cred  # noqa: PLC0415
+    from credencial import credencial as _cred  # noqa: PLC0415
 
     u, p = _cred()
     t0 = time.perf_counter()
