@@ -1,0 +1,2256 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html class="background" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta content="no-cache, no-store, must-revalidate" http-equiv="Cache-Control"/>
+<meta content="no-cache" http-equiv="Pragma"/>
+<meta content="0" http-equiv="Expires"/>
+<title>SIGAA - Sistema Integrado de Gestão de Atividades Acadêmicas</title>
+<link class="component" href="/sigaa/a4j/s/3_3_3.Finalorg/richfaces/renderkit/html/css/basic_classes.xcss/DATB/eAF7sqpgb-jyGdIAFrMEaw__.jsf" rel="stylesheet" type="text/css"/><link class="component" href="/sigaa/a4j/s/3_3_3.Finalorg/richfaces/renderkit/html/css/extended_classes.xcss/DATB/eAF7sqpgb-jyGdIAFrMEaw__.jsf" media="rich-extended-skinning" rel="stylesheet" type="text/css"/><script type="text/javascript">window.RICH_FACES_EXTENDED_SKINNING_ON=true;</script><script src="/sigaa/a4j/g/3_3_3.Finalorg/richfaces/renderkit/html/scripts/skinning.js.jsf" type="text/javascript"></script><link href="/sigaa/img/sigaa.ico" rel="shortcut icon"/>
+<script src="/shared/jsBundles/jawr_loader.js" type="text/javascript"></script>
+<script type="text/javascript">
+                JAWR.loader.style('/bundles/css/sigaa_base.css', 'all');
+        		JAWR.loader.style('/css/ufrn_print.css', 'print');
+        		JAWR.loader.script('/bundles/js/sigaa_base.js');
+</script>
+<link href="/sigaa/cssBundles/gzip_N91553634/bundles/css/sigaa.css" media="all" rel="stylesheet" type="text/css"/>
+<link href="/sigaa/css/mono.css" media="screen" rel="alternate stylesheet" title="mono" type="text/css"/>
+<link href="/sigaa/css/contraste.css" media="screen" rel="alternate stylesheet" title="contraste" type="text/css"/>
+<!-- FontAwesome -->
+<link href="/shared/beta/css/font-awesome.css" media="screen" rel="stylesheet" type="text/css"/>
+<!-- Painel Gen&#233;rico para telas Modal -->
+<script src="/shared/javascript/paineis/painel_generico.js" type="text/javascript"></script>
+<script src="/sigaa/javascript/styleswitch.js" type="text/javascript"></script>
+<script src="/sigaa/javascript/prevenir-duplo-clique.js" type="text/javascript"></script>
+<!-- Bot&#227;o de informar um problema -->
+<link href="/shared/informar-problema/css/informar-problema.css?ver=1.1" media="screen" rel="stylesheet" type="text/css"/>
+<script src="/shared/informar-problema/js/webcomponents.min.js?ver=1.1" type="text/javascript"></script>
+<script src="/shared/informar-problema/js/html2canvas.js?ver=1.1" type="text/javascript"></script>
+<script src="/shared/informar-problema/js/informar-problema.js?ver=1.1" type="text/javascript"></script>
+<!-- FIM bot&#227;o de informar um problema -->
+<script type="text/javascript">
+		var mensagem;
+		var initMensagem = function() {
+			mensagem = new Mensagem();
+		}
+		YAHOO.util.Event.addListener(window,'load', initMensagem);
+		
+		function isIE(){
+		
+					return false;
+			
+		}
+</script>
+<script src="/sigaa/javascript/jsCookMenuHack.js" type="text/javascript"></script>
+<!-- Fim dos imports para abrir chamado -->
+<script src="/shared/javascript/STICookieConsent.js"></script>
+<script>
+	    document.addEventListener("DOMContentLoaded", () => {
+	    	generateCookieConsentModal("SIGAA", "N&#243;s usamos cookies para melhorar sua experi&#234;ncia de navega&#231;&#227;o no portal. Ao utilizar o %sitename%, voc&#234; concorda com a pol&#237;&#173;tica de monitoramento de cookies. Para ter mais informa&#231;&#245;es sobre como isso &#233; feito e como remover, acesse a <a href=%cookie-policy%>Pol&#237;tica de Privacidade</a>. Para saber como a UFRN trata os dados, acesse a <a href=%privacy-policy%> Pol&#237;&#173;tica de cookies</a>. Se voc&#234; concorda, clique em %button-text%.", "https://ufrn.br/institucional/politica-de-privacidade-e-termos-de-uso", "https://ufrn.br/institucional/politica-de-cookies");
+	    })
+	</script>
+</head>
+<body>
+<div id="container">
+<div id="cabecalho">
+<div id="info-sistema">
+<h1><span>UFBA - SIGAA -</span></h1>
+<h3>Sistema Integrado de Gestão de Atividades Acadêmicas</h3>
+<div class="dir">
+<style>
+#info-sistema span.sair-sistema,
+	#info-sistema #tempoSessao{
+	display: inline;
+	right: inherit;
+	position: relative;
+	top: 0;
+	padding-right: inherit;
+}
+
+#info-sistema div.dir{
+	top:0;
+	right:0;
+	text-align: right;
+	width: auto;
+	position: absolute;
+	margin:0;
+	padding: 0;
+	height:16px;
+	display: inline;
+	padding-right:5px;
+	color: #FFF;
+}
+#info-sistema span.acessibilidade{
+	padding: 0 5px;
+	border: solid #D99C44;
+	border-width: 0 1px 0 0;
+	margin: 0 5px;
+	padding: 0 5px;
+}
+	#info-sistema span.acessibilidade a{
+		font-size: 1.1em;
+		font-weight: bolder;
+		color: #FFF;
+		margin-left: 2px;
+		letter-spacing: 0.1px;
+		word-spacing: 0.1px;
+	}
+	#info-sistema span.acessibilidade a.fonteMenor strong{
+		font-size: 0.9em;
+	}
+	.rich-tabpanel-content {
+		font-size: inherit;
+	}	
+</style>
+<span class="acessibilidade">
+<a alt="Aumentar a texto" class="fonteMaior" href="#" title="Aumentar a texto">
+<strong>A</strong>+
+	</a>
+<a alt="Diminuir o texto" class="fonteMenor" href="#" title="Diminuir o texto">
+<strong>A</strong>-
+	</a>
+</span>
+<span class="acessibilidade">
+<a alt="Ajuda" href="http://www.info.ufrn.br/wikisistemas/doku.php?id=suporte:sigaa:visao_geral" target="_blank" title="Ajuda">
+			Ajuda?
+		</a>
+</span>
+<script src="/shared/javascript/jquery/jquery-1.4.4.min.js" type="text/javascript"></script>
+<script src="/sigaa/javascript/jquery.fontsize.js" type="text/javascript"></script>
+<script type="text/javascript">
+	redimensionarFonte('.acessibilidade', '#conteudo', 11, 11, 14);
+</script>
+<script>var $jq = jQuery.noConflict();</script>
+<span id="tempoSessao"></span>
+<span class="sair-sistema"> <a href="/sigaa/logar.do?dispatch=logOff">SAIR</a> </span>
+</div>
+</div>
+<div id="painel-usuario">
+<div id="menu-usuario">
+<ul>
+<li class="modulos">
+<!-- IN&#205;CIO - Redmine #33855 - An&#225;lise do menu M&#243;dulos - SIGAA  -->
+<span id="modulos"> <a href="#" id="show-modulos"> Módulos </a> </span>
+<!-- FIM - Redmine #33855 - An&#225;lise do menu M&#243;dulos - SIGAA  -->
+</li>
+<li class="caixa-postal">
+<a href="/sigaa/abrirCaixaPostal.jsf?sistema=2">
+							
+							Caixa Postal
+							
+							
+						</a>
+</li>
+<li class="chamado">
+<a href="javascript://nop/" onclick="alert('Acesse o portal UFBASIM para vídeos, manuais e perguntas mais frequentes ( https://ufbasim.ufba.br/faq-page ).\n\nCaso sua dúvida não seja respondida:\n\t- se for um servidor da UFBA abra um chamado no helpdesk.ufba.br ou ligando no 6100;\n\t- se não for servidor entre em contato com o colegiado do seu curso.')">Abrir Chamado</a>
+</li>
+<li class="menus">
+<a href="/sigaa/verPortalDiscente.do">Menu Discente</a>
+</li>
+<li class="dados-pessoais">
+<a href="#" onclick="window.open('/sigaa/alterar_dados.jsf','','width=670,height=430, top=100, left=100, scrollbars' )">Alterar senha</a>
+</li>
+<!-- INICIO bot&#227;o Informar problema -->
+<!-- FIM bot&#227;o Informar problema -->
+</ul>
+</div>
+<div id="info-usuario">
+<p class="periodo-atual">
+			
+				Semestre atual: <strong>2026.2</strong>
+</p>
+<p class="usuario">
+<span title="PEDRO DE TAL 48">
+				PEDRO DE TAL 48
+			</span>
+</p>
+<p class="unidade">
+			INSTITUTO DE COMPUTAÇÃO
+			 (12.28)
+			
+		</p>
+</div>
+<div id="menu-principal"></div>
+</div>
+</div>
+<div id="conteudo">
+<script type="text/javascript">
+//Fun&#231;&#227;o adicionada no cabe&#231;alho para evitar a reescrita em cada JSP.
+function contarCaracteres(field, idMostraQuantidadeUsuario, maxlimit) {
+	
+	if (field.value.length > maxlimit){
+		field.value = field.value.substring(0, maxlimit);
+	}else{ 
+		document.getElementById(idMostraQuantidadeUsuario).innerHTML = maxlimit - field.value.length ;
+	} 
+}
+</script>
+<h2 class="title"><a href="/sigaa/verPortalDiscente.do">Portal do Discente</a> &gt; Consulta de Calendário Acadêmico</h2>
+<form action="/sigaa/administracao/calendario_academico/consulta.jsf" enctype="application/x-www-form-urlencoded" id="form" method="post" name="form">
+<input name="form" type="hidden" value="form"/>
+<br/>
+<div class="infoAltRem">
+<img src="/sigaa/img/view.gif" style="overflow: visible;"/>: Visualizar Calendário Acadêmico
+			</div>
+<br/>
+<table class="listagem" style="width: 100%">
+<caption class="listagem">Lista de Calendários</caption>
+<tbody>
+<thead>
+<tr class="secao">
+<td colspan="2">Calendário 2027.1</td>
+</tr>
+</thead>
+<tr class="linhaPar">
+<td>
+							
+								CALENDÁRIO GERAL
+								 
+							 
+							
+						</td>
+<td align="right">
+<script language="Javascript" type="text/javascript">function dpf(f) {var adp = f.adp;if (adp != null) {for (var i = 0;i < adp.length;i++) {f.removeChild(adp[i]);}}};function apf(f, pvp) {var adp = new Array();f.adp = adp;var i = 0;for (k in pvp) {var p = document.createElement("input");p.type = "hidden";p.name = k;p.value = pvp[k];f.appendChild(p);adp[i++] = p;}};function jsfcljs(f, pvp, t) {apf(f, pvp);var ft = f.target;if (t) {f.target = t;}f.submit();f.target = ft;dpf(f);};</script>
+<a href="#" id="form:visualizar" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('form'),{'form:visualizar':'form:visualizar','id':'5978729'},'');}return false" title="Visualizar Calendário Acadêmico"><img src="/sigaa/img/view.gif"/></a>
+</td>
+</tr>
+<thead>
+<tr class="secao">
+<td colspan="2">Calendário 2026.2</td>
+</tr>
+</thead>
+<tr class="linhaImpar">
+<td>
+							
+								CALENDÁRIO GERAL
+								 
+							 
+							
+						</td>
+<td align="right">
+<a href="#" id="form:visualizarj_id_1" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('form'),{'form:visualizarj_id_1':'form:visualizarj_id_1','id':'3797186'},'');}return false" title="Visualizar Calendário Acadêmico"><img src="/sigaa/img/view.gif"/></a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td>
+							 
+							 ENSINO A DISTÂNCIA
+								
+							
+						</td>
+<td align="right">
+<a href="#" id="form:visualizarj_id_2" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('form'),{'form:visualizarj_id_2':'form:visualizarj_id_2','id':'6407263'},'');}return false" title="Visualizar Calendário Acadêmico"><img src="/sigaa/img/view.gif"/></a>
+</td>
+</tr>
+<thead>
+<tr class="secao">
+<td colspan="2">Calendário 2026.1</td>
+</tr>
+</thead>
+<tr class="linhaImpar">
+<td>
+							
+								CALENDÁRIO GERAL
+								 
+							 
+							
+						</td>
+<td align="right">
+<a href="#" id="form:visualizarj_id_3" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('form'),{'form:visualizarj_id_3':'form:visualizarj_id_3','id':'3033898'},'');}return false" title="Visualizar Calendário Acadêmico"><img src="/sigaa/img/view.gif"/></a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td>
+							 
+							 ENSINO A DISTÂNCIA
+								
+							
+						</td>
+<td align="right">
+<a href="#" id="form:visualizarj_id_4" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('form'),{'form:visualizarj_id_4':'form:visualizarj_id_4','id':'3789739'},'');}return false" title="Visualizar Calendário Acadêmico"><img src="/sigaa/img/view.gif"/></a>
+</td>
+</tr>
+<thead>
+<tr class="secao">
+<td colspan="2">Calendário 2025.2</td>
+</tr>
+</thead>
+<tr class="linhaImpar">
+<td>
+							
+								CALENDÁRIO GERAL
+								 
+							 
+							
+						</td>
+<td align="right">
+<a href="#" id="form:visualizarj_id_5" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('form'),{'form:visualizarj_id_5':'form:visualizarj_id_5','id':'1847061'},'');}return false" title="Visualizar Calendário Acadêmico"><img src="/sigaa/img/view.gif"/></a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td>
+							 
+							 ENSINO A DISTÂNCIA
+								
+							
+						</td>
+<td align="right">
+<a href="#" id="form:visualizarj_id_6" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('form'),{'form:visualizarj_id_6':'form:visualizarj_id_6','id':'2551110'},'');}return false" title="Visualizar Calendário Acadêmico"><img src="/sigaa/img/view.gif"/></a>
+</td>
+</tr>
+<thead>
+<tr class="secao">
+<td colspan="2">Calendário 2025.1</td>
+</tr>
+</thead>
+<tr class="linhaImpar">
+<td>
+							
+								CALENDÁRIO GERAL
+								 
+							 
+							
+						</td>
+<td align="right">
+<a href="#" id="form:visualizarj_id_7" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('form'),{'form:visualizarj_id_7':'form:visualizarj_id_7','id':'1788143'},'');}return false" title="Visualizar Calendário Acadêmico"><img src="/sigaa/img/view.gif"/></a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td>
+							 
+							 ENSINO A DISTÂNCIA
+								
+							
+						</td>
+<td align="right">
+<a href="#" id="form:visualizarj_id_8" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('form'),{'form:visualizarj_id_8':'form:visualizarj_id_8','id':'2551022'},'');}return false" title="Visualizar Calendário Acadêmico"><img src="/sigaa/img/view.gif"/></a>
+</td>
+</tr>
+<thead>
+<tr class="secao">
+<td colspan="2">Calendário 2024.2</td>
+</tr>
+</thead>
+<tr class="linhaImpar">
+<td>
+							
+								CALENDÁRIO GERAL
+								 
+							 
+							
+						</td>
+<td align="right">
+<a href="#" id="form:visualizarj_id_9" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('form'),{'form:visualizarj_id_9':'form:visualizarj_id_9','id':'1630388'},'');}return false" title="Visualizar Calendário Acadêmico"><img src="/sigaa/img/view.gif"/></a>
+</td>
+</tr>
+<thead>
+<tr class="secao">
+<td colspan="2">Calendário 2024.1</td>
+</tr>
+</thead>
+<tr class="linhaPar">
+<td>
+							
+								CALENDÁRIO GERAL
+								 
+							 
+							
+						</td>
+<td align="right">
+<a href="#" id="form:visualizarj_id_10" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('form'),{'form:visualizarj_id_10':'form:visualizarj_id_10','id':'1630387'},'');}return false" title="Visualizar Calendário Acadêmico"><img src="/sigaa/img/view.gif"/></a>
+</td>
+</tr>
+<thead>
+<tr class="secao">
+<td colspan="2">Calendário 2023.2</td>
+</tr>
+</thead>
+<tr class="linhaImpar">
+<td>
+							
+								CALENDÁRIO GERAL
+								 
+							 
+							
+						</td>
+<td align="right">
+<a href="#" id="form:visualizarj_id_11" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('form'),{'form:visualizarj_id_11':'form:visualizarj_id_11','id':'1210391'},'');}return false" title="Visualizar Calendário Acadêmico"><img src="/sigaa/img/view.gif"/></a>
+</td>
+</tr>
+<thead>
+<tr class="secao">
+<td colspan="2">Calendário 2023.1</td>
+</tr>
+</thead>
+<tr class="linhaPar">
+<td>
+							
+								CALENDÁRIO GERAL
+								 
+							 
+							
+						</td>
+<td align="right">
+<a href="#" id="form:visualizarj_id_12" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('form'),{'form:visualizarj_id_12':'form:visualizarj_id_12','id':'1055621'},'');}return false" title="Visualizar Calendário Acadêmico"><img src="/sigaa/img/view.gif"/></a>
+</td>
+</tr>
+<thead>
+<tr class="secao">
+<td colspan="2">Calendário 2022.2</td>
+</tr>
+</thead>
+<tr class="linhaImpar">
+<td>
+							
+								CALENDÁRIO GERAL
+								 
+							 
+							
+						</td>
+<td align="right">
+<a href="#" id="form:visualizarj_id_13" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('form'),{'form:visualizarj_id_13':'form:visualizarj_id_13','id':'937725'},'');}return false" title="Visualizar Calendário Acadêmico"><img src="/sigaa/img/view.gif"/></a>
+</td>
+</tr>
+<thead>
+<tr class="secao">
+<td colspan="2">Calendário 2022.1</td>
+</tr>
+</thead>
+<tr class="linhaPar">
+<td>
+							
+								CALENDÁRIO GERAL
+								 
+							 
+							
+						</td>
+<td align="right">
+<a href="#" id="form:visualizarj_id_14" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('form'),{'form:visualizarj_id_14':'form:visualizarj_id_14','id':'827521'},'');}return false" title="Visualizar Calendário Acadêmico"><img src="/sigaa/img/view.gif"/></a>
+</td>
+</tr>
+<thead>
+<tr class="secao">
+<td colspan="2">Calendário 2021.2</td>
+</tr>
+</thead>
+<tr class="linhaImpar">
+<td>
+							
+								CALENDÁRIO GERAL
+								 
+							 
+							
+						</td>
+<td align="right">
+<a href="#" id="form:visualizarj_id_15" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('form'),{'form:visualizarj_id_15':'form:visualizarj_id_15','id':'792227'},'');}return false" title="Visualizar Calendário Acadêmico"><img src="/sigaa/img/view.gif"/></a>
+</td>
+</tr>
+<thead>
+<tr class="secao">
+<td colspan="2">Calendário 2021.1</td>
+</tr>
+</thead>
+<tr class="linhaPar">
+<td>
+							
+								CALENDÁRIO GERAL
+								 
+							 
+							
+						</td>
+<td align="right">
+<a href="#" id="form:visualizarj_id_16" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('form'),{'form:visualizarj_id_16':'form:visualizarj_id_16','id':'650386'},'');}return false" title="Visualizar Calendário Acadêmico"><img src="/sigaa/img/view.gif"/></a>
+</td>
+</tr>
+<thead>
+<tr class="secao">
+<td colspan="2">Calendário 2020.2</td>
+</tr>
+</thead>
+<tr class="linhaImpar">
+<td>
+							
+								CALENDÁRIO GERAL
+								 
+							 
+							
+						</td>
+<td align="right">
+<a href="#" id="form:visualizarj_id_17" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('form'),{'form:visualizarj_id_17':'form:visualizarj_id_17','id':'1847060'},'');}return false" title="Visualizar Calendário Acadêmico"><img src="/sigaa/img/view.gif"/></a>
+</td>
+</tr>
+<thead>
+<tr class="secao">
+<td colspan="2">Calendário 2020.1</td>
+</tr>
+</thead>
+<tr class="linhaPar">
+<td>
+							
+								CALENDÁRIO GERAL
+								 
+							 
+							
+						</td>
+<td align="right">
+<a href="#" id="form:visualizarj_id_18" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('form'),{'form:visualizarj_id_18':'form:visualizarj_id_18','id':'650328'},'');}return false" title="Visualizar Calendário Acadêmico"><img src="/sigaa/img/view.gif"/></a>
+</td>
+</tr>
+<thead>
+<tr class="secao">
+<td colspan="2">Calendário 2019.2</td>
+</tr>
+</thead>
+<tr class="linhaImpar">
+<td>
+							
+								CALENDÁRIO GERAL
+								 
+							 
+							
+						</td>
+<td align="right">
+<a href="#" id="form:visualizarj_id_19" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('form'),{'form:visualizarj_id_19':'form:visualizarj_id_19','id':'340591'},'');}return false" title="Visualizar Calendário Acadêmico"><img src="/sigaa/img/view.gif"/></a>
+</td>
+</tr>
+<thead>
+<tr class="secao">
+<td colspan="2">Calendário 2019.1</td>
+</tr>
+</thead>
+<tr class="linhaPar">
+<td>
+							
+								CALENDÁRIO GERAL
+								 
+							 
+							
+						</td>
+<td align="right">
+<a href="#" id="form:visualizarj_id_20" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('form'),{'form:visualizarj_id_20':'form:visualizarj_id_20','id':'821'},'');}return false" title="Visualizar Calendário Acadêmico"><img src="/sigaa/img/view.gif"/></a>
+</td>
+</tr>
+<thead>
+<tr class="secao">
+<td colspan="2">Calendário 2018.2</td>
+</tr>
+</thead>
+<tr class="linhaImpar">
+<td>
+							
+								CALENDÁRIO GERAL
+								 
+							 
+							
+						</td>
+<td align="right">
+<a href="#" id="form:visualizarj_id_21" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('form'),{'form:visualizarj_id_21':'form:visualizarj_id_21','id':'819'},'');}return false" title="Visualizar Calendário Acadêmico"><img src="/sigaa/img/view.gif"/></a>
+</td>
+</tr>
+<thead>
+<tr class="secao">
+<td colspan="2">Calendário 2018.1</td>
+</tr>
+</thead>
+<tr class="linhaPar">
+<td>
+							
+								CALENDÁRIO GERAL
+								 
+							 
+							
+						</td>
+<td align="right">
+<a href="#" id="form:visualizarj_id_22" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('form'),{'form:visualizarj_id_22':'form:visualizarj_id_22','id':'817'},'');}return false" title="Visualizar Calendário Acadêmico"><img src="/sigaa/img/view.gif"/></a>
+</td>
+</tr>
+<thead>
+<tr class="secao">
+<td colspan="2">Calendário 2017.2</td>
+</tr>
+</thead>
+<tr class="linhaImpar">
+<td>
+							
+								CALENDÁRIO GERAL
+								 
+							 
+							
+						</td>
+<td align="right">
+<a href="#" id="form:visualizarj_id_23" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('form'),{'form:visualizarj_id_23':'form:visualizarj_id_23','id':'815'},'');}return false" title="Visualizar Calendário Acadêmico"><img src="/sigaa/img/view.gif"/></a>
+</td>
+</tr>
+<thead>
+<tr class="secao">
+<td colspan="2">Calendário 2017.1</td>
+</tr>
+</thead>
+<tr class="linhaPar">
+<td>
+							
+								CALENDÁRIO GERAL
+								 
+							 
+							
+						</td>
+<td align="right">
+<a href="#" id="form:visualizarj_id_24" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('form'),{'form:visualizarj_id_24':'form:visualizarj_id_24','id':'814'},'');}return false" title="Visualizar Calendário Acadêmico"><img src="/sigaa/img/view.gif"/></a>
+</td>
+</tr>
+<thead>
+<tr class="secao">
+<td colspan="2">Calendário 2016.2</td>
+</tr>
+</thead>
+<tr class="linhaImpar">
+<td>
+							
+								CALENDÁRIO GERAL
+								 
+							 
+							
+						</td>
+<td align="right">
+<a href="#" id="form:visualizarj_id_25" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('form'),{'form:visualizarj_id_25':'form:visualizarj_id_25','id':'812'},'');}return false" title="Visualizar Calendário Acadêmico"><img src="/sigaa/img/view.gif"/></a>
+</td>
+</tr>
+<thead>
+<tr class="secao">
+<td colspan="2">Calendário 2016.1</td>
+</tr>
+</thead>
+<tr class="linhaPar">
+<td>
+							
+								CALENDÁRIO GERAL
+								 
+							 
+							
+						</td>
+<td align="right">
+<a href="#" id="form:visualizarj_id_26" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('form'),{'form:visualizarj_id_26':'form:visualizarj_id_26','id':'810'},'');}return false" title="Visualizar Calendário Acadêmico"><img src="/sigaa/img/view.gif"/></a>
+</td>
+</tr>
+<thead>
+<tr class="secao">
+<td colspan="2">Calendário 2015.2</td>
+</tr>
+</thead>
+<tr class="linhaImpar">
+<td>
+							
+								CALENDÁRIO GERAL
+								 
+							 
+							
+						</td>
+<td align="right">
+<a href="#" id="form:visualizarj_id_27" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('form'),{'form:visualizarj_id_27':'form:visualizarj_id_27','id':'808'},'');}return false" title="Visualizar Calendário Acadêmico"><img src="/sigaa/img/view.gif"/></a>
+</td>
+</tr>
+<thead>
+<tr class="secao">
+<td colspan="2">Calendário 2015.1</td>
+</tr>
+</thead>
+<tr class="linhaPar">
+<td>
+							
+								CALENDÁRIO GERAL
+								 
+							 
+							
+						</td>
+<td align="right">
+<a href="#" id="form:visualizarj_id_28" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('form'),{'form:visualizarj_id_28':'form:visualizarj_id_28','id':'806'},'');}return false" title="Visualizar Calendário Acadêmico"><img src="/sigaa/img/view.gif"/></a>
+</td>
+</tr>
+<thead>
+<tr class="secao">
+<td colspan="2">Calendário 2014.2</td>
+</tr>
+</thead>
+<tr class="linhaImpar">
+<td>
+							
+								CALENDÁRIO GERAL
+								 
+							 
+							
+						</td>
+<td align="right">
+<a href="#" id="form:visualizarj_id_29" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('form'),{'form:visualizarj_id_29':'form:visualizarj_id_29','id':'804'},'');}return false" title="Visualizar Calendário Acadêmico"><img src="/sigaa/img/view.gif"/></a>
+</td>
+</tr>
+<thead>
+<tr class="secao">
+<td colspan="2">Calendário 2014.1</td>
+</tr>
+</thead>
+<tr class="linhaPar">
+<td>
+							
+								CALENDÁRIO GERAL
+								 
+							 
+							
+						</td>
+<td align="right">
+<a href="#" id="form:visualizarj_id_30" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('form'),{'form:visualizarj_id_30':'form:visualizarj_id_30','id':'802'},'');}return false" title="Visualizar Calendário Acadêmico"><img src="/sigaa/img/view.gif"/></a>
+</td>
+</tr>
+<thead>
+<tr class="secao">
+<td colspan="2">Calendário 2013.2</td>
+</tr>
+</thead>
+<tr class="linhaImpar">
+<td>
+							
+								CALENDÁRIO GERAL
+								 
+							 
+							
+						</td>
+<td align="right">
+<a href="#" id="form:visualizarj_id_31" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('form'),{'form:visualizarj_id_31':'form:visualizarj_id_31','id':'800'},'');}return false" title="Visualizar Calendário Acadêmico"><img src="/sigaa/img/view.gif"/></a>
+</td>
+</tr>
+<thead>
+<tr class="secao">
+<td colspan="2">Calendário 2013.1</td>
+</tr>
+</thead>
+<tr class="linhaPar">
+<td>
+							
+								CALENDÁRIO GERAL
+								 
+							 
+							
+						</td>
+<td align="right">
+<a href="#" id="form:visualizarj_id_32" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('form'),{'form:visualizarj_id_32':'form:visualizarj_id_32','id':'798'},'');}return false" title="Visualizar Calendário Acadêmico"><img src="/sigaa/img/view.gif"/></a>
+</td>
+</tr>
+<thead>
+<tr class="secao">
+<td colspan="2">Calendário 2012.2</td>
+</tr>
+</thead>
+<tr class="linhaImpar">
+<td>
+							
+								CALENDÁRIO GERAL
+								 
+							 
+							
+						</td>
+<td align="right">
+<a href="#" id="form:visualizarj_id_33" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('form'),{'form:visualizarj_id_33':'form:visualizarj_id_33','id':'796'},'');}return false" title="Visualizar Calendário Acadêmico"><img src="/sigaa/img/view.gif"/></a>
+</td>
+</tr>
+<thead>
+<tr class="secao">
+<td colspan="2">Calendário 2012.1</td>
+</tr>
+</thead>
+<tr class="linhaPar">
+<td>
+							
+								CALENDÁRIO GERAL
+								 
+							 
+							
+						</td>
+<td align="right">
+<a href="#" id="form:visualizarj_id_34" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('form'),{'form:visualizarj_id_34':'form:visualizarj_id_34','id':'794'},'');}return false" title="Visualizar Calendário Acadêmico"><img src="/sigaa/img/view.gif"/></a>
+</td>
+</tr>
+<thead>
+<tr class="secao">
+<td colspan="2">Calendário 2011.2</td>
+</tr>
+</thead>
+<tr class="linhaImpar">
+<td>
+							
+								CALENDÁRIO GERAL
+								 
+							 
+							
+						</td>
+<td align="right">
+<a href="#" id="form:visualizarj_id_35" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('form'),{'form:visualizarj_id_35':'form:visualizarj_id_35','id':'792'},'');}return false" title="Visualizar Calendário Acadêmico"><img src="/sigaa/img/view.gif"/></a>
+</td>
+</tr>
+<thead>
+<tr class="secao">
+<td colspan="2">Calendário 2011.1</td>
+</tr>
+</thead>
+<tr class="linhaPar">
+<td>
+							
+								CALENDÁRIO GERAL
+								 
+							 
+							
+						</td>
+<td align="right">
+<a href="#" id="form:visualizarj_id_36" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('form'),{'form:visualizarj_id_36':'form:visualizarj_id_36','id':'790'},'');}return false" title="Visualizar Calendário Acadêmico"><img src="/sigaa/img/view.gif"/></a>
+</td>
+</tr>
+<thead>
+<tr class="secao">
+<td colspan="2">Calendário 2010.2</td>
+</tr>
+</thead>
+<tr class="linhaImpar">
+<td>
+							
+								CALENDÁRIO GERAL
+								 
+							 
+							
+						</td>
+<td align="right">
+<a href="#" id="form:visualizarj_id_37" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('form'),{'form:visualizarj_id_37':'form:visualizarj_id_37','id':'788'},'');}return false" title="Visualizar Calendário Acadêmico"><img src="/sigaa/img/view.gif"/></a>
+</td>
+</tr>
+<thead>
+<tr class="secao">
+<td colspan="2">Calendário 2010.1</td>
+</tr>
+</thead>
+<tr class="linhaPar">
+<td>
+							
+								CALENDÁRIO GERAL
+								 
+							 
+							
+						</td>
+<td align="right">
+<a href="#" id="form:visualizarj_id_38" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('form'),{'form:visualizarj_id_38':'form:visualizarj_id_38','id':'786'},'');}return false" title="Visualizar Calendário Acadêmico"><img src="/sigaa/img/view.gif"/></a>
+</td>
+</tr>
+<thead>
+<tr class="secao">
+<td colspan="2">Calendário 2009.2</td>
+</tr>
+</thead>
+<tr class="linhaImpar">
+<td>
+							
+								CALENDÁRIO GERAL
+								 
+							 
+							
+						</td>
+<td align="right">
+<a href="#" id="form:visualizarj_id_39" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('form'),{'form:visualizarj_id_39':'form:visualizarj_id_39','id':'784'},'');}return false" title="Visualizar Calendário Acadêmico"><img src="/sigaa/img/view.gif"/></a>
+</td>
+</tr>
+<thead>
+<tr class="secao">
+<td colspan="2">Calendário 2009.1</td>
+</tr>
+</thead>
+<tr class="linhaPar">
+<td>
+							
+								CALENDÁRIO GERAL
+								 
+							 
+							
+						</td>
+<td align="right">
+<a href="#" id="form:visualizarj_id_40" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('form'),{'form:visualizarj_id_40':'form:visualizarj_id_40','id':'782'},'');}return false" title="Visualizar Calendário Acadêmico"><img src="/sigaa/img/view.gif"/></a>
+</td>
+</tr>
+<thead>
+<tr class="secao">
+<td colspan="2">Calendário 2008.2</td>
+</tr>
+</thead>
+<tr class="linhaImpar">
+<td>
+							
+								CALENDÁRIO GERAL
+								 
+							 
+							
+						</td>
+<td align="right">
+<a href="#" id="form:visualizarj_id_41" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('form'),{'form:visualizarj_id_41':'form:visualizarj_id_41','id':'780'},'');}return false" title="Visualizar Calendário Acadêmico"><img src="/sigaa/img/view.gif"/></a>
+</td>
+</tr>
+<thead>
+<tr class="secao">
+<td colspan="2">Calendário 2008.1</td>
+</tr>
+</thead>
+<tr class="linhaPar">
+<td>
+							
+								CALENDÁRIO GERAL
+								 
+							 
+							
+						</td>
+<td align="right">
+<a href="#" id="form:visualizarj_id_42" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('form'),{'form:visualizarj_id_42':'form:visualizarj_id_42','id':'778'},'');}return false" title="Visualizar Calendário Acadêmico"><img src="/sigaa/img/view.gif"/></a>
+</td>
+</tr>
+<thead>
+<tr class="secao">
+<td colspan="2">Calendário 2007.2</td>
+</tr>
+</thead>
+<tr class="linhaImpar">
+<td>
+							
+								CALENDÁRIO GERAL
+								 
+							 
+							
+						</td>
+<td align="right">
+<a href="#" id="form:visualizarj_id_43" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('form'),{'form:visualizarj_id_43':'form:visualizarj_id_43','id':'776'},'');}return false" title="Visualizar Calendário Acadêmico"><img src="/sigaa/img/view.gif"/></a>
+</td>
+</tr>
+<thead>
+<tr class="secao">
+<td colspan="2">Calendário 2007.1</td>
+</tr>
+</thead>
+<tr class="linhaPar">
+<td>
+							
+								CALENDÁRIO GERAL
+								 
+							 
+							
+						</td>
+<td align="right">
+<a href="#" id="form:visualizarj_id_44" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('form'),{'form:visualizarj_id_44':'form:visualizarj_id_44','id':'774'},'');}return false" title="Visualizar Calendário Acadêmico"><img src="/sigaa/img/view.gif"/></a>
+</td>
+</tr>
+<thead>
+<tr class="secao">
+<td colspan="2">Calendário 2006.2</td>
+</tr>
+</thead>
+<tr class="linhaImpar">
+<td>
+							
+								CALENDÁRIO GERAL
+								 
+							 
+							
+						</td>
+<td align="right">
+<a href="#" id="form:visualizarj_id_45" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('form'),{'form:visualizarj_id_45':'form:visualizarj_id_45','id':'772'},'');}return false" title="Visualizar Calendário Acadêmico"><img src="/sigaa/img/view.gif"/></a>
+</td>
+</tr>
+<thead>
+<tr class="secao">
+<td colspan="2">Calendário 2006.1</td>
+</tr>
+</thead>
+<tr class="linhaPar">
+<td>
+							
+								CALENDÁRIO GERAL
+								 
+							 
+							
+						</td>
+<td align="right">
+<a href="#" id="form:visualizarj_id_46" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('form'),{'form:visualizarj_id_46':'form:visualizarj_id_46','id':'770'},'');}return false" title="Visualizar Calendário Acadêmico"><img src="/sigaa/img/view.gif"/></a>
+</td>
+</tr>
+<thead>
+<tr class="secao">
+<td colspan="2">Calendário 2005.2</td>
+</tr>
+</thead>
+<tr class="linhaImpar">
+<td>
+							
+								CALENDÁRIO GERAL
+								 
+							 
+							
+						</td>
+<td align="right">
+<a href="#" id="form:visualizarj_id_47" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('form'),{'form:visualizarj_id_47':'form:visualizarj_id_47','id':'768'},'');}return false" title="Visualizar Calendário Acadêmico"><img src="/sigaa/img/view.gif"/></a>
+</td>
+</tr>
+<thead>
+<tr class="secao">
+<td colspan="2">Calendário 2005.1</td>
+</tr>
+</thead>
+<tr class="linhaPar">
+<td>
+							
+								CALENDÁRIO GERAL
+								 
+							 
+							
+						</td>
+<td align="right">
+<a href="#" id="form:visualizarj_id_48" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('form'),{'form:visualizarj_id_48':'form:visualizarj_id_48','id':'766'},'');}return false" title="Visualizar Calendário Acadêmico"><img src="/sigaa/img/view.gif"/></a>
+</td>
+</tr>
+<thead>
+<tr class="secao">
+<td colspan="2">Calendário 2004.2</td>
+</tr>
+</thead>
+<tr class="linhaImpar">
+<td>
+							
+								CALENDÁRIO GERAL
+								 
+							 
+							
+						</td>
+<td align="right">
+<a href="#" id="form:visualizarj_id_49" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('form'),{'form:visualizarj_id_49':'form:visualizarj_id_49','id':'764'},'');}return false" title="Visualizar Calendário Acadêmico"><img src="/sigaa/img/view.gif"/></a>
+</td>
+</tr>
+<thead>
+<tr class="secao">
+<td colspan="2">Calendário 2004.1</td>
+</tr>
+</thead>
+<tr class="linhaPar">
+<td>
+							
+								CALENDÁRIO GERAL
+								 
+							 
+							
+						</td>
+<td align="right">
+<a href="#" id="form:visualizarj_id_50" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('form'),{'form:visualizarj_id_50':'form:visualizarj_id_50','id':'762'},'');}return false" title="Visualizar Calendário Acadêmico"><img src="/sigaa/img/view.gif"/></a>
+</td>
+</tr>
+<thead>
+<tr class="secao">
+<td colspan="2">Calendário 2003.2</td>
+</tr>
+</thead>
+<tr class="linhaImpar">
+<td>
+							
+								CALENDÁRIO GERAL
+								 
+							 
+							
+						</td>
+<td align="right">
+<a href="#" id="form:visualizarj_id_51" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('form'),{'form:visualizarj_id_51':'form:visualizarj_id_51','id':'760'},'');}return false" title="Visualizar Calendário Acadêmico"><img src="/sigaa/img/view.gif"/></a>
+</td>
+</tr>
+<thead>
+<tr class="secao">
+<td colspan="2">Calendário 2003.1</td>
+</tr>
+</thead>
+<tr class="linhaPar">
+<td>
+							
+								CALENDÁRIO GERAL
+								 
+							 
+							
+						</td>
+<td align="right">
+<a href="#" id="form:visualizarj_id_52" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('form'),{'form:visualizarj_id_52':'form:visualizarj_id_52','id':'758'},'');}return false" title="Visualizar Calendário Acadêmico"><img src="/sigaa/img/view.gif"/></a>
+</td>
+</tr>
+<thead>
+<tr class="secao">
+<td colspan="2">Calendário 2002.2</td>
+</tr>
+</thead>
+<tr class="linhaImpar">
+<td>
+							
+								CALENDÁRIO GERAL
+								 
+							 
+							
+						</td>
+<td align="right">
+<a href="#" id="form:visualizarj_id_53" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('form'),{'form:visualizarj_id_53':'form:visualizarj_id_53','id':'756'},'');}return false" title="Visualizar Calendário Acadêmico"><img src="/sigaa/img/view.gif"/></a>
+</td>
+</tr>
+<thead>
+<tr class="secao">
+<td colspan="2">Calendário 2002.1</td>
+</tr>
+</thead>
+<tr class="linhaPar">
+<td>
+							
+								CALENDÁRIO GERAL
+								 
+							 
+							
+						</td>
+<td align="right">
+<a href="#" id="form:visualizarj_id_54" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('form'),{'form:visualizarj_id_54':'form:visualizarj_id_54','id':'754'},'');}return false" title="Visualizar Calendário Acadêmico"><img src="/sigaa/img/view.gif"/></a>
+</td>
+</tr>
+<thead>
+<tr class="secao">
+<td colspan="2">Calendário 2001.2</td>
+</tr>
+</thead>
+<tr class="linhaImpar">
+<td>
+							
+								CALENDÁRIO GERAL
+								 
+							 
+							
+						</td>
+<td align="right">
+<a href="#" id="form:visualizarj_id_55" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('form'),{'form:visualizarj_id_55':'form:visualizarj_id_55','id':'752'},'');}return false" title="Visualizar Calendário Acadêmico"><img src="/sigaa/img/view.gif"/></a>
+</td>
+</tr>
+<thead>
+<tr class="secao">
+<td colspan="2">Calendário 2001.1</td>
+</tr>
+</thead>
+<tr class="linhaPar">
+<td>
+							
+								CALENDÁRIO GERAL
+								 
+							 
+							
+						</td>
+<td align="right">
+<a href="#" id="form:visualizarj_id_56" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('form'),{'form:visualizarj_id_56':'form:visualizarj_id_56','id':'750'},'');}return false" title="Visualizar Calendário Acadêmico"><img src="/sigaa/img/view.gif"/></a>
+</td>
+</tr>
+<thead>
+<tr class="secao">
+<td colspan="2">Calendário 2000.2</td>
+</tr>
+</thead>
+<tr class="linhaImpar">
+<td>
+							
+								CALENDÁRIO GERAL
+								 
+							 
+							
+						</td>
+<td align="right">
+<a href="#" id="form:visualizarj_id_57" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('form'),{'form:visualizarj_id_57':'form:visualizarj_id_57','id':'748'},'');}return false" title="Visualizar Calendário Acadêmico"><img src="/sigaa/img/view.gif"/></a>
+</td>
+</tr>
+<thead>
+<tr class="secao">
+<td colspan="2">Calendário 2000.1</td>
+</tr>
+</thead>
+<tr class="linhaPar">
+<td>
+							
+								CALENDÁRIO GERAL
+								 
+							 
+							
+						</td>
+<td align="right">
+<a href="#" id="form:visualizarj_id_58" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('form'),{'form:visualizarj_id_58':'form:visualizarj_id_58','id':'746'},'');}return false" title="Visualizar Calendário Acadêmico"><img src="/sigaa/img/view.gif"/></a>
+</td>
+</tr>
+<thead>
+<tr class="secao">
+<td colspan="2">Calendário 1999.2</td>
+</tr>
+</thead>
+<tr class="linhaImpar">
+<td>
+							
+								CALENDÁRIO GERAL
+								 
+							 
+							
+						</td>
+<td align="right">
+<a href="#" id="form:visualizarj_id_59" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('form'),{'form:visualizarj_id_59':'form:visualizarj_id_59','id':'744'},'');}return false" title="Visualizar Calendário Acadêmico"><img src="/sigaa/img/view.gif"/></a>
+</td>
+</tr>
+<thead>
+<tr class="secao">
+<td colspan="2">Calendário 1999.1</td>
+</tr>
+</thead>
+<tr class="linhaPar">
+<td>
+							
+								CALENDÁRIO GERAL
+								 
+							 
+							
+						</td>
+<td align="right">
+<a href="#" id="form:visualizarj_id_60" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('form'),{'form:visualizarj_id_60':'form:visualizarj_id_60','id':'742'},'');}return false" title="Visualizar Calendário Acadêmico"><img src="/sigaa/img/view.gif"/></a>
+</td>
+</tr>
+<thead>
+<tr class="secao">
+<td colspan="2">Calendário 1998.2</td>
+</tr>
+</thead>
+<tr class="linhaImpar">
+<td>
+							
+								CALENDÁRIO GERAL
+								 
+							 
+							
+						</td>
+<td align="right">
+<a href="#" id="form:visualizarj_id_61" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('form'),{'form:visualizarj_id_61':'form:visualizarj_id_61','id':'740'},'');}return false" title="Visualizar Calendário Acadêmico"><img src="/sigaa/img/view.gif"/></a>
+</td>
+</tr>
+<thead>
+<tr class="secao">
+<td colspan="2">Calendário 1998.1</td>
+</tr>
+</thead>
+<tr class="linhaPar">
+<td>
+							
+								CALENDÁRIO GERAL
+								 
+							 
+							
+						</td>
+<td align="right">
+<a href="#" id="form:visualizarj_id_62" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('form'),{'form:visualizarj_id_62':'form:visualizarj_id_62','id':'738'},'');}return false" title="Visualizar Calendário Acadêmico"><img src="/sigaa/img/view.gif"/></a>
+</td>
+</tr>
+<thead>
+<tr class="secao">
+<td colspan="2">Calendário 1997.2</td>
+</tr>
+</thead>
+<tr class="linhaImpar">
+<td>
+							
+								CALENDÁRIO GERAL
+								 
+							 
+							
+						</td>
+<td align="right">
+<a href="#" id="form:visualizarj_id_63" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('form'),{'form:visualizarj_id_63':'form:visualizarj_id_63','id':'736'},'');}return false" title="Visualizar Calendário Acadêmico"><img src="/sigaa/img/view.gif"/></a>
+</td>
+</tr>
+<thead>
+<tr class="secao">
+<td colspan="2">Calendário 1997.1</td>
+</tr>
+</thead>
+<tr class="linhaPar">
+<td>
+							
+								CALENDÁRIO GERAL
+								 
+							 
+							
+						</td>
+<td align="right">
+<a href="#" id="form:visualizarj_id_64" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('form'),{'form:visualizarj_id_64':'form:visualizarj_id_64','id':'734'},'');}return false" title="Visualizar Calendário Acadêmico"><img src="/sigaa/img/view.gif"/></a>
+</td>
+</tr>
+<thead>
+<tr class="secao">
+<td colspan="2">Calendário 1996.2</td>
+</tr>
+</thead>
+<tr class="linhaImpar">
+<td>
+							
+								CALENDÁRIO GERAL
+								 
+							 
+							
+						</td>
+<td align="right">
+<a href="#" id="form:visualizarj_id_65" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('form'),{'form:visualizarj_id_65':'form:visualizarj_id_65','id':'732'},'');}return false" title="Visualizar Calendário Acadêmico"><img src="/sigaa/img/view.gif"/></a>
+</td>
+</tr>
+<thead>
+<tr class="secao">
+<td colspan="2">Calendário 1996.1</td>
+</tr>
+</thead>
+<tr class="linhaPar">
+<td>
+							
+								CALENDÁRIO GERAL
+								 
+							 
+							
+						</td>
+<td align="right">
+<a href="#" id="form:visualizarj_id_66" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('form'),{'form:visualizarj_id_66':'form:visualizarj_id_66','id':'730'},'');}return false" title="Visualizar Calendário Acadêmico"><img src="/sigaa/img/view.gif"/></a>
+</td>
+</tr>
+<thead>
+<tr class="secao">
+<td colspan="2">Calendário 1995.2</td>
+</tr>
+</thead>
+<tr class="linhaImpar">
+<td>
+							
+								CALENDÁRIO GERAL
+								 
+							 
+							
+						</td>
+<td align="right">
+<a href="#" id="form:visualizarj_id_67" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('form'),{'form:visualizarj_id_67':'form:visualizarj_id_67','id':'728'},'');}return false" title="Visualizar Calendário Acadêmico"><img src="/sigaa/img/view.gif"/></a>
+</td>
+</tr>
+<thead>
+<tr class="secao">
+<td colspan="2">Calendário 1995.1</td>
+</tr>
+</thead>
+<tr class="linhaPar">
+<td>
+							
+								CALENDÁRIO GERAL
+								 
+							 
+							
+						</td>
+<td align="right">
+<a href="#" id="form:visualizarj_id_68" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('form'),{'form:visualizarj_id_68':'form:visualizarj_id_68','id':'726'},'');}return false" title="Visualizar Calendário Acadêmico"><img src="/sigaa/img/view.gif"/></a>
+</td>
+</tr>
+<thead>
+<tr class="secao">
+<td colspan="2">Calendário 1994.2</td>
+</tr>
+</thead>
+<tr class="linhaImpar">
+<td>
+							
+								CALENDÁRIO GERAL
+								 
+							 
+							
+						</td>
+<td align="right">
+<a href="#" id="form:visualizarj_id_69" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('form'),{'form:visualizarj_id_69':'form:visualizarj_id_69','id':'724'},'');}return false" title="Visualizar Calendário Acadêmico"><img src="/sigaa/img/view.gif"/></a>
+</td>
+</tr>
+<thead>
+<tr class="secao">
+<td colspan="2">Calendário 1994.1</td>
+</tr>
+</thead>
+<tr class="linhaPar">
+<td>
+							
+								CALENDÁRIO GERAL
+								 
+							 
+							
+						</td>
+<td align="right">
+<a href="#" id="form:visualizarj_id_70" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('form'),{'form:visualizarj_id_70':'form:visualizarj_id_70','id':'722'},'');}return false" title="Visualizar Calendário Acadêmico"><img src="/sigaa/img/view.gif"/></a>
+</td>
+</tr>
+<thead>
+<tr class="secao">
+<td colspan="2">Calendário 1993.2</td>
+</tr>
+</thead>
+<tr class="linhaImpar">
+<td>
+							
+								CALENDÁRIO GERAL
+								 
+							 
+							
+						</td>
+<td align="right">
+<a href="#" id="form:visualizarj_id_71" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('form'),{'form:visualizarj_id_71':'form:visualizarj_id_71','id':'720'},'');}return false" title="Visualizar Calendário Acadêmico"><img src="/sigaa/img/view.gif"/></a>
+</td>
+</tr>
+<thead>
+<tr class="secao">
+<td colspan="2">Calendário 1993.1</td>
+</tr>
+</thead>
+<tr class="linhaPar">
+<td>
+							
+								CALENDÁRIO GERAL
+								 
+							 
+							
+						</td>
+<td align="right">
+<a href="#" id="form:visualizarj_id_72" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('form'),{'form:visualizarj_id_72':'form:visualizarj_id_72','id':'718'},'');}return false" title="Visualizar Calendário Acadêmico"><img src="/sigaa/img/view.gif"/></a>
+</td>
+</tr>
+<thead>
+<tr class="secao">
+<td colspan="2">Calendário 1992.2</td>
+</tr>
+</thead>
+<tr class="linhaImpar">
+<td>
+							
+								CALENDÁRIO GERAL
+								 
+							 
+							
+						</td>
+<td align="right">
+<a href="#" id="form:visualizarj_id_73" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('form'),{'form:visualizarj_id_73':'form:visualizarj_id_73','id':'716'},'');}return false" title="Visualizar Calendário Acadêmico"><img src="/sigaa/img/view.gif"/></a>
+</td>
+</tr>
+<thead>
+<tr class="secao">
+<td colspan="2">Calendário 1992.1</td>
+</tr>
+</thead>
+<tr class="linhaPar">
+<td>
+							
+								CALENDÁRIO GERAL
+								 
+							 
+							
+						</td>
+<td align="right">
+<a href="#" id="form:visualizarj_id_74" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('form'),{'form:visualizarj_id_74':'form:visualizarj_id_74','id':'714'},'');}return false" title="Visualizar Calendário Acadêmico"><img src="/sigaa/img/view.gif"/></a>
+</td>
+</tr>
+<thead>
+<tr class="secao">
+<td colspan="2">Calendário 1991.2</td>
+</tr>
+</thead>
+<tr class="linhaImpar">
+<td>
+							
+								CALENDÁRIO GERAL
+								 
+							 
+							
+						</td>
+<td align="right">
+<a href="#" id="form:visualizarj_id_75" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('form'),{'form:visualizarj_id_75':'form:visualizarj_id_75','id':'712'},'');}return false" title="Visualizar Calendário Acadêmico"><img src="/sigaa/img/view.gif"/></a>
+</td>
+</tr>
+<thead>
+<tr class="secao">
+<td colspan="2">Calendário 1991.1</td>
+</tr>
+</thead>
+<tr class="linhaPar">
+<td>
+							
+								CALENDÁRIO GERAL
+								 
+							 
+							
+						</td>
+<td align="right">
+<a href="#" id="form:visualizarj_id_76" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('form'),{'form:visualizarj_id_76':'form:visualizarj_id_76','id':'710'},'');}return false" title="Visualizar Calendário Acadêmico"><img src="/sigaa/img/view.gif"/></a>
+</td>
+</tr>
+<thead>
+<tr class="secao">
+<td colspan="2">Calendário 1990.2</td>
+</tr>
+</thead>
+<tr class="linhaImpar">
+<td>
+							
+								CALENDÁRIO GERAL
+								 
+							 
+							
+						</td>
+<td align="right">
+<a href="#" id="form:visualizarj_id_77" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('form'),{'form:visualizarj_id_77':'form:visualizarj_id_77','id':'708'},'');}return false" title="Visualizar Calendário Acadêmico"><img src="/sigaa/img/view.gif"/></a>
+</td>
+</tr>
+<thead>
+<tr class="secao">
+<td colspan="2">Calendário 1990.1</td>
+</tr>
+</thead>
+<tr class="linhaPar">
+<td>
+							
+								CALENDÁRIO GERAL
+								 
+							 
+							
+						</td>
+<td align="right">
+<a href="#" id="form:visualizarj_id_78" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('form'),{'form:visualizarj_id_78':'form:visualizarj_id_78','id':'706'},'');}return false" title="Visualizar Calendário Acadêmico"><img src="/sigaa/img/view.gif"/></a>
+</td>
+</tr>
+<thead>
+<tr class="secao">
+<td colspan="2">Calendário 1989.2</td>
+</tr>
+</thead>
+<tr class="linhaImpar">
+<td>
+							
+								CALENDÁRIO GERAL
+								 
+							 
+							
+						</td>
+<td align="right">
+<a href="#" id="form:visualizarj_id_79" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('form'),{'form:visualizarj_id_79':'form:visualizarj_id_79','id':'704'},'');}return false" title="Visualizar Calendário Acadêmico"><img src="/sigaa/img/view.gif"/></a>
+</td>
+</tr>
+<thead>
+<tr class="secao">
+<td colspan="2">Calendário 1989.1</td>
+</tr>
+</thead>
+<tr class="linhaPar">
+<td>
+							
+								CALENDÁRIO GERAL
+								 
+							 
+							
+						</td>
+<td align="right">
+<a href="#" id="form:visualizarj_id_80" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('form'),{'form:visualizarj_id_80':'form:visualizarj_id_80','id':'702'},'');}return false" title="Visualizar Calendário Acadêmico"><img src="/sigaa/img/view.gif"/></a>
+</td>
+</tr>
+<thead>
+<tr class="secao">
+<td colspan="2">Calendário 1988.2</td>
+</tr>
+</thead>
+<tr class="linhaImpar">
+<td>
+							
+								CALENDÁRIO GERAL
+								 
+							 
+							
+						</td>
+<td align="right">
+<a href="#" id="form:visualizarj_id_81" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('form'),{'form:visualizarj_id_81':'form:visualizarj_id_81','id':'700'},'');}return false" title="Visualizar Calendário Acadêmico"><img src="/sigaa/img/view.gif"/></a>
+</td>
+</tr>
+<thead>
+<tr class="secao">
+<td colspan="2">Calendário 1988.1</td>
+</tr>
+</thead>
+<tr class="linhaPar">
+<td>
+							
+								CALENDÁRIO GERAL
+								 
+							 
+							
+						</td>
+<td align="right">
+<a href="#" id="form:visualizarj_id_82" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('form'),{'form:visualizarj_id_82':'form:visualizarj_id_82','id':'698'},'');}return false" title="Visualizar Calendário Acadêmico"><img src="/sigaa/img/view.gif"/></a>
+</td>
+</tr>
+<thead>
+<tr class="secao">
+<td colspan="2">Calendário 1987.2</td>
+</tr>
+</thead>
+<tr class="linhaImpar">
+<td>
+							
+								CALENDÁRIO GERAL
+								 
+							 
+							
+						</td>
+<td align="right">
+<a href="#" id="form:visualizarj_id_83" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('form'),{'form:visualizarj_id_83':'form:visualizarj_id_83','id':'696'},'');}return false" title="Visualizar Calendário Acadêmico"><img src="/sigaa/img/view.gif"/></a>
+</td>
+</tr>
+<thead>
+<tr class="secao">
+<td colspan="2">Calendário 1987.1</td>
+</tr>
+</thead>
+<tr class="linhaPar">
+<td>
+							
+								CALENDÁRIO GERAL
+								 
+							 
+							
+						</td>
+<td align="right">
+<a href="#" id="form:visualizarj_id_84" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('form'),{'form:visualizarj_id_84':'form:visualizarj_id_84','id':'694'},'');}return false" title="Visualizar Calendário Acadêmico"><img src="/sigaa/img/view.gif"/></a>
+</td>
+</tr>
+<thead>
+<tr class="secao">
+<td colspan="2">Calendário 1986.2</td>
+</tr>
+</thead>
+<tr class="linhaImpar">
+<td>
+							
+								CALENDÁRIO GERAL
+								 
+							 
+							
+						</td>
+<td align="right">
+<a href="#" id="form:visualizarj_id_85" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('form'),{'form:visualizarj_id_85':'form:visualizarj_id_85','id':'692'},'');}return false" title="Visualizar Calendário Acadêmico"><img src="/sigaa/img/view.gif"/></a>
+</td>
+</tr>
+<thead>
+<tr class="secao">
+<td colspan="2">Calendário 1986.1</td>
+</tr>
+</thead>
+<tr class="linhaPar">
+<td>
+							
+								CALENDÁRIO GERAL
+								 
+							 
+							
+						</td>
+<td align="right">
+<a href="#" id="form:visualizarj_id_86" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('form'),{'form:visualizarj_id_86':'form:visualizarj_id_86','id':'690'},'');}return false" title="Visualizar Calendário Acadêmico"><img src="/sigaa/img/view.gif"/></a>
+</td>
+</tr>
+<thead>
+<tr class="secao">
+<td colspan="2">Calendário 1985.2</td>
+</tr>
+</thead>
+<tr class="linhaImpar">
+<td>
+							
+								CALENDÁRIO GERAL
+								 
+							 
+							
+						</td>
+<td align="right">
+<a href="#" id="form:visualizarj_id_87" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('form'),{'form:visualizarj_id_87':'form:visualizarj_id_87','id':'688'},'');}return false" title="Visualizar Calendário Acadêmico"><img src="/sigaa/img/view.gif"/></a>
+</td>
+</tr>
+<thead>
+<tr class="secao">
+<td colspan="2">Calendário 1985.1</td>
+</tr>
+</thead>
+<tr class="linhaPar">
+<td>
+							
+								CALENDÁRIO GERAL
+								 
+							 
+							
+						</td>
+<td align="right">
+<a href="#" id="form:visualizarj_id_88" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('form'),{'form:visualizarj_id_88':'form:visualizarj_id_88','id':'686'},'');}return false" title="Visualizar Calendário Acadêmico"><img src="/sigaa/img/view.gif"/></a>
+</td>
+</tr>
+<thead>
+<tr class="secao">
+<td colspan="2">Calendário 1984.2</td>
+</tr>
+</thead>
+<tr class="linhaImpar">
+<td>
+							
+								CALENDÁRIO GERAL
+								 
+							 
+							
+						</td>
+<td align="right">
+<a href="#" id="form:visualizarj_id_89" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('form'),{'form:visualizarj_id_89':'form:visualizarj_id_89','id':'684'},'');}return false" title="Visualizar Calendário Acadêmico"><img src="/sigaa/img/view.gif"/></a>
+</td>
+</tr>
+<thead>
+<tr class="secao">
+<td colspan="2">Calendário 1984.1</td>
+</tr>
+</thead>
+<tr class="linhaPar">
+<td>
+							
+								CALENDÁRIO GERAL
+								 
+							 
+							
+						</td>
+<td align="right">
+<a href="#" id="form:visualizarj_id_90" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('form'),{'form:visualizarj_id_90':'form:visualizarj_id_90','id':'682'},'');}return false" title="Visualizar Calendário Acadêmico"><img src="/sigaa/img/view.gif"/></a>
+</td>
+</tr>
+<thead>
+<tr class="secao">
+<td colspan="2">Calendário 1983.2</td>
+</tr>
+</thead>
+<tr class="linhaImpar">
+<td>
+							
+								CALENDÁRIO GERAL
+								 
+							 
+							
+						</td>
+<td align="right">
+<a href="#" id="form:visualizarj_id_91" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('form'),{'form:visualizarj_id_91':'form:visualizarj_id_91','id':'680'},'');}return false" title="Visualizar Calendário Acadêmico"><img src="/sigaa/img/view.gif"/></a>
+</td>
+</tr>
+<thead>
+<tr class="secao">
+<td colspan="2">Calendário 1983.1</td>
+</tr>
+</thead>
+<tr class="linhaPar">
+<td>
+							
+								CALENDÁRIO GERAL
+								 
+							 
+							
+						</td>
+<td align="right">
+<a href="#" id="form:visualizarj_id_92" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('form'),{'form:visualizarj_id_92':'form:visualizarj_id_92','id':'678'},'');}return false" title="Visualizar Calendário Acadêmico"><img src="/sigaa/img/view.gif"/></a>
+</td>
+</tr>
+<thead>
+<tr class="secao">
+<td colspan="2">Calendário 1982.2</td>
+</tr>
+</thead>
+<tr class="linhaImpar">
+<td>
+							
+								CALENDÁRIO GERAL
+								 
+							 
+							
+						</td>
+<td align="right">
+<a href="#" id="form:visualizarj_id_93" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('form'),{'form:visualizarj_id_93':'form:visualizarj_id_93','id':'676'},'');}return false" title="Visualizar Calendário Acadêmico"><img src="/sigaa/img/view.gif"/></a>
+</td>
+</tr>
+<thead>
+<tr class="secao">
+<td colspan="2">Calendário 1982.1</td>
+</tr>
+</thead>
+<tr class="linhaPar">
+<td>
+							
+								CALENDÁRIO GERAL
+								 
+							 
+							
+						</td>
+<td align="right">
+<a href="#" id="form:visualizarj_id_94" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('form'),{'form:visualizarj_id_94':'form:visualizarj_id_94','id':'674'},'');}return false" title="Visualizar Calendário Acadêmico"><img src="/sigaa/img/view.gif"/></a>
+</td>
+</tr>
+<thead>
+<tr class="secao">
+<td colspan="2">Calendário 1981.2</td>
+</tr>
+</thead>
+<tr class="linhaImpar">
+<td>
+							
+								CALENDÁRIO GERAL
+								 
+							 
+							
+						</td>
+<td align="right">
+<a href="#" id="form:visualizarj_id_95" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('form'),{'form:visualizarj_id_95':'form:visualizarj_id_95','id':'672'},'');}return false" title="Visualizar Calendário Acadêmico"><img src="/sigaa/img/view.gif"/></a>
+</td>
+</tr>
+<thead>
+<tr class="secao">
+<td colspan="2">Calendário 1981.1</td>
+</tr>
+</thead>
+<tr class="linhaPar">
+<td>
+							
+								CALENDÁRIO GERAL
+								 
+							 
+							
+						</td>
+<td align="right">
+<a href="#" id="form:visualizarj_id_96" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('form'),{'form:visualizarj_id_96':'form:visualizarj_id_96','id':'670'},'');}return false" title="Visualizar Calendário Acadêmico"><img src="/sigaa/img/view.gif"/></a>
+</td>
+</tr>
+<thead>
+<tr class="secao">
+<td colspan="2">Calendário 1980.2</td>
+</tr>
+</thead>
+<tr class="linhaImpar">
+<td>
+							
+								CALENDÁRIO GERAL
+								 
+							 
+							
+						</td>
+<td align="right">
+<a href="#" id="form:visualizarj_id_97" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('form'),{'form:visualizarj_id_97':'form:visualizarj_id_97','id':'668'},'');}return false" title="Visualizar Calendário Acadêmico"><img src="/sigaa/img/view.gif"/></a>
+</td>
+</tr>
+<thead>
+<tr class="secao">
+<td colspan="2">Calendário 1980.1</td>
+</tr>
+</thead>
+<tr class="linhaPar">
+<td>
+							
+								CALENDÁRIO GERAL
+								 
+							 
+							
+						</td>
+<td align="right">
+<a href="#" id="form:visualizarj_id_98" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('form'),{'form:visualizarj_id_98':'form:visualizarj_id_98','id':'666'},'');}return false" title="Visualizar Calendário Acadêmico"><img src="/sigaa/img/view.gif"/></a>
+</td>
+</tr>
+<thead>
+<tr class="secao">
+<td colspan="2">Calendário 1979.2</td>
+</tr>
+</thead>
+<tr class="linhaImpar">
+<td>
+							
+								CALENDÁRIO GERAL
+								 
+							 
+							
+						</td>
+<td align="right">
+<a href="#" id="form:visualizarj_id_99" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('form'),{'form:visualizarj_id_99':'form:visualizarj_id_99','id':'664'},'');}return false" title="Visualizar Calendário Acadêmico"><img src="/sigaa/img/view.gif"/></a>
+</td>
+</tr>
+<thead>
+<tr class="secao">
+<td colspan="2">Calendário 1979.1</td>
+</tr>
+</thead>
+<tr class="linhaPar">
+<td>
+							
+								CALENDÁRIO GERAL
+								 
+							 
+							
+						</td>
+<td align="right">
+<a href="#" id="form:visualizarj_id_100" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('form'),{'form:visualizarj_id_100':'form:visualizarj_id_100','id':'662'},'');}return false" title="Visualizar Calendário Acadêmico"><img src="/sigaa/img/view.gif"/></a>
+</td>
+</tr>
+<thead>
+<tr class="secao">
+<td colspan="2">Calendário 1978.2</td>
+</tr>
+</thead>
+<tr class="linhaImpar">
+<td>
+							
+								CALENDÁRIO GERAL
+								 
+							 
+							
+						</td>
+<td align="right">
+<a href="#" id="form:visualizarj_id_101" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('form'),{'form:visualizarj_id_101':'form:visualizarj_id_101','id':'660'},'');}return false" title="Visualizar Calendário Acadêmico"><img src="/sigaa/img/view.gif"/></a>
+</td>
+</tr>
+<thead>
+<tr class="secao">
+<td colspan="2">Calendário 1978.1</td>
+</tr>
+</thead>
+<tr class="linhaPar">
+<td>
+							
+								CALENDÁRIO GERAL
+								 
+							 
+							
+						</td>
+<td align="right">
+<a href="#" id="form:visualizarj_id_102" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('form'),{'form:visualizarj_id_102':'form:visualizarj_id_102','id':'658'},'');}return false" title="Visualizar Calendário Acadêmico"><img src="/sigaa/img/view.gif"/></a>
+</td>
+</tr>
+<thead>
+<tr class="secao">
+<td colspan="2">Calendário 1977.2</td>
+</tr>
+</thead>
+<tr class="linhaImpar">
+<td>
+							
+								CALENDÁRIO GERAL
+								 
+							 
+							
+						</td>
+<td align="right">
+<a href="#" id="form:visualizarj_id_103" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('form'),{'form:visualizarj_id_103':'form:visualizarj_id_103','id':'656'},'');}return false" title="Visualizar Calendário Acadêmico"><img src="/sigaa/img/view.gif"/></a>
+</td>
+</tr>
+<thead>
+<tr class="secao">
+<td colspan="2">Calendário 1977.1</td>
+</tr>
+</thead>
+<tr class="linhaPar">
+<td>
+							
+								CALENDÁRIO GERAL
+								 
+							 
+							
+						</td>
+<td align="right">
+<a href="#" id="form:visualizarj_id_104" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('form'),{'form:visualizarj_id_104':'form:visualizarj_id_104','id':'654'},'');}return false" title="Visualizar Calendário Acadêmico"><img src="/sigaa/img/view.gif"/></a>
+</td>
+</tr>
+<thead>
+<tr class="secao">
+<td colspan="2">Calendário 1976.2</td>
+</tr>
+</thead>
+<tr class="linhaImpar">
+<td>
+							
+								CALENDÁRIO GERAL
+								 
+							 
+							
+						</td>
+<td align="right">
+<a href="#" id="form:visualizarj_id_105" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('form'),{'form:visualizarj_id_105':'form:visualizarj_id_105','id':'652'},'');}return false" title="Visualizar Calendário Acadêmico"><img src="/sigaa/img/view.gif"/></a>
+</td>
+</tr>
+<thead>
+<tr class="secao">
+<td colspan="2">Calendário 1976.1</td>
+</tr>
+</thead>
+<tr class="linhaPar">
+<td>
+							
+								CALENDÁRIO GERAL
+								 
+							 
+							
+						</td>
+<td align="right">
+<a href="#" id="form:visualizarj_id_106" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('form'),{'form:visualizarj_id_106':'form:visualizarj_id_106','id':'650'},'');}return false" title="Visualizar Calendário Acadêmico"><img src="/sigaa/img/view.gif"/></a>
+</td>
+</tr>
+<thead>
+<tr class="secao">
+<td colspan="2">Calendário 1975.2</td>
+</tr>
+</thead>
+<tr class="linhaImpar">
+<td>
+							
+								CALENDÁRIO GERAL
+								 
+							 
+							
+						</td>
+<td align="right">
+<a href="#" id="form:visualizarj_id_107" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('form'),{'form:visualizarj_id_107':'form:visualizarj_id_107','id':'648'},'');}return false" title="Visualizar Calendário Acadêmico"><img src="/sigaa/img/view.gif"/></a>
+</td>
+</tr>
+<thead>
+<tr class="secao">
+<td colspan="2">Calendário 1975.1</td>
+</tr>
+</thead>
+<tr class="linhaPar">
+<td>
+							
+								CALENDÁRIO GERAL
+								 
+							 
+							
+						</td>
+<td align="right">
+<a href="#" id="form:visualizarj_id_108" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('form'),{'form:visualizarj_id_108':'form:visualizarj_id_108','id':'646'},'');}return false" title="Visualizar Calendário Acadêmico"><img src="/sigaa/img/view.gif"/></a>
+</td>
+</tr>
+<thead>
+<tr class="secao">
+<td colspan="2">Calendário 1974.2</td>
+</tr>
+</thead>
+<tr class="linhaImpar">
+<td>
+							
+								CALENDÁRIO GERAL
+								 
+							 
+							
+						</td>
+<td align="right">
+<a href="#" id="form:visualizarj_id_109" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('form'),{'form:visualizarj_id_109':'form:visualizarj_id_109','id':'644'},'');}return false" title="Visualizar Calendário Acadêmico"><img src="/sigaa/img/view.gif"/></a>
+</td>
+</tr>
+<thead>
+<tr class="secao">
+<td colspan="2">Calendário 1974.1</td>
+</tr>
+</thead>
+<tr class="linhaPar">
+<td>
+							
+								CALENDÁRIO GERAL
+								 
+							 
+							
+						</td>
+<td align="right">
+<a href="#" id="form:visualizarj_id_110" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('form'),{'form:visualizarj_id_110':'form:visualizarj_id_110','id':'642'},'');}return false" title="Visualizar Calendário Acadêmico"><img src="/sigaa/img/view.gif"/></a>
+</td>
+</tr>
+<thead>
+<tr class="secao">
+<td colspan="2">Calendário 1973.2</td>
+</tr>
+</thead>
+<tr class="linhaImpar">
+<td>
+							
+								CALENDÁRIO GERAL
+								 
+							 
+							
+						</td>
+<td align="right">
+<a href="#" id="form:visualizarj_id_111" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('form'),{'form:visualizarj_id_111':'form:visualizarj_id_111','id':'640'},'');}return false" title="Visualizar Calendário Acadêmico"><img src="/sigaa/img/view.gif"/></a>
+</td>
+</tr>
+<thead>
+<tr class="secao">
+<td colspan="2">Calendário 1973.1</td>
+</tr>
+</thead>
+<tr class="linhaPar">
+<td>
+							
+								CALENDÁRIO GERAL
+								 
+							 
+							
+						</td>
+<td align="right">
+<a href="#" id="form:visualizarj_id_112" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('form'),{'form:visualizarj_id_112':'form:visualizarj_id_112','id':'638'},'');}return false" title="Visualizar Calendário Acadêmico"><img src="/sigaa/img/view.gif"/></a>
+</td>
+</tr>
+<thead>
+<tr class="secao">
+<td colspan="2">Calendário 1972.2</td>
+</tr>
+</thead>
+<tr class="linhaImpar">
+<td>
+							
+								CALENDÁRIO GERAL
+								 
+							 
+							
+						</td>
+<td align="right">
+<a href="#" id="form:visualizarj_id_113" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('form'),{'form:visualizarj_id_113':'form:visualizarj_id_113','id':'636'},'');}return false" title="Visualizar Calendário Acadêmico"><img src="/sigaa/img/view.gif"/></a>
+</td>
+</tr>
+<thead>
+<tr class="secao">
+<td colspan="2">Calendário 1972.1</td>
+</tr>
+</thead>
+<tr class="linhaPar">
+<td>
+							
+								CALENDÁRIO GERAL
+								 
+							 
+							
+						</td>
+<td align="right">
+<a href="#" id="form:visualizarj_id_114" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('form'),{'form:visualizarj_id_114':'form:visualizarj_id_114','id':'634'},'');}return false" title="Visualizar Calendário Acadêmico"><img src="/sigaa/img/view.gif"/></a>
+</td>
+</tr>
+<thead>
+<tr class="secao">
+<td colspan="2">Calendário 1971.2</td>
+</tr>
+</thead>
+<tr class="linhaImpar">
+<td>
+							
+								CALENDÁRIO GERAL
+								 
+							 
+							
+						</td>
+<td align="right">
+<a href="#" id="form:visualizarj_id_115" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('form'),{'form:visualizarj_id_115':'form:visualizarj_id_115','id':'632'},'');}return false" title="Visualizar Calendário Acadêmico"><img src="/sigaa/img/view.gif"/></a>
+</td>
+</tr>
+<thead>
+<tr class="secao">
+<td colspan="2">Calendário 1971.1</td>
+</tr>
+</thead>
+<tr class="linhaPar">
+<td>
+							
+								CALENDÁRIO GERAL
+								 
+							 
+							
+						</td>
+<td align="right">
+<a href="#" id="form:visualizarj_id_116" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('form'),{'form:visualizarj_id_116':'form:visualizarj_id_116','id':'630'},'');}return false" title="Visualizar Calendário Acadêmico"><img src="/sigaa/img/view.gif"/></a>
+</td>
+</tr>
+<thead>
+<tr class="secao">
+<td colspan="2">Calendário 1970.2</td>
+</tr>
+</thead>
+<tr class="linhaImpar">
+<td>
+							
+								CALENDÁRIO GERAL
+								 
+							 
+							
+						</td>
+<td align="right">
+<a href="#" id="form:visualizarj_id_117" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('form'),{'form:visualizarj_id_117':'form:visualizarj_id_117','id':'628'},'');}return false" title="Visualizar Calendário Acadêmico"><img src="/sigaa/img/view.gif"/></a>
+</td>
+</tr>
+<thead>
+<tr class="secao">
+<td colspan="2">Calendário 1970.1</td>
+</tr>
+</thead>
+<tr class="linhaPar">
+<td>
+							
+								CALENDÁRIO GERAL
+								 
+							 
+							
+						</td>
+<td align="right">
+<a href="#" id="form:visualizarj_id_118" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('form'),{'form:visualizarj_id_118':'form:visualizarj_id_118','id':'626'},'');}return false" title="Visualizar Calendário Acadêmico"><img src="/sigaa/img/view.gif"/></a>
+</td>
+</tr>
+<thead>
+<tr class="secao">
+<td colspan="2">Calendário 1969.1</td>
+</tr>
+</thead>
+<tr class="linhaImpar">
+<td>
+							
+								CALENDÁRIO GERAL
+								 
+							 
+							
+						</td>
+<td align="right">
+<a href="#" id="form:visualizarj_id_119" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('form'),{'form:visualizarj_id_119':'form:visualizarj_id_119','id':'624'},'');}return false" title="Visualizar Calendário Acadêmico"><img src="/sigaa/img/view.gif"/></a>
+</td>
+</tr>
+</tbody>
+</table>
+<input id="javax.faces.ViewState" name="javax.faces.ViewState" type="hidden" value="j_id27"/>
+</form>
+<div class="clear"> </div>
+</div>
+<br/>
+<div style="width: 80%; text-align: center; margin: 0 auto;">
+<a href="/sigaa/verPortalDiscente.do">Portal do Discente</a>
+</div>
+<div id="rodape">
+<!-- Redmine 24425 - Substitui&#231;&#227;o de dados dos Rodap&#233;s -->
+<p>	SIGAA | STI/SUPAC | - | Copyright © 2006-2026 - UFBA - sigaapl07.intranet.ufba.br
+		
+		 
+			 - <a onclick="javascript:versao();">v4.13.8_41_hotfix</a>
+</p>
+</div>
+</div>
+<div id="painel-mensagem-envio"> </div>
+<!-- MYFACES JAVASCRIPT -->
+</body>
+</html>
+<html><script charset="UTF-8" type="text/javascript">
+		function versao(){
+			var msg='';
+			msg+='SIGAA 4.13.8_41_hotfix,  publicado em: 25/09/2026 16:18\n\n';
+			msg+='Depend\u00eancias:\n';
+			msg+='Arquitetura 4.4.5\n';
+			msg+='Entidades Comuns 2.3.3\n';
+			msg+='Servicos Integrados 2.0.8\n';
+			msg+='SharedResources 2.1.4\n';
+			msg+='Servicos Remoto Biblioteca 1.0.3\n';
+			msg+='SIGAA Mobile Objects 1.0.0\n\n';
+			msg+='Copyright SINFO/UFRN';
+			alert(msg);
+		}	
+	</script>
+<script language="javascript">
+Relogio.init(25);
+</script>
+</html>

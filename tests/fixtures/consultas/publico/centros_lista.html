@@ -1,0 +1,1837 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta content="no-cache" http-equiv="Pragma"/>
+<title>SIGAA - Sistema Integrado de Gestão de Atividades Acadêmicas</title>
+<link class="component" href="/sigaa/a4j/s/3_3_3.Finalorg/richfaces/renderkit/html/css/basic_classes.xcss/DATB/eAF7sqpgb-jyGdIAFrMEaw__.jsf" rel="stylesheet" type="text/css"/><link class="component" href="/sigaa/a4j/s/3_3_3.Finalorg/richfaces/renderkit/html/css/extended_classes.xcss/DATB/eAF7sqpgb-jyGdIAFrMEaw__.jsf" media="rich-extended-skinning" rel="stylesheet" type="text/css"/><script type="text/javascript">window.RICH_FACES_EXTENDED_SKINNING_ON=true;</script><script src="/sigaa/a4j/g/3_3_3.Finalorg/richfaces/renderkit/html/scripts/skinning.js.jsf" type="text/javascript"></script><link href="/sigaa/img/sigaa.ico" rel="shortcut icon"/>
+<script src="/shared/jsBundles/jawr_loader.js" type="text/javascript"></script>
+<script src="/sigaa/javascript/prevenir-duplo-clique.js" type="text/javascript"></script>
+<script type="text/javascript">
+		JAWR.loader.style('/javascript/ext-2.0.a.1/resources/css/ext-all.css', 'all');
+		JAWR.loader.style('/css/public.css','all');
+	 	JAWR.loader.script('/bundles/js/sigaa_base.js');
+	 	JAWR.loader.script('/bundles/js/ext2_all.js');
+
+	 	
+	</script>
+<link href="/sigaa/cssBundles/gzip_787491763/public/css/public.css" media="all" rel="stylesheet" type="text/css"/>
+<link href="/shared/beta/css/font-awesome.css" media="screen" rel="stylesheet" type="text/css"/>
+<script src="/shared/javascript/STICookieConsent.js"></script>
+<script>
+	    document.addEventListener("DOMContentLoaded", () => {
+	    	generateCookieConsentModal("SIGAA", "N&#243;s usamos cookies para melhorar sua experi&#234;ncia de navega&#231;&#227;o no portal. Ao utilizar o %sitename%, voc&#234; concorda com a pol&#237;&#173;tica de monitoramento de cookies. Para ter mais informa&#231;&#245;es sobre como isso &#233; feito e como remover, acesse a <a href=%cookie-policy%>Pol&#237;tica de Privacidade</a>. Para saber como a UFRN trata os dados, acesse a <a href=%privacy-policy%> Pol&#237;&#173;tica de cookies</a>. Se voc&#234; concorda, clique em %button-text%.", "https://ufrn.br/institucional/politica-de-privacidade-e-termos-de-uso", "https://ufrn.br/institucional/politica-de-cookies");
+	    })
+	</script>
+</head>
+<body>
+<div id="container">
+<div id="container-inner">
+<div id="cabecalho">
+<div id="logo">
+<a href="/sigaa/public/"> <img src="https://sipac.ufba.br/shared/img/instituicao/brasao_ufba48x75.jpg"/> </a>
+</div>
+<div id="identificacao">
+<span class="ufrn"> Universidade Federal da Bahia </span>
+<span class="data">
+				 Salvador, 
+				 19 de Outubro de 
+				 2026 
+			</span>
+<a href="/sigaa/public/" id="home" style="width: 450px;" title="Página inicial"> </a>
+<div id="menu_info">
+<ul>
+<li class="login">
+<a alt="Clique aqui para logar-se no SIGAA" href="/sigaa/" title="Clique aqui para logar-se no SIGAA">
+							Login
+						<i class="fa fa-angle-right"></i></a>
+</li>
+</ul>
+</div>
+</div>
+<br clear="all"/>
+</div>
+<div id="corpo">
+<script src="/shared/javascript/prototype.js" type="text/javascript"></script>
+<script type="text/javascript">
+        JAWR.loader.script('/bundles/js/scriptaculous.js');
+		JAWR.loader.script('/javascript/ajaxtags/overlibmws.js');
+		JAWR.loader.script('/javascript/ajaxtags/ajaxtags.js');
+		JAWR.loader.style('/javascript/ajaxtags/css/ajaxtags.css');
+     </script>
+<style>
+	table.listagem{width: 90%;}
+	table.listagem caption{text-align: left;}
+	table.listagem caption img{position:relative;float:left;padding:0px 3px;}
+	table.listagem caption a.nomeDepartamento{position:relative;color:#FFF;display:block;float:left;}
+	table.listagem caption a.nomeCentro{display:block;width:90%;float:left;color:#FFF;}
+	table.listagem caption a.iconeCentro{display:block;width:22px;float:right;}
+</style>
+<h2> Centros/Unidades Especializadas da UFBA </h2>
+<br clear="all"/>
+<table class="listagem">
+<tr>
+<td class="legenda">
+<img height="15px" src="/sigaa/public/images/link.png" width="15px"/><b>: Visualizar Página do Centro/Unidade Especializada</b>
+<img height="15px" src="/sigaa/img/view.gif" width="15px"/><b>: Visualizar Portal Público</b>
+</td>
+</tr>
+</table>
+<br clear="all"/>
+<form action="/sigaa/public/centro/lista.jsf" enctype="application/x-www-form-urlencoded" id="formListagemCentros" method="post" name="formListagemCentros">
+<input name="formListagemCentros" type="hidden" value="formListagemCentros"/>
+<table class="listagem">
+<thead>
+<caption>
+<a class="nomeCentro" href="#ESCOLA DE ADMINISTRAÇÃO" id="ESCOLA DE ADMINISTRAÇÃO">
+							 ESCOLA DE ADMINISTRAÇÃO - EADM
+							</a>
+<a class="iconeCentro" href="portal.jsf?lc=pt_BR&amp;id=1283" title="Visualizar Portal Público">
+<img src="/sigaa/img/view.gif"/>
+</a>
+<br clear="all"/>
+</caption>
+<tr>
+<td class="subListagem" colspan="2">
+								LOCALIZADO NO MUNICÍPIO DE 
+								SALVADOR, 
+								ENGLOBA OS SEGUINTES DEPARTAMENTOS:
+							</td>
+</tr>
+</thead>
+<tbody>
+<tr class="linhaPar">
+<td width="98%"> ›
+					<a class="nomeDepartamento" href="/sigaa/public/departamento/portal.jsf?lc=pt_BR
+					&amp;id=2031" style="link">COORDENAÇÃO ACADÊMICA/EADM</a>
+</td>
+<td class="linhaPar">
+<a class="nomeDepartamento" href="/sigaa/public/departamento/portal.jsf?id=2031" title="Clique aqui para acessar a página pública deste departamento">
+<img src="/sigaa/img/view.gif"/>
+</a>
+</td>
+</tr>
+</tbody>
+</table>
+<br clear="all"/>
+<table class="listagem">
+<thead>
+<caption>
+<a class="nomeCentro" href="#ESCOLA DE BELAS ARTES" id="ESCOLA DE BELAS ARTES">
+							 ESCOLA DE BELAS ARTES - EBA
+							</a>
+<a class="iconeCentro" href="portal.jsf?lc=pt_BR&amp;id=1235" title="Visualizar Portal Público">
+<img src="/sigaa/img/view.gif"/>
+</a>
+<br clear="all"/>
+</caption>
+<tr>
+<td class="subListagem" colspan="2">
+								LOCALIZADO NO MUNICÍPIO DE 
+								SALVADOR, 
+								ENGLOBA OS SEGUINTES DEPARTAMENTOS:
+							</td>
+</tr>
+</thead>
+<tbody>
+<tr class="linhaImpar">
+<td width="98%"> ›
+					<a class="nomeDepartamento" href="/sigaa/public/departamento/portal.jsf?lc=pt_BR
+					&amp;id=1237" style="link">DEPARTAMENTO DE EXPRESSÃO GRÁFICA E TRIDIMENSIONAL/EBA</a>
+</td>
+<td class="linhaImpar">
+<a class="nomeDepartamento" href="/sigaa/public/departamento/portal.jsf?id=1237" title="Clique aqui para acessar a página pública deste departamento">
+<img src="/sigaa/img/view.gif"/>
+</a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td width="98%"> ›
+					<a class="nomeDepartamento" href="/sigaa/public/departamento/portal.jsf?lc=pt_BR
+					&amp;id=1236" style="link">DEPARTAMENTO DE HISTÓRIA DA ARTE E PINTURA/EBA</a>
+</td>
+<td class="linhaPar">
+<a class="nomeDepartamento" href="/sigaa/public/departamento/portal.jsf?id=1236" title="Clique aqui para acessar a página pública deste departamento">
+<img src="/sigaa/img/view.gif"/>
+</a>
+</td>
+</tr>
+</tbody>
+</table>
+<br clear="all"/>
+<table class="listagem">
+<thead>
+<caption>
+<a class="nomeCentro" href="#ESCOLA DE DANÇA" id="ESCOLA DE DANÇA">
+							 ESCOLA DE DANÇA - EDAN
+							</a>
+<a class="iconeCentro" href="portal.jsf?lc=pt_BR&amp;id=1354" title="Visualizar Portal Público">
+<img src="/sigaa/img/view.gif"/>
+</a>
+<br clear="all"/>
+</caption>
+<tr>
+<td class="subListagem" colspan="2">
+								LOCALIZADO NO MUNICÍPIO DE 
+								SALVADOR, 
+								ENGLOBA OS SEGUINTES DEPARTAMENTOS:
+							</td>
+</tr>
+</thead>
+<tbody>
+<tr class="linhaImpar">
+<td width="98%"> ›
+					<a class="nomeDepartamento" href="/sigaa/public/departamento/portal.jsf?lc=pt_BR
+					&amp;id=2192" style="link">DEPARTAMENTO DE DANÇA/EDAN</a>
+</td>
+<td class="linhaImpar">
+<a class="nomeDepartamento" href="/sigaa/public/departamento/portal.jsf?id=2192" title="Clique aqui para acessar a página pública deste departamento">
+<img src="/sigaa/img/view.gif"/>
+</a>
+</td>
+</tr>
+</tbody>
+</table>
+<br clear="all"/>
+<table class="listagem">
+<thead>
+<caption>
+<a class="nomeCentro" href="#ESCOLA DE ENFERMAGEM" id="ESCOLA DE ENFERMAGEM">
+							 ESCOLA DE ENFERMAGEM - EENF
+							</a>
+<a class="iconeCentro" href="portal.jsf?lc=pt_BR&amp;id=1252" title="Visualizar Portal Público">
+<img src="/sigaa/img/view.gif"/>
+</a>
+<br clear="all"/>
+</caption>
+<tr>
+<td class="subListagem" colspan="2">
+								LOCALIZADO NO MUNICÍPIO DE 
+								SALVADOR, 
+								ENGLOBA OS SEGUINTES DEPARTAMENTOS:
+							</td>
+</tr>
+</thead>
+<tbody>
+<tr class="linhaPar">
+<td width="98%"> ›
+					<a class="nomeDepartamento" href="/sigaa/public/departamento/portal.jsf?lc=pt_BR
+					&amp;id=2027" style="link">COORDENAÇÃO ACADÊMICA/EENF</a>
+</td>
+<td class="linhaPar">
+<a class="nomeDepartamento" href="/sigaa/public/departamento/portal.jsf?id=2027" title="Clique aqui para acessar a página pública deste departamento">
+<img src="/sigaa/img/view.gif"/>
+</a>
+</td>
+</tr>
+</tbody>
+</table>
+<br clear="all"/>
+<table class="listagem">
+<thead>
+<caption>
+<a class="nomeCentro" href="#ESCOLA DE MEDICINA VETERINÁRIA E ZOOTECNIA" id="ESCOLA DE MEDICINA VETERINÁRIA E ZOOTECNIA">
+							 ESCOLA DE MEDICINA VETERINÁRIA E ZOOTECNIA - EMEVZ
+							</a>
+<a class="iconeCentro" href="portal.jsf?lc=pt_BR&amp;id=1336" title="Visualizar Portal Público">
+<img src="/sigaa/img/view.gif"/>
+</a>
+<br clear="all"/>
+</caption>
+<tr>
+<td class="subListagem" colspan="2">
+								LOCALIZADO NO MUNICÍPIO DE 
+								SALVADOR, 
+								ENGLOBA OS SEGUINTES DEPARTAMENTOS:
+							</td>
+</tr>
+</thead>
+<tbody>
+<tr class="linhaImpar">
+<td width="98%"> ›
+					<a class="nomeDepartamento" href="/sigaa/public/departamento/portal.jsf?lc=pt_BR
+					&amp;id=1338" style="link">DEPARTAMENTO DE ANATOMIA, PATOLOGIA E CLÍNICAS VETERINÁRIAS/EMEVZ</a>
+</td>
+<td class="linhaImpar">
+<a class="nomeDepartamento" href="/sigaa/public/departamento/portal.jsf?id=1338" title="Clique aqui para acessar a página pública deste departamento">
+<img src="/sigaa/img/view.gif"/>
+</a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td width="98%"> ›
+					<a class="nomeDepartamento" href="/sigaa/public/departamento/portal.jsf?lc=pt_BR
+					&amp;id=1337" style="link">DEPARTAMENTO DE MEDICINA VETERINÁRIA PREVENTIVA E PRODUÇÃO ANIMAL/EMEVZ</a>
+</td>
+<td class="linhaPar">
+<a class="nomeDepartamento" href="/sigaa/public/departamento/portal.jsf?id=1337" title="Clique aqui para acessar a página pública deste departamento">
+<img src="/sigaa/img/view.gif"/>
+</a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td width="98%"> ›
+					<a class="nomeDepartamento" href="/sigaa/public/departamento/portal.jsf?lc=pt_BR
+					&amp;id=1346" style="link">DEPARTAMENTO DE ZOOTECNIA/EMEVZ</a>
+</td>
+<td class="linhaImpar">
+<a class="nomeDepartamento" href="/sigaa/public/departamento/portal.jsf?id=1346" title="Clique aqui para acessar a página pública deste departamento">
+<img src="/sigaa/img/view.gif"/>
+</a>
+</td>
+</tr>
+</tbody>
+</table>
+<br clear="all"/>
+<table class="listagem">
+<thead>
+<caption>
+<a class="nomeCentro" href="#ESCOLA DE MÚSICA" id="ESCOLA DE MÚSICA">
+							 ESCOLA DE MÚSICA - EMUS
+							</a>
+<a class="iconeCentro" href="portal.jsf?lc=pt_BR&amp;id=1292" title="Visualizar Portal Público">
+<img src="/sigaa/img/view.gif"/>
+</a>
+<br clear="all"/>
+</caption>
+<tr>
+<td class="subListagem" colspan="2">
+								LOCALIZADO NO MUNICÍPIO DE 
+								SALVADOR, 
+								ENGLOBA OS SEGUINTES DEPARTAMENTOS:
+							</td>
+</tr>
+</thead>
+<tbody>
+<tr class="linhaPar">
+<td width="98%"> ›
+					<a class="nomeDepartamento" href="/sigaa/public/departamento/portal.jsf?lc=pt_BR
+					&amp;id=1293" style="link">DEPARTAMENTO DE MÚSICA/MUS</a>
+</td>
+<td class="linhaPar">
+<a class="nomeDepartamento" href="/sigaa/public/departamento/portal.jsf?id=1293" title="Clique aqui para acessar a página pública deste departamento">
+<img src="/sigaa/img/view.gif"/>
+</a>
+</td>
+</tr>
+</tbody>
+</table>
+<br clear="all"/>
+<table class="listagem">
+<thead>
+<caption>
+<a class="nomeCentro" href="#ESCOLA DE NUTRIÇÃO" id="ESCOLA DE NUTRIÇÃO">
+							 ESCOLA DE NUTRIÇÃO - ENUT
+							</a>
+<a class="iconeCentro" href="portal.jsf?lc=pt_BR&amp;id=1302" title="Visualizar Portal Público">
+<img src="/sigaa/img/view.gif"/>
+</a>
+<br clear="all"/>
+</caption>
+<tr>
+<td class="subListagem" colspan="2">
+								LOCALIZADO NO MUNICÍPIO DE 
+								SALVADOR, 
+								ENGLOBA OS SEGUINTES DEPARTAMENTOS:
+							</td>
+</tr>
+</thead>
+<tbody>
+<tr class="linhaImpar">
+<td width="98%"> ›
+					<a class="nomeDepartamento" href="/sigaa/public/departamento/portal.jsf?lc=pt_BR
+					&amp;id=1304" style="link">DEPARTAMENTO DE CIÊNCIA DOS ALIMENTOS/NUT</a>
+</td>
+<td class="linhaImpar">
+<a class="nomeDepartamento" href="/sigaa/public/departamento/portal.jsf?id=1304" title="Clique aqui para acessar a página pública deste departamento">
+<img src="/sigaa/img/view.gif"/>
+</a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td width="98%"> ›
+					<a class="nomeDepartamento" href="/sigaa/public/departamento/portal.jsf?lc=pt_BR
+					&amp;id=1303" style="link">DEPARTAMENTO DE CIÊNCIAS DA NUTRIÇÃO/ENUT</a>
+</td>
+<td class="linhaPar">
+<a class="nomeDepartamento" href="/sigaa/public/departamento/portal.jsf?id=1303" title="Clique aqui para acessar a página pública deste departamento">
+<img src="/sigaa/img/view.gif"/>
+</a>
+</td>
+</tr>
+</tbody>
+</table>
+<br clear="all"/>
+<table class="listagem">
+<thead>
+<caption>
+<a class="nomeCentro" href="#ESCOLA DE TEATRO" id="ESCOLA DE TEATRO">
+							 ESCOLA DE TEATRO - ETE
+							</a>
+<a class="iconeCentro" href="portal.jsf?lc=pt_BR&amp;id=1361" title="Visualizar Portal Público">
+<img src="/sigaa/img/view.gif"/>
+</a>
+<br clear="all"/>
+</caption>
+<tr>
+<td class="subListagem" colspan="2">
+								LOCALIZADO NO MUNICÍPIO DE 
+								SALVADOR, 
+								ENGLOBA OS SEGUINTES DEPARTAMENTOS:
+							</td>
+</tr>
+</thead>
+<tbody>
+<tr class="linhaImpar">
+<td width="98%"> ›
+					<a class="nomeDepartamento" href="/sigaa/public/departamento/portal.jsf?lc=pt_BR
+					&amp;id=1363" style="link">DEPARTAMENTO DE FUNDAMENTOS DO TEATRO/ETE</a>
+</td>
+<td class="linhaImpar">
+<a class="nomeDepartamento" href="/sigaa/public/departamento/portal.jsf?id=1363" title="Clique aqui para acessar a página pública deste departamento">
+<img src="/sigaa/img/view.gif"/>
+</a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td width="98%"> ›
+					<a class="nomeDepartamento" href="/sigaa/public/departamento/portal.jsf?lc=pt_BR
+					&amp;id=1362" style="link">DEPARTAMENTO DE TÉCNICAS DO ESPETÁCULO/ETE</a>
+</td>
+<td class="linhaPar">
+<a class="nomeDepartamento" href="/sigaa/public/departamento/portal.jsf?id=1362" title="Clique aqui para acessar a página pública deste departamento">
+<img src="/sigaa/img/view.gif"/>
+</a>
+</td>
+</tr>
+</tbody>
+</table>
+<br clear="all"/>
+<table class="listagem">
+<thead>
+<caption>
+<a class="nomeCentro" href="#ESCOLA POLITÉCNICA" id="ESCOLA POLITÉCNICA">
+							 ESCOLA POLITÉCNICA - EPOLI
+							</a>
+<a class="iconeCentro" href="portal.jsf?lc=pt_BR&amp;id=1200" title="Visualizar Portal Público">
+<img src="/sigaa/img/view.gif"/>
+</a>
+<br clear="all"/>
+</caption>
+<tr>
+<td class="subListagem" colspan="2">
+								LOCALIZADO NO MUNICÍPIO DE 
+								SALVADOR, 
+								ENGLOBA OS SEGUINTES DEPARTAMENTOS:
+							</td>
+</tr>
+</thead>
+<tbody>
+<tr class="linhaImpar">
+<td width="98%"> ›
+					<a class="nomeDepartamento" href="/sigaa/public/departamento/portal.jsf?lc=pt_BR
+					&amp;id=1201" style="link">DEPARTAMENTO DE CIÊNCIA E TECNOLOGIA DOS MATERIAIS/POLI</a>
+</td>
+<td class="linhaImpar">
+<a class="nomeDepartamento" href="/sigaa/public/departamento/portal.jsf?id=1201" title="Clique aqui para acessar a página pública deste departamento">
+<img src="/sigaa/img/view.gif"/>
+</a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td width="98%"> ›
+					<a class="nomeDepartamento" href="/sigaa/public/departamento/portal.jsf?lc=pt_BR
+					&amp;id=1202" style="link">DEPARTAMENTO DE CONSTRUÇÃO E ESTRUTURAS/POLI</a>
+</td>
+<td class="linhaPar">
+<a class="nomeDepartamento" href="/sigaa/public/departamento/portal.jsf?id=1202" title="Clique aqui para acessar a página pública deste departamento">
+<img src="/sigaa/img/view.gif"/>
+</a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td width="98%"> ›
+					<a class="nomeDepartamento" href="/sigaa/public/departamento/portal.jsf?lc=pt_BR
+					&amp;id=1204" style="link">DEPARTAMENTO DE ENGENHARIA AMBIENTAL/POLI</a>
+</td>
+<td class="linhaImpar">
+<a class="nomeDepartamento" href="/sigaa/public/departamento/portal.jsf?id=1204" title="Clique aqui para acessar a página pública deste departamento">
+<img src="/sigaa/img/view.gif"/>
+</a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td width="98%"> ›
+					<a class="nomeDepartamento" href="/sigaa/public/departamento/portal.jsf?lc=pt_BR
+					&amp;id=1203" style="link">DEPARTAMENTO DE ENGENHARIA DE TRANSPORTES E GEODÉSIA/POLI</a>
+</td>
+<td class="linhaPar">
+<a class="nomeDepartamento" href="/sigaa/public/departamento/portal.jsf?id=1203" title="Clique aqui para acessar a página pública deste departamento">
+<img src="/sigaa/img/view.gif"/>
+</a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td width="98%"> ›
+					<a class="nomeDepartamento" href="/sigaa/public/departamento/portal.jsf?lc=pt_BR
+					&amp;id=1205" style="link">DEPARTAMENTO DE ENGENHARIA ELÉTRICA E DE COMPUTAÇÃO/POLI</a>
+</td>
+<td class="linhaImpar">
+<a class="nomeDepartamento" href="/sigaa/public/departamento/portal.jsf?id=1205" title="Clique aqui para acessar a página pública deste departamento">
+<img src="/sigaa/img/view.gif"/>
+</a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td width="98%"> ›
+					<a class="nomeDepartamento" href="/sigaa/public/departamento/portal.jsf?lc=pt_BR
+					&amp;id=1207" style="link">DEPARTAMENTO DE ENGENHARIA MECÂNICA/POLI</a>
+</td>
+<td class="linhaPar">
+<a class="nomeDepartamento" href="/sigaa/public/departamento/portal.jsf?id=1207" title="Clique aqui para acessar a página pública deste departamento">
+<img src="/sigaa/img/view.gif"/>
+</a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td width="98%"> ›
+					<a class="nomeDepartamento" href="/sigaa/public/departamento/portal.jsf?lc=pt_BR
+					&amp;id=1206" style="link">DEPARTAMENTO DE ENGENHARIA QUÍMICA/POLI</a>
+</td>
+<td class="linhaImpar">
+<a class="nomeDepartamento" href="/sigaa/public/departamento/portal.jsf?id=1206" title="Clique aqui para acessar a página pública deste departamento">
+<img src="/sigaa/img/view.gif"/>
+</a>
+</td>
+</tr>
+</tbody>
+</table>
+<br clear="all"/>
+<table class="listagem">
+<thead>
+<caption>
+<a class="nomeCentro" href="#FACULDADE DE ARQUITETURA" id="FACULDADE DE ARQUITETURA">
+							 FACULDADE DE ARQUITETURA - FAUFBA
+							</a>
+<a class="iconeCentro" href="portal.jsf?lc=pt_BR&amp;id=1274" title="Visualizar Portal Público">
+<img src="/sigaa/img/view.gif"/>
+</a>
+<br clear="all"/>
+</caption>
+<tr>
+<td class="subListagem" colspan="2">
+								LOCALIZADO NO MUNICÍPIO DE 
+								SALVADOR, 
+								ENGLOBA OS SEGUINTES DEPARTAMENTOS:
+							</td>
+</tr>
+</thead>
+<tbody>
+<tr class="linhaPar">
+<td width="98%"> ›
+					<a class="nomeDepartamento" href="/sigaa/public/departamento/portal.jsf?lc=pt_BR
+					&amp;id=2194" style="link">COORDENAÇÃO ACADÊMICA/FAUFBA</a>
+</td>
+<td class="linhaPar">
+<a class="nomeDepartamento" href="/sigaa/public/departamento/portal.jsf?id=2194" title="Clique aqui para acessar a página pública deste departamento">
+<img src="/sigaa/img/view.gif"/>
+</a>
+</td>
+</tr>
+</tbody>
+</table>
+<br clear="all"/>
+<table class="listagem">
+<thead>
+<caption>
+<a class="nomeCentro" href="#FACULDADE DE CIÊNCIAS CONTÁBEIS" id="FACULDADE DE CIÊNCIAS CONTÁBEIS">
+							 FACULDADE DE CIÊNCIAS CONTÁBEIS - FCC
+							</a>
+<a class="iconeCentro" href="portal.jsf?lc=pt_BR&amp;id=1369" title="Visualizar Portal Público">
+<img src="/sigaa/img/view.gif"/>
+</a>
+<br clear="all"/>
+</caption>
+<tr>
+<td class="subListagem" colspan="2">
+								LOCALIZADO NO MUNICÍPIO DE 
+								SALVADOR, 
+								ENGLOBA OS SEGUINTES DEPARTAMENTOS:
+							</td>
+</tr>
+</thead>
+<tbody>
+<tr class="linhaImpar">
+<td width="98%"> ›
+					<a class="nomeDepartamento" href="/sigaa/public/departamento/portal.jsf?lc=pt_BR
+					&amp;id=1370" style="link">DEPARTAMENTO DE CIÊNCIAS CONTÁBEIS/FCC</a>
+</td>
+<td class="linhaImpar">
+<a class="nomeDepartamento" href="/sigaa/public/departamento/portal.jsf?id=1370" title="Clique aqui para acessar a página pública deste departamento">
+<img src="/sigaa/img/view.gif"/>
+</a>
+</td>
+</tr>
+</tbody>
+</table>
+<br clear="all"/>
+<table class="listagem">
+<thead>
+<caption>
+<a class="nomeCentro" href="#FACULDADE DE COMUNICAÇÃO" id="FACULDADE DE COMUNICAÇÃO">
+							 FACULDADE DE COMUNICAÇÃO - FACOM
+							</a>
+<a class="iconeCentro" href="portal.jsf?lc=pt_BR&amp;id=1348" title="Visualizar Portal Público">
+<img src="/sigaa/img/view.gif"/>
+</a>
+<br clear="all"/>
+</caption>
+<tr>
+<td class="subListagem" colspan="2">
+								LOCALIZADO NO MUNICÍPIO DE 
+								SALVADOR, 
+								ENGLOBA OS SEGUINTES DEPARTAMENTOS:
+							</td>
+</tr>
+</thead>
+<tbody>
+<tr class="linhaPar">
+<td width="98%"> ›
+					<a class="nomeDepartamento" href="/sigaa/public/departamento/portal.jsf?lc=pt_BR
+					&amp;id=1349" style="link">DEPARTAMENTO DE COMUNICAÇÃO/FACOM</a>
+</td>
+<td class="linhaPar">
+<a class="nomeDepartamento" href="/sigaa/public/departamento/portal.jsf?id=1349" title="Clique aqui para acessar a página pública deste departamento">
+<img src="/sigaa/img/view.gif"/>
+</a>
+</td>
+</tr>
+</tbody>
+</table>
+<br clear="all"/>
+<table class="listagem">
+<thead>
+<caption>
+<a class="nomeCentro" href="#FACULDADE DE DIREITO" id="FACULDADE DE DIREITO">
+							 FACULDADE DE DIREITO - FADIR
+							</a>
+<a class="iconeCentro" href="portal.jsf?lc=pt_BR&amp;id=1193" title="Visualizar Portal Público">
+<img src="/sigaa/img/view.gif"/>
+</a>
+<br clear="all"/>
+</caption>
+<tr>
+<td class="subListagem" colspan="2">
+								LOCALIZADO NO MUNICÍPIO DE 
+								SALVADOR, 
+								ENGLOBA OS SEGUINTES DEPARTAMENTOS:
+							</td>
+</tr>
+</thead>
+<tbody>
+<tr class="linhaImpar">
+<td width="98%"> ›
+					<a class="nomeDepartamento" href="/sigaa/public/departamento/portal.jsf?lc=pt_BR
+					&amp;id=1195" style="link">DEPARTAMENTO DE DIREITO PRIVADO/FADIR</a>
+</td>
+<td class="linhaImpar">
+<a class="nomeDepartamento" href="/sigaa/public/departamento/portal.jsf?id=1195" title="Clique aqui para acessar a página pública deste departamento">
+<img src="/sigaa/img/view.gif"/>
+</a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td width="98%"> ›
+					<a class="nomeDepartamento" href="/sigaa/public/departamento/portal.jsf?lc=pt_BR
+					&amp;id=1194" style="link">DEPARTAMENTO DE DIREITO PÚBLICO/FADIR</a>
+</td>
+<td class="linhaPar">
+<a class="nomeDepartamento" href="/sigaa/public/departamento/portal.jsf?id=1194" title="Clique aqui para acessar a página pública deste departamento">
+<img src="/sigaa/img/view.gif"/>
+</a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td width="98%"> ›
+					<a class="nomeDepartamento" href="/sigaa/public/departamento/portal.jsf?lc=pt_BR
+					&amp;id=2288" style="link">DEPARTAMENTO DE ESTUDOS JURÍDICOS FUNDAMENTAIS/DIR</a>
+</td>
+<td class="linhaImpar">
+<a class="nomeDepartamento" href="/sigaa/public/departamento/portal.jsf?id=2288" title="Clique aqui para acessar a página pública deste departamento">
+<img src="/sigaa/img/view.gif"/>
+</a>
+</td>
+</tr>
+</tbody>
+</table>
+<br clear="all"/>
+<table class="listagem">
+<thead>
+<caption>
+<a class="nomeCentro" href="#FACULDADE DE ECONOMIA" id="FACULDADE DE ECONOMIA">
+							 FACULDADE DE ECONOMIA - FCE
+							</a>
+<a class="iconeCentro" href="portal.jsf?lc=pt_BR&amp;id=1245" title="Visualizar Portal Público">
+<img src="/sigaa/img/view.gif"/>
+</a>
+<br clear="all"/>
+</caption>
+<tr>
+<td class="subListagem" colspan="2">
+								LOCALIZADO NO MUNICÍPIO DE 
+								SALVADOR, 
+								ENGLOBA OS SEGUINTES DEPARTAMENTOS:
+							</td>
+</tr>
+</thead>
+<tbody>
+<tr class="linhaPar">
+<td width="98%"> ›
+					<a class="nomeDepartamento" href="/sigaa/public/departamento/portal.jsf?lc=pt_BR
+					&amp;id=2255" style="link">DEPARTAMENTO DE ECONOMIA/FCE</a>
+</td>
+<td class="linhaPar">
+<a class="nomeDepartamento" href="/sigaa/public/departamento/portal.jsf?id=2255" title="Clique aqui para acessar a página pública deste departamento">
+<img src="/sigaa/img/view.gif"/>
+</a>
+</td>
+</tr>
+</tbody>
+</table>
+<br clear="all"/>
+<table class="listagem">
+<thead>
+<caption>
+<a class="nomeCentro" href="#FACULDADE DE EDUCAÇÃO" id="FACULDADE DE EDUCAÇÃO">
+							 FACULDADE DE EDUCAÇÃO - FACED
+							</a>
+<a class="iconeCentro" href="portal.jsf?lc=pt_BR&amp;id=1316" title="Visualizar Portal Público">
+<img src="/sigaa/img/view.gif"/>
+</a>
+<br clear="all"/>
+</caption>
+<tr>
+<td class="subListagem" colspan="2">
+								LOCALIZADO NO MUNICÍPIO DE 
+								SALVADOR, 
+								ENGLOBA OS SEGUINTES DEPARTAMENTOS:
+							</td>
+</tr>
+</thead>
+<tbody>
+<tr class="linhaImpar">
+<td width="98%"> ›
+					<a class="nomeDepartamento" href="/sigaa/public/departamento/portal.jsf?lc=pt_BR
+					&amp;id=1317" style="link">DEPARTAMENTO DE EDUCACAO I/FACED</a>
+</td>
+<td class="linhaImpar">
+<a class="nomeDepartamento" href="/sigaa/public/departamento/portal.jsf?id=1317" title="Clique aqui para acessar a página pública deste departamento">
+<img src="/sigaa/img/view.gif"/>
+</a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td width="98%"> ›
+					<a class="nomeDepartamento" href="/sigaa/public/departamento/portal.jsf?lc=pt_BR
+					&amp;id=1318" style="link">DEPARTAMENTO DE EDUCACAO II/FACED</a>
+</td>
+<td class="linhaPar">
+<a class="nomeDepartamento" href="/sigaa/public/departamento/portal.jsf?id=1318" title="Clique aqui para acessar a página pública deste departamento">
+<img src="/sigaa/img/view.gif"/>
+</a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td width="98%"> ›
+					<a class="nomeDepartamento" href="/sigaa/public/departamento/portal.jsf?lc=pt_BR
+					&amp;id=1319" style="link">DEPARTAMENTO DE EDUCAÇÃO III/FACED</a>
+</td>
+<td class="linhaImpar">
+<a class="nomeDepartamento" href="/sigaa/public/departamento/portal.jsf?id=1319" title="Clique aqui para acessar a página pública deste departamento">
+<img src="/sigaa/img/view.gif"/>
+</a>
+</td>
+</tr>
+</tbody>
+</table>
+<br clear="all"/>
+<table class="listagem">
+<thead>
+<caption>
+<a class="nomeCentro" href="#FACULDADE DE FARMÁCIA" id="FACULDADE DE FARMÁCIA">
+							 FACULDADE DE FARMÁCIA - FFAR
+							</a>
+<a class="iconeCentro" href="portal.jsf?lc=pt_BR&amp;id=1258" title="Visualizar Portal Público">
+<img src="/sigaa/img/view.gif"/>
+</a>
+<br clear="all"/>
+</caption>
+<tr>
+<td class="subListagem" colspan="2">
+								LOCALIZADO NO MUNICÍPIO DE 
+								SALVADOR, 
+								ENGLOBA OS SEGUINTES DEPARTAMENTOS:
+							</td>
+</tr>
+</thead>
+<tbody>
+<tr class="linhaPar">
+<td width="98%"> ›
+					<a class="nomeDepartamento" href="/sigaa/public/departamento/portal.jsf?lc=pt_BR
+					&amp;id=1260" style="link">DEPARTAMENTO DE ANÁLISES BROMATOLÓGICAS/FFAR</a>
+</td>
+<td class="linhaPar">
+<a class="nomeDepartamento" href="/sigaa/public/departamento/portal.jsf?id=1260" title="Clique aqui para acessar a página pública deste departamento">
+<img src="/sigaa/img/view.gif"/>
+</a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td width="98%"> ›
+					<a class="nomeDepartamento" href="/sigaa/public/departamento/portal.jsf?lc=pt_BR
+					&amp;id=1261" style="link">DEPARTAMENTO DE ANÁLISES CLÍNICAS E TOXICOLÓGICAS/FFAR</a>
+</td>
+<td class="linhaImpar">
+<a class="nomeDepartamento" href="/sigaa/public/departamento/portal.jsf?id=1261" title="Clique aqui para acessar a página pública deste departamento">
+<img src="/sigaa/img/view.gif"/>
+</a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td width="98%"> ›
+					<a class="nomeDepartamento" href="/sigaa/public/departamento/portal.jsf?lc=pt_BR
+					&amp;id=1259" style="link">DEPARTAMENTO DO MEDICAMENTO/FFAR</a>
+</td>
+<td class="linhaPar">
+<a class="nomeDepartamento" href="/sigaa/public/departamento/portal.jsf?id=1259" title="Clique aqui para acessar a página pública deste departamento">
+<img src="/sigaa/img/view.gif"/>
+</a>
+</td>
+</tr>
+</tbody>
+</table>
+<br clear="all"/>
+<table class="listagem">
+<thead>
+<caption>
+<a class="nomeCentro" href="#FACULDADE DE FILOSOFIA E CIÊNCIAS HUMANAS" id="FACULDADE DE FILOSOFIA E CIÊNCIAS HUMANAS">
+							 FACULDADE DE FILOSOFIA E CIÊNCIAS HUMANAS - FFCH
+							</a>
+<a class="iconeCentro" href="portal.jsf?lc=pt_BR&amp;id=1218" title="Visualizar Portal Público">
+<img src="/sigaa/img/view.gif"/>
+</a>
+<br clear="all"/>
+</caption>
+<tr>
+<td class="subListagem" colspan="2">
+								LOCALIZADO NO MUNICÍPIO DE 
+								SALVADOR, 
+								ENGLOBA OS SEGUINTES DEPARTAMENTOS:
+							</td>
+</tr>
+</thead>
+<tbody>
+<tr class="linhaImpar">
+<td width="98%"> ›
+					<a class="nomeDepartamento" href="/sigaa/public/departamento/portal.jsf?lc=pt_BR
+					&amp;id=1219" style="link">DEPARTAMENTO DE ANTROPOLOGIA/FFCH</a>
+</td>
+<td class="linhaImpar">
+<a class="nomeDepartamento" href="/sigaa/public/departamento/portal.jsf?id=1219" title="Clique aqui para acessar a página pública deste departamento">
+<img src="/sigaa/img/view.gif"/>
+</a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td width="98%"> ›
+					<a class="nomeDepartamento" href="/sigaa/public/departamento/portal.jsf?lc=pt_BR
+					&amp;id=1220" style="link">DEPARTAMENTO DE CIÊNCIA POLÍTICA/FFCH</a>
+</td>
+<td class="linhaPar">
+<a class="nomeDepartamento" href="/sigaa/public/departamento/portal.jsf?id=1220" title="Clique aqui para acessar a página pública deste departamento">
+<img src="/sigaa/img/view.gif"/>
+</a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td width="98%"> ›
+					<a class="nomeDepartamento" href="/sigaa/public/departamento/portal.jsf?lc=pt_BR
+					&amp;id=2173" style="link">DEPARTAMENTO DE ESTUDOS DE GÊNERO E FEMINISMO/FFCH</a>
+</td>
+<td class="linhaImpar">
+<a class="nomeDepartamento" href="/sigaa/public/departamento/portal.jsf?id=2173" title="Clique aqui para acessar a página pública deste departamento">
+<img src="/sigaa/img/view.gif"/>
+</a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td width="98%"> ›
+					<a class="nomeDepartamento" href="/sigaa/public/departamento/portal.jsf?lc=pt_BR
+					&amp;id=1221" style="link">DEPARTAMENTO DE FILOSOFIA/FFCH</a>
+</td>
+<td class="linhaPar">
+<a class="nomeDepartamento" href="/sigaa/public/departamento/portal.jsf?id=1221" title="Clique aqui para acessar a página pública deste departamento">
+<img src="/sigaa/img/view.gif"/>
+</a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td width="98%"> ›
+					<a class="nomeDepartamento" href="/sigaa/public/departamento/portal.jsf?lc=pt_BR
+					&amp;id=1222" style="link">DEPARTAMENTO DE HISTÓRIA/FFCH</a>
+</td>
+<td class="linhaImpar">
+<a class="nomeDepartamento" href="/sigaa/public/departamento/portal.jsf?id=1222" title="Clique aqui para acessar a página pública deste departamento">
+<img src="/sigaa/img/view.gif"/>
+</a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td width="98%"> ›
+					<a class="nomeDepartamento" href="/sigaa/public/departamento/portal.jsf?lc=pt_BR
+					&amp;id=1223" style="link">DEPARTAMENTO DE MUSEOLOGIA/FFCH</a>
+</td>
+<td class="linhaPar">
+<a class="nomeDepartamento" href="/sigaa/public/departamento/portal.jsf?id=1223" title="Clique aqui para acessar a página pública deste departamento">
+<img src="/sigaa/img/view.gif"/>
+</a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td width="98%"> ›
+					<a class="nomeDepartamento" href="/sigaa/public/departamento/portal.jsf?lc=pt_BR
+					&amp;id=1225" style="link">DEPARTAMENTO DE SOCIOLOGIA/FFCH</a>
+</td>
+<td class="linhaImpar">
+<a class="nomeDepartamento" href="/sigaa/public/departamento/portal.jsf?id=1225" title="Clique aqui para acessar a página pública deste departamento">
+<img src="/sigaa/img/view.gif"/>
+</a>
+</td>
+</tr>
+</tbody>
+</table>
+<br clear="all"/>
+<table class="listagem">
+<thead>
+<caption>
+<a class="nomeCentro" href="#FACULDADE DE MEDICINA DA BAHIA" id="FACULDADE DE MEDICINA DA BAHIA">
+							 FACULDADE DE MEDICINA DA BAHIA - FMB
+							</a>
+<a class="iconeCentro" href="portal.jsf?lc=pt_BR&amp;id=1175" title="Visualizar Portal Público">
+<img src="/sigaa/img/view.gif"/>
+</a>
+<br clear="all"/>
+</caption>
+<tr>
+<td class="subListagem" colspan="2">
+								LOCALIZADO NO MUNICÍPIO DE 
+								SALVADOR, 
+								ENGLOBA OS SEGUINTES DEPARTAMENTOS:
+							</td>
+</tr>
+</thead>
+<tbody>
+<tr class="linhaPar">
+<td width="98%"> ›
+					<a class="nomeDepartamento" href="/sigaa/public/departamento/portal.jsf?lc=pt_BR
+					&amp;id=1915" style="link">DEPARTAMENTO DE ANESTESIOLOGIA E CIRURGIA/FMB</a>
+</td>
+<td class="linhaPar">
+<a class="nomeDepartamento" href="/sigaa/public/departamento/portal.jsf?id=1915" title="Clique aqui para acessar a página pública deste departamento">
+<img src="/sigaa/img/view.gif"/>
+</a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td width="98%"> ›
+					<a class="nomeDepartamento" href="/sigaa/public/departamento/portal.jsf?lc=pt_BR
+					&amp;id=1177" style="link">DEPARTAMENTO DE CIRURGIA EXPERIMENTAL E ESPECIALIDADES CIRÚRGICAS/FMB</a>
+</td>
+<td class="linhaImpar">
+<a class="nomeDepartamento" href="/sigaa/public/departamento/portal.jsf?id=1177" title="Clique aqui para acessar a página pública deste departamento">
+<img src="/sigaa/img/view.gif"/>
+</a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td width="98%"> ›
+					<a class="nomeDepartamento" href="/sigaa/public/departamento/portal.jsf?lc=pt_BR
+					&amp;id=1179" style="link">DEPARTAMENTO DE GINECOLOGIA E OBSTETRÍCIA/FMB</a>
+</td>
+<td class="linhaPar">
+<a class="nomeDepartamento" href="/sigaa/public/departamento/portal.jsf?id=1179" title="Clique aqui para acessar a página pública deste departamento">
+<img src="/sigaa/img/view.gif"/>
+</a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td width="98%"> ›
+					<a class="nomeDepartamento" href="/sigaa/public/departamento/portal.jsf?lc=pt_BR
+					&amp;id=1176" style="link">DEPARTAMENTO DE MEDICINA INTERNA/FMB</a>
+</td>
+<td class="linhaImpar">
+<a class="nomeDepartamento" href="/sigaa/public/departamento/portal.jsf?id=1176" title="Clique aqui para acessar a página pública deste departamento">
+<img src="/sigaa/img/view.gif"/>
+</a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td width="98%"> ›
+					<a class="nomeDepartamento" href="/sigaa/public/departamento/portal.jsf?lc=pt_BR
+					&amp;id=1181" style="link">DEPARTAMENTO DE MEDICINA PREVENTIVA E SOCIAL/FMB</a>
+</td>
+<td class="linhaPar">
+<a class="nomeDepartamento" href="/sigaa/public/departamento/portal.jsf?id=1181" title="Clique aqui para acessar a página pública deste departamento">
+<img src="/sigaa/img/view.gif"/>
+</a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td width="98%"> ›
+					<a class="nomeDepartamento" href="/sigaa/public/departamento/portal.jsf?lc=pt_BR
+					&amp;id=1178" style="link">DEPARTAMENTO DE NEUROLOGIA E PSIQUIATRIA/FMB</a>
+</td>
+<td class="linhaImpar">
+<a class="nomeDepartamento" href="/sigaa/public/departamento/portal.jsf?id=1178" title="Clique aqui para acessar a página pública deste departamento">
+<img src="/sigaa/img/view.gif"/>
+</a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td width="98%"> ›
+					<a class="nomeDepartamento" href="/sigaa/public/departamento/portal.jsf?lc=pt_BR
+					&amp;id=1180" style="link">DEPARTAMENTO DE PATOLOGIA, DIAGNÓSTICO POR IMAGEM E MEDICINA LEGAL/FMB</a>
+</td>
+<td class="linhaPar">
+<a class="nomeDepartamento" href="/sigaa/public/departamento/portal.jsf?id=1180" title="Clique aqui para acessar a página pública deste departamento">
+<img src="/sigaa/img/view.gif"/>
+</a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td width="98%"> ›
+					<a class="nomeDepartamento" href="/sigaa/public/departamento/portal.jsf?lc=pt_BR
+					&amp;id=1183" style="link">DEPARTAMENTO DE PEDIATRIA/FMB</a>
+</td>
+<td class="linhaImpar">
+<a class="nomeDepartamento" href="/sigaa/public/departamento/portal.jsf?id=1183" title="Clique aqui para acessar a página pública deste departamento">
+<img src="/sigaa/img/view.gif"/>
+</a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td width="98%"> ›
+					<a class="nomeDepartamento" href="/sigaa/public/departamento/portal.jsf?lc=pt_BR
+					&amp;id=1914" style="link">DEPARTAMENTO DE SAÚDE DA FAMÍLIA E TERAPIA OCUPACIONAL/FMB</a>
+</td>
+<td class="linhaPar">
+<a class="nomeDepartamento" href="/sigaa/public/departamento/portal.jsf?id=1914" title="Clique aqui para acessar a página pública deste departamento">
+<img src="/sigaa/img/view.gif"/>
+</a>
+</td>
+</tr>
+</tbody>
+</table>
+<br clear="all"/>
+<table class="listagem">
+<thead>
+<caption>
+<a class="nomeCentro" href="#FACULDADE DE ODONTOLOGIA" id="FACULDADE DE ODONTOLOGIA">
+							 FACULDADE DE ODONTOLOGIA - FOUFBA
+							</a>
+<a class="iconeCentro" href="portal.jsf?lc=pt_BR&amp;id=1266" title="Visualizar Portal Público">
+<img src="/sigaa/img/view.gif"/>
+</a>
+<br clear="all"/>
+</caption>
+<tr>
+<td class="subListagem" colspan="2">
+								LOCALIZADO NO MUNICÍPIO DE 
+								SALVADOR, 
+								ENGLOBA OS SEGUINTES DEPARTAMENTOS:
+							</td>
+</tr>
+</thead>
+<tbody>
+<tr class="linhaImpar">
+<td width="98%"> ›
+					<a class="nomeDepartamento" href="/sigaa/public/departamento/portal.jsf?lc=pt_BR
+					&amp;id=1269" style="link">DEPARTAMENTO DE CLÍNICA ODONTOLÓGICA/ODON</a>
+</td>
+<td class="linhaImpar">
+<a class="nomeDepartamento" href="/sigaa/public/departamento/portal.jsf?id=1269" title="Clique aqui para acessar a página pública deste departamento">
+<img src="/sigaa/img/view.gif"/>
+</a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td width="98%"> ›
+					<a class="nomeDepartamento" href="/sigaa/public/departamento/portal.jsf?lc=pt_BR
+					&amp;id=1268" style="link">DEPARTAMENTO DE ODONTOLOGIA SOCIAL E PEDIÁTRICA/ODON</a>
+</td>
+<td class="linhaPar">
+<a class="nomeDepartamento" href="/sigaa/public/departamento/portal.jsf?id=1268" title="Clique aqui para acessar a página pública deste departamento">
+<img src="/sigaa/img/view.gif"/>
+</a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td width="98%"> ›
+					<a class="nomeDepartamento" href="/sigaa/public/departamento/portal.jsf?lc=pt_BR
+					&amp;id=1267" style="link">DEPARTAMENTO DE PROPEDÊUTICA E CLÍNICA INTEGRADA/ODON</a>
+</td>
+<td class="linhaImpar">
+<a class="nomeDepartamento" href="/sigaa/public/departamento/portal.jsf?id=1267" title="Clique aqui para acessar a página pública deste departamento">
+<img src="/sigaa/img/view.gif"/>
+</a>
+</td>
+</tr>
+</tbody>
+</table>
+<br clear="all"/>
+<table class="listagem">
+<thead>
+<caption>
+<a class="nomeCentro" href="#INSTITUTO DE BIOLOGIA" id="INSTITUTO DE BIOLOGIA">
+							 INSTITUTO DE BIOLOGIA - IBIO
+							</a>
+<a class="iconeCentro" href="portal.jsf?lc=pt_BR&amp;id=1137" title="Visualizar Portal Público">
+<img src="/sigaa/img/view.gif"/>
+</a>
+<br clear="all"/>
+</caption>
+<tr>
+<td class="subListagem" colspan="2">
+								LOCALIZADO NO MUNICÍPIO DE 
+								SALVADOR, 
+								ENGLOBA OS SEGUINTES DEPARTAMENTOS:
+							</td>
+</tr>
+</thead>
+<tbody>
+<tr class="linhaPar">
+<td width="98%"> ›
+					<a class="nomeDepartamento" href="/sigaa/public/departamento/portal.jsf?lc=pt_BR
+					&amp;id=2351" style="link">COORDENAÇÃO ACADÊMICA/IBIO</a>
+</td>
+<td class="linhaPar">
+<a class="nomeDepartamento" href="/sigaa/public/departamento/portal.jsf?id=2351" title="Clique aqui para acessar a página pública deste departamento">
+<img src="/sigaa/img/view.gif"/>
+</a>
+</td>
+</tr>
+</tbody>
+</table>
+<br clear="all"/>
+<table class="listagem">
+<thead>
+<caption>
+<a class="nomeCentro" href="#INSTITUTO DE CIÊNCIA DA INFORMAÇÃO" id="INSTITUTO DE CIÊNCIA DA INFORMAÇÃO">
+							 INSTITUTO DE CIÊNCIA DA INFORMAÇÃO - ICI
+							</a>
+<a class="iconeCentro" href="portal.jsf?lc=pt_BR&amp;id=1308" title="Visualizar Portal Público">
+<img src="/sigaa/img/view.gif"/>
+</a>
+<br clear="all"/>
+</caption>
+<tr>
+<td class="subListagem" colspan="2">
+								LOCALIZADO NO MUNICÍPIO DE 
+								SALVADOR, 
+								ENGLOBA OS SEGUINTES DEPARTAMENTOS:
+							</td>
+</tr>
+</thead>
+<tbody>
+<tr class="linhaImpar">
+<td width="98%"> ›
+					<a class="nomeDepartamento" href="/sigaa/public/departamento/portal.jsf?lc=pt_BR
+					&amp;id=1310" style="link">DEPARTAMENTO DE DOCUMENTAÇÃO E INFORMAÇÃO/ICI</a>
+</td>
+<td class="linhaImpar">
+<a class="nomeDepartamento" href="/sigaa/public/departamento/portal.jsf?id=1310" title="Clique aqui para acessar a página pública deste departamento">
+<img src="/sigaa/img/view.gif"/>
+</a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td width="98%"> ›
+					<a class="nomeDepartamento" href="/sigaa/public/departamento/portal.jsf?lc=pt_BR
+					&amp;id=1309" style="link">DEPARTAMENTO DE FUNDAMENTOS E PROCESSOS INFORMACIONAIS/ICI</a>
+</td>
+<td class="linhaPar">
+<a class="nomeDepartamento" href="/sigaa/public/departamento/portal.jsf?id=1309" title="Clique aqui para acessar a página pública deste departamento">
+<img src="/sigaa/img/view.gif"/>
+</a>
+</td>
+</tr>
+</tbody>
+</table>
+<br clear="all"/>
+<table class="listagem">
+<thead>
+<caption>
+<a class="nomeCentro" href="#INSTITUTO DE CIÊNCIA, TECNOLOGIA E INOVAÇÃO" id="INSTITUTO DE CIÊNCIA, TECNOLOGIA E INOVAÇÃO">
+							 INSTITUTO DE CIÊNCIA, TECNOLOGIA E INOVAÇÃO - ICTI
+							</a>
+<a class="iconeCentro" href="portal.jsf?lc=pt_BR&amp;id=2291" title="Visualizar Portal Público">
+<img src="/sigaa/img/view.gif"/>
+</a>
+<br clear="all"/>
+</caption>
+<tr>
+<td class="subListagem" colspan="2">
+								LOCALIZADO NO MUNICÍPIO DE 
+								CAMAÇARI, 
+								ENGLOBA OS SEGUINTES DEPARTAMENTOS:
+							</td>
+</tr>
+</thead>
+<tbody>
+<tr class="linhaImpar">
+<td width="98%"> ›
+					<a class="nomeDepartamento" href="/sigaa/public/departamento/portal.jsf?lc=pt_BR
+					&amp;id=2293" style="link">DEPARTAMENTO DE CIÊNCIA, TECNOLOGIA E INOVAÇÃO/ICTI</a>
+</td>
+<td class="linhaImpar">
+<a class="nomeDepartamento" href="/sigaa/public/departamento/portal.jsf?id=2293" title="Clique aqui para acessar a página pública deste departamento">
+<img src="/sigaa/img/view.gif"/>
+</a>
+</td>
+</tr>
+</tbody>
+</table>
+<br clear="all"/>
+<table class="listagem">
+<thead>
+<caption>
+<a class="nomeCentro" href="#INSTITUTO DE CIÊNCIAS DA SAÚDE" id="INSTITUTO DE CIÊNCIAS DA SAÚDE">
+							 INSTITUTO DE CIÊNCIAS DA SAÚDE - ICS
+							</a>
+<a class="iconeCentro" href="portal.jsf?lc=pt_BR&amp;id=1167" title="Visualizar Portal Público">
+<img src="/sigaa/img/view.gif"/>
+</a>
+<br clear="all"/>
+</caption>
+<tr>
+<td class="subListagem" colspan="2">
+								LOCALIZADO NO MUNICÍPIO DE 
+								SALVADOR, 
+								ENGLOBA OS SEGUINTES DEPARTAMENTOS:
+							</td>
+</tr>
+</thead>
+<tbody>
+<tr class="linhaPar">
+<td width="98%"> ›
+					<a class="nomeDepartamento" href="/sigaa/public/departamento/portal.jsf?lc=pt_BR
+					&amp;id=1171" style="link">DEPARTAMENTO DE BIOINTERAÇÃO/ICS</a>
+</td>
+<td class="linhaPar">
+<a class="nomeDepartamento" href="/sigaa/public/departamento/portal.jsf?id=1171" title="Clique aqui para acessar a página pública deste departamento">
+<img src="/sigaa/img/view.gif"/>
+</a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td width="98%"> ›
+					<a class="nomeDepartamento" href="/sigaa/public/departamento/portal.jsf?lc=pt_BR
+					&amp;id=1170" style="link">DEPARTAMENTO DE BIOMORFOLOGIA/ICS</a>
+</td>
+<td class="linhaImpar">
+<a class="nomeDepartamento" href="/sigaa/public/departamento/portal.jsf?id=1170" title="Clique aqui para acessar a página pública deste departamento">
+<img src="/sigaa/img/view.gif"/>
+</a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td width="98%"> ›
+					<a class="nomeDepartamento" href="/sigaa/public/departamento/portal.jsf?lc=pt_BR
+					&amp;id=1168" style="link">DEPARTAMENTO DE BIOQUÍMICA E BIOFÍSICA/ICS</a>
+</td>
+<td class="linhaPar">
+<a class="nomeDepartamento" href="/sigaa/public/departamento/portal.jsf?id=1168" title="Clique aqui para acessar a página pública deste departamento">
+<img src="/sigaa/img/view.gif"/>
+</a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td width="98%"> ›
+					<a class="nomeDepartamento" href="/sigaa/public/departamento/portal.jsf?lc=pt_BR
+					&amp;id=1169" style="link">DEPARTAMENTO DE BIORREGULAÇÃO/ICS</a>
+</td>
+<td class="linhaImpar">
+<a class="nomeDepartamento" href="/sigaa/public/departamento/portal.jsf?id=1169" title="Clique aqui para acessar a página pública deste departamento">
+<img src="/sigaa/img/view.gif"/>
+</a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td width="98%"> ›
+					<a class="nomeDepartamento" href="/sigaa/public/departamento/portal.jsf?lc=pt_BR
+					&amp;id=2390" style="link">DEPARTAMENTO DE BIOTECNOLOGIA/ICS</a>
+</td>
+<td class="linhaPar">
+<a class="nomeDepartamento" href="/sigaa/public/departamento/portal.jsf?id=2390" title="Clique aqui para acessar a página pública deste departamento">
+<img src="/sigaa/img/view.gif"/>
+</a>
+</td>
+</tr>
+</tbody>
+</table>
+<br clear="all"/>
+<table class="listagem">
+<thead>
+<caption>
+<a class="nomeCentro" href="#INSTITUTO DE COMPUTAÇÃO" id="INSTITUTO DE COMPUTAÇÃO">
+							 INSTITUTO DE COMPUTAÇÃO - IC/UFBA
+							</a>
+<a class="iconeCentro" href="portal.jsf?lc=pt_BR&amp;id=2435" title="Visualizar Portal Público">
+<img src="/sigaa/img/view.gif"/>
+</a>
+<br clear="all"/>
+</caption>
+<tr>
+<td class="subListagem" colspan="2">
+								LOCALIZADO NO MUNICÍPIO DE 
+								SALVADOR, 
+								ENGLOBA OS SEGUINTES DEPARTAMENTOS:
+							</td>
+</tr>
+</thead>
+<tbody>
+<tr class="linhaImpar">
+<td width="98%"> ›
+					<a class="nomeDepartamento" href="/sigaa/public/departamento/portal.jsf?lc=pt_BR
+					&amp;id=1114" style="link">DEPARTAMENTO DE CIÊNCIA DA COMPUTAÇÃO /IC</a>
+</td>
+<td class="linhaImpar">
+<a class="nomeDepartamento" href="/sigaa/public/departamento/portal.jsf?id=1114" title="Clique aqui para acessar a página pública deste departamento">
+<img src="/sigaa/img/view.gif"/>
+</a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td width="98%"> ›
+					<a class="nomeDepartamento" href="/sigaa/public/departamento/portal.jsf?lc=pt_BR
+					&amp;id=2440" style="link">DEPARTAMENTO DE COMPUTAÇÃO INTERDISCIPLINAR /IC</a>
+</td>
+<td class="linhaPar">
+<a class="nomeDepartamento" href="/sigaa/public/departamento/portal.jsf?id=2440" title="Clique aqui para acessar a página pública deste departamento">
+<img src="/sigaa/img/view.gif"/>
+</a>
+</td>
+</tr>
+</tbody>
+</table>
+<br clear="all"/>
+<table class="listagem">
+<thead>
+<caption>
+<a class="nomeCentro" href="#INSTITUTO DE FÍSICA" id="INSTITUTO DE FÍSICA">
+							 INSTITUTO DE FÍSICA - IF
+							</a>
+<a class="iconeCentro" href="portal.jsf?lc=pt_BR&amp;id=1120" title="Visualizar Portal Público">
+<img src="/sigaa/img/view.gif"/>
+</a>
+<br clear="all"/>
+</caption>
+<tr>
+<td class="subListagem" colspan="2">
+								LOCALIZADO NO MUNICÍPIO DE 
+								SALVADOR, 
+								ENGLOBA OS SEGUINTES DEPARTAMENTOS:
+							</td>
+</tr>
+</thead>
+<tbody>
+<tr class="linhaImpar">
+<td width="98%"> ›
+					<a class="nomeDepartamento" href="/sigaa/public/departamento/portal.jsf?lc=pt_BR
+					&amp;id=1123" style="link">DEPARTAMENTO DE FÍSICA DA TERRA E DO MEIO AMBIENTE/IFIS</a>
+</td>
+<td class="linhaImpar">
+<a class="nomeDepartamento" href="/sigaa/public/departamento/portal.jsf?id=1123" title="Clique aqui para acessar a página pública deste departamento">
+<img src="/sigaa/img/view.gif"/>
+</a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td width="98%"> ›
+					<a class="nomeDepartamento" href="/sigaa/public/departamento/portal.jsf?lc=pt_BR
+					&amp;id=1122" style="link">DEPARTAMENTO DE FÍSICA DO ESTADO SÓLIDO/IFIS</a>
+</td>
+<td class="linhaPar">
+<a class="nomeDepartamento" href="/sigaa/public/departamento/portal.jsf?id=1122" title="Clique aqui para acessar a página pública deste departamento">
+<img src="/sigaa/img/view.gif"/>
+</a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td width="98%"> ›
+					<a class="nomeDepartamento" href="/sigaa/public/departamento/portal.jsf?lc=pt_BR
+					&amp;id=1121" style="link">DEPARTAMENTO DE FÍSICA GERAL/IFIS</a>
+</td>
+<td class="linhaImpar">
+<a class="nomeDepartamento" href="/sigaa/public/departamento/portal.jsf?id=1121" title="Clique aqui para acessar a página pública deste departamento">
+<img src="/sigaa/img/view.gif"/>
+</a>
+</td>
+</tr>
+</tbody>
+</table>
+<br clear="all"/>
+<table class="listagem">
+<thead>
+<caption>
+<a class="nomeCentro" href="#INSTITUTO DE GEOCIÊNCIAS" id="INSTITUTO DE GEOCIÊNCIAS">
+							 INSTITUTO DE GEOCIÊNCIAS - IGEO
+							</a>
+<a class="iconeCentro" href="portal.jsf?lc=pt_BR&amp;id=1144" title="Visualizar Portal Público">
+<img src="/sigaa/img/view.gif"/>
+</a>
+<br clear="all"/>
+</caption>
+<tr>
+<td class="subListagem" colspan="2">
+								LOCALIZADO NO MUNICÍPIO DE 
+								SALVADOR, 
+								ENGLOBA OS SEGUINTES DEPARTAMENTOS:
+							</td>
+</tr>
+</thead>
+<tbody>
+<tr class="linhaPar">
+<td width="98%"> ›
+					<a class="nomeDepartamento" href="/sigaa/public/departamento/portal.jsf?lc=pt_BR
+					&amp;id=1147" style="link">DEPARTAMENTO DE GEOFÍSICA/IGEO</a>
+</td>
+<td class="linhaPar">
+<a class="nomeDepartamento" href="/sigaa/public/departamento/portal.jsf?id=1147" title="Clique aqui para acessar a página pública deste departamento">
+<img src="/sigaa/img/view.gif"/>
+</a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td width="98%"> ›
+					<a class="nomeDepartamento" href="/sigaa/public/departamento/portal.jsf?lc=pt_BR
+					&amp;id=1145" style="link">DEPARTAMENTO DE GEOGRAFIA/IGEO</a>
+</td>
+<td class="linhaImpar">
+<a class="nomeDepartamento" href="/sigaa/public/departamento/portal.jsf?id=1145" title="Clique aqui para acessar a página pública deste departamento">
+<img src="/sigaa/img/view.gif"/>
+</a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td width="98%"> ›
+					<a class="nomeDepartamento" href="/sigaa/public/departamento/portal.jsf?lc=pt_BR
+					&amp;id=1146" style="link">DEPARTAMENTO DE GEOLOGIA/IGEO</a>
+</td>
+<td class="linhaPar">
+<a class="nomeDepartamento" href="/sigaa/public/departamento/portal.jsf?id=1146" title="Clique aqui para acessar a página pública deste departamento">
+<img src="/sigaa/img/view.gif"/>
+</a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td width="98%"> ›
+					<a class="nomeDepartamento" href="/sigaa/public/departamento/portal.jsf?lc=pt_BR
+					&amp;id=1148" style="link">DEPARTAMENTO DE OCEANOGRAFIA/IGEO</a>
+</td>
+<td class="linhaImpar">
+<a class="nomeDepartamento" href="/sigaa/public/departamento/portal.jsf?id=1148" title="Clique aqui para acessar a página pública deste departamento">
+<img src="/sigaa/img/view.gif"/>
+</a>
+</td>
+</tr>
+</tbody>
+</table>
+<br clear="all"/>
+<table class="listagem">
+<thead>
+<caption>
+<a class="nomeCentro" href="#INSTITUTO DE HUMANIDADES, ARTES E CIÊNCIAS PROFESSOR MILTON SANTOS" id="INSTITUTO DE HUMANIDADES, ARTES E CIÊNCIAS PROFESSOR MILTON SANTOS">
+							 INSTITUTO DE HUMANIDADES, ARTES E CIÊNCIAS PROFESSOR MILTON SANTOS - IHAC
+							</a>
+<a class="iconeCentro" href="portal.jsf?lc=pt_BR&amp;id=1780" title="Visualizar Portal Público">
+<img src="/sigaa/img/view.gif"/>
+</a>
+<br clear="all"/>
+</caption>
+<tr>
+<td class="subListagem" colspan="2">
+								LOCALIZADO NO MUNICÍPIO DE 
+								SALVADOR, 
+								ENGLOBA OS SEGUINTES DEPARTAMENTOS:
+							</td>
+</tr>
+</thead>
+<tbody>
+<tr class="linhaPar">
+<td width="98%"> ›
+					<a class="nomeDepartamento" href="/sigaa/public/departamento/portal.jsf?lc=pt_BR
+					&amp;id=1838" style="link">COORDENAÇÃO ACADÊMICA/IHAC</a>
+</td>
+<td class="linhaPar">
+<a class="nomeDepartamento" href="/sigaa/public/departamento/portal.jsf?id=1838" title="Clique aqui para acessar a página pública deste departamento">
+<img src="/sigaa/img/view.gif"/>
+</a>
+</td>
+</tr>
+</tbody>
+</table>
+<br clear="all"/>
+<table class="listagem">
+<thead>
+<caption>
+<a class="nomeCentro" href="#INSTITUTO DE LETRAS" id="INSTITUTO DE LETRAS">
+							 INSTITUTO DE LETRAS - IL
+							</a>
+<a class="iconeCentro" href="portal.jsf?lc=pt_BR&amp;id=1158" title="Visualizar Portal Público">
+<img src="/sigaa/img/view.gif"/>
+</a>
+<br clear="all"/>
+</caption>
+<tr>
+<td class="subListagem" colspan="2">
+								LOCALIZADO NO MUNICÍPIO DE 
+								SALVADOR, 
+								ENGLOBA OS SEGUINTES DEPARTAMENTOS:
+							</td>
+</tr>
+</thead>
+<tbody>
+<tr class="linhaImpar">
+<td width="98%"> ›
+					<a class="nomeDepartamento" href="/sigaa/public/departamento/portal.jsf?lc=pt_BR
+					&amp;id=2355" style="link">COORDENAÇÃO ACADÊMICA DE ENSINO DE LETRAS/LET</a>
+</td>
+<td class="linhaImpar">
+<a class="nomeDepartamento" href="/sigaa/public/departamento/portal.jsf?id=2355" title="Clique aqui para acessar a página pública deste departamento">
+<img src="/sigaa/img/view.gif"/>
+</a>
+</td>
+</tr>
+</tbody>
+</table>
+<br clear="all"/>
+<table class="listagem">
+<thead>
+<caption>
+<a class="nomeCentro" href="#INSTITUTO DE MATEMÁTICA E ESTATÍSTICA" id="INSTITUTO DE MATEMÁTICA E ESTATÍSTICA">
+							 INSTITUTO DE MATEMÁTICA E ESTATÍSTICA - IME
+							</a>
+<a class="iconeCentro" href="portal.jsf?lc=pt_BR&amp;id=1112" title="Visualizar Portal Público">
+<img src="/sigaa/img/view.gif"/>
+</a>
+<br clear="all"/>
+</caption>
+<tr>
+<td class="subListagem" colspan="2">
+								LOCALIZADO NO MUNICÍPIO DE 
+								SALVADOR, 
+								ENGLOBA OS SEGUINTES DEPARTAMENTOS:
+							</td>
+</tr>
+</thead>
+<tbody>
+<tr class="linhaPar">
+<td width="98%"> ›
+					<a class="nomeDepartamento" href="/sigaa/public/departamento/portal.jsf?lc=pt_BR
+					&amp;id=1115" style="link">DEPARTAMENTO DE ESTATÍSTICA/IME</a>
+</td>
+<td class="linhaPar">
+<a class="nomeDepartamento" href="/sigaa/public/departamento/portal.jsf?id=1115" title="Clique aqui para acessar a página pública deste departamento">
+<img src="/sigaa/img/view.gif"/>
+</a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td width="98%"> ›
+					<a class="nomeDepartamento" href="/sigaa/public/departamento/portal.jsf?lc=pt_BR
+					&amp;id=1113" style="link">DEPARTAMENTO DE MATEMÁTICA/IME</a>
+</td>
+<td class="linhaImpar">
+<a class="nomeDepartamento" href="/sigaa/public/departamento/portal.jsf?id=1113" title="Clique aqui para acessar a página pública deste departamento">
+<img src="/sigaa/img/view.gif"/>
+</a>
+</td>
+</tr>
+</tbody>
+</table>
+<br clear="all"/>
+<table class="listagem">
+<thead>
+<caption>
+<a class="nomeCentro" href="#INSTITUTO DE PSICOLOGIA E SERVIÇO SOCIAL" id="INSTITUTO DE PSICOLOGIA E SERVIÇO SOCIAL">
+							 INSTITUTO DE PSICOLOGIA E SERVIÇO SOCIAL - IPSS
+							</a>
+<a class="iconeCentro" href="portal.jsf?lc=pt_BR&amp;id=1779" title="Visualizar Portal Público">
+<img src="/sigaa/img/view.gif"/>
+</a>
+<br clear="all"/>
+</caption>
+<tr>
+<td class="subListagem" colspan="2">
+								LOCALIZADO NO MUNICÍPIO DE 
+								SALVADOR, 
+								ENGLOBA OS SEGUINTES DEPARTAMENTOS:
+							</td>
+</tr>
+</thead>
+<tbody>
+<tr class="linhaPar">
+<td width="98%"> ›
+					<a class="nomeDepartamento" href="/sigaa/public/departamento/portal.jsf?lc=pt_BR
+					&amp;id=1814" style="link">COORDENAÇÃO ACADÊMICA/IPSS</a>
+</td>
+<td class="linhaPar">
+<a class="nomeDepartamento" href="/sigaa/public/departamento/portal.jsf?id=1814" title="Clique aqui para acessar a página pública deste departamento">
+<img src="/sigaa/img/view.gif"/>
+</a>
+</td>
+</tr>
+</tbody>
+</table>
+<br clear="all"/>
+<table class="listagem">
+<thead>
+<caption>
+<a class="nomeCentro" href="#INSTITUTO DE QUÍMICA" id="INSTITUTO DE QUÍMICA">
+							 INSTITUTO DE QUÍMICA - IQUI
+							</a>
+<a class="iconeCentro" href="portal.jsf?lc=pt_BR&amp;id=1128" title="Visualizar Portal Público">
+<img src="/sigaa/img/view.gif"/>
+</a>
+<br clear="all"/>
+</caption>
+<tr>
+<td class="subListagem" colspan="2">
+								LOCALIZADO NO MUNICÍPIO DE 
+								SALVADOR, 
+								ENGLOBA OS SEGUINTES DEPARTAMENTOS:
+							</td>
+</tr>
+</thead>
+<tbody>
+<tr class="linhaImpar">
+<td width="98%"> ›
+					<a class="nomeDepartamento" href="/sigaa/public/departamento/portal.jsf?lc=pt_BR
+					&amp;id=1131" style="link">DEPARTAMENTO DE FÍSICO-QUÍMICA/IQUI</a>
+</td>
+<td class="linhaImpar">
+<a class="nomeDepartamento" href="/sigaa/public/departamento/portal.jsf?id=1131" title="Clique aqui para acessar a página pública deste departamento">
+<img src="/sigaa/img/view.gif"/>
+</a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td width="98%"> ›
+					<a class="nomeDepartamento" href="/sigaa/public/departamento/portal.jsf?lc=pt_BR
+					&amp;id=1130" style="link">DEPARTAMENTO DE QUÍMICA ANALÍTICA/IQUI</a>
+</td>
+<td class="linhaPar">
+<a class="nomeDepartamento" href="/sigaa/public/departamento/portal.jsf?id=1130" title="Clique aqui para acessar a página pública deste departamento">
+<img src="/sigaa/img/view.gif"/>
+</a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td width="98%"> ›
+					<a class="nomeDepartamento" href="/sigaa/public/departamento/portal.jsf?lc=pt_BR
+					&amp;id=1132" style="link">DEPARTAMENTO DE QUÍMICA GERAL E INORGÂNICA/IQUI</a>
+</td>
+<td class="linhaImpar">
+<a class="nomeDepartamento" href="/sigaa/public/departamento/portal.jsf?id=1132" title="Clique aqui para acessar a página pública deste departamento">
+<img src="/sigaa/img/view.gif"/>
+</a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td width="98%"> ›
+					<a class="nomeDepartamento" href="/sigaa/public/departamento/portal.jsf?lc=pt_BR
+					&amp;id=1129" style="link">DEPARTAMENTO DE QUÍMICA ORGÂNICA/IQUI</a>
+</td>
+<td class="linhaPar">
+<a class="nomeDepartamento" href="/sigaa/public/departamento/portal.jsf?id=1129" title="Clique aqui para acessar a página pública deste departamento">
+<img src="/sigaa/img/view.gif"/>
+</a>
+</td>
+</tr>
+</tbody>
+</table>
+<br clear="all"/>
+<table class="listagem">
+<thead>
+<caption>
+<a class="nomeCentro" href="#INSTITUTO DE SAÚDE COLETIVA" id="INSTITUTO DE SAÚDE COLETIVA">
+							 INSTITUTO DE SAÚDE COLETIVA - ISC
+							</a>
+<a class="iconeCentro" href="portal.jsf?lc=pt_BR&amp;id=1105" title="Visualizar Portal Público">
+<img src="/sigaa/img/view.gif"/>
+</a>
+<br clear="all"/>
+</caption>
+<tr>
+<td class="subListagem" colspan="2">
+								LOCALIZADO NO MUNICÍPIO DE 
+								SALVADOR, 
+								ENGLOBA OS SEGUINTES DEPARTAMENTOS:
+							</td>
+</tr>
+</thead>
+<tbody>
+<tr class="linhaImpar">
+<td width="98%"> ›
+					<a class="nomeDepartamento" href="/sigaa/public/departamento/portal.jsf?lc=pt_BR
+					&amp;id=1106" style="link">COORDENAÇÃO ACADÊMICA/ISC</a>
+</td>
+<td class="linhaImpar">
+<a class="nomeDepartamento" href="/sigaa/public/departamento/portal.jsf?id=1106" title="Clique aqui para acessar a página pública deste departamento">
+<img src="/sigaa/img/view.gif"/>
+</a>
+</td>
+</tr>
+</tbody>
+</table>
+<br clear="all"/>
+<table class="listagem">
+<thead>
+<caption>
+<a class="nomeCentro" href="#INSTITUTO MULTIDISCIPLINAR DE REABILITAÇÃO E SAÚDE" id="INSTITUTO MULTIDISCIPLINAR DE REABILITAÇÃO E SAÚDE">
+							 INSTITUTO MULTIDISCIPLINAR DE REABILITAÇÃO E SAÚDE - IMRS/UFBA
+							</a>
+<a class="iconeCentro" href="portal.jsf?lc=pt_BR&amp;id=2439" title="Visualizar Portal Público">
+<img src="/sigaa/img/view.gif"/>
+</a>
+<br clear="all"/>
+</caption>
+<tr>
+<td class="subListagem" colspan="2">
+								LOCALIZADO NO MUNICÍPIO DE 
+								SALVADOR, 
+								ENGLOBA OS SEGUINTES DEPARTAMENTOS:
+							</td>
+</tr>
+</thead>
+<tbody>
+<tr class="linhaPar">
+<td width="98%"> ›
+					<a class="nomeDepartamento" href="/sigaa/public/departamento/portal.jsf?lc=pt_BR
+					&amp;id=2174" style="link">DEPARTAMENTO DE FISIOTERAPIA/IMRS</a>
+</td>
+<td class="linhaPar">
+<a class="nomeDepartamento" href="/sigaa/public/departamento/portal.jsf?id=2174" title="Clique aqui para acessar a página pública deste departamento">
+<img src="/sigaa/img/view.gif"/>
+</a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td width="98%"> ›
+					<a class="nomeDepartamento" href="/sigaa/public/departamento/portal.jsf?lc=pt_BR
+					&amp;id=1516" style="link">DEPARTAMENTO DE FONOAUDIOLOGIA/IMRS</a>
+</td>
+<td class="linhaImpar">
+<a class="nomeDepartamento" href="/sigaa/public/departamento/portal.jsf?id=1516" title="Clique aqui para acessar a página pública deste departamento">
+<img src="/sigaa/img/view.gif"/>
+</a>
+</td>
+</tr>
+</tbody>
+</table>
+<br clear="all"/>
+<table class="listagem">
+<thead>
+<caption>
+<a class="nomeCentro" href="#INSTITUTO MULTIDISCIPLINAR EM SAÚDE" id="INSTITUTO MULTIDISCIPLINAR EM SAÚDE">
+							 INSTITUTO MULTIDISCIPLINAR EM SAÚDE - IMS
+							</a>
+<a class="iconeCentro" href="portal.jsf?lc=pt_BR&amp;id=1791" title="Visualizar Portal Público">
+<img src="/sigaa/img/view.gif"/>
+</a>
+<br clear="all"/>
+</caption>
+<tr>
+<td class="subListagem" colspan="2">
+								LOCALIZADO NO MUNICÍPIO DE 
+								VITÓRIA DA CONQUISTA, 
+								ENGLOBA OS SEGUINTES DEPARTAMENTOS:
+							</td>
+</tr>
+</thead>
+<tbody>
+<tr class="linhaPar">
+<td width="98%"> ›
+					<a class="nomeDepartamento" href="/sigaa/public/departamento/portal.jsf?lc=pt_BR
+					&amp;id=1920" style="link">COORDENAÇÃO ACADÊMICA /IMS</a>
+</td>
+<td class="linhaPar">
+<a class="nomeDepartamento" href="/sigaa/public/departamento/portal.jsf?id=1920" title="Clique aqui para acessar a página pública deste departamento">
+<img src="/sigaa/img/view.gif"/>
+</a>
+</td>
+</tr>
+</tbody></table>
+<br clear="all"/>
+<input id="javax.faces.ViewState" name="javax.faces.ViewState" type="hidden" value="j_id2"/>
+</form>
+<tfoot>
+<tr>
+<td align="center" colspan="3"> <b>34 Centros/Unidades Especializadas encontradas </b></td>
+</tr>
+</tfoot>
+<br/>
+<center>
+<a href="javascript: history.go(-1);"> &lt;&lt; Voltar </a>
+</center>
+<div class="clear"></div>
+</div>
+<div id="rodape">
+<p> <!-- Redmine 24523 - Telas e relat&#243;rios com rodap&#233;s sem a altera&#231;&#227;o - Portal P&#250;blico -->
+			SIGAA | STI/SUPAC | -  | Copyright © 2006-2026 - UFBA - saomiguel.intranet.ufba.br
+			 
+				<a onclick="javascript:versao();">v4.13.8_41_hotfix</a>
+</p>
+</div>
+<!-- Fim dos containers -->
+</div>
+</div>
+<!-- MYFACES JAVASCRIPT -->
+</body>
+</html>
+<html><script charset="UTF-8" type="text/javascript">
+		function versao(){
+			var msg='';
+			msg+='SIGAA 4.13.8_41_hotfix,  publicado em: 25/09/2026 16:18\n\n';
+			msg+='Depend\u00eancias:\n';
+			msg+='Arquitetura 4.4.5\n';
+			msg+='Entidades Comuns 2.3.3\n';
+			msg+='Servicos Integrados 2.0.8\n';
+			msg+='SharedResources 2.1.4\n';
+			msg+='Servicos Remoto Biblioteca null\n';
+			msg+='SIGAA Mobile Objects 1.0.0\n\n';
+			msg+='Copyright SINFO/UFRN';
+			alert(msg);
+		}	
+	</script>
+<style>
+a.linkMobile:link {
+	color: #003395;
+	font-weight: bold;
+	font-size: inherit;
+	text-decoration: none;
+}
+
+a.linkMobile:visited {
+	color: #003390;
+	text-decoration: none;
+	font-weight: bold;
+}
+
+a.linkMobile:active {
+	color: #444444;
+	text-decoration: none;
+	font-weight: bold;
+}
+</style>
+</html>

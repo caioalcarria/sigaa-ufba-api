@@ -1,0 +1,1193 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>SIGAA - Sistema Integrado de Gestão de Atividades Acadêmicas</title>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+<link class="component" href="/sigaa/a4j/s/3_3_3.Finalorg/richfaces/renderkit/html/css/basic_classes.xcss/DATB/eAF7sqpgb-jyGdIAFrMEaw__.jsf" rel="stylesheet" type="text/css"/><link class="component" href="/sigaa/a4j/s/3_3_3.Finalorg/richfaces/renderkit/html/css/extended_classes.xcss/DATB/eAF7sqpgb-jyGdIAFrMEaw__.jsf" media="rich-extended-skinning" rel="stylesheet" type="text/css"/><script src="/sigaa/a4j/g/3_3_3.Finalorg/richfaces/renderkit/html/scripts/jquery/jquery.js.jsf" type="text/javascript"></script><script src="/sigaa/a4j/g/3_3_3.Finalorg.ajax4jsf.javascript.AjaxScript.jsf" type="text/javascript"></script><script type="text/javascript">window.RICH_FACES_EXTENDED_SKINNING_ON=true;</script><script src="/sigaa/a4j/g/3_3_3.Finalorg/richfaces/renderkit/html/scripts/skinning.js.jsf" type="text/javascript"></script><script src="/shared/jsBundles/jawr_loader.js" type="text/javascript"></script>
+<script type="text/javascript">
+			JAWR.loader.style('/javascript/ext-2.0.a.1/resources/css/ext-all.css', 'all');
+			JAWR.loader.style('/css/public.css','all');
+		 	JAWR.loader.script('/bundles/js/sigaa_base.js');
+		 	JAWR.loader.script('/bundles/js/ext2_all.js');
+		</script>
+<link href="/sigaa/cssBundles/gzip_787491763/public/css/public.css" media="all" rel="stylesheet" type="text/css"/>
+<link href="/sigaa/cssBundles/gzip_N1466281142/public/css/curso_aberto.css" media="all" rel="stylesheet" type="text/css"/>
+<script src="/shared/javascript/STICookieConsent.js"></script>
+
+</head>
+<body>
+<div id="container">
+<div id="container-inner">
+<div id="cabecalho">
+<div id="identificacao">
+<span class="ufrn">
+							UFBA &#8250; 
+							<a href="/sigaa/" title="Página Inicial do SIGAA">
+							SIGAA - Sistema Integrado de Gestão de Atividades Acadêmicas
+							</a>
+</span>
+<span class="data">
+							 Salvador, 
+							 19 de Outubro de 
+							 2026 
+				
+						</span>
+</div>
+<br clear="all"/>
+<a href="./cursosabertos.jsf" id="logoCursoAberto"></a>
+<span id="tituloCursoAberto"></span>
+</div>
+<style>
+	table.listagem td{border:0px;padding:10px;}
+	table.listagem td.turma{padding:5px 10px 5px;}
+	table.listagem td.topico{padding:0px 10px 10px;border-bottom:1px solid #EEEEEE; }
+	table.listagem td.turma a{text-decoration: underline;vertical-align: middle;}
+</style>
+<div id="colEsq">
+<form action="/sigaa/public/cursosabertos.jsf?aba=p-ensino" enctype="application/x-www-form-urlencoded" id="menuForm" method="post" name="menuForm">
+<input name="menuForm" type="hidden" value="menuForm"/>
+<div id="menu-pri">
+<dl>
+<dt>
+<a class="centro" href="#" onclick="esconderTodos();mostrarAtual(this);">
+							 ESCOLA DE ADMINISTRAÇÃO
+							 </a>
+</dt>
+<dd id="1283">
+<ul style="position: relative;">
+<li style="position: relative;">
+<script language="Javascript" type="text/javascript">function dpf(f) {var adp = f.adp;if (adp != null) {for (var i = 0;i < adp.length;i++) {f.removeChild(adp[i]);}}};function apf(f, pvp) {var adp = new Array();f.adp = adp;var i = 0;for (k in pvp) {var p = document.createElement("input");p.type = "hidden";p.name = k;p.value = pvp[k];f.appendChild(p);adp[i++] = p;}};function jsfcljs(f, pvp, t) {apf(f, pvp);var ft = f.target;if (t) {f.target = t;}f.submit();f.target = ft;dpf(f);};</script>
+<a class="departamento" href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('menuForm'),{'menuForm:j_id_jsp_955622233_2':'menuForm:j_id_jsp_955622233_2'},'');}return false" title="Turmas do Departamento">
+										COORDENAÇÃO ACADÊMICA/EADM
+										
+										
+									</a>
+</li>
+</ul>
+</dd>
+<dt>
+<a class="centro" href="#" onclick="esconderTodos();mostrarAtual(this);">
+							 ESCOLA DE BELAS ARTES
+							 </a>
+</dt>
+<dd id="1235">
+<ul style="position: relative;">
+<li style="position: relative;">
+<a class="departamento" href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('menuForm'),{'menuForm:j_id_jsp_955622233_2j_id_1':'menuForm:j_id_jsp_955622233_2j_id_1'},'');}return false" title="Turmas do Departamento">
+										DEP. DE EXPRESSÃO GRÁFICA E TRIDIMENSIONAL/EBA
+										
+										
+									</a>
+</li>
+<li style="position: relative;">
+<a class="departamento" href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('menuForm'),{'menuForm:j_id_jsp_955622233_2j_id_2':'menuForm:j_id_jsp_955622233_2j_id_2'},'');}return false" title="Turmas do Departamento">
+										DEP. DE HISTÓRIA DA ARTE E PINTURA/EBA
+										
+										
+									</a>
+</li>
+</ul>
+</dd>
+<dt>
+<a class="centro" href="#" onclick="esconderTodos();mostrarAtual(this);">
+							 ESCOLA DE DANÇA
+							 </a>
+</dt>
+<dd id="1354">
+<ul style="position: relative;">
+<li style="position: relative;">
+<a class="departamento" href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('menuForm'),{'menuForm:j_id_jsp_955622233_2j_id_3':'menuForm:j_id_jsp_955622233_2j_id_3'},'');}return false" title="Turmas do Departamento">
+										DEP. DE DANÇA/EDAN
+										
+										
+									</a>
+</li>
+</ul>
+</dd>
+<dt>
+<a class="centro" href="#" onclick="esconderTodos();mostrarAtual(this);">
+							 ESCOLA DE ENFERMAGEM
+							 </a>
+</dt>
+<dd id="1252">
+<ul style="position: relative;">
+<li style="position: relative;">
+<a class="departamento" href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('menuForm'),{'menuForm:j_id_jsp_955622233_2j_id_4':'menuForm:j_id_jsp_955622233_2j_id_4'},'');}return false" title="Turmas do Departamento">
+										COORDENAÇÃO ACADÊMICA/EENF
+										
+										
+									</a>
+</li>
+</ul>
+</dd>
+<dt>
+<a class="centro" href="#" onclick="esconderTodos();mostrarAtual(this);">
+							 ESCOLA DE MEDICINA VETERINÁRIA E ZOOTECNIA
+							 </a>
+</dt>
+<dd id="1336">
+<ul style="position: relative;">
+<li style="position: relative;">
+<a class="departamento" href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('menuForm'),{'menuForm:j_id_jsp_955622233_2j_id_5':'menuForm:j_id_jsp_955622233_2j_id_5'},'');}return false" title="Turmas do Departamento">
+										DEP. DE ANATOMIA, PATOLOGIA E CLÍNICAS VETERINÁRIAS/EMEVZ
+										
+										
+									</a>
+</li>
+<li style="position: relative;">
+<a class="departamento" href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('menuForm'),{'menuForm:j_id_jsp_955622233_2j_id_6':'menuForm:j_id_jsp_955622233_2j_id_6'},'');}return false" title="Turmas do Departamento">
+										DEP. DE MEDICINA VETERINÁRIA PREVENTIVA E PRODUÇÃO ANIMAL/EMEVZ
+										
+										
+									</a>
+</li>
+<li style="position: relative;">
+<a class="departamento" href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('menuForm'),{'menuForm:j_id_jsp_955622233_2j_id_7':'menuForm:j_id_jsp_955622233_2j_id_7'},'');}return false" title="Turmas do Departamento">
+										DEP. DE ZOOTECNIA/EMEVZ
+										
+										
+									</a>
+</li>
+</ul>
+</dd>
+<dt>
+<a class="centro" href="#" onclick="esconderTodos();mostrarAtual(this);">
+							 ESCOLA DE MÚSICA
+							 </a>
+</dt>
+<dd id="1292">
+<ul style="position: relative;">
+<li style="position: relative;">
+<a class="departamento" href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('menuForm'),{'menuForm:j_id_jsp_955622233_2j_id_8':'menuForm:j_id_jsp_955622233_2j_id_8'},'');}return false" title="Turmas do Departamento">
+										DEP. DE MÚSICA/MUS
+										
+										
+									</a>
+</li>
+</ul>
+</dd>
+<dt>
+<a class="centro" href="#" onclick="esconderTodos();mostrarAtual(this);">
+							 ESCOLA DE NUTRIÇÃO
+							 </a>
+</dt>
+<dd id="1302">
+<ul style="position: relative;">
+<li style="position: relative;">
+<a class="departamento" href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('menuForm'),{'menuForm:j_id_jsp_955622233_2j_id_9':'menuForm:j_id_jsp_955622233_2j_id_9'},'');}return false" title="Turmas do Departamento">
+										DEP. DE CIÊNCIA DOS ALIMENTOS/NUT
+										
+										
+									</a>
+</li>
+<li style="position: relative;">
+<a class="departamento" href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('menuForm'),{'menuForm:j_id_jsp_955622233_2j_id_10':'menuForm:j_id_jsp_955622233_2j_id_10'},'');}return false" title="Turmas do Departamento">
+										DEP. DE CIÊNCIAS DA NUTRIÇÃO/ENUT
+										
+										
+									</a>
+</li>
+</ul>
+</dd>
+<dt>
+<a class="centro" href="#" onclick="esconderTodos();mostrarAtual(this);">
+							 ESCOLA DE TEATRO
+							 </a>
+</dt>
+<dd id="1361">
+<ul style="position: relative;">
+<li style="position: relative;">
+<a class="departamento" href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('menuForm'),{'menuForm:j_id_jsp_955622233_2j_id_11':'menuForm:j_id_jsp_955622233_2j_id_11'},'');}return false" title="Turmas do Departamento">
+										DEP. DE FUNDAMENTOS DO TEATRO/ETE
+										
+										
+									</a>
+</li>
+<li style="position: relative;">
+<a class="departamento" href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('menuForm'),{'menuForm:j_id_jsp_955622233_2j_id_12':'menuForm:j_id_jsp_955622233_2j_id_12'},'');}return false" title="Turmas do Departamento">
+										DEP. DE TÉCNICAS DO ESPETÁCULO/ETE
+										
+										
+									</a>
+</li>
+</ul>
+</dd>
+<dt>
+<a class="centro" href="#" onclick="esconderTodos();mostrarAtual(this);">
+							 ESCOLA POLITÉCNICA
+							 </a>
+</dt>
+<dd id="1200">
+<ul style="position: relative;">
+<li style="position: relative;">
+<a class="departamento" href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('menuForm'),{'menuForm:j_id_jsp_955622233_2j_id_13':'menuForm:j_id_jsp_955622233_2j_id_13'},'');}return false" title="Turmas do Departamento">
+										DEP. DE CIÊNCIA E TECNOLOGIA DOS MATERIAIS/POLI
+										
+										
+									</a>
+</li>
+<li style="position: relative;">
+<a class="departamento" href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('menuForm'),{'menuForm:j_id_jsp_955622233_2j_id_14':'menuForm:j_id_jsp_955622233_2j_id_14'},'');}return false" title="Turmas do Departamento">
+										DEP. DE CONSTRUÇÃO E ESTRUTURAS/POLI
+										
+										
+									</a>
+</li>
+<li style="position: relative;">
+<a class="departamento" href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('menuForm'),{'menuForm:j_id_jsp_955622233_2j_id_15':'menuForm:j_id_jsp_955622233_2j_id_15'},'');}return false" title="Turmas do Departamento">
+										DEP. DE ENGENHARIA AMBIENTAL/POLI
+										
+										
+									</a>
+</li>
+<li style="position: relative;">
+<a class="departamento" href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('menuForm'),{'menuForm:j_id_jsp_955622233_2j_id_16':'menuForm:j_id_jsp_955622233_2j_id_16'},'');}return false" title="Turmas do Departamento">
+										DEP. DE ENGENHARIA DE TRANSPORTES E GEODÉSIA/POLI
+										
+										
+									</a>
+</li>
+<li style="position: relative;">
+<a class="departamento" href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('menuForm'),{'menuForm:j_id_jsp_955622233_2j_id_17':'menuForm:j_id_jsp_955622233_2j_id_17'},'');}return false" title="Turmas do Departamento">
+										DEP. DE ENGENHARIA ELÉTRICA E DE COMPUTAÇÃO/POLI
+										
+										
+									</a>
+</li>
+<li style="position: relative;">
+<a class="departamento" href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('menuForm'),{'menuForm:j_id_jsp_955622233_2j_id_18':'menuForm:j_id_jsp_955622233_2j_id_18'},'');}return false" title="Turmas do Departamento">
+										DEP. DE ENGENHARIA MECÂNICA/POLI
+										
+										
+									</a>
+</li>
+<li style="position: relative;">
+<a class="departamento" href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('menuForm'),{'menuForm:j_id_jsp_955622233_2j_id_19':'menuForm:j_id_jsp_955622233_2j_id_19'},'');}return false" title="Turmas do Departamento">
+										DEP. DE ENGENHARIA QUÍMICA/POLI
+										
+										
+									</a>
+</li>
+</ul>
+</dd>
+<dt>
+<a class="centro" href="#" onclick="esconderTodos();mostrarAtual(this);">
+							 FACULDADE DE ARQUITETURA
+							 </a>
+</dt>
+<dd id="1274">
+<ul style="position: relative;">
+<li style="position: relative;">
+<a class="departamento" href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('menuForm'),{'menuForm:j_id_jsp_955622233_2j_id_20':'menuForm:j_id_jsp_955622233_2j_id_20'},'');}return false" title="Turmas do Departamento">
+										COORDENAÇÃO ACADÊMICA/FAUFBA
+										
+										
+									</a>
+</li>
+</ul>
+</dd>
+<dt>
+<a class="centro" href="#" onclick="esconderTodos();mostrarAtual(this);">
+							 FACULDADE DE CIÊNCIAS CONTÁBEIS
+							 </a>
+</dt>
+<dd id="1369">
+<ul style="position: relative;">
+<li style="position: relative;">
+<a class="departamento" href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('menuForm'),{'menuForm:j_id_jsp_955622233_2j_id_21':'menuForm:j_id_jsp_955622233_2j_id_21'},'');}return false" title="Turmas do Departamento">
+										DEP. DE CIÊNCIAS CONTÁBEIS/FCC
+										
+										
+									</a>
+</li>
+</ul>
+</dd>
+<dt>
+<a class="centro" href="#" onclick="esconderTodos();mostrarAtual(this);">
+							 FACULDADE DE COMUNICAÇÃO
+							 </a>
+</dt>
+<dd id="1348">
+<ul style="position: relative;">
+<li style="position: relative;">
+<a class="departamento" href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('menuForm'),{'menuForm:j_id_jsp_955622233_2j_id_22':'menuForm:j_id_jsp_955622233_2j_id_22'},'');}return false" title="Turmas do Departamento">
+										DEP. DE COMUNICAÇÃO/FACOM
+										
+										
+									</a>
+</li>
+</ul>
+</dd>
+<dt>
+<a class="centro" href="#" onclick="esconderTodos();mostrarAtual(this);">
+							 FACULDADE DE DIREITO
+							 </a>
+</dt>
+<dd id="1193">
+<ul style="position: relative;">
+<li style="position: relative;">
+<a class="departamento" href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('menuForm'),{'menuForm:j_id_jsp_955622233_2j_id_23':'menuForm:j_id_jsp_955622233_2j_id_23'},'');}return false" title="Turmas do Departamento">
+										DEP. DE DIREITO PRIVADO/FADIR
+										
+										
+									</a>
+</li>
+<li style="position: relative;">
+<a class="departamento" href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('menuForm'),{'menuForm:j_id_jsp_955622233_2j_id_24':'menuForm:j_id_jsp_955622233_2j_id_24'},'');}return false" title="Turmas do Departamento">
+										DEP. DE DIREITO PÚBLICO/FADIR
+										
+										
+									</a>
+</li>
+<li style="position: relative;">
+<a class="departamento" href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('menuForm'),{'menuForm:j_id_jsp_955622233_2j_id_25':'menuForm:j_id_jsp_955622233_2j_id_25'},'');}return false" title="Turmas do Departamento">
+										DEP. DE ESTUDOS JURÍDICOS FUNDAMENTAIS/DIR
+										
+										
+									</a>
+</li>
+</ul>
+</dd>
+<dt>
+<a class="centro" href="#" onclick="esconderTodos();mostrarAtual(this);">
+							 FACULDADE DE ECONOMIA
+							 </a>
+</dt>
+<dd id="1245">
+<ul style="position: relative;">
+<li style="position: relative;">
+<a class="departamento" href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('menuForm'),{'menuForm:j_id_jsp_955622233_2j_id_26':'menuForm:j_id_jsp_955622233_2j_id_26'},'');}return false" title="Turmas do Departamento">
+										DEP. DE ECONOMIA/FCE
+										
+										
+									</a>
+</li>
+</ul>
+</dd>
+<dt>
+<a class="centro" href="#" onclick="esconderTodos();mostrarAtual(this);">
+							 FACULDADE DE EDUCAÇÃO
+							 </a>
+</dt>
+<dd id="1316">
+<ul style="position: relative;">
+<li style="position: relative;">
+<a class="departamento" href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('menuForm'),{'menuForm:j_id_jsp_955622233_2j_id_27':'menuForm:j_id_jsp_955622233_2j_id_27'},'');}return false" title="Turmas do Departamento">
+										DEP. DE EDUCACAO I/FACED
+										
+										
+									</a>
+</li>
+<li style="position: relative;">
+<a class="departamento" href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('menuForm'),{'menuForm:j_id_jsp_955622233_2j_id_28':'menuForm:j_id_jsp_955622233_2j_id_28'},'');}return false" title="Turmas do Departamento">
+										DEP. DE EDUCACAO II/FACED
+										
+										
+									</a>
+</li>
+<li style="position: relative;">
+<a class="departamento" href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('menuForm'),{'menuForm:j_id_jsp_955622233_2j_id_29':'menuForm:j_id_jsp_955622233_2j_id_29'},'');}return false" title="Turmas do Departamento">
+										DEP. DE EDUCAÇÃO III/FACED
+										
+										
+									</a>
+</li>
+</ul>
+</dd>
+<dt>
+<a class="centro" href="#" onclick="esconderTodos();mostrarAtual(this);">
+							 FACULDADE DE FARMÁCIA
+							 </a>
+</dt>
+<dd id="1258">
+<ul style="position: relative;">
+<li style="position: relative;">
+<a class="departamento" href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('menuForm'),{'menuForm:j_id_jsp_955622233_2j_id_30':'menuForm:j_id_jsp_955622233_2j_id_30'},'');}return false" title="Turmas do Departamento">
+										DEP. DE ANÁLISES BROMATOLÓGICAS/FFAR
+										
+										
+									</a>
+</li>
+<li style="position: relative;">
+<a class="departamento" href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('menuForm'),{'menuForm:j_id_jsp_955622233_2j_id_31':'menuForm:j_id_jsp_955622233_2j_id_31'},'');}return false" title="Turmas do Departamento">
+										DEP. DE ANÁLISES CLÍNICAS E TOXICOLÓGICAS/FFAR
+										
+										
+									</a>
+</li>
+<li style="position: relative;">
+<a class="departamento" href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('menuForm'),{'menuForm:j_id_jsp_955622233_2j_id_32':'menuForm:j_id_jsp_955622233_2j_id_32'},'');}return false" title="Turmas do Departamento">
+										DEP. DO MEDICAMENTO/FFAR
+										
+										
+									</a>
+</li>
+</ul>
+</dd>
+<dt>
+<a class="centro" href="#" onclick="esconderTodos();mostrarAtual(this);">
+							 FACULDADE DE FILOSOFIA E CIÊNCIAS HUMANAS
+							 </a>
+</dt>
+<dd id="1218">
+<ul style="position: relative;">
+<li style="position: relative;">
+<a class="departamento" href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('menuForm'),{'menuForm:j_id_jsp_955622233_2j_id_33':'menuForm:j_id_jsp_955622233_2j_id_33'},'');}return false" title="Turmas do Departamento">
+										DEP. DE ANTROPOLOGIA/FFCH
+										
+										
+									</a>
+</li>
+<li style="position: relative;">
+<a class="departamento" href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('menuForm'),{'menuForm:j_id_jsp_955622233_2j_id_34':'menuForm:j_id_jsp_955622233_2j_id_34'},'');}return false" title="Turmas do Departamento">
+										DEP. DE CIÊNCIA POLÍTICA/FFCH
+										
+										
+									</a>
+</li>
+<li style="position: relative;">
+<a class="departamento" href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('menuForm'),{'menuForm:j_id_jsp_955622233_2j_id_35':'menuForm:j_id_jsp_955622233_2j_id_35'},'');}return false" title="Turmas do Departamento">
+										DEP. DE ESTUDOS DE GÊNERO E FEMINISMO/FFCH
+										
+										
+									</a>
+</li>
+<li style="position: relative;">
+<a class="departamento" href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('menuForm'),{'menuForm:j_id_jsp_955622233_2j_id_36':'menuForm:j_id_jsp_955622233_2j_id_36'},'');}return false" title="Turmas do Departamento">
+										DEP. DE FILOSOFIA/FFCH
+										
+										
+									</a>
+</li>
+<li style="position: relative;">
+<a class="departamento" href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('menuForm'),{'menuForm:j_id_jsp_955622233_2j_id_37':'menuForm:j_id_jsp_955622233_2j_id_37'},'');}return false" title="Turmas do Departamento">
+										DEP. DE HISTÓRIA/FFCH
+										
+										
+									</a>
+</li>
+<li style="position: relative;">
+<a class="departamento" href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('menuForm'),{'menuForm:j_id_jsp_955622233_2j_id_38':'menuForm:j_id_jsp_955622233_2j_id_38'},'');}return false" title="Turmas do Departamento">
+										DEP. DE MUSEOLOGIA/FFCH
+										
+										
+									</a>
+</li>
+<li style="position: relative;">
+<a class="departamento" href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('menuForm'),{'menuForm:j_id_jsp_955622233_2j_id_39':'menuForm:j_id_jsp_955622233_2j_id_39'},'');}return false" title="Turmas do Departamento">
+										DEP. DE SOCIOLOGIA/FFCH
+										
+										
+									</a>
+</li>
+</ul>
+</dd>
+<dt>
+<a class="centro" href="#" onclick="esconderTodos();mostrarAtual(this);">
+							 FACULDADE DE MEDICINA DA BAHIA
+							 </a>
+</dt>
+<dd id="1175">
+<ul style="position: relative;">
+<li style="position: relative;">
+<a class="departamento" href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('menuForm'),{'menuForm:j_id_jsp_955622233_2j_id_40':'menuForm:j_id_jsp_955622233_2j_id_40'},'');}return false" title="Turmas do Departamento">
+										DEP. DE ANESTESIOLOGIA E CIRURGIA/FMB
+										
+										
+									</a>
+</li>
+<li style="position: relative;">
+<a class="departamento" href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('menuForm'),{'menuForm:j_id_jsp_955622233_2j_id_41':'menuForm:j_id_jsp_955622233_2j_id_41'},'');}return false" title="Turmas do Departamento">
+										DEP. DE CIRURGIA EXPERIMENTAL E ESPECIALIDADES CIRÚRGICAS/FMB
+										
+										
+									</a>
+</li>
+<li style="position: relative;">
+<a class="departamento" href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('menuForm'),{'menuForm:j_id_jsp_955622233_2j_id_42':'menuForm:j_id_jsp_955622233_2j_id_42'},'');}return false" title="Turmas do Departamento">
+										DEP. DE GINECOLOGIA E OBSTETRÍCIA/FMB
+										
+										
+									</a>
+</li>
+<li style="position: relative;">
+<a class="departamento" href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('menuForm'),{'menuForm:j_id_jsp_955622233_2j_id_43':'menuForm:j_id_jsp_955622233_2j_id_43'},'');}return false" title="Turmas do Departamento">
+										DEP. DE MEDICINA INTERNA/FMB
+										
+										
+									</a>
+</li>
+<li style="position: relative;">
+<a class="departamento" href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('menuForm'),{'menuForm:j_id_jsp_955622233_2j_id_44':'menuForm:j_id_jsp_955622233_2j_id_44'},'');}return false" title="Turmas do Departamento">
+										DEP. DE MEDICINA PREVENTIVA E SOCIAL/FMB
+										
+										
+									</a>
+</li>
+<li style="position: relative;">
+<a class="departamento" href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('menuForm'),{'menuForm:j_id_jsp_955622233_2j_id_45':'menuForm:j_id_jsp_955622233_2j_id_45'},'');}return false" title="Turmas do Departamento">
+										DEP. DE NEUROLOGIA E PSIQUIATRIA/FMB
+										
+										
+									</a>
+</li>
+<li style="position: relative;">
+<a class="departamento" href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('menuForm'),{'menuForm:j_id_jsp_955622233_2j_id_46':'menuForm:j_id_jsp_955622233_2j_id_46'},'');}return false" title="Turmas do Departamento">
+										DEP. DE PATOLOGIA, DIAGNÓSTICO POR IMAGEM E MEDICINA LEGAL/FMB
+										
+										
+									</a>
+</li>
+<li style="position: relative;">
+<a class="departamento" href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('menuForm'),{'menuForm:j_id_jsp_955622233_2j_id_47':'menuForm:j_id_jsp_955622233_2j_id_47'},'');}return false" title="Turmas do Departamento">
+										DEP. DE PEDIATRIA/FMB
+										
+										
+									</a>
+</li>
+<li style="position: relative;">
+<a class="departamento" href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('menuForm'),{'menuForm:j_id_jsp_955622233_2j_id_48':'menuForm:j_id_jsp_955622233_2j_id_48'},'');}return false" title="Turmas do Departamento">
+										DEP. DE SAÚDE DA FAMÍLIA E TERAPIA OCUPACIONAL/FMB
+										
+										
+									</a>
+</li>
+</ul>
+</dd>
+<dt>
+<a class="centro" href="#" onclick="esconderTodos();mostrarAtual(this);">
+							 FACULDADE DE ODONTOLOGIA
+							 </a>
+</dt>
+<dd id="1266">
+<ul style="position: relative;">
+<li style="position: relative;">
+<a class="departamento" href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('menuForm'),{'menuForm:j_id_jsp_955622233_2j_id_49':'menuForm:j_id_jsp_955622233_2j_id_49'},'');}return false" title="Turmas do Departamento">
+										DEP. DE CLÍNICA ODONTOLÓGICA/ODON
+										
+										
+									</a>
+</li>
+<li style="position: relative;">
+<a class="departamento" href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('menuForm'),{'menuForm:j_id_jsp_955622233_2j_id_50':'menuForm:j_id_jsp_955622233_2j_id_50'},'');}return false" title="Turmas do Departamento">
+										DEP. DE ODONTOLOGIA SOCIAL E PEDIÁTRICA/ODON
+										
+										
+									</a>
+</li>
+<li style="position: relative;">
+<a class="departamento" href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('menuForm'),{'menuForm:j_id_jsp_955622233_2j_id_51':'menuForm:j_id_jsp_955622233_2j_id_51'},'');}return false" title="Turmas do Departamento">
+										DEP. DE PROPEDÊUTICA E CLÍNICA INTEGRADA/ODON
+										
+										
+									</a>
+</li>
+</ul>
+</dd>
+<dt>
+<a class="centro" href="#" onclick="esconderTodos();mostrarAtual(this);">
+							 INSTITUTO DE BIOLOGIA
+							 </a>
+</dt>
+<dd id="1137">
+<ul style="position: relative;">
+<li style="position: relative;">
+<a class="departamento" href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('menuForm'),{'menuForm:j_id_jsp_955622233_2j_id_52':'menuForm:j_id_jsp_955622233_2j_id_52'},'');}return false" title="Turmas do Departamento">
+										COORDENAÇÃO ACADÊMICA/IBIO
+										
+										
+									</a>
+</li>
+</ul>
+</dd>
+<dt>
+<a class="centro" href="#" onclick="esconderTodos();mostrarAtual(this);">
+							 INSTITUTO DE CIÊNCIA DA INFORMAÇÃO
+							 </a>
+</dt>
+<dd id="1308">
+<ul style="position: relative;">
+<li style="position: relative;">
+<a class="departamento" href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('menuForm'),{'menuForm:j_id_jsp_955622233_2j_id_53':'menuForm:j_id_jsp_955622233_2j_id_53'},'');}return false" title="Turmas do Departamento">
+										DEP. DE DOCUMENTAÇÃO E INFORMAÇÃO/ICI
+										
+										
+									</a>
+</li>
+<li style="position: relative;">
+<a class="departamento" href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('menuForm'),{'menuForm:j_id_jsp_955622233_2j_id_54':'menuForm:j_id_jsp_955622233_2j_id_54'},'');}return false" title="Turmas do Departamento">
+										DEP. DE FUNDAMENTOS E PROCESSOS INFORMACIONAIS/ICI
+										
+										
+									</a>
+</li>
+</ul>
+</dd>
+<dt>
+<a class="centro" href="#" onclick="esconderTodos();mostrarAtual(this);">
+							 INSTITUTO DE CIÊNCIA, TECNOLOGIA E INOVAÇÃO
+							 </a>
+</dt>
+<dd id="2291">
+<ul style="position: relative;">
+<li style="position: relative;">
+<a class="departamento" href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('menuForm'),{'menuForm:j_id_jsp_955622233_2j_id_55':'menuForm:j_id_jsp_955622233_2j_id_55'},'');}return false" title="Turmas do Departamento">
+										DEP. DE CIÊNCIA, TECNOLOGIA E INOVAÇÃO/ICTI
+										
+										
+									</a>
+</li>
+</ul>
+</dd>
+<dt>
+<a class="centro" href="#" onclick="esconderTodos();mostrarAtual(this);">
+							 INSTITUTO DE CIÊNCIAS DA SAÚDE
+							 </a>
+</dt>
+<dd id="1167">
+<ul style="position: relative;">
+<li style="position: relative;">
+<a class="departamento" href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('menuForm'),{'menuForm:j_id_jsp_955622233_2j_id_56':'menuForm:j_id_jsp_955622233_2j_id_56'},'');}return false" title="Turmas do Departamento">
+										DEP. DE BIOINTERAÇÃO/ICS
+										
+										
+									</a>
+</li>
+<li style="position: relative;">
+<a class="departamento" href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('menuForm'),{'menuForm:j_id_jsp_955622233_2j_id_57':'menuForm:j_id_jsp_955622233_2j_id_57'},'');}return false" title="Turmas do Departamento">
+										DEP. DE BIOMORFOLOGIA/ICS
+										
+										
+									</a>
+</li>
+<li style="position: relative;">
+<a class="departamento" href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('menuForm'),{'menuForm:j_id_jsp_955622233_2j_id_58':'menuForm:j_id_jsp_955622233_2j_id_58'},'');}return false" title="Turmas do Departamento">
+										DEP. DE BIOQUÍMICA E BIOFÍSICA/ICS
+										
+										
+									</a>
+</li>
+<li style="position: relative;">
+<a class="departamento" href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('menuForm'),{'menuForm:j_id_jsp_955622233_2j_id_59':'menuForm:j_id_jsp_955622233_2j_id_59'},'');}return false" title="Turmas do Departamento">
+										DEP. DE BIORREGULAÇÃO/ICS
+										
+										
+									</a>
+</li>
+<li style="position: relative;">
+<a class="departamento" href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('menuForm'),{'menuForm:j_id_jsp_955622233_2j_id_60':'menuForm:j_id_jsp_955622233_2j_id_60'},'');}return false" title="Turmas do Departamento">
+										DEP. DE BIOTECNOLOGIA/ICS
+										
+										
+									</a>
+</li>
+<li style="position: relative;">
+<a class="departamento" href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('menuForm'),{'menuForm:j_id_jsp_955622233_2j_id_61':'menuForm:j_id_jsp_955622233_2j_id_61'},'');}return false" title="Turmas do Departamento">
+										DEP. DE FISIOTERAPIA/ICS
+										
+										
+									</a>
+</li>
+<li style="position: relative;">
+<a class="departamento" href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('menuForm'),{'menuForm:j_id_jsp_955622233_2j_id_62':'menuForm:j_id_jsp_955622233_2j_id_62'},'');}return false" title="Turmas do Departamento">
+										DEP. DE FONOAUDIOLOGIA/ICS
+										
+										
+									</a>
+</li>
+</ul>
+</dd>
+<dt>
+<a class="centro" href="#" onclick="esconderTodos();mostrarAtual(this);">
+							 INSTITUTO DE COMPUTAÇÃO
+							 </a>
+</dt>
+<dd id="2435">
+<ul style="position: relative;">
+<li style="position: relative;">
+<a class="departamento" href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('menuForm'),{'menuForm:j_id_jsp_955622233_2j_id_63':'menuForm:j_id_jsp_955622233_2j_id_63'},'');}return false" title="Turmas do Departamento">
+										DEP. DE CIÊNCIA DA COMPUTAÇÃO /IC
+										
+										
+									</a>
+</li>
+<li style="position: relative;">
+<a class="departamento" href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('menuForm'),{'menuForm:j_id_jsp_955622233_2j_id_64':'menuForm:j_id_jsp_955622233_2j_id_64'},'');}return false" title="Turmas do Departamento">
+										DEP. DE COMPUTAÇÃO INTERDISCIPLINAR /IC
+										
+										
+									</a>
+</li>
+</ul>
+</dd>
+<dt>
+<a class="centro" href="#" onclick="esconderTodos();mostrarAtual(this);">
+							 INSTITUTO DE FÍSICA
+							 </a>
+</dt>
+<dd id="1120">
+<ul style="position: relative;">
+<li style="position: relative;">
+<a class="departamento" href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('menuForm'),{'menuForm:j_id_jsp_955622233_2j_id_65':'menuForm:j_id_jsp_955622233_2j_id_65'},'');}return false" title="Turmas do Departamento">
+										DEP. DE FÍSICA DA TERRA E DO MEIO AMBIENTE/IFIS
+										
+										
+									</a>
+</li>
+<li style="position: relative;">
+<a class="departamento" href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('menuForm'),{'menuForm:j_id_jsp_955622233_2j_id_66':'menuForm:j_id_jsp_955622233_2j_id_66'},'');}return false" title="Turmas do Departamento">
+										DEP. DE FÍSICA DO ESTADO SÓLIDO/IFIS
+										
+										
+									</a>
+</li>
+<li style="position: relative;">
+<a class="departamento" href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('menuForm'),{'menuForm:j_id_jsp_955622233_2j_id_67':'menuForm:j_id_jsp_955622233_2j_id_67'},'');}return false" title="Turmas do Departamento">
+										DEP. DE FÍSICA GERAL/IFIS
+										
+										
+									</a>
+</li>
+</ul>
+</dd>
+<dt>
+<a class="centro" href="#" onclick="esconderTodos();mostrarAtual(this);">
+							 INSTITUTO DE GEOCIÊNCIAS
+							 </a>
+</dt>
+<dd id="1144">
+<ul style="position: relative;">
+<li style="position: relative;">
+<a class="departamento" href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('menuForm'),{'menuForm:j_id_jsp_955622233_2j_id_68':'menuForm:j_id_jsp_955622233_2j_id_68'},'');}return false" title="Turmas do Departamento">
+										DEP. DE GEOFÍSICA/IGEO
+										
+										
+									</a>
+</li>
+<li style="position: relative;">
+<a class="departamento" href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('menuForm'),{'menuForm:j_id_jsp_955622233_2j_id_69':'menuForm:j_id_jsp_955622233_2j_id_69'},'');}return false" title="Turmas do Departamento">
+										DEP. DE GEOGRAFIA/IGEO
+										
+										
+									</a>
+</li>
+<li style="position: relative;">
+<a class="departamento" href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('menuForm'),{'menuForm:j_id_jsp_955622233_2j_id_70':'menuForm:j_id_jsp_955622233_2j_id_70'},'');}return false" title="Turmas do Departamento">
+										DEP. DE GEOLOGIA/IGEO
+										
+										
+									</a>
+</li>
+<li style="position: relative;">
+<a class="departamento" href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('menuForm'),{'menuForm:j_id_jsp_955622233_2j_id_71':'menuForm:j_id_jsp_955622233_2j_id_71'},'');}return false" title="Turmas do Departamento">
+										DEP. DE GEOQUÍMICA/GEO
+										
+										
+									</a>
+</li>
+<li style="position: relative;">
+<a class="departamento" href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('menuForm'),{'menuForm:j_id_jsp_955622233_2j_id_72':'menuForm:j_id_jsp_955622233_2j_id_72'},'');}return false" title="Turmas do Departamento">
+										DEP. DE OCEANOGRAFIA/IGEO
+										
+										
+									</a>
+</li>
+<li style="position: relative;">
+<a class="departamento" href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('menuForm'),{'menuForm:j_id_jsp_955622233_2j_id_73':'menuForm:j_id_jsp_955622233_2j_id_73'},'');}return false" title="Turmas do Departamento">
+										DEP. DE SEDIMENTOLOGIA/GEO
+										
+										
+									</a>
+</li>
+</ul>
+</dd>
+<dt>
+<a class="centro" href="#" onclick="esconderTodos();mostrarAtual(this);">
+							 INSTITUTO DE HUMANIDADES, ARTES E CIÊNCIAS PROFESSOR MILTON SANTOS
+							 </a>
+</dt>
+<dd id="1780">
+<ul style="position: relative;">
+<li style="position: relative;">
+<a class="departamento" href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('menuForm'),{'menuForm:j_id_jsp_955622233_2j_id_74':'menuForm:j_id_jsp_955622233_2j_id_74'},'');}return false" title="Turmas do Departamento">
+										COORDENAÇÃO ACADÊMICA/IHAC
+										
+										
+									</a>
+</li>
+</ul>
+</dd>
+<dt>
+<a class="centro" href="#" onclick="esconderTodos();mostrarAtual(this);">
+							 INSTITUTO DE LETRAS
+							 </a>
+</dt>
+<dd id="1158">
+<ul style="position: relative;">
+<li style="position: relative;">
+<a class="departamento" href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('menuForm'),{'menuForm:j_id_jsp_955622233_2j_id_75':'menuForm:j_id_jsp_955622233_2j_id_75'},'');}return false" title="Turmas do Departamento">
+										COORDENAÇÃO ACADÊMICA DE ENSINO DE LETRAS/LET
+										
+										
+									</a>
+</li>
+</ul>
+</dd>
+<dt>
+<a class="centro" href="#" onclick="esconderTodos();mostrarAtual(this);">
+							 INSTITUTO DE MATEMÁTICA E ESTATÍSTICA
+							 </a>
+</dt>
+<dd id="1112">
+<ul style="position: relative;">
+<li style="position: relative;">
+<a class="departamento" href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('menuForm'),{'menuForm:j_id_jsp_955622233_2j_id_76':'menuForm:j_id_jsp_955622233_2j_id_76'},'');}return false" title="Turmas do Departamento">
+										DEP. DE CIÊNCIAS DA COMPUTAÇÃO/MAT
+										
+										
+									</a>
+</li>
+<li style="position: relative;">
+<a class="departamento" href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('menuForm'),{'menuForm:j_id_jsp_955622233_2j_id_77':'menuForm:j_id_jsp_955622233_2j_id_77'},'');}return false" title="Turmas do Departamento">
+										DEP. DE ESTATÍSTICA/IME
+										
+										
+									</a>
+</li>
+<li style="position: relative;">
+<a class="departamento" href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('menuForm'),{'menuForm:j_id_jsp_955622233_2j_id_78':'menuForm:j_id_jsp_955622233_2j_id_78'},'');}return false" title="Turmas do Departamento">
+										DEP. DE MATEMÁTICA/IME
+										
+										
+									</a>
+</li>
+</ul>
+</dd>
+<dt>
+<a class="centro" href="#" onclick="esconderTodos();mostrarAtual(this);">
+							 INSTITUTO DE PSICOLOGIA E SERVIÇO SOCIAL
+							 </a>
+</dt>
+<dd id="1779">
+<ul style="position: relative;">
+<li style="position: relative;">
+<a class="departamento" href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('menuForm'),{'menuForm:j_id_jsp_955622233_2j_id_79':'menuForm:j_id_jsp_955622233_2j_id_79'},'');}return false" title="Turmas do Departamento">
+										COORDENAÇÃO ACADÊMICA/IPSS
+										
+										
+									</a>
+</li>
+</ul>
+</dd>
+<dt>
+<a class="centro" href="#" onclick="esconderTodos();mostrarAtual(this);">
+							 INSTITUTO DE QUÍMICA
+							 </a>
+</dt>
+<dd id="1128">
+<ul style="position: relative;">
+<li style="position: relative;">
+<a class="departamento" href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('menuForm'),{'menuForm:j_id_jsp_955622233_2j_id_80':'menuForm:j_id_jsp_955622233_2j_id_80'},'');}return false" title="Turmas do Departamento">
+										DEP. DE FÍSICO-QUÍMICA/IQUI
+										
+										
+									</a>
+</li>
+<li style="position: relative;">
+<a class="departamento" href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('menuForm'),{'menuForm:j_id_jsp_955622233_2j_id_81':'menuForm:j_id_jsp_955622233_2j_id_81'},'');}return false" title="Turmas do Departamento">
+										DEP. DE QUÍMICA ANALÍTICA/IQUI
+										
+										
+									</a>
+</li>
+<li style="position: relative;">
+<a class="departamento" href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('menuForm'),{'menuForm:j_id_jsp_955622233_2j_id_82':'menuForm:j_id_jsp_955622233_2j_id_82'},'');}return false" title="Turmas do Departamento">
+										DEP. DE QUÍMICA GERAL E INORGÂNICA/IQUI
+										
+										
+									</a>
+</li>
+<li style="position: relative;">
+<a class="departamento" href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('menuForm'),{'menuForm:j_id_jsp_955622233_2j_id_83':'menuForm:j_id_jsp_955622233_2j_id_83'},'');}return false" title="Turmas do Departamento">
+										DEP. DE QUÍMICA ORGÂNICA/IQUI
+										
+										
+									</a>
+</li>
+</ul>
+</dd>
+<dt>
+<a class="centro" href="#" onclick="esconderTodos();mostrarAtual(this);">
+							 INSTITUTO DE SAÚDE COLETIVA
+							 </a>
+</dt>
+<dd id="1105">
+<ul style="position: relative;">
+<li style="position: relative;">
+<a class="departamento" href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('menuForm'),{'menuForm:j_id_jsp_955622233_2j_id_84':'menuForm:j_id_jsp_955622233_2j_id_84'},'');}return false" title="Turmas do Departamento">
+										COORDENAÇÃO ACADÊMICA/ISC
+										
+										
+									</a>
+</li>
+</ul>
+</dd>
+<dt>
+<a class="centro" href="#" onclick="esconderTodos();mostrarAtual(this);">
+							 INSTITUTO MULTIDISCIPLINAR DE REABILITAÇÃO E SAÚDE
+							 </a>
+</dt>
+<dd id="2439">
+<ul style="position: relative;">
+<li style="position: relative;">
+<a class="departamento" href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('menuForm'),{'menuForm:j_id_jsp_955622233_2j_id_85':'menuForm:j_id_jsp_955622233_2j_id_85'},'');}return false" title="Turmas do Departamento">
+										DEP. DE FISIOTERAPIA/IMRS
+										
+										
+									</a>
+</li>
+<li style="position: relative;">
+<a class="departamento" href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('menuForm'),{'menuForm:j_id_jsp_955622233_2j_id_86':'menuForm:j_id_jsp_955622233_2j_id_86'},'');}return false" title="Turmas do Departamento">
+										DEP. DE FONOAUDIOLOGIA/IMRS
+										
+										
+									</a>
+</li>
+</ul>
+</dd>
+<dt>
+<a class="centro" href="#" onclick="esconderTodos();mostrarAtual(this);">
+							 INSTITUTO MULTIDISCIPLINAR EM SAÚDE
+							 </a>
+</dt>
+<dd id="1791">
+<ul style="position: relative;">
+<li style="position: relative;">
+<a class="departamento" href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('menuForm'),{'menuForm:j_id_jsp_955622233_2j_id_87':'menuForm:j_id_jsp_955622233_2j_id_87'},'');}return false" title="Turmas do Departamento">
+										COORDENAÇÃO ACADÊMICA /IMS
+										
+										
+									</a>
+</li>
+</ul>
+</dd>
+</dl>
+</div>
+<div id="home-link">
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('menuForm'),{'menuForm:j_id_jsp_955622233_4':'menuForm:j_id_jsp_955622233_4'},'');}return false" title="Ir para o Portal Público do SIGAA"></a>
+</div>
+<br clear="all"/>
+<input id="javax.faces.ViewState" name="javax.faces.ViewState" type="hidden" value="j_id2"/>
+</form><script type="text/javascript">//<![CDATA[
+  jQuery(document).ready(function() {
+	var selector = "#menu\x2Dpri dd";
+	try {
+		selector = eval("#menu\x2Dpri dd");
+	} catch (e) {}
+	jQuery(selector).hide();
+ });
+//]]></script><script type="text/javascript">//<![CDATA[
+  jQuery(document).ready(function() {
+	var selector = "#menu\x2Dpri #0";
+	try {
+		selector = eval("#menu\x2Dpri #0");
+	} catch (e) {}
+	jQuery(selector).show();
+ });
+//]]></script><script type="text/javascript">//<![CDATA[
+function esconderTodos(elm, param) {
+	var selector = "#menu\x2Dpri dd:visible";
+	try {
+		selector = eval("#menu\x2Dpri dd:visible");
+	} catch (e) {}
+	
+	jQuery(elm || selector).slideUp('slow');
+}
+//]]></script><script type="text/javascript">//<![CDATA[
+function mostrarAtual(elm, param) {
+	var selector = "#menu\x2Dpri dt a";
+	try {
+		selector = eval("#menu\x2Dpri dt a");
+	} catch (e) {}
+	
+	jQuery(elm || selector).parent().next().slideDown('slow');
+}
+//]]></script>
+</div>
+<div id="colDir">
+<div id="colDirCorpo">
+<!-- IN&#205;CIO CONTE&#218;DO -->
+<div class="descricaoOperacao" style="margin:auto 40px;text-align:justify;">
+<p>Através desta página você poderá consultar as <b>Turmas</b> oferecidas pelos seus respectivos departamentos ou <b>Comunidades Virtuais</b> 
+	  que tenham sido criadas e publicadas de forma pública. 
+	</p>
+<br/>
+<p>
+	 Por favor selecione/preencha uma ou mais opções abaixo, clique em buscar, ou se preferir
+	 clique em um dos centros ao lado e selecione um departamento.
+	</p><p>
+</p></div>
+<br clear="all"/>
+<br clear="all"/>
+<form action="/sigaa/public/cursosabertos.jsf?aba=p-ensino" enctype="application/x-www-form-urlencoded" id="formPrincipal" method="post" name="formPrincipal">
+<input name="formPrincipal" type="hidden" value="formPrincipal"/>
+<table class="formulario" width="90%">
+<caption>Informe os critérios de consulta</caption>
+<tbody>
+<tr>
+<th>Buscar por: </th>
+<td align="left" colspan="2">
+<table id="formPrincipal:tipoBusca" style="border-style:none">
+<tr>
+<td>
+<input checked="checked" id="formPrincipal:tipoBusca:0" name="formPrincipal:tipoBusca" onclick="A4J.AJAX.Submit('formPrincipal',event,{'similarityGroupingId':'formPrincipal:j_id_jsp_955622233_14','parameters':{'formPrincipal:j_id_jsp_955622233_14':'formPrincipal:j_id_jsp_955622233_14'} ,'containerId':'j_id_jsp_955622233_0'} )" type="radio" value="true"/><label for="formPrincipal:tipoBusca:0"> Turmas</label></td>
+<td>
+<input id="formPrincipal:tipoBusca:1" name="formPrincipal:tipoBusca" onclick="A4J.AJAX.Submit('formPrincipal',event,{'similarityGroupingId':'formPrincipal:j_id_jsp_955622233_14','parameters':{'formPrincipal:j_id_jsp_955622233_14':'formPrincipal:j_id_jsp_955622233_14'} ,'containerId':'j_id_jsp_955622233_0'} )" type="radio" value="false"/><label for="formPrincipal:tipoBusca:1"> Comunidades Virtuais</label></td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<th>Palavra-chave: </th>
+<td align="left" colspan="2">
+<input class="filtroBusca" id="formPrincipal:palavraChave" maxlength="200" name="formPrincipal:palavraChave" type="text" value="TESE"/>
+</td>
+</tr>
+<tr>
+<th>Centros: </th>
+<td align="left" colspan="2">
+<select class="filtroBusca" id="formPrincipal:idCentro" name="formPrincipal:idCentro" onchange="A4J.AJAX.Submit('formPrincipal',event,{'similarityGroupingId':'formPrincipal:j_id_jsp_955622233_19','parameters':{'formPrincipal:j_id_jsp_955622233_19':'formPrincipal:j_id_jsp_955622233_19'} ,'containerId':'j_id_jsp_955622233_0'} )" size="1"> <option selected="selected" value="0"> -- TODOS -- </option>
+<option value="1283">ESCOLA DE ADMINISTRAÇÃO</option>
+<option value="1235">ESCOLA DE BELAS ARTES</option>
+<option value="1354">ESCOLA DE DANÇA</option>
+<option value="1252">ESCOLA DE ENFERMAGEM</option>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</select>
+</td>
+</tr>
+<tr>
+<th>Departamentos:</th>
+<td align="left">
+<select class="filtroBusca" id="formPrincipal:idDepartamento" name="formPrincipal:idDepartamento" size="1"> <option selected="selected" value="0"> -- TODOS -- </option>
+</select>
+</td>
+<td>
+<span id="j_id_jsp_955622233_0:status"><span id="j_id_jsp_955622233_0:status.start" style="display: none"><img src="/sigaa/img/indicator.gif"/></span><span id="j_id_jsp_955622233_0:status.stop"></span></span>
+</td>
+</tr>
+</tbody>
+<tfoot>
+<tr>
+<td colspan="3">
+<input id="formPrincipal:buscarTurmas" name="formPrincipal:buscarTurmas" type="submit" value="Buscar"/> 
+						<input id="formPrincipal:cancelar" name="formPrincipal:cancelar" onclick="return confirm('Deseja cancelar a operação? Todos os dados digitados serão perdidos!');" type="submit" value="Cancelar"/>
+</td>
+</tr>
+</tfoot>
+</table>
+<br clear="all"/>
+<div id="turmasAbertas">
+<table class="listagem" width="95%">
+<caption>
+							
+								
+								
+									1 Turma(s) encontrada(s)
+								
+							
+						</caption>
+<tbody>
+<tr class="linhaPar">
+<td class="turma" colspan="4">
+									PGEDU0151
+
+										<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formPrincipal'),{'formPrincipal:j_id_jsp_955622233_27':'formPrincipal:j_id_jsp_955622233_27','tid':'376591'},'');}return false">
+											PROJETO DE <b>TESE</b> I
+											</a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td align="justify" class="topico" colspan="4">
+										 Aulas presenciais em Vitória.  Aulas presenciais PROJETO DE <b>TESE</b> I...										
+									</td>
+</tr>
+</tbody>
+<tfoot>
+<tr>
+<td align="center" colspan="4">
+<b>1 Turma(s) encontrada(s) </b>
+</td>
+</tr>
+</tfoot>
+</table>
+</div>
+<input id="javax.faces.ViewState" name="javax.faces.ViewState" type="hidden" value="j_id2"/>
+</form>
+</div>
+</div>
+<div class="clear"></div>
+</div>
+<div id="rodape">
+<p> <!-- Redmine 24523 - Telas e relat&#243;rios com rodap&#233;s sem a altera&#231;&#227;o - Portal P&#250;blico -->
+			SIGAA | STI/SUPAC | -  | Copyright © 2006-2026 - UFBA - sigaapl08.intranet.ufba.br
+			 
+				<a onclick="javascript:versao();">v4.13.8_41_hotfix</a>
+</p>
+</div>
+<!-- Fim dos containers -->
+</div>
+<!-- MYFACES JAVASCRIPT -->
+</body>
+</html>
+<html>
+<style>
+a.linkMobile:link {
+	color: #003395;
+	font-weight: bold;
+	font-size: inherit;
+	text-decoration: none;
+}
+
+a.linkMobile:visited {
+	color: #003390;
+	text-decoration: none;
+	font-weight: bold;
+}
+
+a.linkMobile:active {
+	color: #444444;
+	text-decoration: none;
+	font-weight: bold;
+}
+</style>
+</html>

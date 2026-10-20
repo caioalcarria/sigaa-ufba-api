@@ -1,0 +1,131 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta content="no-cache" http-equiv="Pragma"/>
+<title>SIGAA - Sistema Integrado de Gestão de Atividades Acadêmicas</title>
+<link class="component" href="/sigaa/a4j/s/3_3_3.Finalorg/richfaces/renderkit/html/css/basic_classes.xcss/DATB/eAF7sqpgb-jyGdIAFrMEaw__.jsf" rel="stylesheet" type="text/css"/><link class="component" href="/sigaa/a4j/s/3_3_3.Finalorg/richfaces/renderkit/html/css/extended_classes.xcss/DATB/eAF7sqpgb-jyGdIAFrMEaw__.jsf" media="rich-extended-skinning" rel="stylesheet" type="text/css"/><script src="/sigaa/a4j/g/3_3_3.Finalorg.ajax4jsf.javascript.AjaxScript.jsf" type="text/javascript"></script><script type="text/javascript"></script><script src="/sigaa/a4j/g/3_3_3.Finalorg/richfaces/renderkit/html/scripts/skinning.js.jsf" type="text/javascript"></script><link href="/sigaa/img/sigaa.ico" rel="shortcut icon"/>
+<script src="/shared/jsBundles/jawr_loader.js" type="text/javascript"></script>
+<script src="/sigaa/javascript/prevenir-duplo-clique.js" type="text/javascript"></script>
+<script type="text/javascript"></script>
+<link href="/sigaa/cssBundles/gzip_787491763/public/css/public.css" media="all" rel="stylesheet" type="text/css"/>
+<link href="/shared/beta/css/font-awesome.css" media="screen" rel="stylesheet" type="text/css"/>
+<script src="/shared/javascript/STICookieConsent.js"></script>
+<script></script>
+</head>
+<body>
+<div id="container">
+<div id="container-inner">
+<div id="cabecalho">
+<div id="logo">
+<a href="/sigaa/public/"> <img src="https://sipac.ufba.br/shared/img/instituicao/brasao_ufba48x75.jpg"/> </a>
+</div>
+<div id="identificacao">
+<span class="ufrn"> Universidade Federal da Bahia </span>
+<span class="data">
+				 Salvador, 
+				 19 de Outubro de 
+				 2026 
+			</span>
+<a href="/sigaa/public/" id="home" style="width: 450px;" title="Página inicial"> </a>
+<div id="menu_info">
+<ul>
+<li class="login">
+<a alt="Clique aqui para logar-se no SIGAA" href="/sigaa/" title="Clique aqui para logar-se no SIGAA">
+							Login
+						<i class="fa fa-angle-right"></i></a>
+</li>
+</ul>
+</div>
+</div>
+<br clear="all"/>
+</div>
+<div id="corpo">
+<style></style>
+<h2>Processos Seletivos - TÉCNICO</h2>
+<form action="/sigaa/public/processo_seletivo/lista.jsf" enctype="application/x-www-form-urlencoded" id="form" method="post" name="form">
+<input name="form" type="hidden" value="form"/>
+<div class="descricaoOperacao">
+<p><b>Caro visitante,</b></p>
+<p>Nesta página você encontrará os últimos processos seletivos cadastrados
+		no SIGAA para que você possa consultar e, caso o período de inscrições esteja aberto, preencher o formulário
+		destinado para tal .</p>
+<p>Será possível visualizar as informações destes processos, como
+		o curso a que ele se refere, o período de inscrição, alguns arquivos
+		associados (como editais e manuais) e as instruções aos candidatos.</p>
+<p>Para cada processo listado está também disponível um <b><i>
+		formulário de inscrição</i></b> para os candidatos.</p>
+<p>Os períodos dos processos seletivos marcados na cor <b>verde</b> estão em aberto.</p>
+</div>
+<table class="formulario" id="consulta" width="50%">
+<caption>Consultar inscrições</caption>
+<tbody>
+<tr>
+<th width="30%">
+<span id="painelLabelPassaporteCPF"><span id="labCPF">CPF:</span></span>
+</th>
+<td>
+<span id="painelInputPassaporteCPF"><input id="txtCPF" maxlength="14" name="txtCPF" onfocus="this.onpaste = function(){ return false; };" onkeypress="return formataCPF(this, event, null)" size="15" type="text"/></span>
+</td>
+</tr>
+<tr>
+<th>
+</th>
+<td>
+<input id="txtEstrangeiro" name="txtEstrangeiro" onchange="A4J.AJAX.Submit('form',event,{'similarityGroupingId':'j_id_jsp_967837914_9','parameters':{'j_id_jsp_967837914_9':'j_id_jsp_967837914_9'} ,'containerId':'j_id_jsp_967837914_0'} )" type="checkbox"/>
+							A pessoa é estrangeira e não possui CPF.
+						</td>
+</tr>
+<tr>
+<td colspan="2" style="text-align: center"><img src="/sigaa/captcha.jpg"/></td>
+</tr>
+<tr>
+<th>Conteúdo da imagem acima:</th>
+<td><input id="captcha" maxlength="10" name="captcha" size="10" type="text"/></td>
+</tr>
+</tbody>
+<tfoot>
+<tr>
+<td colspan="2">
+<input name="j_id_jsp_967837914_11" type="hidden" value="T"/><input name="j_id_jsp_967837914_12" type="submit" value="Buscar"/>
+							 
+							<input name="j_id_jsp_967837914_13" onclick="return confirm('Deseja cancelar a operação? Todos os dados digitados serão perdidos!');" type="submit" value="Cancelar"/>
+</td>
+</tr>
+</tfoot>
+</table>
+<br/>
+<center>
+<div class="infoAltRem">
+<img alt="*" src="/sigaa/img/seta.gif" style="overflow: visible;"/>: Visualizar dados do processo seletivo<br/>
+</div>
+</center>
+<style></style>
+<div class="aviso">
+<p>Nenhum processo seletivo encontra-se aberto para inscrições
+					neste nível de ensino.</p>
+</div>
+<input id="javax.faces.ViewState" name="javax.faces.ViewState" type="hidden" value="j_id3"/>
+</form>
+<br/>
+<div style="width: 80%; text-align: center; margin: 0 auto;">
+<a href="/sigaa/public/home.jsf" style="color: #404E82;">&lt;&lt; Voltar ao menu principal</a>
+</div>
+<br/>
+<div class="clear"></div>
+</div>
+<div id="rodape">
+<p> 
+			SIGAA | STI/SUPAC | -  | Copyright © 2006-2026 - UFBA - saomiguel.intranet.ufba.br
+			 
+				<a onclick="javascript:versao();">v4.13.8_41_hotfix</a>
+</p>
+</div>
+
+</div>
+</div>
+
+</body>
+</html>
+<html><script charset="UTF-8" type="text/javascript"></script>
+<style></style>
+</html>

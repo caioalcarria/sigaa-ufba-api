@@ -1,0 +1,1438 @@
+
+
+
+
+
+
+
+
+	
+	
+		<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+   "http://www.w3.org/TR/html4/loose.dtd">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<html class="background" xmlns="http://www.w3.org/1999/xhtml">
+
+
+<head>
+<link rel="stylesheet" href="/sigaa/faces/myFacesExtensionResource/org.apache.myfaces.renderkit.html.util.MyFacesResourceLoader/17923912/calendar.HtmlCalendarRenderer/WH/theme.css" type="text/css" />
+<link rel="stylesheet" href="/sigaa/faces/myFacesExtensionResource/org.apache.myfaces.renderkit.html.util.MyFacesResourceLoader/17923912/calendar.HtmlCalendarRenderer/DB/theme.css" type="text/css" />
+<script type="text/javascript" src="/sigaa/faces/myFacesExtensionResource/org.apache.myfaces.renderkit.html.util.MyFacesResourceLoader/17923912/prototype.PrototypeResourceLoader/prototype.js"><!--
+
+//--></script>
+<script type="text/javascript" src="/sigaa/faces/myFacesExtensionResource/org.apache.myfaces.renderkit.html.util.MyFacesResourceLoader/17923912/calendar.HtmlCalendarRenderer/date.js"><!--
+
+//--></script>
+<script type="text/javascript" src="/sigaa/faces/myFacesExtensionResource/org.apache.myfaces.renderkit.html.util.MyFacesResourceLoader/17923912/calendar.HtmlCalendarRenderer/popcalendar.js"><!--
+
+//--></script>
+<script type="text/javascript" src="/sigaa/faces/myFacesExtensionResource/org.apache.myfaces.renderkit.html.util.MyFacesResourceLoader/17923912/inputTextHelp.HtmlTextHelpRenderer/inputTextHelp.js"><!--
+
+//--></script>
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+<meta http-equiv="Pragma" content="no-cache" />
+<meta http-equiv="Expires" content="0" />
+
+
+
+<title>SIGAA - Sistema Integrado de Gest&#227;o de Atividades Acad&#234;micas</title>
+<link class="component" href="/sigaa/a4j/s/3_3_3.Finalorg/richfaces/renderkit/html/css/basic_classes.xcss/DATB/eAF7sqpgb-jyGdIAFrMEaw__.jsf" rel="stylesheet" type="text/css" /><link class="component" href="/sigaa/a4j/s/3_3_3.Finalorg/richfaces/renderkit/html/css/extended_classes.xcss/DATB/eAF7sqpgb-jyGdIAFrMEaw__.jsf" media="rich-extended-skinning" rel="stylesheet" type="text/css" /><script src="/sigaa/a4j/g/3_3_3.Finalorg.ajax4jsf.javascript.AjaxScript.jsf" type="text/javascript"></script><script src="/sigaa/a4j/g/3_3_3.Finalorg.ajax4jsf.javascript.PrototypeScript.jsf" type="text/javascript"></script><script src="/sigaa/a4j/g/3_3_3.Finalorg/richfaces/renderkit/html/scripts/jquery/jquery.js.jsf" type="text/javascript"></script><script src="/sigaa/a4j/g/3_3_3.Finalorg/richfaces/renderkit/html/scripts/available.js.jsf" type="text/javascript"></script><script src="/sigaa/a4j/g/3_3_3.Finalorg.ajax4jsf.javascript.SmartPositionScript.jsf" type="text/javascript"></script><script src="/sigaa/a4j/g/3_3_3.Finalorg/richfaces/renderkit/html/scripts/browser_info.js.jsf" type="text/javascript"></script><script src="/sigaa/a4j/g/3_3_3.Finalorg/richfaces/renderkit/html/scripts/utils.js.jsf" type="text/javascript"></script><script src="/sigaa/a4j/g/3_3_3.Finalorg/richfaces/renderkit/html/scripts/scriptaculous/effects.js.jsf" type="text/javascript"></script><script src="/sigaa/a4j/g/3_3_3.Finalscripts/suggestionbox.js.jsf" type="text/javascript"></script><link class="component" href="/sigaa/a4j/s/3_3_3.Finalorg/richfaces/renderkit/html/css/suggestionbox.xcss/DATB/eAF7sqpgb-jyGdIAFrMEaw__.jsf" rel="stylesheet" type="text/css" /><script type="text/javascript">window.RICH_FACES_EXTENDED_SKINNING_ON=true;</script><script src="/sigaa/a4j/g/3_3_3.Finalorg/richfaces/renderkit/html/scripts/skinning.js.jsf" type="text/javascript"></script><link rel="shortcut icon" href="/sigaa/img/sigaa.ico" />
+
+<script type="text/javascript" src="/shared/jsBundles/jawr_loader.js"></script>
+<script type="text/javascript">
+                JAWR.loader.style('/bundles/css/sigaa_base.css', 'all');
+        		JAWR.loader.style('/css/ufrn_print.css', 'print');
+        		JAWR.loader.script('/bundles/js/sigaa_base.js');
+</script>
+<link rel="stylesheet" type="text/css" media="all" href="/sigaa/cssBundles/gzip_N91553634/bundles/css/sigaa.css" />
+
+
+<link rel="alternate stylesheet" type="text/css" media="screen" title="mono" href="/sigaa/css/mono.css" />
+<link rel="alternate stylesheet" type="text/css" media="screen" title="contraste" href="/sigaa/css/contraste.css" />
+
+<!-- FontAwesome -->
+<link rel="stylesheet" type="text/css" href="/shared/beta/css/font-awesome.css" media="screen" />
+
+<!-- Painel Gen&#233;rico para telas Modal -->
+<script type="text/javascript" src="/shared/javascript/paineis/painel_generico.js"></script>
+
+<script src="/sigaa/javascript/styleswitch.js" type="text/javascript" ></script>
+
+<script src="/sigaa/javascript/prevenir-duplo-clique.js" type="text/javascript"></script>
+
+
+	
+	
+		<!-- Bot&#227;o de informar um problema -->
+		<link rel="stylesheet" type="text/css" href="/shared/informar-problema/css/informar-problema.css?ver=1.1" media="screen" />
+		<script type="text/javascript" src="/shared/informar-problema/js/webcomponents.min.js?ver=1.1"></script>
+		<script type="text/javascript" src="/shared/informar-problema/js/html2canvas.js?ver=1.1"></script>
+		<script type="text/javascript" src="/shared/informar-problema/js/informar-problema.js?ver=1.1"></script>
+		<!-- FIM bot&#227;o de informar um problema -->
+	
+
+
+
+
+<script type="text/javascript">
+		var mensagem;
+		var initMensagem = function() {
+			mensagem = new Mensagem();
+		}
+		YAHOO.util.Event.addListener(window,'load', initMensagem);
+		
+		function isIE(){
+		
+					return false;
+			
+		}
+</script>
+
+<script type="text/javascript" src="/sigaa/javascript/jsCookMenuHack.js"></script>
+<!-- Fim dos imports para abrir chamado -->
+
+	<script src="/shared/javascript/STICookieConsent.js"></script>
+	<script>
+	    document.addEventListener("DOMContentLoaded", () => {
+	    	generateCookieConsentModal("SIGAA", "N&#243;s usamos cookies para melhorar sua experi&#234;ncia de navega&#231;&#227;o no portal. Ao utilizar o %sitename%, voc&#234; concorda com a pol&#237;&#173;tica de monitoramento de cookies. Para ter mais informa&#231;&#245;es sobre como isso &#233; feito e como remover, acesse a <a href=%cookie-policy%>Pol&#237;tica de Privacidade</a>. Para saber como a UFRN trata os dados, acesse a <a href=%privacy-policy%> Pol&#237;&#173;tica de cookies</a>. Se voc&#234; concorda, clique em %button-text%.", "https://ufrn.br/institucional/politica-de-privacidade-e-termos-de-uso", "https://ufrn.br/institucional/politica-de-cookies");
+	    })
+	</script>
+	
+</head>
+
+<body>
+
+
+
+
+
+
+
+	<div id="container">
+	<div id="cabecalho">
+		<div id="info-sistema">
+			<h1><span>UFBA - SIGAA -</span></h1>
+			<h3>Sistema Integrado de Gest&#227;o de Atividades Acad&#234;micas</h3>
+			<div class="dir">
+				
+					
+					<style>
+#info-sistema span.sair-sistema,
+	#info-sistema #tempoSessao{
+	display: inline;
+	right: inherit;
+	position: relative;
+	top: 0;
+	padding-right: inherit;
+}
+
+#info-sistema div.dir{
+	top:0;
+	right:0;
+	text-align: right;
+	width: auto;
+	position: absolute;
+	margin:0;
+	padding: 0;
+	height:16px;
+	display: inline;
+	padding-right:5px;
+	color: #FFF;
+}
+#info-sistema span.acessibilidade{
+	padding: 0 5px;
+	border: solid #D99C44;
+	border-width: 0 1px 0 0;
+	margin: 0 5px;
+	padding: 0 5px;
+}
+	#info-sistema span.acessibilidade a{
+		font-size: 1.1em;
+		font-weight: bolder;
+		color: #FFF;
+		margin-left: 2px;
+		letter-spacing: 0.1px;
+		word-spacing: 0.1px;
+	}
+	#info-sistema span.acessibilidade a.fonteMenor strong{
+		font-size: 0.9em;
+	}
+	.rich-tabpanel-content {
+		font-size: inherit;
+	}	
+</style>
+<span class="acessibilidade">
+	<a class="fonteMaior" title="Aumentar a texto" alt="Aumentar a texto" href="#">
+		<strong>A</strong>+
+	</a>
+	<a class="fonteMenor" title="Diminuir o texto" alt="Diminuir o texto" href="#">
+		<strong>A</strong>-
+	</a>
+</span>
+
+	<span class="acessibilidade">
+		<a title="Ajuda" alt="Ajuda" href="http://www.info.ufrn.br/wikisistemas/doku.php?id=suporte:sigaa:visao_geral" target="_blank">
+			Ajuda?
+		</a>
+	</span>
+
+<script type="text/javascript" src="/shared/javascript/jquery/jquery-1.4.4.min.js"></script>
+<script src="/sigaa/javascript/jquery.fontsize.js" type="text/javascript" ></script>
+<script type="text/javascript" >
+	redimensionarFonte('.acessibilidade', '#conteudo', 11, 11, 14);
+</script>
+<script>var $jq = jQuery.noConflict();</script>
+					<span id="tempoSessao"></span>
+					<span class="sair-sistema"> <a href="/sigaa/logar.do?dispatch=logOff">SAIR</a> </span>
+				
+			</div>
+		</div>
+	 
+
+	<div id="painel-usuario"  >
+	
+		<div id="menu-usuario">
+		<ul>
+			<li class="modulos">
+			<!-- IN&#205;CIO - Redmine #33855 - An&#225;lise do menu M&#243;dulos - SIGAA  -->
+			
+				<span id="modulos"> <a href="#" id="show-modulos"> M&#243;dulos </a> </span>
+			
+			<!-- FIM - Redmine #33855 - An&#225;lise do menu M&#243;dulos - SIGAA  -->
+			</li>
+			
+
+				<li class="caixa-postal">
+				
+					
+					
+						<a href=/sigaa/abrirCaixaPostal.jsf?sistema=2>
+							
+							Caixa Postal
+							
+							
+						</a>
+					
+				
+				</li>
+
+			
+
+			
+				<li class="chamado">
+				
+					
+						
+						<a href="javascript://nop/" onclick="alert('Acesse o portal UFBASIM para v&#237;deos, manuais e perguntas mais frequentes ( https://ufbasim.ufba.br/faq-page ).\n\nCaso sua d&#250;vida n&#227;o seja respondida:\n\t- se for um servidor da UFBA abra um chamado no helpdesk.ufba.br ou ligando no 6100;\n\t- se n&#227;o for servidor entre em contato com o colegiado do seu curso.')">Abrir Chamado</a>
+					
+					
+				
+				</li>
+			 
+			
+			
+			
+				 
+					<li class="menus">
+						<a href="/sigaa/verPortalDiscente.do">Menu Discente</a>
+					</li>
+				 
+			
+			
+			
+				
+
+<li class="dados-pessoais">
+	
+		<a href="#" onclick="window.open('/sigaa/alterar_dados.jsf','','width=670,height=430, top=100, left=100, scrollbars' )">Alterar senha</a>
+	
+</li>
+			
+			
+			
+			
+			
+			
+
+			
+				<!-- INICIO bot&#227;o Informar problema -->
+				
+				<!-- FIM bot&#227;o Informar problema -->
+			
+
+		</ul>
+
+		
+
+		</div>
+
+		<div id="info-usuario">
+
+		<p class="periodo-atual">
+			
+				Semestre atual: <strong>2026.2</strong>			
+			
+			</br>
+			
+		</p>		
+		<p class="usuario">
+		
+			<span title="FULANO DE T. DA SILVA">
+				FULANO DE T. DA SILVA
+			</span>
+			
+			
+		
+		</p>
+
+		<p class="unidade">
+			INSTITUTO DE COMPUTA&#199;&#195;O
+			 (12.28)
+			
+		</p>
+
+		</div>
+	
+	<div id="menu-principal"></div>
+	</div>
+	</div>
+	
+
+	<div id="conteudo">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+
+<script type="text/javascript">
+//Fun&#231;&#227;o adicionada no cabe&#231;alho para evitar a reescrita em cada JSP.
+function contarCaracteres(field, idMostraQuantidadeUsuario, maxlimit) {
+	
+	if (field.value.length > maxlimit){
+		field.value = field.value.substring(0, maxlimit);
+	}else{ 
+		document.getElementById(idMostraQuantidadeUsuario).innerHTML = maxlimit - field.value.length ;
+	} 
+}
+</script>
+<script type="text/javascript" src="/shared/javascript/consulta_cep.js"> </script>
+<script>
+/* M&#225;scaras ER */  
+function mascara(o,f){  
+    v_obj=o  
+    v_fun=f  
+    setTimeout("execmascara()",1)  
+}  
+function execmascara(){  
+    v_obj.value=v_fun(v_obj.value)  
+}  
+function mtel(v){  
+    v=v.replace(/\D/g,"");             //Remove tudo o que n&#227;o &#233; d&#237;gito  
+    v=v.replace(/(\d)(\d{4})$/,"$1-$2");    //Coloca h&#237;fen entre o quarto e o quinto d&#237;gitos  
+    return v;  
+}
+function somenteNumeros(v){
+	v=v.replace(/\D/g,"");             //Remove tudo o que n&#227;o &#233; d&#237;gito
+	return v;
+}
+</script>
+<script type="text/javascript">
+
+// seta UF escolhida no Hidden pro servlet poder receber o parametro
+function preNaturUF() {
+	$('naturUF').value = $F('formDiscente:uf');
+}
+
+// seleciona o Municipio ao carregar o form pra altera&#231;&#227;o
+function posNaturUF() {
+	
+}
+
+<style>
+table.formulario th {
+	font-weight: bold;
+}
+
+#cepIndicator {
+	padding: 0 0 0 15px;
+	color: #999;
+}
+
+span.info {
+	font-size: 0.9em;
+	color: #888;
+}
+</style>
+</script>
+
+	
+
+
+
+
+
+
+<script>
+function redirectManual(){
+	return window.open("https://ufba.br/sites/portal.ufba.br/files//manual_nee.pdf","_blank");
+}
+</script>
+	
+
+
+
+
+
+
+
+<script>
+function redirectManual(){
+	return window.open("https://ufba.br/sites/portal.ufba.br/files//manual_nee.pdf","_blank");
+}
+</script>
+
+
+	<h2> <a href='/sigaa/verPortalDiscente.do'>Portal do Discente</a> &gt; Atualizar dados pessoais de discente</h2>
+
+	
+
+	
+		<div class="descricaoOperacao">
+			<p> 
+				<b>Caro Discente,</b> 
+			</p>
+			<br/> 
+			
+			
+			<p>
+				Se algum dos dados pessoais bloqueados para edi&#231;&#227;o estiver incorreto, ser&#225; necess&#225;rio procurar o NAREP/SUPAC para corrig&#237;-lo.
+			</p>
+			
+			
+			
+		
+		<p><b>&#201; importante</b> que o seu nome esteja grafado corretamente e
+		sem abrevia&#231;&#245;es, assim como o nome do seu pai e de sua m&#227;e. Verifique
+		tamb&#233;m se est&#227;o corretas as informa&#231;&#245;es referentes &#224; naturalidade e documentos, principalmente <b>CPF</b> e <b>RG</b>. <b>Tais informa&#231;&#245;es
+		constar&#227;o no seu diploma, como tamb&#233;m em alguns outros documentos expedidos pela UFBA</b>. </p>
+		
+		</div>
+		
+
+		
+	
+<form id="formDiscente" name="formDiscente" method="post" action="/sigaa/graduacao/discente/dados_discente.jsf" enctype="application/x-www-form-urlencoded">
+<input type="hidden" name="formDiscente" value="formDiscente" />
+<input type="hidden" name="formDiscente:j_id_jsp_1470711742_377" value="100000" />
+		
+		
+		
+		<table class="formulario">
+			<caption>Dados do discente</caption>
+			<tbody>
+				<tr>
+					<th>Matr&#237;cula:</th>
+					<td colspan="3">200000000</td>
+				</tr>
+				
+					
+					
+						<tr>
+							<th>Nome:</th>
+							<td colspan="3">FULANO DE TAL DA SILVA</td>
+						</tr>					
+					
+				
+				<tr>
+					<th>Curso:</th>
+					<td colspan="3">SISTEMAS DE INFORMA&#199;&#195;O/IC/UFBA - SALVADOR - BACHARELADO</td>
+				</tr>
+				<tr>
+					<th width="25%">Sexo:</th>
+					<td width="25%">M</td>
+					<th width="20%">Estado civil:</th>
+					<td width="30%">N&#227;o Informado</td>
+				</tr>
+				<tr>
+					<th>Data de nascimento:</th>
+					<td>01/01/2000</td>
+					<th>Naturalidade:</th>
+					<td>
+						
+							
+							
+								
+								SALVADOR/Bahia</td>					
+					
+				</tr>
+				<tr>
+					<th>Ra&#231;a:</th>
+					<td>Preto</td>
+					<th> Tipo Sangu&#237;neo:</th>
+					<td></td>
+				</tr>
+				<tr>
+					<th>Nacionalidade:</th>
+					<td> BRASILEIRO </td>
+					<th>Pa&#237;s:</th>
+					<td>Brasil</td>
+				</tr>
+				<tr>
+					<th>Escola de conclus&#227;o do Ensino M&#233;dio:</th>
+					<td></td>
+					<th>Tipo da Escola de Ensino M&#233;dio:</th>
+					<td>Privada</td>
+				</tr>
+				<tr>
+					<th>Ano de Conclus&#227;o:</th>
+					<td colspan="3">2020</td>
+				</tr>
+				<tr>
+					<th>Tipos de NEE:</th>
+							
+						
+						
+					
+				</tr>
+				<tr>
+					<th>Nome do pai:</th>
+					<td colspan="3">PAI DE TAL</td>
+				</tr>
+				<tr>
+					<th>Nome da m&#227;e:</th>
+					<td colspan="3">MAE DE TAL</td>
+				</tr>
+
+				
+				<tr>
+					<td colspan="4" class="subFormulario">Documentos</td>
+				</tr>
+				<tr>
+					<th>CPF:</th>
+					<td colspan="3">000.000.000-00</td>
+				</tr>
+				<tr>
+					<th>RG:</th>
+					<td>0000000000 -
+					SSP/BA</td>
+					<th>Data de Expedi&#231;&#227;o:</th>
+					<td></td>
+					
+					
+				</tr>
+				<tr>
+					<th>T&#237;tulo de Eleitor:</th>
+					<td>000000000000 &nbsp; <b>Zona:</b>
+					</td>
+					<th>Se&#231;&#227;o:</th>
+					<td> &nbsp; <b>UF:</b>
+					</td>
+				</tr>
+				<tr>
+					<th>Certificado Militar:</th>
+					<td>000000000000</td>
+					<th>Data de Expedi&#231;&#227;o do Certificado Militar:</th>
+					<td></td>
+				</tr>
+				<tr>
+					<th>S&#233;rie:</th>
+					<td></td>
+					<th>Categoria:</th>
+					<td> &nbsp; <b> &#211;rg&#227;o:</b>
+					</td>
+				</tr>
+
+
+				<tr>
+					<td colspan="4" class="subFormulario">Endere&#231;o</td>
+				</tr>
+				<tr class="linhaCep">
+					<th>CEP:</th>
+					<td colspan="4">
+						<input id="formDiscente:endCEP" type="text" name="formDiscente:endCEP" value="40000000" maxlength="10" onblur="formataCEP(this, event, null); ConsultadorCep.consultar();" onkeyup="return formataCEP(this, event, null);" size="10" />
+						<a href="javascript://nop/" onclick="ConsultadorCep.consultar();">
+							<img src="/sigaa/img/buscar.gif" />
+						</a>
+						<span class="info">
+							(clique na lupa para buscar o endere&#231;o do CEP informado)
+						</span>
+						<span id="cepIndicator" style="display: none;">
+							<img src="/sigaa/img/indicator.gif" /> Buscando endere&#231;o... 
+						</span>
+					</td>
+				</tr>
+				<tr>
+					<th class = 'required'>Logradouro:</th>
+					<td colspan="3">
+						<select id="formDiscente:selectTipoLogradouro" name="formDiscente:selectTipoLogradouro" size="1">	<option value="12">Avenida</option>
+	<option value="2">Bloco</option>
+	<option value="5">Fazenda</option>
+	<option value="-1">N&atilde;o Informado</option>
+	<option value="3">Outros</option>
+	<option value="1">Pra&ccedil;a</option>
+	<option value="4">Rodovia</option>
+	<option value="11">Rua</option>
+	<option value="13">Travessa</option>
+</select><input id="formDiscente:txtLogradouro" type="text" name="formDiscente:txtLogradouro" value="RUA FICTICIA" maxlength="120" style="width:62.7%;" />
+							
+					</td>
+				</tr>
+				<tr>
+					<th class = 'required'>N&#250;mero:</th>
+					<td colspan="3"><input id="formDiscente:txtNumero" type="text" name="formDiscente:txtNumero" maxlength="30" size="10" /> Complemento:
+						<input id="formDiscente:txtComplemento" type="text" name="formDiscente:txtComplemento" value="APTO 0" maxlength="500" style="width: 54.3%;" />
+					</td>
+				</tr>
+				<tr>
+					<th class = 'required'>Bairro:</th>
+					<td colspan="3"><input id="formDiscente:txtBairro" type="text" name="formDiscente:txtBairro" value="BAIRRO FICTICIO" maxlength="80" style="width: 76.7%;" /></td>
+				</tr>
+				<tr>
+					<th class = 'required'>UF:</th>
+					<td colspan="3"><select id="formDiscente:selectUF" name="formDiscente:selectUF" size="1" onchange="A4J.AJAX.Submit('formDiscente',event,{'similarityGroupingId':'formDiscente:j_id_jsp_1470711742_388','parameters':{'formDiscente:j_id_jsp_1470711742_388':'formDiscente:j_id_jsp_1470711742_388'} ,'containerId':'formDiscente:j_id_jsp_1470711742_385'} )">	<option value="12">Acre</option>
+	<option value="27">Alagoas</option>
+	<option value="16">Amap&aacute;</option>
+	<option value="13">Amazonas</option>
+	<option value="29" selected="selected">Bahia</option>
+	<option value="23">Cear&aacute;</option>
+	<option value="53">Distrito Federal</option>
+	<option value="32">Esp&iacute;rito Santo</option>
+	<option value="52">Goi&aacute;s</option>
+	<option value="99">Ignorado/exterior</option>
+	<option value="21">Maranh&atilde;o</option>
+	<option value="51">Mato Grosso</option>
+	<option value="50">Mato Grosso do Sul</option>
+	<option value="31">Minas Gerais</option>
+	<option value="-1">N&atilde;o Informado</option>
+	<option value="41">Paran&aacute;</option>
+	<option value="25">Para&iacute;ba</option>
+	<option value="15">Par&aacute;</option>
+	<option value="26">Pernambuco</option>
+	<option value="22">Piau&iacute;</option>
+	<option value="24">Rio Grande do Norte</option>
+	<option value="43">Rio Grande do Sul</option>
+	<option value="33">Rio de Janeiro</option>
+	<option value="11">Rond&ocirc;nia</option>
+	<option value="14">Roraima</option>
+	<option value="42">Santa Catarina</option>
+	<option value="28">Sergipe</option>
+	<option value="35">S&atilde;o Paulo</option>
+	<option value="17">Tocantins</option>
+</select>
+						
+						<input type="hidden" id="naturUF" />
+						<span id="formDiscente:j_id_jsp_1470711742_385:status"><span id="formDiscente:j_id_jsp_1470711742_385:status.start" style="display: none"><img src="/sigaa/img/indicator.gif" /></span><span id="formDiscente:j_id_jsp_1470711742_385:status.stop"></span></span>
+					Munic&#237;pio: <img src="/sigaa/img/required.gif" style="vertical-align: middle;"> <select id="formDiscente:selectMunicipio" name="formDiscente:selectMunicipio" size="1" style="width: 50%;">	<option value="1842">ABAR&Eacute;</option>
+	<option value="1841">ABA&Iacute;RA</option>
+	<option value="1843">ACAJUTIBA</option>
+	<option value="1844">ADUSTINA</option>
+	<option value="1846">AIQUARA</option>
+	<option value="1847">ALAGOINHAS</option>
+	<option value="1848">ALCOBA&Ccedil;A</option>
+	<option value="1849">ALMADINA</option>
+	<option value="1850">AMARGOSA</option>
+	<option value="1851">AM&Eacute;LIA RODRIGUES</option>
+	<option value="1852">AM&Eacute;RICA DOURADA</option>
+	<option value="1853">ANAG&Eacute;</option>
+	<option value="1854">ANDARA&Iacute;</option>
+	<option value="1855">ANDORINHA</option>
+	<option value="1856">ANGICAL</option>
+	<option value="1857">ANGUERA</option>
+	<option value="1858">ANTAS</option>
+	<option value="1859">ANT&Ocirc;NIO CARDOSO</option>
+	<option value="1860">ANT&Ocirc;NIO GON&Ccedil;ALVES</option>
+	<option value="1861">APOR&Aacute;</option>
+	<option value="1862">APUAREMA</option>
+	<option value="1864">ARACATU</option>
+	<option value="1865">ARACI</option>
+	<option value="1866">ARAMARI</option>
+	<option value="1867">ARATACA</option>
+	<option value="1868">ARATU&Iacute;PE</option>
+	<option value="1863">ARA&Ccedil;AS</option>
+	<option value="1869">AURELINO LEAL</option>
+	<option value="1870">BAIAN&Oacute;POLIS</option>
+	<option value="1871">BAIXA GRANDE</option>
+	<option value="1872">BANZA&Ecirc;</option>
+	<option value="1873">BARRA</option>
+	<option value="1874">BARRA DA ESTIVA</option>
+	<option value="1875">BARRA DO CHO&Ccedil;A</option>
+	<option value="1876">BARRA DO MENDES</option>
+	<option value="1877">BARRA DO ROCHA</option>
+	<option value="1878">BARREIRAS</option>
+	<option value="1879">BARRO ALTO</option>
+	<option value="1880">BARRO PRETO</option>
+	<option value="1881">BARROCAS</option>
+	<option value="1882">BELMONTE</option>
+	<option value="1883">BELO CAMPO</option>
+	<option value="1884">BIRITINGA</option>
+	<option value="1885">BOA NOVA</option>
+	<option value="1886">BOA VISTA DO TUPIM</option>
+	<option value="1887">BOM JESUS DA LAPA</option>
+	<option value="1888">BOM JESUS DA SERRA</option>
+	<option value="1889">BONINAL</option>
+	<option value="1890">BONITO</option>
+	<option value="1891">BOQUIRA</option>
+	<option value="1892">BOTUPOR&Atilde;</option>
+	<option value="1894">BREJOL&Acirc;NDIA</option>
+	<option value="1893">BREJ&Otilde;ES</option>
+	<option value="1895">BROTAS DE MACA&Uacute;BAS</option>
+	<option value="1896">BRUMADO</option>
+	<option value="1897">BUERAREMA</option>
+	<option value="1898">BURITIRAMA</option>
+	<option value="1899">CAATIBA</option>
+	<option value="1900">CABACEIRAS DO PARAGUA&Ccedil;U</option>
+	<option value="1901">CACHOEIRA</option>
+	<option value="1902">CACUL&Eacute;</option>
+	<option value="1904">CAETANOS</option>
+	<option value="1905">CAETIT&Eacute;</option>
+	<option value="1906">CAFARNAUM</option>
+	<option value="1907">CAIRU</option>
+	<option value="1908">CALDEIR&Atilde;O GRANDE</option>
+	<option value="1909">CAMACAN</option>
+	<option value="1911">CAMAMU</option>
+	<option value="1910" selected="selected">CAMA&Ccedil;ARI</option>
+	<option value="1912">CAMPO ALEGRE DE LOURDES</option>
+	<option value="1913">CAMPO FORMOSO</option>
+	<option value="1915">CANARANA</option>
+	<option value="1916">CANAVIEIRAS</option>
+	<option value="1917">CANDEAL</option>
+	<option value="1918">CANDEIAS</option>
+	<option value="1919">CANDIBA</option>
+	<option value="1921">CANSAN&Ccedil;&Atilde;O</option>
+	<option value="1922">CANUDOS</option>
+	<option value="1914">CAN&Aacute;POLIS</option>
+	<option value="1923">CAPELA DO ALTO ALEGRE</option>
+	<option value="1924">CAPIM GROSSO</option>
+	<option value="1926">CARAVELAS</option>
+	<option value="1925">CARA&Iacute;BAS</option>
+	<option value="1927">CARDEAL DA SILVA</option>
+	<option value="1928">CARINHANHA</option>
+	<option value="1929">CASA NOVA</option>
+	<option value="1930">CASTRO ALVES</option>
+	<option value="1931">CATOL&Acirc;NDIA</option>
+	<option value="1932">CATU</option>
+	<option value="1933">CATURAMA</option>
+	<option value="1903">CA&Eacute;M</option>
+	<option value="1934">CENTRAL</option>
+	<option value="1935">CHORROCH&Oacute;</option>
+	<option value="1937">CIP&Oacute;</option>
+	<option value="1938">COARACI</option>
+	<option value="1939">COCOS</option>
+	<option value="1940">CONCEI&Ccedil;&Atilde;O DA FEIRA</option>
+	<option value="1941">CONCEI&Ccedil;&Atilde;O DO ALMEIDA</option>
+	<option value="1942">CONCEI&Ccedil;&Atilde;O DO COIT&Eacute;</option>
+	<option value="1943">CONCEI&Ccedil;&Atilde;O DO JACU&Iacute;PE</option>
+	<option value="1944">CONDE</option>
+	<option value="1945">CONDE&Uacute;BA</option>
+	<option value="1946">CONTENDAS DO SINCOR&Aacute;</option>
+	<option value="1947">CORA&Ccedil;&Atilde;O DE MARIA</option>
+	<option value="1948">CORDEIROS</option>
+	<option value="1949">CORIBE</option>
+	<option value="1950">CORONEL JO&Atilde;O S&Aacute;</option>
+	<option value="1951">CORRENTINA</option>
+	<option value="1952">COTEGIPE</option>
+	<option value="1953">CRAVOL&Acirc;NDIA</option>
+	<option value="1955">CRIST&Oacute;POLIS</option>
+	<option value="1954">CRIS&Oacute;POLIS</option>
+	<option value="1956">CRUZ DAS ALMAS</option>
+	<option value="1957">CURA&Ccedil;&Aacute;</option>
+	<option value="1920">C&Acirc;NDIDO SALES</option>
+	<option value="1936">C&Iacute;CERO DANTAS</option>
+	<option value="1959">DIAS D'&Aacute;VILA</option>
+	<option value="1960">DOM BAS&Iacute;LIO</option>
+	<option value="1961">DOM MACEDO COSTA</option>
+	<option value="1958">D&Aacute;RIO MEIRA</option>
+	<option value="1962">EL&Iacute;SIO MEDRADO</option>
+	<option value="1963">ENCRUZILHADA</option>
+	<option value="1964">ENTRE RIOS</option>
+	<option value="1966">ESPLANADA</option>
+	<option value="1967">EUCLIDES DA CUNHA</option>
+	<option value="1968">EUN&Aacute;POLIS</option>
+	<option value="1970">FEIRA DA MATA</option>
+	<option value="1971">FEIRA DE SANTANA</option>
+	<option value="1972">FILAD&Eacute;LFIA</option>
+	<option value="1973">FIRMINO ALVES</option>
+	<option value="1974">FLORESTA AZUL</option>
+	<option value="1975">FORMOSA DO RIO PRETO</option>
+	<option value="1969">F&Aacute;TIMA</option>
+	<option value="1976">GANDU</option>
+	<option value="1977">GAVI&Atilde;O</option>
+	<option value="1978">GENTIO DO OURO</option>
+	<option value="1979">GL&Oacute;RIA</option>
+	<option value="1980">GONGOGI</option>
+	<option value="1981">GOVERNADOR MANGABEIRA</option>
+	<option value="1982">GUAJERU</option>
+	<option value="1983">GUANAMBI</option>
+	<option value="1984">GUARATINGA</option>
+	<option value="1985">HELI&Oacute;POLIS</option>
+	<option value="1986">IA&Ccedil;U</option>
+	<option value="1987">IBIASSUC&Ecirc;</option>
+	<option value="1988">IBICARA&Iacute;</option>
+	<option value="1989">IBICOARA</option>
+	<option value="1990">IBICU&Iacute;</option>
+	<option value="1991">IBIPEBA</option>
+	<option value="1992">IBIPITANGA</option>
+	<option value="1993">IBIQUERA</option>
+	<option value="1994">IBIRAPITANGA</option>
+	<option value="1995">IBIRAPU&Atilde;</option>
+	<option value="1996">IBIRATAIA</option>
+	<option value="1997">IBITIARA</option>
+	<option value="1998">IBITIT&Aacute;</option>
+	<option value="1999">IBOTIRAMA</option>
+	<option value="2000">ICHU</option>
+	<option value="2001">IGAPOR&Atilde;</option>
+	<option value="2002">IGRAPI&Uacute;NA</option>
+	<option value="2003">IGUA&Iacute;</option>
+	<option value="2004">ILH&Eacute;US</option>
+	<option value="2005">INHAMBUPE</option>
+	<option value="2006">IPECAET&Aacute;</option>
+	<option value="2007">IPIA&Uacute;</option>
+	<option value="2008">IPIR&Aacute;</option>
+	<option value="2009">IPUPIARA</option>
+	<option value="2010">IRAJUBA</option>
+	<option value="2011">IRAMAIA</option>
+	<option value="2012">IRAQUARA</option>
+	<option value="2013">IRAR&Aacute;</option>
+	<option value="2014">IREC&Ecirc;</option>
+	<option value="2015">ITABELA</option>
+	<option value="2016">ITABERABA</option>
+	<option value="2017">ITABUNA</option>
+	<option value="2018">ITACAR&Eacute;</option>
+	<option value="2019">ITAET&Eacute;</option>
+	<option value="2020">ITAGI</option>
+	<option value="2021">ITAGIB&Aacute;</option>
+	<option value="2022">ITAGIMIRIM</option>
+	<option value="2023">ITAGUA&Ccedil;U DA BAHIA</option>
+	<option value="2024">ITAJU DO COL&Ocirc;NIA</option>
+	<option value="2025">ITAJU&Iacute;PE</option>
+	<option value="2026">ITAMARAJU</option>
+	<option value="2027">ITAMARI</option>
+	<option value="2028">ITAMB&Eacute;</option>
+	<option value="2029">ITANAGRA</option>
+	<option value="2030">ITANH&Eacute;M</option>
+	<option value="2031">ITAPARICA</option>
+	<option value="2033">ITAPEBI</option>
+	<option value="2034">ITAPETINGA</option>
+	<option value="2035">ITAPICURU</option>
+	<option value="2036">ITAPITANGA</option>
+	<option value="2032">ITAP&Eacute;</option>
+	<option value="2037">ITAQUARA</option>
+	<option value="2038">ITARANTIM</option>
+	<option value="2039">ITATIM</option>
+	<option value="2040">ITIRU&Ccedil;U</option>
+	<option value="2041">ITI&Uacute;BA</option>
+	<option value="2042">ITOROR&Oacute;</option>
+	<option value="2043">ITUA&Ccedil;U</option>
+	<option value="2044">ITUBER&Aacute;</option>
+	<option value="2045">IUI&Uacute;</option>
+	<option value="2046">JABORANDI</option>
+	<option value="2047">JACARACI</option>
+	<option value="2048">JACOBINA</option>
+	<option value="2049">JAGUAQUARA</option>
+	<option value="2050">JAGUARARI</option>
+	<option value="2051">JAGUARIPE</option>
+	<option value="2052">JANDA&Iacute;RA</option>
+	<option value="2053">JEQUI&Eacute;</option>
+	<option value="2054">JEREMOABO</option>
+	<option value="2055">JIQUIRI&Ccedil;&Aacute;</option>
+	<option value="2056">JITA&Uacute;NA</option>
+	<option value="2057">JO&Atilde;O DOURADO</option>
+	<option value="2058">JUAZEIRO</option>
+	<option value="2059">JUCURU&Ccedil;U</option>
+	<option value="2060">JUSSARA</option>
+	<option value="2061">JUSSARI</option>
+	<option value="2062">JUSSIAPE</option>
+	<option value="2063">LAFAIETE COUTINHO</option>
+	<option value="2064">LAGOA REAL</option>
+	<option value="2065">LAJE</option>
+	<option value="2067">LAJEDINHO</option>
+	<option value="2068">LAJEDO DO TABOCAL</option>
+	<option value="2066">LAJED&Atilde;O</option>
+	<option value="2069">LAMAR&Atilde;O</option>
+	<option value="2070">LAP&Atilde;O</option>
+	<option value="2071">LAURO DE FREITAS</option>
+	<option value="2072">LEN&Ccedil;&Oacute;IS</option>
+	<option value="2073">LIC&Iacute;NIO DE ALMEIDA</option>
+	<option value="2074">LIVRAMENTO DE NOSSA SENHORA</option>
+	<option value="2075">LU&Iacute;S EDUARDO MAGALH&Atilde;ES</option>
+	<option value="2076">MACAJUBA</option>
+	<option value="2077">MACARANI</option>
+	<option value="2078">MACA&Uacute;BAS</option>
+	<option value="2079">MACURUR&Eacute;</option>
+	<option value="2080">MADRE DE DEUS</option>
+	<option value="2081">MAETINGA</option>
+	<option value="2082">MAIQUINIQUE</option>
+	<option value="2083">MAIRI</option>
+	<option value="2084">MALHADA</option>
+	<option value="2085">MALHADA DE PEDRAS</option>
+	<option value="2086">MANOEL VITORINO</option>
+	<option value="2087">MANSID&Atilde;O</option>
+	<option value="2088">MARAC&Aacute;S</option>
+	<option value="2089">MARAGOGIPE</option>
+	<option value="2090">MARA&Uacute;</option>
+	<option value="2091">MARCION&Iacute;LIO SOUZA</option>
+	<option value="2092">MASCOTE</option>
+	<option value="2093">MATA DE S&Atilde;O JO&Atilde;O</option>
+	<option value="2094">MATINA</option>
+	<option value="2095">MEDEIROS NETO</option>
+	<option value="2096">MIGUEL CALMON</option>
+	<option value="2097">MILAGRES</option>
+	<option value="2098">MIRANGABA</option>
+	<option value="2099">MIRANTE</option>
+	<option value="2100">MONTE SANTO</option>
+	<option value="2101">MORPAR&Aacute;</option>
+	<option value="2102">MORRO DO CHAP&Eacute;U</option>
+	<option value="2103">MORTUGABA</option>
+	<option value="2104">MUCUG&Ecirc;</option>
+	<option value="2105">MUCURI</option>
+	<option value="2106">MULUNGU DO MORRO</option>
+	<option value="2107">MUNDO NOVO</option>
+	<option value="2108">MUNIZ FERREIRA</option>
+	<option value="2109">MUQU&Eacute;M DO S&Atilde;O FRANCISCO</option>
+	<option value="2110">MURITIBA</option>
+	<option value="2111">MUTU&Iacute;PE</option>
+	<option value="2112">NAZAR&Eacute;</option>
+	<option value="2113">NILO PE&Ccedil;ANHA</option>
+	<option value="2114">NORDESTINA</option>
+	<option value="2115">NOVA CANA&Atilde;</option>
+	<option value="2116">NOVA F&Aacute;TIMA</option>
+	<option value="2117">NOVA IBI&Aacute;</option>
+	<option value="2118">NOVA ITARANA</option>
+	<option value="2119">NOVA REDEN&Ccedil;&Atilde;O</option>
+	<option value="2120">NOVA SOURE</option>
+	<option value="2121">NOVA VI&Ccedil;OSA</option>
+	<option value="2122">NOVO HORIZONTE</option>
+	<option value="2123">NOVO TRIUNFO</option>
+	<option value="2124">OLINDINA</option>
+	<option value="2125">OLIVEIRA DOS BREJINHOS</option>
+	<option value="2126">OURI&Ccedil;ANGAS</option>
+	<option value="2127">OUROL&Acirc;NDIA</option>
+	<option value="2128">PALMAS DE MONTE ALTO</option>
+	<option value="2129">PALMEIRAS</option>
+	<option value="2130">PARAMIRIM</option>
+	<option value="2131">PARATINGA</option>
+	<option value="2132">PARIPIRANGA</option>
+	<option value="2133">PAU BRASIL</option>
+	<option value="2134">PAULO AFONSO</option>
+	<option value="2137">PEDRO ALEXANDRE</option>
+	<option value="2136">PEDR&Atilde;O</option>
+	<option value="2138">PIAT&Atilde;</option>
+	<option value="2139">PIL&Atilde;O ARCADO</option>
+	<option value="2140">PINDA&Iacute;</option>
+	<option value="2141">PINDOBA&Ccedil;U</option>
+	<option value="2142">PINTADAS</option>
+	<option value="2143">PIRA&Iacute; DO NORTE</option>
+	<option value="2144">PIRIP&Aacute;</option>
+	<option value="2145">PIRITIBA</option>
+	<option value="2146">PLANALTINO</option>
+	<option value="2147">PLANALTO</option>
+	<option value="2149">POJUCA</option>
+	<option value="2150">PONTO NOVO</option>
+	<option value="2151">PORTO SEGURO</option>
+	<option value="2152">POTIRAGU&Aacute;</option>
+	<option value="2148">PO&Ccedil;&Otilde;ES</option>
+	<option value="2153">PRADO</option>
+	<option value="2154">PRESIDENTE DUTRA</option>
+	<option value="2155">PRESIDENTE J&Acirc;NIO QUADROS</option>
+	<option value="2156">PRESIDENTE TANCREDO NEVES</option>
+	<option value="2135">P&Eacute; DE SERRA</option>
+	<option value="2157">QUEIMADAS</option>
+	<option value="2158">QUIJINGUE</option>
+	<option value="2159">QUIXABEIRA</option>
+	<option value="2160">RAFAEL JAMBEIRO</option>
+	<option value="2161">REMANSO</option>
+	<option value="2162">RETIROL&Acirc;NDIA</option>
+	<option value="2165">RIACHO DE SANTANA</option>
+	<option value="2163">RIACH&Atilde;O DAS NEVES</option>
+	<option value="2164">RIACH&Atilde;O DO JACU&Iacute;PE</option>
+	<option value="2166">RIBEIRA DO AMPARO</option>
+	<option value="2167">RIBEIRA DO POMBAL</option>
+	<option value="2168">RIBEIR&Atilde;O DO LARGO</option>
+	<option value="2169">RIO DE CONTAS</option>
+	<option value="2170">RIO DO ANT&Ocirc;NIO</option>
+	<option value="2171">RIO DO PIRES</option>
+	<option value="2172">RIO REAL</option>
+	<option value="2173">RODELAS</option>
+	<option value="2174">RUY BARBOSA</option>
+	<option value="2175">SALINAS DA MARGARIDA</option>
+	<option value="2176">SALVADOR</option>
+	<option value="2178">SANTA BR&Iacute;GIDA</option>
+	<option value="2177">SANTA B&Aacute;RBARA</option>
+	<option value="2179">SANTA CRUZ CABR&Aacute;LIA</option>
+	<option value="2180">SANTA CRUZ DA VIT&Oacute;RIA</option>
+	<option value="2181">SANTA IN&Ecirc;S</option>
+	<option value="2182">SANTA LUZIA</option>
+	<option value="2183">SANTA MARIA DA VIT&Oacute;RIA</option>
+	<option value="2184">SANTA RITA DE C&Aacute;SSIA</option>
+	<option value="2185">SANTA TEREZINHA</option>
+	<option value="2186">SANTALUZ</option>
+	<option value="2187">SANTANA</option>
+	<option value="2188">SANTAN&Oacute;POLIS</option>
+	<option value="2189">SANTO AMARO</option>
+	<option value="2190">SANTO ANT&Ocirc;NIO DE JESUS</option>
+	<option value="2191">SANTO EST&Ecirc;V&Atilde;O</option>
+	<option value="2204">SAPEA&Ccedil;U</option>
+	<option value="2206">SAUBARA</option>
+	<option value="2207">SA&Uacute;DE</option>
+	<option value="2208">SEABRA</option>
+	<option value="2209">SEBASTI&Atilde;O LARANJEIRAS</option>
+	<option value="2210">SENHOR DO BONFIM</option>
+	<option value="2211">SENTO S&Eacute;</option>
+	<option value="2212">SERRA DO RAMALHO</option>
+	<option value="2213">SERRA DOURADA</option>
+	<option value="2214">SERRA PRETA</option>
+	<option value="2215">SERRINHA</option>
+	<option value="2216">SERROL&Acirc;NDIA</option>
+	<option value="2217">SIM&Otilde;ES FILHO</option>
+	<option value="2220">SOBRADINHO</option>
+	<option value="2221">SOUTO SOARES</option>
+	<option value="2205">S&Aacute;TIRO DIAS</option>
+	<option value="2192">S&Atilde;O DESID&Eacute;RIO</option>
+	<option value="2193">S&Atilde;O DOMINGOS</option>
+	<option value="2194">S&Atilde;O FELIPE</option>
+	<option value="2197">S&Atilde;O FRANCISCO DO CONDE</option>
+	<option value="2195">S&Atilde;O F&Eacute;LIX</option>
+	<option value="2196">S&Atilde;O F&Eacute;LIX DO CORIBE</option>
+	<option value="2198">S&Atilde;O GABRIEL</option>
+	<option value="2199">S&Atilde;O GON&Ccedil;ALO DOS CAMPOS</option>
+	<option value="2200">S&Atilde;O JOS&Eacute; DA VIT&Oacute;RIA</option>
+	<option value="2201">S&Atilde;O JOS&Eacute; DO JACU&Iacute;PE</option>
+	<option value="2202">S&Atilde;O MIGUEL DAS MATAS</option>
+	<option value="2203">S&Atilde;O SEBASTI&Atilde;O DO PASS&Eacute;</option>
+	<option value="2218">S&Iacute;TIO DO MATO</option>
+	<option value="2219">S&Iacute;TIO DO QUINTO</option>
+	<option value="2222">TABOCAS DO BREJO VELHO</option>
+	<option value="2223">TANHA&Ccedil;U</option>
+	<option value="2224">TANQUE NOVO</option>
+	<option value="2225">TANQUINHO</option>
+	<option value="2226">TAPERO&Aacute;</option>
+	<option value="2227">TAPIRAMUT&Aacute;</option>
+	<option value="2228">TEIXEIRA DE FREITAS</option>
+	<option value="2229">TEODORO SAMPAIO</option>
+	<option value="2230">TEOFIL&Acirc;NDIA</option>
+	<option value="2231">TEOL&Acirc;NDIA</option>
+	<option value="2232">TERRA NOVA</option>
+	<option value="2233">TREMEDAL</option>
+	<option value="2234">TUCANO</option>
+	<option value="2235">UAU&Aacute;</option>
+	<option value="2237">UBAITABA</option>
+	<option value="2238">UBAT&Atilde;</option>
+	<option value="2236">UBA&Iacute;RA</option>
+	<option value="2239">UIBA&Iacute;</option>
+	<option value="2240">UMBURANAS</option>
+	<option value="2241">UNA</option>
+	<option value="2242">URANDI</option>
+	<option value="2243">URU&Ccedil;UCA</option>
+	<option value="2244">UTINGA</option>
+	<option value="2246">VALENTE</option>
+	<option value="2245">VALEN&Ccedil;A</option>
+	<option value="2250">VARZEDO</option>
+	<option value="2251">VERA CRUZ</option>
+	<option value="2252">VEREDA</option>
+	<option value="2253">VIT&Oacute;RIA DA CONQUISTA</option>
+	<option value="2247">V&Aacute;RZEA DA RO&Ccedil;A</option>
+	<option value="2248">V&Aacute;RZEA DO PO&Ccedil;O</option>
+	<option value="2249">V&Aacute;RZEA NOVA</option>
+	<option value="2254">WAGNER</option>
+	<option value="2255">WANDERLEY</option>
+	<option value="2256">WENCESLAU GUIMAR&Atilde;ES</option>
+	<option value="2257">XIQUE-XIQUE</option>
+	<option value="1845">&Aacute;GUA FRIA</option>
+	<option value="1965">&Eacute;RICO CARDOSO</option>
+</select></td>
+				</tr>
+				<tr>
+					<td colspan="4" class="subFormulario">Contatos</td>
+				</tr>
+				<tr>
+					<th>Telefone:</th>
+					<td  colspan="3">
+						(<input id="formDiscente:telFixoDDD" type="text" name="formDiscente:telFixoDDD" value="71" maxlength="2" onblur="return formatarInteiro(this);" onkeyup="return formatarInteiro(this);" size="2" />)
+						<input id="formDiscente:txtTelefone" type="text" name="formDiscente:txtTelefone" value="30000000" maxlength="9" onblur="mascara( this, mtel );" onkeypress="mascara( this, mtel );" size="9" /> Celular:
+						(<input id="formDiscente:telCelDDD" type="text" name="formDiscente:telCelDDD" value="71" maxlength="2" onblur="return formatarInteiro(this);" onkeyup="return formatarInteiro(this);" size="2" />)
+						<input id="formDiscente:txtCelular" type="text" name="formDiscente:txtCelular" value="900000000" maxlength="10" onblur="mascara( this, mtel );" onkeypress="mascara( this, mtel );" size="10" /></td>
+				</tr>
+				<tr>
+					<th class = 'required'>E-Mail:</th>
+					<td colspan="3"><input id="formDiscente:txtEmail" type="text" name="formDiscente:txtEmail" value="fulano@example.com" maxlength="80" size="50" /></td>
+				</tr>
+
+				<tr>
+					<td colspan="4" class="subFormulario">Dados banc&#225;rios</td>
+				</tr>
+				
+				<!--  
+				<tr>
+					<td colspan="4">
+						<div class="descricaoOperacao">
+							<p>
+								N&#227;o &#233; permitido informar dados banc&#225;rios de terceiros. Apenas uma conta banc&#225;ria que tenha como titular o pr&#243;prio aluno
+								 ser&#225; aceita no cadastro para o recebimento de qualquer tipo de aux&#237;lio financeiro ou bolsa remunerada que o mesmo possa 
+								 vir a ter na Universidade.
+							</p>							
+						</div> 
+					</td>
+				</tr>
+				-->
+				
+				<tr>
+					<th> Banco:</th>
+					<td>
+						<input id="formDiscente:banco" type="text" name="formDiscente:banco" value="" onchange="A4J.AJAX.Submit('formDiscente',event,{'similarityGroupingId':'formDiscente:j_id_jsp_1470711742_399','parameters':{'formDiscente:j_id_jsp_1470711742_399':'formDiscente:j_id_jsp_1470711742_399'} ,'containerId':'j_id_jsp_1470711742_0'} )" onkeyup="CAPS(this);" size="64" /><div id="formDiscente:suggestionBanco" class="rich-sb-common-container  " style="display:none; z-index: 201;width:400px;height:100px;;;"><div class="rich-sb-ext-decor-1"><div class="rich-sb-ext-decor-2" style=";; border-width: null  null  null  null ;"><table border="0" cellpadding="0" cellspacing="1" class="rich-sb-ext-decor-3"><tbody><tr><td><div class="_suggestion_size_ rich-sb-overflow" style="width:396px;height:96px;"><table width="100%" id="formDiscente:suggestionBanco:suggest" border="0"><tbody><tr style="display:none;"><td></td></tr></tbody></table></div></td></tr></tbody></table></div></div><div class="rich-sb-shadow" style="opacity:0.1; filter:alpha(opacity=10);top: 4px; left: 4px; "></div></div><div id="formDiscente:suggestionBanco_script" style="display:none;"><script type="text/javascript">Richfaces.onAvailable('formDiscente:banco', function() { new RichFaces.Suggestion('formDiscente','formDiscente:banco','formDiscente:suggestionBanco',{'minChars':'1','height':'100','onselect':function(suggestion,event){A4J.AJAX.Submit('formDiscente',event,{'similarityGroupingId':'formDiscente:suggestionBanco:j_id_jsp_1470711742_403','parameters':{'formDiscente:suggestionBanco:j_id_jsp_1470711742_403':'formDiscente:suggestionBanco:j_id_jsp_1470711742_403'} ,'containerId':'j_id_jsp_1470711742_0'} )},'implicitEventsQueue':'formDiscente:suggestionBanco','width':'400','similarityGroupingId':'formDiscente:suggestionBanco','parameters':{'ajaxSingle':'formDiscente:suggestionBanco','formDiscente:suggestionBanco':'formDiscente:suggestionBanco'} ,'containerId':'j_id_jsp_1470711742_0'} );
+});</script></div><iframe src="/sigaa/a4j/g/3_3_3.Finalorg/richfaces/renderkit/html/images/spacer.gif.jsf" id="formDiscente:suggestionBanco_iframe" style="position:absolute;display:none;z-index:200;"></iframe><input type="hidden" autocomplete="off" id="formDiscente:suggestionBanco_selection" name="formDiscente:suggestionBanco_selection" />
+										
+					</td>					
+				</tr>
+											
+				
+					<tr>
+						<td colspan="4" class="subFormulario">Situa&#231;&#227;o s&#243;cio-econ&#244;mica</td>
+					</tr>
+					
+					
+					
+					
+					
+						<tr>
+							<th class = 'required' alt="Renda Familiar Bruta Mensal">Renda Familiar Bruta Mensal:</th>
+							<td> 
+								<table>
+<tbody>
+<tr>
+<td>
+									<p>R$</p>
+									</td>
+<td><input id="formDiscente:txtRendaFamiliar" type="text" name="formDiscente:txtRendaFamiliar" onfocus="javascript:select()" onkeypress="return(formataValor(this, event, 2))" size="10" style="text-align: right;" /></td>
+<td>
+										<img src="/shared/img/geral/ajuda.gif" onMouseOver="document.getElementById('ajuda179260').style.visibility = 'visible';" onMouseOut="document.getElementById('ajuda179260').style.visibility = 'hidden';" border="0" >
+<span style="position: absolute;">
+	<div class="popUp" onMouseOut="document.getElementById('ajuda179260').style.visibility = 'hidden';"id="ajuda179260">
+		
+Renda familiar &#233; a soma da renda individual dos moradores do mesmo domic&#237;lio. Voc&#234; deve somar a Renda Bruta e descontar taxas como imposto de renda, fgts e previd&#234;ncias que existir.	</div>
+</span>
+
+								</td>
+</tr>
+</tbody>
+</table>
+
+							</td>
+							<th class = 'required'>Quantidade de membros do grupo familiar:</th>
+							<td>
+								<table>
+<tbody>
+<tr>
+<td><input id="formDiscente:txtQuantidadeMembros" type="text" name="formDiscente:txtQuantidadeMembros" maxlength="3" onkeyup="return formatarInteiro(this);" size="5" style="text-align: right;" /></td>
+<td>
+									
+									<img src="/shared/img/geral/ajuda.gif" onMouseOver="document.getElementById('ajuda84964').style.visibility = 'visible';" onMouseOut="document.getElementById('ajuda84964').style.visibility = 'hidden';" border="0" >
+<span style="position: absolute;">
+	<div class="popUp" onMouseOut="document.getElementById('ajuda84964').style.visibility = 'hidden';"id="ajuda84964">
+		
+
+									O grupo familiar refere as pessoas que moram em um mesmo domic&#237;lio e dependem da renda familiar mensal.
+									</div>
+</span>
+
+								</td>
+</tr>
+</tbody>
+</table>
+
+							</td>
+						</tr>
+						
+						<tr>
+							<th class="obrigatorio">Zona de Resid&#234;ncia:</th>
+							<td colspan="3">
+								<table id="formDiscente:selectZonaResidencia">
+	<tr>
+<td>
+<input type="radio" name="formDiscente:selectZonaResidencia" id="formDiscente:selectZonaResidencia:0" value="NAO_INFORMADA" /><label for="formDiscente:selectZonaResidencia:0"> N&atilde;o informada</label></td>
+<td>
+<input type="radio" name="formDiscente:selectZonaResidencia" id="formDiscente:selectZonaResidencia:1" value="RURAL" /><label for="formDiscente:selectZonaResidencia:1"> Rural</label></td>
+<td>
+<input type="radio" name="formDiscente:selectZonaResidencia" id="formDiscente:selectZonaResidencia:2" value="URBANA" /><label for="formDiscente:selectZonaResidencia:2"> Urbana</label></td>
+	</tr>
+</table>
+							</td>
+						</tr>
+						
+						<tr>
+							<th class="obrigatorio">Transporte Escolar P&#250;blico:</th>
+							<td>
+								<table id="formDiscente:selectTipoTransporteEscolarPublico">
+	<tr>
+<td>
+<input type="radio" name="formDiscente:selectTipoTransporteEscolarPublico" id="formDiscente:selectTipoTransporteEscolarPublico:0" value="NAO_UTILIZA" /><label for="formDiscente:selectTipoTransporteEscolarPublico:0"> N&atilde;o utiliza</label></td>
+<td>
+<input type="radio" name="formDiscente:selectTipoTransporteEscolarPublico" id="formDiscente:selectTipoTransporteEscolarPublico:1" value="MUNICIPAL" /><label for="formDiscente:selectTipoTransporteEscolarPublico:1"> Municipal</label></td>
+<td>
+<input type="radio" name="formDiscente:selectTipoTransporteEscolarPublico" id="formDiscente:selectTipoTransporteEscolarPublico:2" value="ESTADUAL" /><label for="formDiscente:selectTipoTransporteEscolarPublico:2"> Estadual</label></td>
+	</tr>
+</table>
+							</td>
+							<th>Tipo de Transporte:</th>
+							<td>
+								<input id="formDiscente:tipoTransporte" type="text" name="formDiscente:tipoTransporte" maxlength="40" size="40" />
+							</td>
+						</tr>
+					
+					
+				
+				<tr>
+					<td colspan="4" class="subFormulario">Confirma&#231;&#227;o de senha</td>
+				</tr>
+				<tr>
+					<td colspan="4">
+						<div align="center">
+							
+<style>
+.confirmaSenha table.confirmacao {
+	background: #FAFAFA;
+	border: 1px solid #C8D5EC;
+	border-width: 2px 1px;
+}
+
+.jscalendar-DB-title-background-style td table tbody {
+	background-color:#0000AA!important;
+}
+</style>
+
+<div class="confirmaSenha" style="width:50%; margin: 0 auto;">
+<br/>
+<table align="center" width="100%" cellspacing="0" cellpadding="3" class="subFormulario confirmacao">
+<caption>
+Confirme
+Seus Dados 
+ 
+</caption>
+<tbody>
+	<input id="formDiscente:inputHiddenOpcaoExibir" type="hidden" name="formDiscente:inputHiddenOpcaoExibir" value="1" />
+	
+	<input type="hidden" id="apenasSenha" name="apenasSenha" value="" />
+	
+	
+	
+		
+		<tr>
+			<th width="35%" class="obrigatorio" id="Data" nowrap="nowrap">Data de Nascimento:</th>
+			<td align = left>
+				<input id="formDiscente:Data" name="formDiscente:Data" type="text" maxlength="10" size="10" onkeypress="return(formatarMascara(this,event,'##/##/####'))" title="Data de Nascimento" onfocus="selectText('null', 'formDiscente:Data')" onclick="selectText('null', 'formDiscente:Data')" /><span id="formDiscente:DataSpan"></span><script type="text/javascript">formDiscente_3ADataCalendarVar=new org_apache_myfaces_PopupCalendar();
+formDiscente_3ADataCalendarVar.initData.imgDir = "\/sigaa\/faces\/myFacesExtensionResource\/org.apache.myfaces.renderkit.html.util.MyFacesResourceLoader\/17923912\/calendar.HtmlCalendarRenderer\/DB\/";
+formDiscente_3ADataCalendarVar.initData.monthName = new Array("Janeiro","Fevereiro","Mar\u00E7o","Abril","Maio","Junho","Julho","Agosto","Setembro","Outubro","Novembro","Dezembro");
+formDiscente_3ADataCalendarVar.initData.dayName = new Array("Dom","Seg","Ter","Qua","Qui","Sex","S\u00E1b");
+formDiscente_3ADataCalendarVar.initData.startAt = 0;
+formDiscente_3ADataCalendarVar.dateFormatSymbols.weekdays = new Array("Domingo","Segunda-feira","Ter\u00E7a-feira","Quarta-feira","Quinta-feira","Sexta-feira","S\u00E1bado");
+formDiscente_3ADataCalendarVar.dateFormatSymbols.shortWeekdays = new Array("Dom","Seg","Ter","Qua","Qui","Sex","S\u00E1b");
+formDiscente_3ADataCalendarVar.dateFormatSymbols.shortMonths = new Array("Jan","Fev","Mar","Abr","Mai","Jun","Jul","Ago","Set","Out","Nov","Dez");
+formDiscente_3ADataCalendarVar.dateFormatSymbols.months = new Array("Janeiro","Fevereiro","Mar\u00E7o","Abril","Maio","Junho","Julho","Agosto","Setembro","Outubro","Novembro","Dezembro");
+formDiscente_3ADataCalendarVar.dateFormatSymbols.eras = new Array("BC","AD");
+formDiscente_3ADataCalendarVar.dateFormatSymbols.ampms = new Array("AM","PM");
+formDiscente_3ADataCalendarVar.initData.todayString = "Hoje";
+formDiscente_3ADataCalendarVar.initData.todayDateFormat = "dd\/MM\/yyyy";
+formDiscente_3ADataCalendarVar.initData.popupLeft = false;
+
+formDiscente_3ADataCalendarVar.init(document.getElementById('formDiscente:DataSpan'));
+</script><img src="/sigaa/faces/myFacesExtensionResource/org.apache.myfaces.renderkit.html.util.MyFacesResourceLoader/17923912/calendar.HtmlCalendarRenderer/images/calendar.gif" style="vertical-align:bottom;" onclick="formDiscente_3ADataCalendarVar._popUpCalendar(this,document.getElementById('formDiscente:Data'),'dd/MM/yyyy')" />
+			</td>
+		</tr>
+		
+	
+		
+	
+	
+
+	<tr>
+		<th class="obrigatorio">Senha:</th>
+		<td align = left>
+		   <input id="formDiscente:senha" type="password" name="formDiscente:senha" value="" size="20" />
+		</td>
+	</tr>
+</tbody>
+</table>
+
+<br/>
+</div>
+						</div>
+					</td>	
+				</tr>
+			</tbody>
+			<tfoot>
+				<tr>
+					<td colspan="4">
+						<input id="formDiscente:btnConfirmar" type="submit" name="formDiscente:btnConfirmar" value="Confirmar" class="btn btn-primary" /><input id="formDiscente:btnCancelar" type="submit" name="formDiscente:btnCancelar" value="Cancelar" onclick="return confirm('Deseja cancelar a opera&ccedil;&atilde;o? Todos os dados digitados n&atilde;o salvos ser&atilde;o perdidos!');" class="btn btn-default" /> 
+						
+					</td>
+				</tr>
+			</tfoot>
+		</table>
+		
+		<br>
+		<center><img src="/sigaa/img/required.gif" style="vertical-align: top;"> <span
+			class="fontePequena"> Campos de preenchimento obrigat&#243;rio. </span> <br>
+		<br>
+		</center>
+		
+	<input type="hidden" name="javax.faces.ViewState" id="javax.faces.ViewState" value="j_id6" />
+</form>
+
+<script type="text/javascript">
+	var posProcessamento = function() {
+		$('formDiscente:selectUF').onchange();
+	};
+
+	ConsultadorCep.init('/sigaa/consultaCep', 'formDiscente:endCEP', 'formDiscente:txtLogradouro', 'formDiscente:txtBairro', 'formDiscente:selectMunicipio', 'formDiscente:selectUF', posProcessamento );
+
+	function formatarCampoBancario(campo, e){
+	  	var tecla=(window.event)?event.keyCode:e.which;
+	  	if(tecla>47 && tecla<58) return true;
+     	else{
+     	 	if (tecla==8 || tecla==0 || tecla==88 || tecla==80 || tecla==120 || tecla==112) return true;
+  			else return false;
+      	}
+	 }	
+	
+	function formatarInteiro(campo, e){
+	  	var tecla=(window.event)?event.keyCode:e.which;
+	  	if(tecla>47 && tecla<58) return true;
+     	else{
+     	 	if (tecla==8 || tecla==0) return true;
+  			else return false;
+      	}
+	 }
+
+	function bloquearCopia(event) {
+	    var forbiddenKeys = new Array('c', 'x', 'v');
+	    var keyCode = (event.keyCode) ? event.keyCode : event.which;
+	    var isCtrl;
+	    isCtrl = event.ctrlKey
+	    if (isCtrl) {
+	        for (i = 0; i < forbiddenKeys.length; i++) {
+	            if (forbiddenKeys[i] == String.fromCharCode(keyCode).toLowerCase()) {
+	                 return false;
+	            }
+	        }
+	    }
+	    return true;
+	}
+</script>
+
+
+
+
+
+	
+	
+		
+
+
+
+<div class="clear"> </div>
+
+</div> 
+	<br />
+
+	
+	
+	<div style="width: 80%; text-align: center; margin: 0 auto;">
+		<a href='/sigaa/verPortalDiscente.do'>Portal do Discente</a>
+	</div>
+	
+	
+
+	<div id="rodape">
+	<!-- Redmine 24425 - Substitui&#231;&#227;o de dados dos Rodap&#233;s -->
+		<p>	SIGAA | STI/SUPAC | - | Copyright &copy; 2006-2026 - UFBA - sigaapl04.intranet.ufba.br
+		
+		 
+			 - <a onclick="javascript:versao();">v4.13.8_41_hotfix</a>
+				
+		</p>
+	</div>
+
+
+</div>  
+
+<div id="painel-mensagem-envio"> </div>
+
+
+
+
+
+
+
+
+
+
+<!-- MYFACES JAVASCRIPT -->
+
+</body>
+
+</html>
+ 
+	<script type="text/javascript" charset="UTF-8">
+		function versao(){
+			var msg='';
+			msg+='SIGAA 4.13.8_41_hotfix,  publicado em: 25/09/2026 16:18\n\n';
+			msg+='Depend\u00eancias:\n';
+			msg+='Arquitetura 4.4.5\n';
+			msg+='Entidades Comuns 2.3.3\n';
+			msg+='Servicos Integrados 2.0.8\n';
+			msg+='SharedResources 2.1.4\n';
+			msg+='Servicos Remoto Biblioteca 1.0.3\n';
+			msg+='SIGAA Mobile Objects 1.0.0\n\n';
+			msg+='Copyright SINFO/UFRN';
+			alert(msg);
+		}	
+	</script>
+
+
+<script language="javascript">
+Relogio.init(25);
+</script>
+
+	

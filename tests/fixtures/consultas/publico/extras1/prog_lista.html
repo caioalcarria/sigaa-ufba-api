@@ -1,0 +1,346 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta content="no-cache" http-equiv="Pragma"/>
+<title>SIGAA - Sistema Integrado de Gestão de Atividades Acadêmicas</title>
+<link class="component" href="/sigaa/a4j/s/3_3_3.Finalorg/richfaces/renderkit/html/css/basic_classes.xcss/DATB/eAF7sqpgb-jyGdIAFrMEaw__.jsf" rel="stylesheet" type="text/css"/><link class="component" href="/sigaa/a4j/s/3_3_3.Finalorg/richfaces/renderkit/html/css/extended_classes.xcss/DATB/eAF7sqpgb-jyGdIAFrMEaw__.jsf" media="rich-extended-skinning" rel="stylesheet" type="text/css"/><script type="text/javascript"></script><script src="/sigaa/a4j/g/3_3_3.Finalorg/richfaces/renderkit/html/scripts/skinning.js.jsf" type="text/javascript"></script><link href="/sigaa/img/sigaa.ico" rel="shortcut icon"/>
+<script src="/shared/jsBundles/jawr_loader.js" type="text/javascript"></script>
+<script src="/sigaa/javascript/prevenir-duplo-clique.js" type="text/javascript"></script>
+<script type="text/javascript"></script>
+<link href="/sigaa/cssBundles/gzip_787491763/public/css/public.css" media="all" rel="stylesheet" type="text/css"/>
+<link href="/shared/beta/css/font-awesome.css" media="screen" rel="stylesheet" type="text/css"/>
+<script src="/shared/javascript/STICookieConsent.js"></script>
+<script></script>
+</head>
+<body>
+<div id="container">
+<div id="container-inner">
+<div id="cabecalho">
+<div id="logo">
+<a href="/sigaa/public/"> <img src="https://sipac.ufba.br/shared/img/instituicao/brasao_ufba48x75.jpg"/> </a>
+</div>
+<div id="identificacao">
+<span class="ufrn"> Universidade Federal da Bahia </span>
+<span class="data">
+				 Salvador, 
+				 19 de Outubro de 
+				 2026 
+			</span>
+<a href="/sigaa/public/" id="home" style="width: 450px;" title="Página inicial"> </a>
+<div id="menu_info">
+<ul>
+<li class="login">
+<a alt="Clique aqui para logar-se no SIGAA" href="/sigaa/" title="Clique aqui para logar-se no SIGAA">
+							Login
+						<i class="fa fa-angle-right"></i></a>
+</li>
+</ul>
+</div>
+</div>
+<br clear="all"/>
+</div>
+<div id="corpo">
+<script src="/shared/javascript/prototype.js" type="text/javascript"></script>
+<script type="text/javascript"></script>
+<style></style>
+<h2> Programas de Pós-Graduação da UFBA </h2>
+<div class="descricaoOperacao">
+<p>
+			Nesta página você encontrará todos Programas de Pós-Graduação da UFBA.<br/>Para efetuar uma busca digite uma palavra-chave que faça referência ao programa, e/ou selecione o centro.
+		</p>
+</div>
+<form action="/sigaa/public/programa/lista.jsf" enctype="application/x-www-form-urlencoded" id="form" method="post" name="form">
+<input name="form" type="hidden" value="form"/>
+<table align="center" class="formulario" width="50%">
+<caption class="listagem">Informe os critérios de consulta</caption>
+<tr>
+<td align="right" width="15%"> Programa:</td>
+<td><input id="form:nomePrograma" name="form:nomePrograma" style="width:97%" type="text" value=""/></td>
+</tr>
+<tr>
+<td align="right"> Centro:</td>
+<td>
+<select id="form:programas" name="form:programas" size="1" style="width:98%"> <option selected="selected" value="0"> -- Todos -- </option>
+<option value="1283">ESCOLA DE ADMINISTRAÇÃO</option>
+<option value="1235">ESCOLA DE BELAS ARTES</option>
+<option value="1354">ESCOLA DE DANÇA</option>
+<option value="1252">ESCOLA DE ENFERMAGEM</option>
+<option value="1336">ESCOLA DE MEDICINA VETERINÁRIA E ZOOTECNIA</option>
+<option value="1292">ESCOLA DE MÚSICA</option>
+<option value="1302">ESCOLA DE NUTRIÇÃO</option>
+<option value="1361">ESCOLA DE TEATRO</option>
+<option value="1200">ESCOLA POLITÉCNICA</option>
+<option value="1274">FACULDADE DE ARQUITETURA</option>
+<option value="1369">FACULDADE DE CIÊNCIAS CONTÁBEIS</option>
+<option value="1348">FACULDADE DE COMUNICAÇÃO</option>
+<option value="1193">FACULDADE DE DIREITO</option>
+<option value="1245">FACULDADE DE ECONOMIA</option>
+<option value="1316">FACULDADE DE EDUCAÇÃO</option>
+<option value="1258">FACULDADE DE FARMÁCIA</option>
+<option value="1218">FACULDADE DE FILOSOFIA E CIÊNCIAS HUMANAS</option>
+<option value="1175">FACULDADE DE MEDICINA DA BAHIA</option>
+<option value="1266">FACULDADE DE ODONTOLOGIA</option>
+<option value="1137">INSTITUTO DE BIOLOGIA</option>
+<option value="1308">INSTITUTO DE CIÊNCIA DA INFORMAÇÃO</option>
+<option value="1167">INSTITUTO DE CIÊNCIAS DA SAÚDE</option>
+<option value="2435">INSTITUTO DE COMPUTAÇÃO</option>
+<option value="1120">INSTITUTO DE FÍSICA</option>
+<option value="1144">INSTITUTO DE GEOCIÊNCIAS</option>
+<option value="1780">INSTITUTO DE HUMANIDADES, ARTES E CIÊNCIAS PROFESSOR MILTON SANTOS</option>
+<option value="1158">INSTITUTO DE LETRAS</option>
+<option value="1112">INSTITUTO DE MATEMÁTICA E ESTATÍSTICA</option>
+<option value="1779">INSTITUTO DE PSICOLOGIA E SERVIÇO SOCIAL</option>
+<option value="1128">INSTITUTO DE QUÍMICA</option>
+<option value="1105">INSTITUTO DE SAÚDE COLETIVA</option>
+<option value="2439">INSTITUTO MULTIDISCIPLINAR DE REABILITAÇÃO E SAÚDE</option>
+<option value="1791">INSTITUTO MULTIDISCIPLINAR EM SAÚDE</option>
+</select>
+</td>
+</tr>
+<tfoot>
+<tr>
+<td colspan="3">
+<input id="form:buscar" name="form:buscar" type="submit" value="Buscar"/> 
+					<input id="form:cancelar" name="form:cancelar" onclick="return confirm('Deseja cancelar a operação? Todos os dados digitados serão perdidos!');" type="submit" value="Cancelar"/>
+</td>
+</tr>
+</tfoot>
+</table>
+<br/>
+<div class="legenda">
+<img src="/sigaa/img/view.gif"/>:Visualizar Programa 
+			</div>
+<br clear="all"/>
+<table class="listagem" style="width: 75%;">
+<caption> (100) Programas encontrados </caption>
+<tbody>
+<tr>
+<td class="subListagem" colspan="2">
+<span class="programa">ESCOLA DE ADMINISTRAÇÃO</span>
+</td>
+</tr>
+<tr>
+<td class="linhaPar">
+<a href="portal.jsf?lc=pt_BR&amp;id=1289">
+								PROGRAMA DE PÓS-GRADUAÇÃO EM ADMINISTRAÇÃO (NPGA)
+							</a>
+</td>
+<td class="linhaPar" width="18px">
+<a href="portal.jsf?lc=pt_BR&amp;id=1289" title="Visualizar Programa">
+<img src="/sigaa/img/view.gif"/>
+</a>
+</td>
+</tr>
+<tr>
+<td class="linhaImpar">
+<a href="portal.jsf?lc=pt_BR&amp;id=1839">
+								PROGRAMA DE PÓS-GRADUAÇÃO EM ADMINISTRAÇÃO (NPGA-P)
+							</a>
+</td>
+<td class="linhaImpar" width="18px">
+<a href="portal.jsf?lc=pt_BR&amp;id=1839" title="Visualizar Programa">
+<img src="/sigaa/img/view.gif"/>
+</a>
+</td>
+</tr>
+<tr>
+<td class="linhaPar">
+<a href="portal.jsf?lc=pt_BR&amp;id=1578">
+								PROGRAMA DE PÓS-GRADUAÇÃO EM DESENVOLVIMENTO E GESTÃO SOCIAL (PPGDGS)
+							</a>
+</td>
+<td class="linhaPar" width="18px">
+<a href="portal.jsf?lc=pt_BR&amp;id=1578" title="Visualizar Programa">
+<img src="/sigaa/img/view.gif"/>
+</a>
+</td>
+</tr>
+<tr>
+<td class="subListagem" colspan="2">
+<span class="programa">ESCOLA DE BELAS ARTES</span>
+</td>
+</tr>
+<tr>
+<td class="linhaImpar">
+<a href="portal.jsf?lc=pt_BR&amp;id=1242">
+								PROGRAMA DE PÓS-GRADUAÇÃO EM ARTES VISUAIS (PPGAV)
+							</a>
+</td>
+<td class="linhaImpar" width="18px">
+<a href="portal.jsf?lc=pt_BR&amp;id=1242" title="Visualizar Programa">
+<img src="/sigaa/img/view.gif"/>
+</a>
+</td>
+</tr>
+<tr>
+<td class="linhaPar">
+<a href="portal.jsf?lc=pt_BR&amp;id=2657">
+								PROGRAMA DE PÓS-GRADUAÇÃO EM DESIGN/EBA
+							</a>
+</td>
+<td class="linhaPar" width="18px">
+<a href="portal.jsf?lc=pt_BR&amp;id=2657" title="Visualizar Programa">
+<img src="/sigaa/img/view.gif"/>
+</a>
+</td>
+</tr>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</tbody>
+<tfoot>
+<tr>
+<td align="center" colspan="3">
+<b>(100) Programas encontrados </b>
+</td>
+</tr>
+</tfoot>
+</table>
+<input id="javax.faces.ViewState" name="javax.faces.ViewState" type="hidden" value="j_id8"/>
+</form>
+<br/>
+<center>
+<a href="javascript: history.go(-1);"> &lt;&lt; Voltar </a>
+</center>
+<br/>
+<div class="clear"></div>
+</div>
+<div id="rodape">
+<p> 
+			SIGAA | STI/SUPAC | -  | Copyright © 2006-2026 - UFBA - sigaapl07.intranet.ufba.br
+			 
+				<a onclick="javascript:versao();">v4.13.8_41_hotfix</a>
+</p>
+</div>
+
+</div>
+</div>
+
+</body>
+</html>
+<html><script charset="UTF-8" type="text/javascript"></script>
+<style></style>
+</html>

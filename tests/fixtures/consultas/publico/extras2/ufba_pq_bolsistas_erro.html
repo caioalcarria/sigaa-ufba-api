@@ -1,0 +1,129 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html class="background">
+<head>
+<meta content="no-cache, no-store, must-revalidate" http-equiv="Cache-Control"/>
+<meta content="no-cache" http-equiv="Pragma"/>
+<meta content="0" http-equiv="Expires"/>
+<title>SIGAA - Sistema Integrado de Gestão de Atividades Acadêmicas</title>
+<link href="/sigaa/img/sigaa.ico" rel="shortcut icon"/>
+<script src="/shared/jsBundles/jawr_loader.js" type="text/javascript"></script>
+<script type="text/javascript">
+                JAWR.loader.style('/bundles/css/sigaa_base.css', 'all');
+        		JAWR.loader.style('/css/ufrn_print.css', 'print');
+        		JAWR.loader.script('/bundles/js/sigaa_base.js');
+</script>
+<link href="/sigaa/cssBundles/gzip_N91553634/bundles/css/sigaa.css" media="all" rel="stylesheet" type="text/css"/>
+<link href="/sigaa/css/mono.css" media="screen" rel="alternate stylesheet" title="mono" type="text/css"/>
+<link href="/sigaa/css/contraste.css" media="screen" rel="alternate stylesheet" title="contraste" type="text/css"/>
+<!-- FontAwesome -->
+<link href="/shared/beta/css/font-awesome.css" media="screen" rel="stylesheet" type="text/css"/>
+<!-- Painel Gen&#233;rico para telas Modal -->
+<script src="/shared/javascript/paineis/painel_generico.js" type="text/javascript"></script>
+<script src="/sigaa/javascript/styleswitch.js" type="text/javascript"></script>
+<script src="/sigaa/javascript/prevenir-duplo-clique.js" type="text/javascript"></script>
+<!-- Bot&#227;o de informar um problema -->
+<link href="/shared/informar-problema/css/informar-problema.css?ver=1.1" media="screen" rel="stylesheet" type="text/css"/>
+<script src="/shared/informar-problema/js/webcomponents.min.js?ver=1.1" type="text/javascript"></script>
+<script src="/shared/informar-problema/js/html2canvas.js?ver=1.1" type="text/javascript"></script>
+<script src="/shared/informar-problema/js/informar-problema.js?ver=1.1" type="text/javascript"></script>
+<!-- FIM bot&#227;o de informar um problema -->
+<script type="text/javascript">
+		var mensagem;
+		var initMensagem = function() {
+			mensagem = new Mensagem();
+		}
+		YAHOO.util.Event.addListener(window,'load', initMensagem);
+		
+		function isIE(){
+		
+					return false;
+			
+		}
+</script>
+<script src="/sigaa/javascript/jsCookMenuHack.js" type="text/javascript"></script>
+<!-- Fim dos imports para abrir chamado -->
+<script src="/shared/javascript/STICookieConsent.js"></script>
+
+</head>
+<body>
+<div id="container">
+<div id="cabecalho">
+<div id="info-sistema">
+<h1><span>UFBA - SIGAA -</span></h1>
+<h3>Sistema Integrado de Gestão de Atividades Acadêmicas</h3>
+<div class="dir">
+</div>
+</div>
+<div id="painel-usuario" style="height: 20px;">
+<div id="menu-principal"></div>
+</div>
+</div>
+<div id="conteudo">
+<script type="text/javascript">
+//Fun&#231;&#227;o adicionada no cabe&#231;alho para evitar a reescrita em cada JSP.
+function contarCaracteres(field, idMostraQuantidadeUsuario, maxlimit) {
+	
+	if (field.value.length > maxlimit){
+		field.value = field.value.substring(0, maxlimit);
+	}else{ 
+		document.getElementById(idMostraQuantidadeUsuario).innerHTML = maxlimit - field.value.length ;
+	} 
+}
+</script>
+<br/>
+<br/>
+<br/>
+<br/>
+<table align="center" width="80%">
+<tr>
+<td align="center" cellpadding="10" class="erro">
+<br/>
+<img src="/sigaa/img/icon_warning.gif"/><br/>
+<font color="#003395" style="font-size: medium">O parâmetro de código "2_10500_1047" deveria ser uma lista de números separados por vírgulas, mas o seu valor está "".</font><br/><br/>
+</td>
+</tr>
+<tr>
+<td>
+<br/>
+<table align="center" width="80%">
+<tr>
+<td>
+<b>
+<font color="white">
+<!--
+ Caso seja necess&#225;rio a utiliza&#231;&#227;o desta funcionalidade,
+para libera&#231;&#227;o de sua permiss&#227;o.
+ -->
+</font>
+</b>
+</td>
+</tr>
+</table>
+<br/>
+</td><td>
+</td></tr>
+</table>
+<center>
+<a href="javascript:history.go(-1)"> &lt;&lt; Voltar </a>
+</center>
+<br/><br/>
+<div class="clear"> </div>
+</div>
+<br/>
+<div id="rodape">
+<!-- Redmine 24425 - Substitui&#231;&#227;o de dados dos Rodap&#233;s -->
+<p>	SIGAA | STI/SUPAC | - | Copyright © 2006-2026 - UFBA - sigaapl08.intranet.ufba.br
+		
+		 
+			 - <a onclick="javascript:versao();">v4.13.8_41_hotfix</a>
+</p>
+</div>
+</div>
+<div id="painel-mensagem-envio"> </div>
+</body>
+</html>
+<html>
+<script language="javascript">
+Relogio.init(25);
+</script>
+</html>

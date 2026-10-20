@@ -1,0 +1,1326 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html class="background" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta content="no-cache, no-store, must-revalidate" http-equiv="Cache-Control"/>
+<meta content="no-cache" http-equiv="Pragma"/>
+<meta content="0" http-equiv="Expires"/>
+<title>SIGAA - Sistema Integrado de Gestão de Atividades Acadêmicas</title>
+<link class="component" href="/sigaa/a4j/s/3_3_3.Finalorg/richfaces/renderkit/html/css/basic_classes.xcss/DATB/eAF7sqpgb-jyGdIAFrMEaw__.jsf" rel="stylesheet" type="text/css"/><link class="component" href="/sigaa/a4j/s/3_3_3.Finalorg/richfaces/renderkit/html/css/extended_classes.xcss/DATB/eAF7sqpgb-jyGdIAFrMEaw__.jsf" media="rich-extended-skinning" rel="stylesheet" type="text/css"/><script src="/sigaa/a4j/g/3_3_3.Finalorg.ajax4jsf.javascript.PrototypeScript.jsf" type="text/javascript"></script><script src="/sigaa/a4j/g/3_3_3.Finalorg.ajax4jsf.javascript.AjaxScript.jsf" type="text/javascript"></script><script src="/sigaa/a4j/g/3_3_3.Finalorg.ajax4jsf.javascript.ImageCacheScript.jsf" type="text/javascript"></script><script src="/sigaa/a4j/g/3_3_3.Finalorg/richfaces/renderkit/html/scripts/browser_info.js.jsf" type="text/javascript"></script><script src="/sigaa/a4j/g/3_3_3.Finalorg/ajax4jsf/javascript/scripts/form.js.jsf" type="text/javascript"></script><script src="/sigaa/a4j/g/3_3_3.Finalscripts/tabPanel.js.jsf" type="text/javascript"></script><link class="component" href="/sigaa/a4j/s/3_3_3.Finalcss/tabPanel.xcss/DATB/eAF7sqpgb-jyGdIAFrMEaw__.jsf" rel="stylesheet" type="text/css"/><link class="component" href="/sigaa/a4j/s/3_3_3.Finalcss/table.xcss/DATB/eAF7sqpgb-jyGdIAFrMEaw__.jsf" rel="stylesheet" type="text/css"/><script type="text/javascript">window.RICH_FACES_EXTENDED_SKINNING_ON=true;</script><script src="/sigaa/a4j/g/3_3_3.Finalorg/richfaces/renderkit/html/scripts/skinning.js.jsf" type="text/javascript"></script><link href="/sigaa/img/sigaa.ico" rel="shortcut icon"/>
+<script src="/shared/jsBundles/jawr_loader.js" type="text/javascript"></script>
+<script type="text/javascript">
+                JAWR.loader.style('/bundles/css/sigaa_base.css', 'all');
+        		JAWR.loader.style('/css/ufrn_print.css', 'print');
+        		JAWR.loader.script('/bundles/js/sigaa_base.js');
+</script>
+<link href="/sigaa/cssBundles/gzip_N91553634/bundles/css/sigaa.css" media="all" rel="stylesheet" type="text/css"/>
+<link href="/sigaa/css/mono.css" media="screen" rel="alternate stylesheet" title="mono" type="text/css"/>
+<link href="/sigaa/css/contraste.css" media="screen" rel="alternate stylesheet" title="contraste" type="text/css"/>
+<!-- FontAwesome -->
+<link href="/shared/beta/css/font-awesome.css" media="screen" rel="stylesheet" type="text/css"/>
+<!-- Painel Gen&#233;rico para telas Modal -->
+<script src="/shared/javascript/paineis/painel_generico.js" type="text/javascript"></script>
+<script src="/sigaa/javascript/styleswitch.js" type="text/javascript"></script>
+<script src="/sigaa/javascript/prevenir-duplo-clique.js" type="text/javascript"></script>
+<!-- Bot&#227;o de informar um problema -->
+<link href="/shared/informar-problema/css/informar-problema.css?ver=1.1" media="screen" rel="stylesheet" type="text/css"/>
+<script src="/shared/informar-problema/js/webcomponents.min.js?ver=1.1" type="text/javascript"></script>
+<script src="/shared/informar-problema/js/html2canvas.js?ver=1.1" type="text/javascript"></script>
+<script src="/shared/informar-problema/js/informar-problema.js?ver=1.1" type="text/javascript"></script>
+<!-- FIM bot&#227;o de informar um problema -->
+<script type="text/javascript">
+		var mensagem;
+		var initMensagem = function() {
+			mensagem = new Mensagem();
+		}
+		YAHOO.util.Event.addListener(window,'load', initMensagem);
+		
+		function isIE(){
+		
+					return false;
+			
+		}
+</script>
+<script src="/sigaa/javascript/jsCookMenuHack.js" type="text/javascript"></script>
+<!-- Fim dos imports para abrir chamado -->
+<script src="/shared/javascript/STICookieConsent.js"></script>
+<script>
+	    document.addEventListener("DOMContentLoaded", () => {
+	    	generateCookieConsentModal("SIGAA", "N&#243;s usamos cookies para melhorar sua experi&#234;ncia de navega&#231;&#227;o no portal. Ao utilizar o %sitename%, voc&#234; concorda com a pol&#237;&#173;tica de monitoramento de cookies. Para ter mais informa&#231;&#245;es sobre como isso &#233; feito e como remover, acesse a <a href=%cookie-policy%>Pol&#237;tica de Privacidade</a>. Para saber como a UFRN trata os dados, acesse a <a href=%privacy-policy%> Pol&#237;&#173;tica de cookies</a>. Se voc&#234; concorda, clique em %button-text%.", "https://ufrn.br/institucional/politica-de-privacidade-e-termos-de-uso", "https://ufrn.br/institucional/politica-de-cookies");
+	    })
+	</script>
+</head>
+<body>
+<div id="container">
+<div id="cabecalho">
+<div id="info-sistema">
+<h1><span>UFBA - SIGAA -</span></h1>
+<h3>Sistema Integrado de Gestão de Atividades Acadêmicas</h3>
+<div class="dir">
+<style>
+#info-sistema span.sair-sistema,
+	#info-sistema #tempoSessao{
+	display: inline;
+	right: inherit;
+	position: relative;
+	top: 0;
+	padding-right: inherit;
+}
+
+#info-sistema div.dir{
+	top:0;
+	right:0;
+	text-align: right;
+	width: auto;
+	position: absolute;
+	margin:0;
+	padding: 0;
+	height:16px;
+	display: inline;
+	padding-right:5px;
+	color: #FFF;
+}
+#info-sistema span.acessibilidade{
+	padding: 0 5px;
+	border: solid #D99C44;
+	border-width: 0 1px 0 0;
+	margin: 0 5px;
+	padding: 0 5px;
+}
+	#info-sistema span.acessibilidade a{
+		font-size: 1.1em;
+		font-weight: bolder;
+		color: #FFF;
+		margin-left: 2px;
+		letter-spacing: 0.1px;
+		word-spacing: 0.1px;
+	}
+	#info-sistema span.acessibilidade a.fonteMenor strong{
+		font-size: 0.9em;
+	}
+	.rich-tabpanel-content {
+		font-size: inherit;
+	}	
+</style>
+<span class="acessibilidade">
+<a alt="Aumentar a texto" class="fonteMaior" href="#" title="Aumentar a texto">
+<strong>A</strong>+
+	</a>
+<a alt="Diminuir o texto" class="fonteMenor" href="#" title="Diminuir o texto">
+<strong>A</strong>-
+	</a>
+</span>
+<span class="acessibilidade">
+<a alt="Ajuda" href="http://www.info.ufrn.br/wikisistemas/doku.php?id=suporte:sigaa:visao_geral" target="_blank" title="Ajuda">
+			Ajuda?
+		</a>
+</span>
+<script src="/shared/javascript/jquery/jquery-1.4.4.min.js" type="text/javascript"></script>
+<script src="/sigaa/javascript/jquery.fontsize.js" type="text/javascript"></script>
+<script type="text/javascript">
+	redimensionarFonte('.acessibilidade', '#conteudo', 11, 11, 14);
+</script>
+<script>var $jq = jQuery.noConflict();</script>
+<span id="tempoSessao"></span>
+<span class="sair-sistema"> <a href="/sigaa/logar.do?dispatch=logOff">SAIR</a> </span>
+</div>
+</div>
+<div id="painel-usuario">
+<div id="menu-usuario">
+<ul>
+<li class="modulos">
+<!-- IN&#205;CIO - Redmine #33855 - An&#225;lise do menu M&#243;dulos - SIGAA  -->
+<span id="modulos"> <a href="#" id="show-modulos"> Módulos </a> </span>
+<!-- FIM - Redmine #33855 - An&#225;lise do menu M&#243;dulos - SIGAA  -->
+</li>
+<li class="caixa-postal">
+<a href="/sigaa/abrirCaixaPostal.jsf?sistema=2">
+							
+							Caixa Postal
+							
+							
+						</a>
+</li>
+<li class="chamado">
+<a href="javascript://nop/" onclick="alert('Acesse o portal UFBASIM para vídeos, manuais e perguntas mais frequentes ( https://ufbasim.ufba.br/faq-page ).\n\nCaso sua dúvida não seja respondida:\n\t- se for um servidor da UFBA abra um chamado no helpdesk.ufba.br ou ligando no 6100;\n\t- se não for servidor entre em contato com o colegiado do seu curso.')">Abrir Chamado</a>
+</li>
+<li class="menus">
+<a href="/sigaa/verPortalDiscente.do">Menu Discente</a>
+</li>
+<li class="dados-pessoais">
+<a href="#" onclick="window.open('/sigaa/alterar_dados.jsf','','width=670,height=430, top=100, left=100, scrollbars' )">Alterar senha</a>
+</li>
+<!-- INICIO bot&#227;o Informar problema -->
+<!-- FIM bot&#227;o Informar problema -->
+</ul>
+</div>
+<div id="info-usuario">
+<p class="periodo-atual">
+			
+				Semestre atual: <strong>2026.2</strong>
+</p>
+<p class="usuario">
+<span title="PEDRO DE TAL 48">
+				PEDRO DE TAL 48
+			</span>
+</p>
+<p class="unidade">
+			INSTITUTO DE COMPUTAÇÃO
+			 (12.28)
+			
+		</p>
+</div>
+<div id="menu-principal"></div>
+</div>
+</div>
+<div id="conteudo">
+<script type="text/javascript">
+//Fun&#231;&#227;o adicionada no cabe&#231;alho para evitar a reescrita em cada JSP.
+function contarCaracteres(field, idMostraQuantidadeUsuario, maxlimit) {
+	
+	if (field.value.length > maxlimit){
+		field.value = field.value.substring(0, maxlimit);
+	}else{ 
+		document.getElementById(idMostraQuantidadeUsuario).innerHTML = maxlimit - field.value.length ;
+	} 
+}
+</script>
+<script src="/shared/javascript/paineis/painel_generico.js" type="text/javascript"></script>
+<script src="/shared/javascript/paineis/turma_componentes.js" type="text/javascript"></script>
+<style type="text/css">
+	.ydlg .ydlg-bd {
+		overflow: hidden;
+		background-color: white;
+	}	
+	
+	#relatorio-container{
+		padding-top: 10px;
+	}
+	
+	.rich-tabhdr-cell {
+		padding: 0px;
+	}
+	
+	table.formulario tr td, table.subFormulario tr td {
+		padding: 0px;		
+	}
+</style>
+<style type="text/css">
+table.niveis tr td {
+	padding: 0px;
+}
+</style>
+<h2 class="title"><a href="/sigaa/verPortalDiscente.do">Portal do Discente</a> &gt; Detalhes da Estrutura Curricular</h2>
+<form action="/sigaa/geral/estrutura_curricular/resumo.jsf" enctype="application/x-www-form-urlencoded" id="formulario" method="post" name="formulario">
+<input name="formulario" type="hidden" value="formulario"/>
+<table class="formulario" width="90%">
+<caption class="formulario">Dados da Estrutura Curricular</caption>
+<tr>
+<th class="rotulo" width="48%">Código:</th>
+<td> G20251X</td>
+</tr>
+<tr>
+<th class="rotulo">Matriz Curricular: </th>
+<td> SISTEMAS DE INFORMAÇÃO - SALVADOR - BACHARELADO - Presencial - N</td>
+</tr>
+<tr>
+<th class="rotulo">Período Letivo de Entrada em Vigor: </th>
+<td> 2025.2</td>
+</tr>
+<tr>
+<td class="subFormulario" colspan="2">
+				  Prazos e Cargas Horárias 
+				</td>
+</tr>
+<tr>
+<td colspan="2">
+<table class="listagem" width="100%">
+<tr>
+<th class="rotulo" width="48%">Carga Horária Mínima: </th>
+<td>3101h</td>
+</tr>
+<tr>
+<td colspan="2" style="text-align: center; background-color: #EEEEEE">
+<b>Carga Horária Obrigatória</b>
+</td>
+</tr>
+<tr>
+<th class="rotulo">Subtotal de CH de Aula: </th>
+<td>
+									2040h 
+								</td>
+</tr>
+<tr>
+<th class="rotulo">Subtotal de CH de Orientação Acadêmica/Profissional: </th>
+<td>
+									166h 
+								</td>
+</tr>
+<tr style="border-bottom: 1px solid #DDDDDD;">
+<th class="rotulo">Total: </th>
+<td>
+									2206h 
+								</td>
+</tr>
+<tr>
+<th class="rotulo" width="48%">Carga Horária Optativa Mínima: </th>
+<td>480h</td>
+</tr><tr>
+</tr><tr>
+<th class="rotulo" width="48%">Carga Horária Complementar Mínima: </th>
+<td>415h</td>
+</tr>
+<tr>
+<th class="rotulo">Carga Horária Obrigatória de Atividade Acadêmica Específica: </th>
+<td>
+									0h
+								</td>
+</tr>
+<tr>
+<th class="rotulo">Carga Horária Máxima de Componentes Eletivos: </th>
+<td>0h</td>
+</tr>
+<tr style="border-bottom: 1px solid #DDDDDD;">
+<th class="rotulo">Carga Horária Máxima por Período Letivo: </th>
+<td>540h</td>
+</tr>
+<tr>
+<th class="rotulo">Prazo Para Conclusão (em semestres): </th>
+<td>
+<table>
+<tr>
+<th class="rotulo">Mínimo: </th>
+<td>
+												10  
+											</td>
+<th class="rotulo">Médio: </th>
+<td>
+												10   
+											</td>
+<th class="rotulo">Máximo: </th>
+<td>
+												15   
+											</td>
+</tr>
+</table>
+</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td align="center" colspan="2">
+<script type="text/javascript">RichFaces.tabPanel['formulario:tab_painel']={'ontabchange':'','id':'formulario:tab_painel'} ;</script><table border="0" cellpadding="0" cellspacing="0" class="rich-tabpanel niveis" id="formulario:tab_painel" style="width:"><tbody><tr><td align="left" class="rich-tab-bottom-line"><!--table  border="0" cellpadding="0" cellspacing="0" style="position:relative;top:1px"--><table border="0" cellpadding="0" cellspacing="0"><tr><td><img alt="" height="1" src="/sigaa/a4j/g/3_3_3.Finalimages/spacer.gif.jsf" style="width: 1px; ;border:0"/></td><td class="rich-tabhdr-cell-active" id="formulario:j_id_jsp_1563688397_17_cell" style="height: 100%; vertical-align: bottom;"><table border="0" cellpadding="0" cellspacing="0" id="formulario:j_id_jsp_1563688397_17_shifted" onclick="if (RichFaces.onTabChange(event, 'formulario:tab_painel','formulario:j_id_jsp_1563688397_17')) RichFaces.switchTab('formulario:tab_painel','formulario:j_id_jsp_1563688397_17','optativas');" style="position:relative; top:1px;;height : 100%;  width: 101%;"><tr><td class="rich-tabhdr-side-border"><img alt="" height="1" src="/sigaa/a4j/g/3_3_3.Finalimages/spacer.gif.jsf" style="border:0" width="1"/></td><td class="rich-tabhdr-side-cell" style="width: 101%;"><table border="0" cellpadding="0" cellspacing="0" style="height: 100%; width: 100%;"><tr><td class="rich-tab-header rich-tab-active" id="formulario:j_id_jsp_1563688397_17_lbl" onmouseout="RichFaces.outTab(this);" onmouseover="RichFaces.overTab(this);">Optativos</td></tr></table></td><td class="rich-tabhdr-side-border"><img alt="" height="1" src="/sigaa/a4j/g/3_3_3.Finalimages/spacer.gif.jsf" style="border:0" width="1"/></td></tr></table></td><td><img alt="" height="1" src="/sigaa/a4j/g/3_3_3.Finalimages/spacer.gif.jsf" style="width: 1px; ;border:0"/></td><td class="rich-tabhdr-cell-inactive" id="formulario:j_id_jsp_1563688397_33_cell" style="height: 100%; vertical-align: bottom;"><table border="0" cellpadding="0" cellspacing="0" id="formulario:j_id_jsp_1563688397_33_shifted" onclick="if (RichFaces.onTabChange(event, 'formulario:tab_painel','formulario:j_id_jsp_1563688397_33')) RichFaces.switchTab('formulario:tab_painel','formulario:j_id_jsp_1563688397_33','complementares');" style="position:relative;;height : 100%;  width: 101%;"><tr><td class="rich-tabhdr-side-border"><img alt="" height="1" src="/sigaa/a4j/g/3_3_3.Finalimages/spacer.gif.jsf" style="border:0" width="1"/></td><td class="rich-tabhdr-side-cell" style="width: 101%;"><table border="0" cellpadding="0" cellspacing="0" style="height: 100%; width: 100%;"><tr><td class="rich-tab-header rich-tab-inactive" id="formulario:j_id_jsp_1563688397_33_lbl" onmouseout="RichFaces.outTab(this);" onmouseover="RichFaces.overTab(this);">Complementares</td></tr></table></td><td class="rich-tabhdr-side-border"><img alt="" height="1" src="/sigaa/a4j/g/3_3_3.Finalimages/spacer.gif.jsf" style="border:0" width="1"/></td></tr></table></td><td><img alt="" height="1" src="/sigaa/a4j/g/3_3_3.Finalimages/spacer.gif.jsf" style="width: 1px; ;border:0"/></td><td class="rich-tabhdr-cell-inactive" id="formulario:j_id_jsp_1563688397_49_cell" style="height: 100%; vertical-align: bottom;"><table border="0" cellpadding="0" cellspacing="0" id="formulario:j_id_jsp_1563688397_49_shifted" onclick="if (RichFaces.onTabChange(event, 'formulario:tab_painel','formulario:j_id_jsp_1563688397_49')) RichFaces.switchTab('formulario:tab_painel','formulario:j_id_jsp_1563688397_49','tab1');" style="position:relative;;height : 100%;  width: 101%;"><tr><td class="rich-tabhdr-side-border"><img alt="" height="1" src="/sigaa/a4j/g/3_3_3.Finalimages/spacer.gif.jsf" style="border:0" width="1"/></td><td class="rich-tabhdr-side-cell" style="width: 101%;"><table border="0" cellpadding="0" cellspacing="0" style="height: 100%; width: 100%;"><tr><td class="rich-tab-header rich-tab-inactive" id="formulario:j_id_jsp_1563688397_49_lbl" onmouseout="RichFaces.outTab(this);" onmouseover="RichFaces.overTab(this);">1º</td></tr></table></td><td class="rich-tabhdr-side-border"><img alt="" height="1" src="/sigaa/a4j/g/3_3_3.Finalimages/spacer.gif.jsf" style="border:0" width="1"/></td></tr></table></td><td><img alt="" height="1" src="/sigaa/a4j/g/3_3_3.Finalimages/spacer.gif.jsf" style="width: 1px; ;border:0"/></td><td class="rich-tabhdr-cell-inactive" id="formulario:j_id_jsp_1563688397_49j_id_1_cell" style="height: 100%; vertical-align: bottom;"><table border="0" cellpadding="0" cellspacing="0" id="formulario:j_id_jsp_1563688397_49j_id_1_shifted" onclick="if (RichFaces.onTabChange(event, 'formulario:tab_painel','formulario:j_id_jsp_1563688397_49j_id_1')) RichFaces.switchTab('formulario:tab_painel','formulario:j_id_jsp_1563688397_49j_id_1','tab2');" style="position:relative;;height : 100%;  width: 101%;"><tr><td class="rich-tabhdr-side-border"><img alt="" height="1" src="/sigaa/a4j/g/3_3_3.Finalimages/spacer.gif.jsf" style="border:0" width="1"/></td><td class="rich-tabhdr-side-cell" style="width: 101%;"><table border="0" cellpadding="0" cellspacing="0" style="height: 100%; width: 100%;"><tr><td class="rich-tab-header rich-tab-inactive" id="formulario:j_id_jsp_1563688397_49j_id_1_lbl" onmouseout="RichFaces.outTab(this);" onmouseover="RichFaces.overTab(this);">2º</td></tr></table></td><td class="rich-tabhdr-side-border"><img alt="" height="1" src="/sigaa/a4j/g/3_3_3.Finalimages/spacer.gif.jsf" style="border:0" width="1"/></td></tr></table></td><td><img alt="" height="1" src="/sigaa/a4j/g/3_3_3.Finalimages/spacer.gif.jsf" style="width: 1px; ;border:0"/></td><td class="rich-tabhdr-cell-inactive" id="formulario:j_id_jsp_1563688397_49j_id_2_cell" style="height: 100%; vertical-align: bottom;"><table border="0" cellpadding="0" cellspacing="0" id="formulario:j_id_jsp_1563688397_49j_id_2_shifted" onclick="if (RichFaces.onTabChange(event, 'formulario:tab_painel','formulario:j_id_jsp_1563688397_49j_id_2')) RichFaces.switchTab('formulario:tab_painel','formulario:j_id_jsp_1563688397_49j_id_2','tab3');" style="position:relative;;height : 100%;  width: 101%;"><tr><td class="rich-tabhdr-side-border"><img alt="" height="1" src="/sigaa/a4j/g/3_3_3.Finalimages/spacer.gif.jsf" style="border:0" width="1"/></td><td class="rich-tabhdr-side-cell" style="width: 101%;"><table border="0" cellpadding="0" cellspacing="0" style="height: 100%; width: 100%;"><tr><td class="rich-tab-header rich-tab-inactive" id="formulario:j_id_jsp_1563688397_49j_id_2_lbl" onmouseout="RichFaces.outTab(this);" onmouseover="RichFaces.overTab(this);">3º</td></tr></table></td><td class="rich-tabhdr-side-border"><img alt="" height="1" src="/sigaa/a4j/g/3_3_3.Finalimages/spacer.gif.jsf" style="border:0" width="1"/></td></tr></table></td><td><img alt="" height="1" src="/sigaa/a4j/g/3_3_3.Finalimages/spacer.gif.jsf" style="width: 1px; ;border:0"/></td><td class="rich-tabhdr-cell-inactive" id="formulario:j_id_jsp_1563688397_49j_id_3_cell" style="height: 100%; vertical-align: bottom;"><table border="0" cellpadding="0" cellspacing="0" id="formulario:j_id_jsp_1563688397_49j_id_3_shifted" onclick="if (RichFaces.onTabChange(event, 'formulario:tab_painel','formulario:j_id_jsp_1563688397_49j_id_3')) RichFaces.switchTab('formulario:tab_painel','formulario:j_id_jsp_1563688397_49j_id_3','tab4');" style="position:relative;;height : 100%;  width: 101%;"><tr><td class="rich-tabhdr-side-border"><img alt="" height="1" src="/sigaa/a4j/g/3_3_3.Finalimages/spacer.gif.jsf" style="border:0" width="1"/></td><td class="rich-tabhdr-side-cell" style="width: 101%;"><table border="0" cellpadding="0" cellspacing="0" style="height: 100%; width: 100%;"><tr><td class="rich-tab-header rich-tab-inactive" id="formulario:j_id_jsp_1563688397_49j_id_3_lbl" onmouseout="RichFaces.outTab(this);" onmouseover="RichFaces.overTab(this);">4º</td></tr></table></td><td class="rich-tabhdr-side-border"><img alt="" height="1" src="/sigaa/a4j/g/3_3_3.Finalimages/spacer.gif.jsf" style="border:0" width="1"/></td></tr></table></td><td><img alt="" height="1" src="/sigaa/a4j/g/3_3_3.Finalimages/spacer.gif.jsf" style="width: 1px; ;border:0"/></td><td class="rich-tabhdr-cell-inactive" id="formulario:j_id_jsp_1563688397_49j_id_4_cell" style="height: 100%; vertical-align: bottom;"><table border="0" cellpadding="0" cellspacing="0" id="formulario:j_id_jsp_1563688397_49j_id_4_shifted" onclick="if (RichFaces.onTabChange(event, 'formulario:tab_painel','formulario:j_id_jsp_1563688397_49j_id_4')) RichFaces.switchTab('formulario:tab_painel','formulario:j_id_jsp_1563688397_49j_id_4','tab5');" style="position:relative;;height : 100%;  width: 101%;"><tr><td class="rich-tabhdr-side-border"><img alt="" height="1" src="/sigaa/a4j/g/3_3_3.Finalimages/spacer.gif.jsf" style="border:0" width="1"/></td><td class="rich-tabhdr-side-cell" style="width: 101%;"><table border="0" cellpadding="0" cellspacing="0" style="height: 100%; width: 100%;"><tr><td class="rich-tab-header rich-tab-inactive" id="formulario:j_id_jsp_1563688397_49j_id_4_lbl" onmouseout="RichFaces.outTab(this);" onmouseover="RichFaces.overTab(this);">5º</td></tr></table></td><td class="rich-tabhdr-side-border"><img alt="" height="1" src="/sigaa/a4j/g/3_3_3.Finalimages/spacer.gif.jsf" style="border:0" width="1"/></td></tr></table></td><td><img alt="" height="1" src="/sigaa/a4j/g/3_3_3.Finalimages/spacer.gif.jsf" style="width: 1px; ;border:0"/></td><td class="rich-tabhdr-cell-inactive" id="formulario:j_id_jsp_1563688397_49j_id_5_cell" style="height: 100%; vertical-align: bottom;"><table border="0" cellpadding="0" cellspacing="0" id="formulario:j_id_jsp_1563688397_49j_id_5_shifted" onclick="if (RichFaces.onTabChange(event, 'formulario:tab_painel','formulario:j_id_jsp_1563688397_49j_id_5')) RichFaces.switchTab('formulario:tab_painel','formulario:j_id_jsp_1563688397_49j_id_5','tab6');" style="position:relative;;height : 100%;  width: 101%;"><tr><td class="rich-tabhdr-side-border"><img alt="" height="1" src="/sigaa/a4j/g/3_3_3.Finalimages/spacer.gif.jsf" style="border:0" width="1"/></td><td class="rich-tabhdr-side-cell" style="width: 101%;"><table border="0" cellpadding="0" cellspacing="0" style="height: 100%; width: 100%;"><tr><td class="rich-tab-header rich-tab-inactive" id="formulario:j_id_jsp_1563688397_49j_id_5_lbl" onmouseout="RichFaces.outTab(this);" onmouseover="RichFaces.overTab(this);">6º</td></tr></table></td><td class="rich-tabhdr-side-border"><img alt="" height="1" src="/sigaa/a4j/g/3_3_3.Finalimages/spacer.gif.jsf" style="border:0" width="1"/></td></tr></table></td><td><img alt="" height="1" src="/sigaa/a4j/g/3_3_3.Finalimages/spacer.gif.jsf" style="width: 1px; ;border:0"/></td><td class="rich-tabhdr-cell-inactive" id="formulario:j_id_jsp_1563688397_49j_id_6_cell" style="height: 100%; vertical-align: bottom;"><table border="0" cellpadding="0" cellspacing="0" id="formulario:j_id_jsp_1563688397_49j_id_6_shifted" onclick="if (RichFaces.onTabChange(event, 'formulario:tab_painel','formulario:j_id_jsp_1563688397_49j_id_6')) RichFaces.switchTab('formulario:tab_painel','formulario:j_id_jsp_1563688397_49j_id_6','tab7');" style="position:relative;;height : 100%;  width: 101%;"><tr><td class="rich-tabhdr-side-border"><img alt="" height="1" src="/sigaa/a4j/g/3_3_3.Finalimages/spacer.gif.jsf" style="border:0" width="1"/></td><td class="rich-tabhdr-side-cell" style="width: 101%;"><table border="0" cellpadding="0" cellspacing="0" style="height: 100%; width: 100%;"><tr><td class="rich-tab-header rich-tab-inactive" id="formulario:j_id_jsp_1563688397_49j_id_6_lbl" onmouseout="RichFaces.outTab(this);" onmouseover="RichFaces.overTab(this);">7º</td></tr></table></td><td class="rich-tabhdr-side-border"><img alt="" height="1" src="/sigaa/a4j/g/3_3_3.Finalimages/spacer.gif.jsf" style="border:0" width="1"/></td></tr></table></td><td><img alt="" height="1" src="/sigaa/a4j/g/3_3_3.Finalimages/spacer.gif.jsf" style="width: 1px; ;border:0"/></td><td class="rich-tabhdr-cell-inactive" id="formulario:j_id_jsp_1563688397_49j_id_7_cell" style="height: 100%; vertical-align: bottom;"><table border="0" cellpadding="0" cellspacing="0" id="formulario:j_id_jsp_1563688397_49j_id_7_shifted" onclick="if (RichFaces.onTabChange(event, 'formulario:tab_painel','formulario:j_id_jsp_1563688397_49j_id_7')) RichFaces.switchTab('formulario:tab_painel','formulario:j_id_jsp_1563688397_49j_id_7','tab8');" style="position:relative;;height : 100%;  width: 101%;"><tr><td class="rich-tabhdr-side-border"><img alt="" height="1" src="/sigaa/a4j/g/3_3_3.Finalimages/spacer.gif.jsf" style="border:0" width="1"/></td><td class="rich-tabhdr-side-cell" style="width: 101%;"><table border="0" cellpadding="0" cellspacing="0" style="height: 100%; width: 100%;"><tr><td class="rich-tab-header rich-tab-inactive" id="formulario:j_id_jsp_1563688397_49j_id_7_lbl" onmouseout="RichFaces.outTab(this);" onmouseover="RichFaces.overTab(this);">8º</td></tr></table></td><td class="rich-tabhdr-side-border"><img alt="" height="1" src="/sigaa/a4j/g/3_3_3.Finalimages/spacer.gif.jsf" style="border:0" width="1"/></td></tr></table></td><td><img alt="" height="1" src="/sigaa/a4j/g/3_3_3.Finalimages/spacer.gif.jsf" style="width: 1px; ;border:0"/></td><td class="rich-tabhdr-cell-inactive" id="formulario:j_id_jsp_1563688397_49j_id_8_cell" style="height: 100%; vertical-align: bottom;"><table border="0" cellpadding="0" cellspacing="0" id="formulario:j_id_jsp_1563688397_49j_id_8_shifted" onclick="if (RichFaces.onTabChange(event, 'formulario:tab_painel','formulario:j_id_jsp_1563688397_49j_id_8')) RichFaces.switchTab('formulario:tab_painel','formulario:j_id_jsp_1563688397_49j_id_8','tab9');" style="position:relative;;height : 100%;  width: 101%;"><tr><td class="rich-tabhdr-side-border"><img alt="" height="1" src="/sigaa/a4j/g/3_3_3.Finalimages/spacer.gif.jsf" style="border:0" width="1"/></td><td class="rich-tabhdr-side-cell" style="width: 101%;"><table border="0" cellpadding="0" cellspacing="0" style="height: 100%; width: 100%;"><tr><td class="rich-tab-header rich-tab-inactive" id="formulario:j_id_jsp_1563688397_49j_id_8_lbl" onmouseout="RichFaces.outTab(this);" onmouseover="RichFaces.overTab(this);">9º</td></tr></table></td><td class="rich-tabhdr-side-border"><img alt="" height="1" src="/sigaa/a4j/g/3_3_3.Finalimages/spacer.gif.jsf" style="border:0" width="1"/></td></tr></table></td><td><img alt="" height="1" src="/sigaa/a4j/g/3_3_3.Finalimages/spacer.gif.jsf" style="width: 1px; ;border:0"/></td><td class="rich-tabhdr-cell-inactive" id="formulario:j_id_jsp_1563688397_49j_id_9_cell" style="height: 100%; vertical-align: bottom;"><table border="0" cellpadding="0" cellspacing="0" id="formulario:j_id_jsp_1563688397_49j_id_9_shifted" onclick="if (RichFaces.onTabChange(event, 'formulario:tab_painel','formulario:j_id_jsp_1563688397_49j_id_9')) RichFaces.switchTab('formulario:tab_painel','formulario:j_id_jsp_1563688397_49j_id_9','tab10');" style="position:relative;;height : 100%;  width: 101%;"><tr><td class="rich-tabhdr-side-border"><img alt="" height="1" src="/sigaa/a4j/g/3_3_3.Finalimages/spacer.gif.jsf" style="border:0" width="1"/></td><td class="rich-tabhdr-side-cell" style="width: 101%;"><table border="0" cellpadding="0" cellspacing="0" style="height: 100%; width: 100%;"><tr><td class="rich-tab-header rich-tab-inactive" id="formulario:j_id_jsp_1563688397_49j_id_9_lbl" onmouseout="RichFaces.outTab(this);" onmouseover="RichFaces.overTab(this);">10º</td></tr></table></td><td class="rich-tabhdr-side-border"><img alt="" height="1" src="/sigaa/a4j/g/3_3_3.Finalimages/spacer.gif.jsf" style="border:0" width="1"/></td></tr></table></td><td><img alt="" height="1" src="/sigaa/a4j/g/3_3_3.Finalimages/spacer.gif.jsf" style="width: 1px; ;border:0"/></td></tr></table><div style="display: none;"><input autocomplete="off" id="formulario:tab_painel_input" name="formulario:tab_painel" type="hidden" value="optativas"/><script type="text/javascript">RichFaces.panelTabs['formulario:tab_painel']=[{'id':'formulario:j_id_jsp_1563688397_17','ontableave':'','cellActiveClass':'rich\x2Dtabhdr\x2Dcell\x2Dactive','name':'optativas','inactiveClass':'rich\x2Dtab\x2Dheader rich\x2Dtab\x2Dinactive    ','ontabenter':'','cellInactiveClass':'rich\x2Dtabhdr\x2Dcell\x2Dinactive','activeClass':'rich\x2Dtab\x2Dheader rich\x2Dtab\x2Dactive    '} ,{'id':'formulario:j_id_jsp_1563688397_33','ontableave':'','cellActiveClass':'rich\x2Dtabhdr\x2Dcell\x2Dactive','name':'complementares','inactiveClass':'rich\x2Dtab\x2Dheader rich\x2Dtab\x2Dinactive    ','ontabenter':'','cellInactiveClass':'rich\x2Dtabhdr\x2Dcell\x2Dinactive','activeClass':'rich\x2Dtab\x2Dheader rich\x2Dtab\x2Dactive    '} ,{'id':'formulario:j_id_jsp_1563688397_49','ontableave':'','cellActiveClass':'rich\x2Dtabhdr\x2Dcell\x2Dactive','name':'tab1','inactiveClass':'rich\x2Dtab\x2Dheader rich\x2Dtab\x2Dinactive    ','ontabenter':'','cellInactiveClass':'rich\x2Dtabhdr\x2Dcell\x2Dinactive','activeClass':'rich\x2Dtab\x2Dheader rich\x2Dtab\x2Dactive    '} ,{'id':'formulario:j_id_jsp_1563688397_49j_id_1','ontableave':'','cellActiveClass':'rich\x2Dtabhdr\x2Dcell\x2Dactive','name':'tab2','inactiveClass':'rich\x2Dtab\x2Dheader rich\x2Dtab\x2Dinactive    ','ontabenter':'','cellInactiveClass':'rich\x2Dtabhdr\x2Dcell\x2Dinactive','activeClass':'rich\x2Dtab\x2Dheader rich\x2Dtab\x2Dactive    '} ,{'id':'formulario:j_id_jsp_1563688397_49j_id_2','ontableave':'','cellActiveClass':'rich\x2Dtabhdr\x2Dcell\x2Dactive','name':'tab3','inactiveClass':'rich\x2Dtab\x2Dheader rich\x2Dtab\x2Dinactive    ','ontabenter':'','cellInactiveClass':'rich\x2Dtabhdr\x2Dcell\x2Dinactive','activeClass':'rich\x2Dtab\x2Dheader rich\x2Dtab\x2Dactive    '} ,{'id':'formulario:j_id_jsp_1563688397_49j_id_3','ontableave':'','cellActiveClass':'rich\x2Dtabhdr\x2Dcell\x2Dactive','name':'tab4','inactiveClass':'rich\x2Dtab\x2Dheader rich\x2Dtab\x2Dinactive    ','ontabenter':'','cellInactiveClass':'rich\x2Dtabhdr\x2Dcell\x2Dinactive','activeClass':'rich\x2Dtab\x2Dheader rich\x2Dtab\x2Dactive    '} ,{'id':'formulario:j_id_jsp_1563688397_49j_id_4','ontableave':'','cellActiveClass':'rich\x2Dtabhdr\x2Dcell\x2Dactive','name':'tab5','inactiveClass':'rich\x2Dtab\x2Dheader rich\x2Dtab\x2Dinactive    ','ontabenter':'','cellInactiveClass':'rich\x2Dtabhdr\x2Dcell\x2Dinactive','activeClass':'rich\x2Dtab\x2Dheader rich\x2Dtab\x2Dactive    '} ,{'id':'formulario:j_id_jsp_1563688397_49j_id_5','ontableave':'','cellActiveClass':'rich\x2Dtabhdr\x2Dcell\x2Dactive','name':'tab6','inactiveClass':'rich\x2Dtab\x2Dheader rich\x2Dtab\x2Dinactive    ','ontabenter':'','cellInactiveClass':'rich\x2Dtabhdr\x2Dcell\x2Dinactive','activeClass':'rich\x2Dtab\x2Dheader rich\x2Dtab\x2Dactive    '} ,{'id':'formulario:j_id_jsp_1563688397_49j_id_6','ontableave':'','cellActiveClass':'rich\x2Dtabhdr\x2Dcell\x2Dactive','name':'tab7','inactiveClass':'rich\x2Dtab\x2Dheader rich\x2Dtab\x2Dinactive    ','ontabenter':'','cellInactiveClass':'rich\x2Dtabhdr\x2Dcell\x2Dinactive','activeClass':'rich\x2Dtab\x2Dheader rich\x2Dtab\x2Dactive    '} ,{'id':'formulario:j_id_jsp_1563688397_49j_id_7','ontableave':'','cellActiveClass':'rich\x2Dtabhdr\x2Dcell\x2Dactive','name':'tab8','inactiveClass':'rich\x2Dtab\x2Dheader rich\x2Dtab\x2Dinactive    ','ontabenter':'','cellInactiveClass':'rich\x2Dtabhdr\x2Dcell\x2Dinactive','activeClass':'rich\x2Dtab\x2Dheader rich\x2Dtab\x2Dactive    '} ,{'id':'formulario:j_id_jsp_1563688397_49j_id_8','ontableave':'','cellActiveClass':'rich\x2Dtabhdr\x2Dcell\x2Dactive','name':'tab9','inactiveClass':'rich\x2Dtab\x2Dheader rich\x2Dtab\x2Dinactive    ','ontabenter':'','cellInactiveClass':'rich\x2Dtabhdr\x2Dcell\x2Dinactive','activeClass':'rich\x2Dtab\x2Dheader rich\x2Dtab\x2Dactive    '} ,{'id':'formulario:j_id_jsp_1563688397_49j_id_9','ontableave':'','cellActiveClass':'rich\x2Dtabhdr\x2Dcell\x2Dactive','name':'tab10','inactiveClass':'rich\x2Dtab\x2Dheader rich\x2Dtab\x2Dinactive    ','ontabenter':'','cellInactiveClass':'rich\x2Dtabhdr\x2Dcell\x2Dinactive','activeClass':'rich\x2Dtab\x2Dheader rich\x2Dtab\x2Dactive    '} ] ;</script></div></td></tr><tr><td id="formulario:j_id_jsp_1563688397_17" style=";height:100%"><table border="0" cellpadding="10" cellspacing="0" class="rich-tabpanel-content-position" width="100%"><tr><td class="rich-tabpanel-content" style="; ">
+<table width="100%">
+<tr>
+<td>
+<span style="font-size: 110%; font-weight: bold;">Componentes Optativos</span>
+</td>
+</tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" class="rich-table" id="formulario:j_id_jsp_1563688397_19" width="100%"><colgroup span="4"></colgroup><tbody id="formulario:j_id_jsp_1563688397_19:tb"><tr class="rich-table-row rich-table-firstrow linhaImpar"><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:0:j_id_jsp_1563688397_20">
+<a href="javascript:void(0);">
+<label onclick="PainelComponente.show(22118,'/sigaa/graduacao/componente_programa/view_panel_programa_relatorio.jsf');">
+ADM170</label>
+</a>
+</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:0:j_id_jsp_1563688397_23">ADMINISTRACAO CONTABIL I - 60h</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:0:j_id_jsp_1563688397_25">Presencial</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:0:j_id_jsp_1563688397_27"><span style="font-style: italic; margin-left: 10%; text-align: center;">OPTATIVO</span></td></tr><tr class="rich-table-row linhaPar"><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:1:j_id_jsp_1563688397_20">
+<a href="javascript:void(0);">
+<label onclick="PainelComponente.show(22120,'/sigaa/graduacao/componente_programa/view_panel_programa_relatorio.jsf');">
+ADM171</label>
+</a>
+</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:1:j_id_jsp_1563688397_23">ELEMENTOS E ANALISES DE CUSTOS - 60h</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:1:j_id_jsp_1563688397_25">Presencial</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:1:j_id_jsp_1563688397_27"><span style="font-style: italic; margin-left: 10%; text-align: center;">OPTATIVO</span></td></tr><tr class="rich-table-row linhaImpar"><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:2:j_id_jsp_1563688397_20">
+<a href="javascript:void(0);">
+<label onclick="PainelComponente.show(22385,'/sigaa/graduacao/componente_programa/view_panel_programa_relatorio.jsf');">
+ADMF17</label>
+</a>
+</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:2:j_id_jsp_1563688397_23">ÉTICA NAS ORGANIZAÇÕES - 45h</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:2:j_id_jsp_1563688397_25">Presencial</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:2:j_id_jsp_1563688397_27"><span style="font-style: italic; margin-left: 10%; text-align: center;">OPTATIVO</span></td></tr><tr class="rich-table-row linhaPar"><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:3:j_id_jsp_1563688397_20">
+<a href="javascript:void(0);">
+<label onclick="PainelComponente.show(22403,'/sigaa/graduacao/componente_programa/view_panel_programa_relatorio.jsf');">
+ADMF52</label>
+</a>
+</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:3:j_id_jsp_1563688397_23">HABILIDADES E COMPETÊNCIAS DO ADMINISTRADOR - 30h</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:3:j_id_jsp_1563688397_25">Presencial</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:3:j_id_jsp_1563688397_27"><span style="font-style: italic; margin-left: 10%; text-align: center;">OPTATIVO</span></td></tr><tr class="rich-table-row linhaImpar"><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:4:j_id_jsp_1563688397_20">
+<a href="javascript:void(0);">
+<label onclick="PainelComponente.show(22405,'/sigaa/graduacao/componente_programa/view_panel_programa_relatorio.jsf');">
+ADMF53</label>
+</a>
+</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:4:j_id_jsp_1563688397_23">SEMINÁRIOS DE PRÁTICAS DE GESTÃO I - 30h</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:4:j_id_jsp_1563688397_25">Presencial</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:4:j_id_jsp_1563688397_27"><span style="font-style: italic; margin-left: 10%; text-align: center;">OPTATIVO</span></td></tr><tr class="rich-table-row linhaPar"><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:5:j_id_jsp_1563688397_20">
+<a href="javascript:void(0);">
+<label onclick="PainelComponente.show(24957,'/sigaa/graduacao/componente_programa/view_panel_programa_relatorio.jsf');">
+COM101</label>
+</a>
+</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:5:j_id_jsp_1563688397_23">TEORIAS DA COMUNICAÇÃO - 60h</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:5:j_id_jsp_1563688397_25">Presencial</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:5:j_id_jsp_1563688397_27"><span style="font-style: italic; margin-left: 10%; text-align: center;">OPTATIVO</span></td></tr><tr class="rich-table-row linhaImpar"><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:6:j_id_jsp_1563688397_20">
+<a href="javascript:void(0);">
+<label onclick="PainelComponente.show(24963,'/sigaa/graduacao/componente_programa/view_panel_programa_relatorio.jsf');">
+COM104</label>
+</a>
+</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:6:j_id_jsp_1563688397_23">COMUNICAÇÃO E TECNOLOGIA - 60h</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:6:j_id_jsp_1563688397_25">Presencial</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:6:j_id_jsp_1563688397_27"><span style="font-style: italic; margin-left: 10%; text-align: center;">OPTATIVO</span></td></tr><tr class="rich-table-row linhaPar"><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:7:j_id_jsp_1563688397_20">
+<a href="javascript:void(0);">
+<label onclick="PainelComponente.show(25261,'/sigaa/graduacao/componente_programa/view_panel_programa_relatorio.jsf');">
+COM364</label>
+</a>
+</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:7:j_id_jsp_1563688397_23">COMUNICAÇÃO E INFORMÁTICA - 60h</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:7:j_id_jsp_1563688397_25">Presencial</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:7:j_id_jsp_1563688397_27"><span style="font-style: italic; margin-left: 10%; text-align: center;">OPTATIVO</span></td></tr><tr class="rich-table-row linhaImpar"><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:8:j_id_jsp_1563688397_20">
+<a href="javascript:void(0);">
+<label onclick="PainelComponente.show(27404,'/sigaa/graduacao/componente_programa/view_panel_programa_relatorio.jsf');">
+ECO173</label>
+</a>
+</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:8:j_id_jsp_1563688397_23">ECONOMIA BRASILEIRA CONTEMPORANEA - 60h</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:8:j_id_jsp_1563688397_25">Presencial</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:8:j_id_jsp_1563688397_27"><span style="font-style: italic; margin-left: 10%; text-align: center;">OPTATIVO</span></td></tr><tr class="rich-table-row linhaPar"><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:9:j_id_jsp_1563688397_20">
+<a href="javascript:void(0);">
+<label onclick="PainelComponente.show(27489,'/sigaa/graduacao/componente_programa/view_panel_programa_relatorio.jsf');">
+ECOB40</label>
+</a>
+</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:9:j_id_jsp_1563688397_23">INTRODUÇÃO À ECONOMIA I - 60h</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:9:j_id_jsp_1563688397_25">Presencial</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:9:j_id_jsp_1563688397_27"><span style="font-style: italic; margin-left: 10%; text-align: center;">OPTATIVO</span></td></tr><tr class="rich-table-row linhaImpar"><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:10:j_id_jsp_1563688397_20">
+<a href="javascript:void(0);">
+<label onclick="PainelComponente.show(28650,'/sigaa/graduacao/componente_programa/view_panel_programa_relatorio.jsf');">
+EDCA11</label>
+</a>
+</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:10:j_id_jsp_1563688397_23">DIDÁTICA E PRAXIS PEDAGÓGICA I - 60h</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:10:j_id_jsp_1563688397_25">Presencial</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:10:j_id_jsp_1563688397_27"><span style="font-style: italic; margin-left: 10%; text-align: center;">OPTATIVO</span></td></tr><tr class="rich-table-row linhaPar"><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:11:j_id_jsp_1563688397_20">
+<a href="javascript:void(0);">
+<label onclick="PainelComponente.show(31470,'/sigaa/graduacao/componente_programa/view_panel_programa_relatorio.jsf');">
+ENGG52</label>
+</a>
+</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:11:j_id_jsp_1563688397_23">LABORATÓRIO INTEGRADO I-A - 30h</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:11:j_id_jsp_1563688397_25">Presencial</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:11:j_id_jsp_1563688397_27"><span style="font-style: italic; margin-left: 10%; text-align: center;">OPTATIVO</span></td></tr><tr class="rich-table-row linhaImpar"><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:12:j_id_jsp_1563688397_20">
+<a href="javascript:void(0);">
+<label onclick="PainelComponente.show(31472,'/sigaa/graduacao/componente_programa/view_panel_programa_relatorio.jsf');">
+ENGG53</label>
+</a>
+</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:12:j_id_jsp_1563688397_23">LABORATÓRIO INTEGRADO II-A - 30h</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:12:j_id_jsp_1563688397_25">Presencial</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:12:j_id_jsp_1563688397_27"><span style="font-style: italic; margin-left: 10%; text-align: center;">OPTATIVO</span></td></tr><tr class="rich-table-row linhaPar"><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:13:j_id_jsp_1563688397_20">
+<a href="javascript:void(0);">
+<label onclick="PainelComponente.show(32431,'/sigaa/graduacao/componente_programa/view_panel_programa_relatorio.jsf');">
+FCC001</label>
+</a>
+</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:13:j_id_jsp_1563688397_23">CONTABILIDADE GERAL I - 60h</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:13:j_id_jsp_1563688397_25">Presencial</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:13:j_id_jsp_1563688397_27"><span style="font-style: italic; margin-left: 10%; text-align: center;">OPTATIVO</span></td></tr><tr class="rich-table-row linhaImpar"><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:14:j_id_jsp_1563688397_20">
+<a href="javascript:void(0);">
+<label onclick="PainelComponente.show(32463,'/sigaa/graduacao/componente_programa/view_panel_programa_relatorio.jsf');">
+FCC024</label>
+</a>
+</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:14:j_id_jsp_1563688397_23">CONTABILIDADE DE CUSTOS - 60h</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:14:j_id_jsp_1563688397_25">Presencial</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:14:j_id_jsp_1563688397_27"><span style="font-style: italic; margin-left: 10%; text-align: center;">OPTATIVO</span></td></tr><tr class="rich-table-row linhaPar"><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:15:j_id_jsp_1563688397_20">
+<a href="javascript:void(0);">
+<label onclick="PainelComponente.show(52316,'/sigaa/graduacao/componente_programa/view_panel_programa_relatorio.jsf');">
+GADM0008</label>
+</a>
+</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:15:j_id_jsp_1563688397_23">ADMINISTRAÇÃO MERCADOLÓGICA I - 60h</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:15:j_id_jsp_1563688397_25">Presencial</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:15:j_id_jsp_1563688397_27"><span style="font-style: italic; margin-left: 10%; text-align: center;">OPTATIVO</span></td></tr><tr class="rich-table-row linhaImpar"><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:16:j_id_jsp_1563688397_20">
+<a href="javascript:void(0);">
+<label onclick="PainelComponente.show(54168,'/sigaa/graduacao/componente_programa/view_panel_programa_relatorio.jsf');">
+GDIP015</label>
+</a>
+</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:16:j_id_jsp_1563688397_23">APROVEITAMENTO DE CH OPTATIVA - 15 HORAS - 15h</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:16:j_id_jsp_1563688397_25">Presencial</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:16:j_id_jsp_1563688397_27"><span style="font-style: italic; margin-left: 10%; text-align: center;">OPTATIVO</span></td></tr><tr class="rich-table-row linhaPar"><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:17:j_id_jsp_1563688397_20">
+<a href="javascript:void(0);">
+<label onclick="PainelComponente.show(54169,'/sigaa/graduacao/componente_programa/view_panel_programa_relatorio.jsf');">
+GDIP030</label>
+</a>
+</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:17:j_id_jsp_1563688397_23">APROVEITAMENTO DE CH OPTATIVA - 30 HORAS - 30h</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:17:j_id_jsp_1563688397_25">Presencial</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:17:j_id_jsp_1563688397_27"><span style="font-style: italic; margin-left: 10%; text-align: center;">OPTATIVO</span></td></tr><tr class="rich-table-row linhaImpar"><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:18:j_id_jsp_1563688397_20">
+<a href="javascript:void(0);">
+<label onclick="PainelComponente.show(54170,'/sigaa/graduacao/componente_programa/view_panel_programa_relatorio.jsf');">
+GDIP060</label>
+</a>
+</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:18:j_id_jsp_1563688397_23">APROVEITAMENTO DE CH OPTATIVA - 60 HORAS - 60h</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:18:j_id_jsp_1563688397_25">Presencial</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:18:j_id_jsp_1563688397_27"><span style="font-style: italic; margin-left: 10%; text-align: center;">OPTATIVO</span></td></tr><tr class="rich-table-row linhaPar"><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:19:j_id_jsp_1563688397_20">
+<a href="javascript:void(0);">
+<label onclick="PainelComponente.show(54171,'/sigaa/graduacao/componente_programa/view_panel_programa_relatorio.jsf');">
+GDIP120</label>
+</a>
+</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:19:j_id_jsp_1563688397_23">APROVEITAMENTO DE CH OPTATIVA - 120 HORAS - 120h</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:19:j_id_jsp_1563688397_25">Presencial</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:19:j_id_jsp_1563688397_27"><span style="font-style: italic; margin-left: 10%; text-align: center;">OPTATIVO</span></td></tr><tr class="rich-table-row linhaImpar"><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:20:j_id_jsp_1563688397_20">
+<a href="javascript:void(0);">
+<label onclick="PainelComponente.show(54172,'/sigaa/graduacao/componente_programa/view_panel_programa_relatorio.jsf');">
+GDIP240</label>
+</a>
+</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:20:j_id_jsp_1563688397_23">APROVEITAMENTO DE CH OPTATIVA - 240 HORAS - 240h</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:20:j_id_jsp_1563688397_25">Presencial</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:20:j_id_jsp_1563688397_27"><span style="font-style: italic; margin-left: 10%; text-align: center;">OPTATIVO</span></td></tr><tr class="rich-table-row linhaPar"><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:21:j_id_jsp_1563688397_20">
+<a href="javascript:void(0);">
+<label onclick="PainelComponente.show(54173,'/sigaa/graduacao/componente_programa/view_panel_programa_relatorio.jsf');">
+GDIP480</label>
+</a>
+</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:21:j_id_jsp_1563688397_23">APROVEITAMENTO DE CH OPTATIVA - 480 HORAS - 480h</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:21:j_id_jsp_1563688397_25">Presencial</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:21:j_id_jsp_1563688397_27"><span style="font-style: italic; margin-left: 10%; text-align: center;">OPTATIVO</span></td></tr><tr class="rich-table-row linhaImpar"><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:22:j_id_jsp_1563688397_20">
+<a href="javascript:void(0);">
+<label onclick="PainelComponente.show(36585,'/sigaa/graduacao/componente_programa/view_panel_programa_relatorio.jsf');">
+HACA01</label>
+</a>
+</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:22:j_id_jsp_1563688397_23">ESTUDOS SOBRE A CONTEMPORANEIDADE I - 60h</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:22:j_id_jsp_1563688397_25">Presencial</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:22:j_id_jsp_1563688397_27"><span style="font-style: italic; margin-left: 10%; text-align: center;">OPTATIVO</span></td></tr><tr class="rich-table-row linhaPar"><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:23:j_id_jsp_1563688397_20">
+<a href="javascript:void(0);">
+<label onclick="PainelComponente.show(36599,'/sigaa/graduacao/componente_programa/view_panel_programa_relatorio.jsf');">
+HACA09</label>
+</a>
+</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:23:j_id_jsp_1563688397_23">CIÊNCIA E TECNOLOGIA I - 60h</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:23:j_id_jsp_1563688397_25">Presencial</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:23:j_id_jsp_1563688397_27"><span style="font-style: italic; margin-left: 10%; text-align: center;">OPTATIVO</span></td></tr><tr class="rich-table-row linhaImpar"><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:24:j_id_jsp_1563688397_20">
+<a href="javascript:void(0);">
+<label onclick="PainelComponente.show(36618,'/sigaa/graduacao/componente_programa/view_panel_programa_relatorio.jsf');">
+HACA38</label>
+</a>
+</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:24:j_id_jsp_1563688397_23">CIÊNCIA E TECNOLOGIA II - 60h</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:24:j_id_jsp_1563688397_25">Presencial</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:24:j_id_jsp_1563688397_27"><span style="font-style: italic; margin-left: 10%; text-align: center;">OPTATIVO</span></td></tr><tr class="rich-table-row linhaPar"><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:25:j_id_jsp_1563688397_20">
+<a href="javascript:void(0);">
+<label onclick="PainelComponente.show(43366,'/sigaa/graduacao/componente_programa/view_panel_programa_relatorio.jsf');">
+LETA12</label>
+</a>
+</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:25:j_id_jsp_1563688397_23">INTRODUÇÃO AO ESTUDO DA LINGUA LATINA - 60h</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:25:j_id_jsp_1563688397_25">Presencial</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:25:j_id_jsp_1563688397_27"><span style="font-style: italic; margin-left: 10%; text-align: center;">OPTATIVO</span></td></tr><tr class="rich-table-row linhaImpar"><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:26:j_id_jsp_1563688397_20">
+<a href="javascript:void(0);">
+<label onclick="PainelComponente.show(43368,'/sigaa/graduacao/componente_programa/view_panel_programa_relatorio.jsf');">
+LETA13</label>
+</a>
+</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:26:j_id_jsp_1563688397_23">INTRODUÇÃO AO ESTUDO DA LINGUA PORTUGUESA - 60h</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:26:j_id_jsp_1563688397_25">Presencial</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:26:j_id_jsp_1563688397_27"><span style="font-style: italic; margin-left: 10%; text-align: center;">OPTATIVO</span></td></tr><tr class="rich-table-row linhaPar"><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:27:j_id_jsp_1563688397_20">
+<a href="javascript:void(0);">
+<label onclick="PainelComponente.show(43372,'/sigaa/graduacao/componente_programa/view_panel_programa_relatorio.jsf');">
+LETA15</label>
+</a>
+</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:27:j_id_jsp_1563688397_23">LEITURA DE TEXTOS EM LINGUA INGLESA - 60h</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:27:j_id_jsp_1563688397_25">Presencial</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:27:j_id_jsp_1563688397_27"><span style="font-style: italic; margin-left: 10%; text-align: center;">OPTATIVO</span></td></tr><tr class="rich-table-row linhaImpar"><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:28:j_id_jsp_1563688397_20">
+<a href="javascript:void(0);">
+<label onclick="PainelComponente.show(43378,'/sigaa/graduacao/componente_programa/view_panel_programa_relatorio.jsf');">
+LETA18</label>
+</a>
+</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:28:j_id_jsp_1563688397_23">LEITURA DE TEXTOS EM LINGUA LATINA - 60h</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:28:j_id_jsp_1563688397_25">Presencial</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:28:j_id_jsp_1563688397_27"><span style="font-style: italic; margin-left: 10%; text-align: center;">OPTATIVO</span></td></tr><tr class="rich-table-row linhaPar"><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:29:j_id_jsp_1563688397_20">
+<a href="javascript:void(0);">
+<label onclick="PainelComponente.show(43388,'/sigaa/graduacao/componente_programa/view_panel_programa_relatorio.jsf');">
+LETA23</label>
+</a>
+</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:29:j_id_jsp_1563688397_23">INTRODUÇÃO À LINGÜISTICA ROMÂNICA - 60h</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:29:j_id_jsp_1563688397_25">Presencial</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:29:j_id_jsp_1563688397_27"><span style="font-style: italic; margin-left: 10%; text-align: center;">OPTATIVO</span></td></tr><tr class="rich-table-row linhaImpar"><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:30:j_id_jsp_1563688397_20">
+<a href="javascript:void(0);">
+<label onclick="PainelComponente.show(43398,'/sigaa/graduacao/componente_programa/view_panel_programa_relatorio.jsf');">
+LETA28</label>
+</a>
+</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:30:j_id_jsp_1563688397_23">INTRODUÇÃO À ANÁLISE TEXTUAL - 30h</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:30:j_id_jsp_1563688397_25">Presencial</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:30:j_id_jsp_1563688397_27"><span style="font-style: italic; margin-left: 10%; text-align: center;">OPTATIVO</span></td></tr><tr class="rich-table-row linhaPar"><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:31:j_id_jsp_1563688397_20">
+<a href="javascript:void(0);">
+<label onclick="PainelComponente.show(43524,'/sigaa/graduacao/componente_programa/view_panel_programa_relatorio.jsf');">
+LETA92</label>
+</a>
+</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:31:j_id_jsp_1563688397_23">A FRASE NOMINAL DA LINGUA INGLESA - 60h</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:31:j_id_jsp_1563688397_25">Presencial</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:31:j_id_jsp_1563688397_27"><span style="font-style: italic; margin-left: 10%; text-align: center;">OPTATIVO</span></td></tr><tr class="rich-table-row linhaImpar"><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:32:j_id_jsp_1563688397_20">
+<a href="javascript:void(0);">
+<label onclick="PainelComponente.show(43528,'/sigaa/graduacao/componente_programa/view_panel_programa_relatorio.jsf');">
+LETA94</label>
+</a>
+</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:32:j_id_jsp_1563688397_23">HISTÓRIA DA LINGUA INGLESA - 60h</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:32:j_id_jsp_1563688397_25">Presencial</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:32:j_id_jsp_1563688397_27"><span style="font-style: italic; margin-left: 10%; text-align: center;">OPTATIVO</span></td></tr><tr class="rich-table-row linhaPar"><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:33:j_id_jsp_1563688397_20">
+<a href="javascript:void(0);">
+<label onclick="PainelComponente.show(43600,'/sigaa/graduacao/componente_programa/view_panel_programa_relatorio.jsf');">
+LETB33</label>
+</a>
+</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:33:j_id_jsp_1563688397_23">LINGUA ALEMÃ EM NIVEL BÁSICO - 90h</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:33:j_id_jsp_1563688397_25">Presencial</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:33:j_id_jsp_1563688397_27"><span style="font-style: italic; margin-left: 10%; text-align: center;">OPTATIVO</span></td></tr><tr class="rich-table-row linhaImpar"><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:34:j_id_jsp_1563688397_20">
+<a href="javascript:void(0);">
+<label onclick="PainelComponente.show(43602,'/sigaa/graduacao/componente_programa/view_panel_programa_relatorio.jsf');">
+LETB34</label>
+</a>
+</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:34:j_id_jsp_1563688397_23">LINGUA ALEMÃ EM NIVEL INTERMEDIÁRIO - 90h</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:34:j_id_jsp_1563688397_25">Presencial</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:34:j_id_jsp_1563688397_27"><span style="font-style: italic; margin-left: 10%; text-align: center;">OPTATIVO</span></td></tr><tr class="rich-table-row linhaPar"><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:35:j_id_jsp_1563688397_20">
+<a href="javascript:void(0);">
+<label onclick="PainelComponente.show(43604,'/sigaa/graduacao/componente_programa/view_panel_programa_relatorio.jsf');">
+LETB35</label>
+</a>
+</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:35:j_id_jsp_1563688397_23">LINGUA ALEMÃ EM NIVEL AVANÇADO - 90h</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:35:j_id_jsp_1563688397_25">Presencial</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:35:j_id_jsp_1563688397_27"><span style="font-style: italic; margin-left: 10%; text-align: center;">OPTATIVO</span></td></tr><tr class="rich-table-row linhaImpar"><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:36:j_id_jsp_1563688397_20">
+<a href="javascript:void(0);">
+<label onclick="PainelComponente.show(43618,'/sigaa/graduacao/componente_programa/view_panel_programa_relatorio.jsf');">
+LETB42</label>
+</a>
+</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:36:j_id_jsp_1563688397_23">LINGUA INGLESA EM NIVEL BÁSICO - 90h</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:36:j_id_jsp_1563688397_25">Presencial</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:36:j_id_jsp_1563688397_27"><span style="font-style: italic; margin-left: 10%; text-align: center;">OPTATIVO</span></td></tr><tr class="rich-table-row linhaPar"><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:37:j_id_jsp_1563688397_20">
+<a href="javascript:void(0);">
+<label onclick="PainelComponente.show(43620,'/sigaa/graduacao/componente_programa/view_panel_programa_relatorio.jsf');">
+LETB43</label>
+</a>
+</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:37:j_id_jsp_1563688397_23">LINGUA INGLESA EM NIVEL INTERMEDIÁRIO - 90h</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:37:j_id_jsp_1563688397_25">Presencial</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:37:j_id_jsp_1563688397_27"><span style="font-style: italic; margin-left: 10%; text-align: center;">OPTATIVO</span></td></tr><tr class="rich-table-row linhaImpar"><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:38:j_id_jsp_1563688397_20">
+<a href="javascript:void(0);">
+<label onclick="PainelComponente.show(43622,'/sigaa/graduacao/componente_programa/view_panel_programa_relatorio.jsf');">
+LETB44</label>
+</a>
+</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:38:j_id_jsp_1563688397_23">LINGUA INGLESA EM NIVEL AVANÇADO - 90h</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:38:j_id_jsp_1563688397_25">Presencial</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:38:j_id_jsp_1563688397_27"><span style="font-style: italic; margin-left: 10%; text-align: center;">OPTATIVO</span></td></tr><tr class="rich-table-row linhaPar"><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:39:j_id_jsp_1563688397_20">
+<a href="javascript:void(0);">
+<label onclick="PainelComponente.show(43886,'/sigaa/graduacao/componente_programa/view_panel_programa_relatorio.jsf');">
+LETC84</label>
+</a>
+</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:39:j_id_jsp_1563688397_23">LEITURA DE TEXTOS ACADÊMICOS EM LINGUA INGLESA - 60h</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:39:j_id_jsp_1563688397_25">Presencial</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:39:j_id_jsp_1563688397_27"><span style="font-style: italic; margin-left: 10%; text-align: center;">OPTATIVO</span></td></tr><tr class="rich-table-row linhaImpar"><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:40:j_id_jsp_1563688397_20">
+<a href="javascript:void(0);">
+<label onclick="PainelComponente.show(44127,'/sigaa/graduacao/componente_programa/view_panel_programa_relatorio.jsf');">
+LETE21</label>
+</a>
+</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:40:j_id_jsp_1563688397_23">REDAÇÃO EMPRESARIAL EM LINGUA INGLESA - 60h</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:40:j_id_jsp_1563688397_25">Presencial</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:40:j_id_jsp_1563688397_27"><span style="font-style: italic; margin-left: 10%; text-align: center;">OPTATIVO</span></td></tr><tr class="rich-table-row linhaPar"><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:41:j_id_jsp_1563688397_20">
+<a href="javascript:void(0);">
+<label onclick="PainelComponente.show(44148,'/sigaa/graduacao/componente_programa/view_panel_programa_relatorio.jsf');">
+LETE48</label>
+</a>
+</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:41:j_id_jsp_1563688397_23">LIBRAS I- LÍNGUA BRASILEIRA DE SINAIS NIVEL I - 60h</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:41:j_id_jsp_1563688397_25">Presencial</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:41:j_id_jsp_1563688397_27"><span style="font-style: italic; margin-left: 10%; text-align: center;">OPTATIVO</span></td></tr><tr class="rich-table-row linhaImpar"><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:42:j_id_jsp_1563688397_20">
+<a href="javascript:void(0);">
+<label onclick="PainelComponente.show(44256,'/sigaa/graduacao/componente_programa/view_panel_programa_relatorio.jsf');">
+MAT027</label>
+</a>
+</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:42:j_id_jsp_1563688397_23">ESTATÍSTICA IV - 90h</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:42:j_id_jsp_1563688397_25">Presencial</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:42:j_id_jsp_1563688397_27"><span style="font-style: italic; margin-left: 10%; text-align: center;">OPTATIVO</span></td></tr><tr class="rich-table-row linhaPar"><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:43:j_id_jsp_1563688397_20">
+<a href="javascript:void(0);">
+<label onclick="PainelComponente.show(44378,'/sigaa/graduacao/componente_programa/view_panel_programa_relatorio.jsf');">
+MAT115</label>
+</a>
+</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:43:j_id_jsp_1563688397_23">INTRODUCAO AO PROCESSAMENTO DE DADOS - 60h</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:43:j_id_jsp_1563688397_25">Presencial</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:43:j_id_jsp_1563688397_27"><span style="font-style: italic; margin-left: 10%; text-align: center;">OPTATIVO</span></td></tr><tr class="rich-table-row linhaImpar"><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:44:j_id_jsp_1563688397_20">
+<a href="javascript:void(0);">
+<label onclick="PainelComponente.show(44491,'/sigaa/graduacao/componente_programa/view_panel_programa_relatorio.jsf');">
+MAT174</label>
+</a>
+</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:44:j_id_jsp_1563688397_23">CÁLCULO NUMÉRICO I - 60h</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:44:j_id_jsp_1563688397_25">Presencial</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:44:j_id_jsp_1563688397_27"><span style="font-style: italic; margin-left: 10%; text-align: center;">OPTATIVO</span></td></tr><tr class="rich-table-row linhaPar"><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:45:j_id_jsp_1563688397_20">
+<a href="javascript:void(0);">
+<label onclick="PainelComponente.show(44521,'/sigaa/graduacao/componente_programa/view_panel_programa_relatorio.jsf');">
+MAT191</label>
+</a>
+</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:45:j_id_jsp_1563688397_23">MATEMATICA FINANCEIRA - 60h</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:45:j_id_jsp_1563688397_25">Presencial</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:45:j_id_jsp_1563688397_27"><span style="font-style: italic; margin-left: 10%; text-align: center;">OPTATIVO</span></td></tr><tr class="rich-table-row linhaImpar"><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:46:j_id_jsp_1563688397_20">
+<a href="javascript:void(0);">
+<label onclick="PainelComponente.show(44536,'/sigaa/graduacao/componente_programa/view_panel_programa_relatorio.jsf');">
+MAT198</label>
+</a>
+</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:46:j_id_jsp_1563688397_23">FUNDAMENTOS DE MATEMATICA ELEMENTAR I-A - 90h</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:46:j_id_jsp_1563688397_25">Presencial</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:46:j_id_jsp_1563688397_27"><span style="font-style: italic; margin-left: 10%; text-align: center;">OPTATIVO</span></td></tr><tr class="rich-table-row linhaPar"><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:47:j_id_jsp_1563688397_20">
+<a href="javascript:void(0);">
+<label onclick="PainelComponente.show(44585,'/sigaa/graduacao/componente_programa/view_panel_programa_relatorio.jsf');">
+MAT223</label>
+</a>
+</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:47:j_id_jsp_1563688397_23">PROBABILIDADE I - 90h</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:47:j_id_jsp_1563688397_25">Presencial</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:47:j_id_jsp_1563688397_27"><span style="font-style: italic; margin-left: 10%; text-align: center;">OPTATIVO</span></td></tr><tr class="rich-table-row linhaImpar"><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:48:j_id_jsp_1563688397_20">
+<a href="javascript:void(0);">
+<label onclick="PainelComponente.show(44674,'/sigaa/graduacao/componente_programa/view_panel_programa_relatorio.jsf');">
+MATA01</label>
+</a>
+</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:48:j_id_jsp_1563688397_23">GEOMETRIA ANALÍTICA - 60h</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:48:j_id_jsp_1563688397_25">Presencial</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:48:j_id_jsp_1563688397_27"><span style="font-style: italic; margin-left: 10%; text-align: center;">OPTATIVO</span></td></tr><tr class="rich-table-row linhaPar"><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:49:j_id_jsp_1563688397_20">
+<a href="javascript:void(0);">
+<label onclick="PainelComponente.show(44678,'/sigaa/graduacao/componente_programa/view_panel_programa_relatorio.jsf');">
+MATA03</label>
+</a>
+</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:49:j_id_jsp_1563688397_23">CÁLCULO B - 90h</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:49:j_id_jsp_1563688397_25">Presencial</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:49:j_id_jsp_1563688397_27"><span style="font-style: italic; margin-left: 10%; text-align: center;">OPTATIVO</span></td></tr><tr class="rich-table-row linhaImpar"><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:50:j_id_jsp_1563688397_20">
+<a href="javascript:void(0);">
+<label onclick="PainelComponente.show(44680,'/sigaa/graduacao/componente_programa/view_panel_programa_relatorio.jsf');">
+MATA04</label>
+</a>
+</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:50:j_id_jsp_1563688397_23">CÁLCULO C - 90h</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:50:j_id_jsp_1563688397_25">Presencial</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:50:j_id_jsp_1563688397_27"><span style="font-style: italic; margin-left: 10%; text-align: center;">OPTATIVO</span></td></tr><tr class="rich-table-row linhaPar"><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:51:j_id_jsp_1563688397_20">
+<a href="javascript:void(0);">
+<label onclick="PainelComponente.show(44682,'/sigaa/graduacao/componente_programa/view_panel_programa_relatorio.jsf');">
+MATA05</label>
+</a>
+</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:51:j_id_jsp_1563688397_23">CÁLCULO D - 90h</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:51:j_id_jsp_1563688397_25">Presencial</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:51:j_id_jsp_1563688397_27"><span style="font-style: italic; margin-left: 10%; text-align: center;">OPTATIVO</span></td></tr><tr class="rich-table-row linhaImpar"><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:52:j_id_jsp_1563688397_20">
+<a href="javascript:void(0);">
+<label onclick="PainelComponente.show(44684,'/sigaa/graduacao/componente_programa/view_panel_programa_relatorio.jsf');">
+MATA06</label>
+</a>
+</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:52:j_id_jsp_1563688397_23">CÁLCULO E - 90h</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:52:j_id_jsp_1563688397_25">Presencial</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:52:j_id_jsp_1563688397_27"><span style="font-style: italic; margin-left: 10%; text-align: center;">OPTATIVO</span></td></tr><tr class="rich-table-row linhaPar"><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:53:j_id_jsp_1563688397_20">
+<a href="javascript:void(0);">
+<label onclick="PainelComponente.show(44705,'/sigaa/graduacao/componente_programa/view_panel_programa_relatorio.jsf');">
+MATA41</label>
+</a>
+</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:53:j_id_jsp_1563688397_23">INFORMÁTICA NA EDUCAÇÃO - 60h</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:53:j_id_jsp_1563688397_25">Presencial</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:53:j_id_jsp_1563688397_27"><span style="font-style: italic; margin-left: 10%; text-align: center;">OPTATIVO</span></td></tr><tr class="rich-table-row linhaImpar"><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:54:j_id_jsp_1563688397_20">
+<a href="javascript:void(0);">
+<label onclick="PainelComponente.show(44718,'/sigaa/graduacao/componente_programa/view_panel_programa_relatorio.jsf');">
+MATA49</label>
+</a>
+</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:54:j_id_jsp_1563688397_23">PROGRAMAÇÃO DE SOFTWARE BÁSICO - 60h</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:54:j_id_jsp_1563688397_25">Presencial</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:54:j_id_jsp_1563688397_27"><span style="font-style: italic; margin-left: 10%; text-align: center;">OPTATIVO</span></td></tr><tr class="rich-table-row linhaPar"><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:55:j_id_jsp_1563688397_20">
+<a href="javascript:void(0);">
+<label onclick="PainelComponente.show(44720,'/sigaa/graduacao/componente_programa/view_panel_programa_relatorio.jsf');">
+MATA50</label>
+</a>
+</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:55:j_id_jsp_1563688397_23">LINGUAGENS FORMAIS E AUTÔMATOS - 60h</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:55:j_id_jsp_1563688397_25">Presencial</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:55:j_id_jsp_1563688397_27"><span style="font-style: italic; margin-left: 10%; text-align: center;">OPTATIVO</span></td></tr><tr class="rich-table-row linhaImpar"><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:56:j_id_jsp_1563688397_20">
+<a href="javascript:void(0);">
+<label onclick="PainelComponente.show(44722,'/sigaa/graduacao/componente_programa/view_panel_programa_relatorio.jsf');">
+MATA51</label>
+</a>
+</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:56:j_id_jsp_1563688397_23">TEORIA DA COMPUTAÇÃO - 60h</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:56:j_id_jsp_1563688397_25">Presencial</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:56:j_id_jsp_1563688397_27"><span style="font-style: italic; margin-left: 10%; text-align: center;">OPTATIVO</span></td></tr><tr class="rich-table-row linhaPar"><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:57:j_id_jsp_1563688397_20">
+<a href="javascript:void(0);">
+<label onclick="PainelComponente.show(44724,'/sigaa/graduacao/componente_programa/view_panel_programa_relatorio.jsf');">
+MATA52</label>
+</a>
+</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:57:j_id_jsp_1563688397_23">ANÁLISE E PROJETO DE ALGORITMOS - 60h</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:57:j_id_jsp_1563688397_25">Presencial</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:57:j_id_jsp_1563688397_27"><span style="font-style: italic; margin-left: 10%; text-align: center;">OPTATIVO</span></td></tr><tr class="rich-table-row linhaImpar"><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:58:j_id_jsp_1563688397_20">
+<a href="javascript:void(0);">
+<label onclick="PainelComponente.show(44726,'/sigaa/graduacao/componente_programa/view_panel_programa_relatorio.jsf');">
+MATA53</label>
+</a>
+</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:58:j_id_jsp_1563688397_23">TEORIA DOS GRAFOS - 60h</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:58:j_id_jsp_1563688397_25">Presencial</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:58:j_id_jsp_1563688397_27"><span style="font-style: italic; margin-left: 10%; text-align: center;">OPTATIVO</span></td></tr><tr class="rich-table-row linhaPar"><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:59:j_id_jsp_1563688397_20">
+<a href="javascript:void(0);">
+<label onclick="PainelComponente.show(44728,'/sigaa/graduacao/componente_programa/view_panel_programa_relatorio.jsf');">
+MATA54</label>
+</a>
+</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:59:j_id_jsp_1563688397_23">ESTRUTURAS DE DADOS E ALGORITMOS II - 60h</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:59:j_id_jsp_1563688397_25">Presencial</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:59:j_id_jsp_1563688397_27"><span style="font-style: italic; margin-left: 10%; text-align: center;">OPTATIVO</span></td></tr><tr class="rich-table-row linhaImpar"><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:60:j_id_jsp_1563688397_20">
+<a href="javascript:void(0);">
+<label onclick="PainelComponente.show(44734,'/sigaa/graduacao/componente_programa/view_panel_programa_relatorio.jsf');">
+MATA57</label>
+</a>
+</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:60:j_id_jsp_1563688397_23">LABORATÓRIO DE PROGRAMAÇÃO I - 45h</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:60:j_id_jsp_1563688397_25">Presencial</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:60:j_id_jsp_1563688397_27"><span style="font-style: italic; margin-left: 10%; text-align: center;">OPTATIVO</span></td></tr><tr class="rich-table-row linhaPar"><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:61:j_id_jsp_1563688397_20">
+<a href="javascript:void(0);">
+<label onclick="PainelComponente.show(44742,'/sigaa/graduacao/componente_programa/view_panel_programa_relatorio.jsf');">
+MATA61</label>
+</a>
+</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:61:j_id_jsp_1563688397_23">COMPILADORES - 60h</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:61:j_id_jsp_1563688397_25">Presencial</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:61:j_id_jsp_1563688397_27"><span style="font-style: italic; margin-left: 10%; text-align: center;">OPTATIVO</span></td></tr><tr class="rich-table-row linhaImpar"><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:62:j_id_jsp_1563688397_20">
+<a href="javascript:void(0);">
+<label onclick="PainelComponente.show(44750,'/sigaa/graduacao/componente_programa/view_panel_programa_relatorio.jsf');">
+MATA65</label>
+</a>
+</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:62:j_id_jsp_1563688397_23">COMPUTAÇÃO GRÁFICA - 60h</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:62:j_id_jsp_1563688397_25">Presencial</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:62:j_id_jsp_1563688397_27"><span style="font-style: italic; margin-left: 10%; text-align: center;">OPTATIVO</span></td></tr><tr class="rich-table-row linhaPar"><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:63:j_id_jsp_1563688397_20">
+<a href="javascript:void(0);">
+<label onclick="PainelComponente.show(44758,'/sigaa/graduacao/componente_programa/view_panel_programa_relatorio.jsf');">
+MATA69</label>
+</a>
+</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:63:j_id_jsp_1563688397_23">MODELAGEM E SIMULAÇÃO DE SISTEMAS - 60h</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:63:j_id_jsp_1563688397_25">Presencial</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:63:j_id_jsp_1563688397_27"><span style="font-style: italic; margin-left: 10%; text-align: center;">OPTATIVO</span></td></tr><tr class="rich-table-row linhaImpar"><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:64:j_id_jsp_1563688397_20">
+<a href="javascript:void(0);">
+<label onclick="PainelComponente.show(44761,'/sigaa/graduacao/componente_programa/view_panel_programa_relatorio.jsf');">
+MATA72</label>
+</a>
+</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:64:j_id_jsp_1563688397_23">TÓPICOS EM ARQUITETURA DE COMPUTADORES - 45h</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:64:j_id_jsp_1563688397_25">Presencial</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:64:j_id_jsp_1563688397_27"><span style="font-style: italic; margin-left: 10%; text-align: center;">OPTATIVO</span></td></tr><tr class="rich-table-row linhaPar"><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:65:j_id_jsp_1563688397_20">
+<a href="javascript:void(0);">
+<label onclick="PainelComponente.show(44763,'/sigaa/graduacao/componente_programa/view_panel_programa_relatorio.jsf');">
+MATA73</label>
+</a>
+</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:65:j_id_jsp_1563688397_23">LABORATÓRIO DE CIRCUITOS DIGITAIS - 45h</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:65:j_id_jsp_1563688397_25">Presencial</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:65:j_id_jsp_1563688397_27"><span style="font-style: italic; margin-left: 10%; text-align: center;">OPTATIVO</span></td></tr><tr class="rich-table-row linhaImpar"><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:66:j_id_jsp_1563688397_20">
+<a href="javascript:void(0);">
+<label onclick="PainelComponente.show(44765,'/sigaa/graduacao/componente_programa/view_panel_programa_relatorio.jsf');">
+MATA74</label>
+</a>
+</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:66:j_id_jsp_1563688397_23">TÓPICOS EM COMPUTAÇÃO E ALGORITMOS - 45h</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:66:j_id_jsp_1563688397_25">Presencial</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:66:j_id_jsp_1563688397_27"><span style="font-style: italic; margin-left: 10%; text-align: center;">OPTATIVO</span></td></tr><tr class="rich-table-row linhaPar"><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:67:j_id_jsp_1563688397_20">
+<a href="javascript:void(0);">
+<label onclick="PainelComponente.show(44767,'/sigaa/graduacao/componente_programa/view_panel_programa_relatorio.jsf');">
+MATA75</label>
+</a>
+</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:67:j_id_jsp_1563688397_23">SEMÂNTICA DE LINGUAGEM DE PROGRAMAÇÃO - 60h</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:67:j_id_jsp_1563688397_25">Presencial</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:67:j_id_jsp_1563688397_27"><span style="font-style: italic; margin-left: 10%; text-align: center;">OPTATIVO</span></td></tr><tr class="rich-table-row linhaImpar"><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:68:j_id_jsp_1563688397_20">
+<a href="javascript:void(0);">
+<label onclick="PainelComponente.show(44771,'/sigaa/graduacao/componente_programa/view_panel_programa_relatorio.jsf');">
+MATA77</label>
+</a>
+</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:68:j_id_jsp_1563688397_23">PROGRAMAÇÃO FUNCIONAL - 60h</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:68:j_id_jsp_1563688397_25">Presencial</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:68:j_id_jsp_1563688397_27"><span style="font-style: italic; margin-left: 10%; text-align: center;">OPTATIVO</span></td></tr><tr class="rich-table-row linhaPar"><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:69:j_id_jsp_1563688397_20">
+<a href="javascript:void(0);">
+<label onclick="PainelComponente.show(44773,'/sigaa/graduacao/componente_programa/view_panel_programa_relatorio.jsf');">
+MATA79</label>
+</a>
+</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:69:j_id_jsp_1563688397_23">TÓPICOS EM PROGRAMAÇÃO - 45h</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:69:j_id_jsp_1563688397_25">Presencial</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:69:j_id_jsp_1563688397_27"><span style="font-style: italic; margin-left: 10%; text-align: center;">OPTATIVO</span></td></tr><tr class="rich-table-row linhaImpar"><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:70:j_id_jsp_1563688397_20">
+<a href="javascript:void(0);">
+<label onclick="PainelComponente.show(44775,'/sigaa/graduacao/componente_programa/view_panel_programa_relatorio.jsf');">
+MATA80</label>
+</a>
+</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:70:j_id_jsp_1563688397_23">LABORATÓRIO DE PROGRAMAÇÃO II - 45h</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:70:j_id_jsp_1563688397_25">Presencial</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:70:j_id_jsp_1563688397_27"><span style="font-style: italic; margin-left: 10%; text-align: center;">OPTATIVO</span></td></tr><tr class="rich-table-row linhaPar"><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:71:j_id_jsp_1563688397_20">
+<a href="javascript:void(0);">
+<label onclick="PainelComponente.show(44777,'/sigaa/graduacao/componente_programa/view_panel_programa_relatorio.jsf');">
+MATA81</label>
+</a>
+</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:71:j_id_jsp_1563688397_23">LABORATÓRIO DE SISTEMAS OPERACIONAIS - 45h</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:71:j_id_jsp_1563688397_25">Presencial</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:71:j_id_jsp_1563688397_27"><span style="font-style: italic; margin-left: 10%; text-align: center;">OPTATIVO</span></td></tr><tr class="rich-table-row linhaImpar"><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:72:j_id_jsp_1563688397_20">
+<a href="javascript:void(0);">
+<label onclick="PainelComponente.show(44779,'/sigaa/graduacao/componente_programa/view_panel_programa_relatorio.jsf');">
+MATA82</label>
+</a>
+</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:72:j_id_jsp_1563688397_23">SISTEMAS DE TEMPO REAL - 60h</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:72:j_id_jsp_1563688397_25">Presencial</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:72:j_id_jsp_1563688397_27"><span style="font-style: italic; margin-left: 10%; text-align: center;">OPTATIVO</span></td></tr><tr class="rich-table-row linhaPar"><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:73:j_id_jsp_1563688397_20">
+<a href="javascript:void(0);">
+<label onclick="PainelComponente.show(44781,'/sigaa/graduacao/componente_programa/view_panel_programa_relatorio.jsf');">
+MATA83</label>
+</a>
+</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:73:j_id_jsp_1563688397_23">TÓPICOS EM SISTEMAS OPERACIONAIS - 45h</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:73:j_id_jsp_1563688397_25">Presencial</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:73:j_id_jsp_1563688397_27"><span style="font-style: italic; margin-left: 10%; text-align: center;">OPTATIVO</span></td></tr><tr class="rich-table-row linhaImpar"><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:74:j_id_jsp_1563688397_20">
+<a href="javascript:void(0);">
+<label onclick="PainelComponente.show(44785,'/sigaa/graduacao/componente_programa/view_panel_programa_relatorio.jsf');">
+MATA85</label>
+</a>
+</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:74:j_id_jsp_1563688397_23">REDES DE COMPUTADORES II - 60h</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:74:j_id_jsp_1563688397_25">Presencial</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:74:j_id_jsp_1563688397_27"><span style="font-style: italic; margin-left: 10%; text-align: center;">OPTATIVO</span></td></tr><tr class="rich-table-row linhaPar"><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:75:j_id_jsp_1563688397_20">
+<a href="javascript:void(0);">
+<label onclick="PainelComponente.show(44787,'/sigaa/graduacao/componente_programa/view_panel_programa_relatorio.jsf');">
+MATA86</label>
+</a>
+</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:75:j_id_jsp_1563688397_23">TÓPICOS EM REDES DE COMPUTADORES - 45h</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:75:j_id_jsp_1563688397_25">Presencial</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:75:j_id_jsp_1563688397_27"><span style="font-style: italic; margin-left: 10%; text-align: center;">OPTATIVO</span></td></tr><tr class="rich-table-row linhaImpar"><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:76:j_id_jsp_1563688397_20">
+<a href="javascript:void(0);">
+<label onclick="PainelComponente.show(44789,'/sigaa/graduacao/componente_programa/view_panel_programa_relatorio.jsf');">
+MATA87</label>
+</a>
+</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:76:j_id_jsp_1563688397_23">SEGURANÇA DA INFORMAÇÃO - 60h</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:76:j_id_jsp_1563688397_25">Presencial</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:76:j_id_jsp_1563688397_27"><span style="font-style: italic; margin-left: 10%; text-align: center;">OPTATIVO</span></td></tr><tr class="rich-table-row linhaPar"><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:77:j_id_jsp_1563688397_20">
+<a href="javascript:void(0);">
+<label onclick="PainelComponente.show(44791,'/sigaa/graduacao/componente_programa/view_panel_programa_relatorio.jsf');">
+MATA88</label>
+</a>
+</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:77:j_id_jsp_1563688397_23">FUNDAMENTOS DE SISTEMAS DISTRIBUÍDOS - 45h</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:77:j_id_jsp_1563688397_25">Presencial</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:77:j_id_jsp_1563688397_27"><span style="font-style: italic; margin-left: 10%; text-align: center;">OPTATIVO</span></td></tr><tr class="rich-table-row linhaImpar"><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:78:j_id_jsp_1563688397_20">
+<a href="javascript:void(0);">
+<label onclick="PainelComponente.show(44793,'/sigaa/graduacao/componente_programa/view_panel_programa_relatorio.jsf');">
+MATA89</label>
+</a>
+</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:78:j_id_jsp_1563688397_23">ARQUITETURAS DE SISTEMAS DISTRIBUÍDOS - 45h</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:78:j_id_jsp_1563688397_25">Presencial</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:78:j_id_jsp_1563688397_27"><span style="font-style: italic; margin-left: 10%; text-align: center;">OPTATIVO</span></td></tr><tr class="rich-table-row linhaPar"><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:79:j_id_jsp_1563688397_20">
+<a href="javascript:void(0);">
+<label onclick="PainelComponente.show(44795,'/sigaa/graduacao/componente_programa/view_panel_programa_relatorio.jsf');">
+MATA90</label>
+</a>
+</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:79:j_id_jsp_1563688397_23">ALGORITMOS DISTRIBUIDOS - 45h</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:79:j_id_jsp_1563688397_25">Presencial</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:79:j_id_jsp_1563688397_27"><span style="font-style: italic; margin-left: 10%; text-align: center;">OPTATIVO</span></td></tr><tr class="rich-table-row linhaImpar"><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:80:j_id_jsp_1563688397_20">
+<a href="javascript:void(0);">
+<label onclick="PainelComponente.show(44800,'/sigaa/graduacao/componente_programa/view_panel_programa_relatorio.jsf');">
+MATA95</label>
+</a>
+</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:80:j_id_jsp_1563688397_23">COMPLEMENTOS DE CÁLCULO - 90h</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:80:j_id_jsp_1563688397_25">Presencial</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:80:j_id_jsp_1563688397_27"><span style="font-style: italic; margin-left: 10%; text-align: center;">OPTATIVO</span></td></tr><tr class="rich-table-row linhaPar"><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:81:j_id_jsp_1563688397_20">
+<a href="javascript:void(0);">
+<label onclick="PainelComponente.show(44803,'/sigaa/graduacao/componente_programa/view_panel_programa_relatorio.jsf');">
+MATA97</label>
+</a>
+</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:81:j_id_jsp_1563688397_23">MATEMÁTICA DISCRETA II - 60h</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:81:j_id_jsp_1563688397_25">Presencial</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:81:j_id_jsp_1563688397_27"><span style="font-style: italic; margin-left: 10%; text-align: center;">OPTATIVO</span></td></tr><tr class="rich-table-row linhaImpar"><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:82:j_id_jsp_1563688397_20">
+<a href="javascript:void(0);">
+<label onclick="PainelComponente.show(44805,'/sigaa/graduacao/componente_programa/view_panel_programa_relatorio.jsf');">
+MATB01</label>
+</a>
+</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:82:j_id_jsp_1563688397_23">LABORATÓRIO DE REDES DE COMPUTADORES - 45h</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:82:j_id_jsp_1563688397_25">Presencial</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:82:j_id_jsp_1563688397_27"><span style="font-style: italic; margin-left: 10%; text-align: center;">OPTATIVO</span></td></tr><tr class="rich-table-row linhaPar"><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:83:j_id_jsp_1563688397_20">
+<a href="javascript:void(0);">
+<label onclick="PainelComponente.show(44809,'/sigaa/graduacao/componente_programa/view_panel_programa_relatorio.jsf');">
+MATB03</label>
+</a>
+</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:83:j_id_jsp_1563688397_23">EVOLUÇÃO DE SOFTWARE - 45h</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:83:j_id_jsp_1563688397_25">Presencial</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:83:j_id_jsp_1563688397_27"><span style="font-style: italic; margin-left: 10%; text-align: center;">OPTATIVO</span></td></tr><tr class="rich-table-row linhaImpar"><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:84:j_id_jsp_1563688397_20">
+<a href="javascript:void(0);">
+<label onclick="PainelComponente.show(44811,'/sigaa/graduacao/componente_programa/view_panel_programa_relatorio.jsf');">
+MATB04</label>
+</a>
+</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:84:j_id_jsp_1563688397_23">TÓPICOS EM COMPUTAÇÃO GRÁFICA E PROCESSAMENTO DE IMAGENS - 45h</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:84:j_id_jsp_1563688397_25">Presencial</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:84:j_id_jsp_1563688397_27"><span style="font-style: italic; margin-left: 10%; text-align: center;">OPTATIVO</span></td></tr><tr class="rich-table-row linhaPar"><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:85:j_id_jsp_1563688397_20">
+<a href="javascript:void(0);">
+<label onclick="PainelComponente.show(44813,'/sigaa/graduacao/componente_programa/view_panel_programa_relatorio.jsf');">
+MATB05</label>
+</a>
+</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:85:j_id_jsp_1563688397_23">TÓPICOS EM INTELIGÊNCIA ARTIFICIAL - 45h</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:85:j_id_jsp_1563688397_25">Presencial</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:85:j_id_jsp_1563688397_27"><span style="font-style: italic; margin-left: 10%; text-align: center;">OPTATIVO</span></td></tr><tr class="rich-table-row linhaImpar"><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:86:j_id_jsp_1563688397_20">
+<a href="javascript:void(0);">
+<label onclick="PainelComponente.show(44815,'/sigaa/graduacao/componente_programa/view_panel_programa_relatorio.jsf');">
+MATB06</label>
+</a>
+</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:86:j_id_jsp_1563688397_23">TÓPICOS EM SISTEMAS DISTRIBUIDOS - 45h</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:86:j_id_jsp_1563688397_25">Presencial</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:86:j_id_jsp_1563688397_27"><span style="font-style: italic; margin-left: 10%; text-align: center;">OPTATIVO</span></td></tr><tr class="rich-table-row linhaPar"><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:87:j_id_jsp_1563688397_20">
+<a href="javascript:void(0);">
+<label onclick="PainelComponente.show(44821,'/sigaa/graduacao/componente_programa/view_panel_programa_relatorio.jsf');">
+MATB10</label>
+</a>
+</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:87:j_id_jsp_1563688397_23">TÓPICOS EM BANCO DE DADOS - 45h</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:87:j_id_jsp_1563688397_25">Presencial</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:87:j_id_jsp_1563688397_27"><span style="font-style: italic; margin-left: 10%; text-align: center;">OPTATIVO</span></td></tr><tr class="rich-table-row linhaImpar"><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:88:j_id_jsp_1563688397_20">
+<a href="javascript:void(0);">
+<label onclick="PainelComponente.show(44823,'/sigaa/graduacao/componente_programa/view_panel_programa_relatorio.jsf');">
+MATB11</label>
+</a>
+</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:88:j_id_jsp_1563688397_23">LABORATÓRIO DE COMPILADORES - 45h</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:88:j_id_jsp_1563688397_25">Presencial</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:88:j_id_jsp_1563688397_27"><span style="font-style: italic; margin-left: 10%; text-align: center;">OPTATIVO</span></td></tr><tr class="rich-table-row linhaPar"><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:89:j_id_jsp_1563688397_20">
+<a href="javascript:void(0);">
+<label onclick="PainelComponente.show(44825,'/sigaa/graduacao/componente_programa/view_panel_programa_relatorio.jsf');">
+MATB12</label>
+</a>
+</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:89:j_id_jsp_1563688397_23">TÓPICOS EM COMPILADORES - 45h</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:89:j_id_jsp_1563688397_25">Presencial</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:89:j_id_jsp_1563688397_27"><span style="font-style: italic; margin-left: 10%; text-align: center;">OPTATIVO</span></td></tr><tr class="rich-table-row linhaImpar"><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:90:j_id_jsp_1563688397_20">
+<a href="javascript:void(0);">
+<label onclick="PainelComponente.show(44827,'/sigaa/graduacao/componente_programa/view_panel_programa_relatorio.jsf');">
+MATB13</label>
+</a>
+</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:90:j_id_jsp_1563688397_23">MÉTODOS FORMAIS - 45h</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:90:j_id_jsp_1563688397_25">Presencial</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:90:j_id_jsp_1563688397_27"><span style="font-style: italic; margin-left: 10%; text-align: center;">OPTATIVO</span></td></tr><tr class="rich-table-row linhaPar"><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:91:j_id_jsp_1563688397_20">
+<a href="javascript:void(0);">
+<label onclick="PainelComponente.show(44829,'/sigaa/graduacao/componente_programa/view_panel_programa_relatorio.jsf');">
+MATB14</label>
+</a>
+</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:91:j_id_jsp_1563688397_23">LABORATÓRIO DE ENGENHARIA DE SOFTWARE - 45h</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:91:j_id_jsp_1563688397_25">Presencial</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:91:j_id_jsp_1563688397_27"><span style="font-style: italic; margin-left: 10%; text-align: center;">OPTATIVO</span></td></tr><tr class="rich-table-row linhaImpar"><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:92:j_id_jsp_1563688397_20">
+<a href="javascript:void(0);">
+<label onclick="PainelComponente.show(44831,'/sigaa/graduacao/componente_programa/view_panel_programa_relatorio.jsf');">
+MATB15</label>
+</a>
+</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:92:j_id_jsp_1563688397_23">VALIDAÇÃO DE SOFTWARE - 45h</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:92:j_id_jsp_1563688397_25">Presencial</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:92:j_id_jsp_1563688397_27"><span style="font-style: italic; margin-left: 10%; text-align: center;">OPTATIVO</span></td></tr><tr class="rich-table-row linhaPar"><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:93:j_id_jsp_1563688397_20">
+<a href="javascript:void(0);">
+<label onclick="PainelComponente.show(44833,'/sigaa/graduacao/componente_programa/view_panel_programa_relatorio.jsf');">
+MATB16</label>
+</a>
+</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:93:j_id_jsp_1563688397_23">LABORATÓRIO DE INTELIGÊNCIA ARTIFICIAL - 45h</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:93:j_id_jsp_1563688397_25">Presencial</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:93:j_id_jsp_1563688397_27"><span style="font-style: italic; margin-left: 10%; text-align: center;">OPTATIVO</span></td></tr><tr class="rich-table-row linhaImpar"><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:94:j_id_jsp_1563688397_20">
+<a href="javascript:void(0);">
+<label onclick="PainelComponente.show(44835,'/sigaa/graduacao/componente_programa/view_panel_programa_relatorio.jsf');">
+MATB17</label>
+</a>
+</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:94:j_id_jsp_1563688397_23">LAB. DE COMPUTAÇÃO GRÁFICA E PROCESSAMENTO DE IMAGENS - 45h</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:94:j_id_jsp_1563688397_25">Presencial</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:94:j_id_jsp_1563688397_27"><span style="font-style: italic; margin-left: 10%; text-align: center;">OPTATIVO</span></td></tr><tr class="rich-table-row linhaPar"><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:95:j_id_jsp_1563688397_20">
+<a href="javascript:void(0);">
+<label onclick="PainelComponente.show(44841,'/sigaa/graduacao/componente_programa/view_panel_programa_relatorio.jsf');">
+MATB21</label>
+</a>
+</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:95:j_id_jsp_1563688397_23">AMBIENTES INTERATIVOS DE APRENDIZAGEM - 60h</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:95:j_id_jsp_1563688397_25">Presencial</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:95:j_id_jsp_1563688397_27"><span style="font-style: italic; margin-left: 10%; text-align: center;">OPTATIVO</span></td></tr><tr class="rich-table-row linhaImpar"><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:96:j_id_jsp_1563688397_20">
+<a href="javascript:void(0);">
+<label onclick="PainelComponente.show(44843,'/sigaa/graduacao/componente_programa/view_panel_programa_relatorio.jsf');">
+MATB22</label>
+</a>
+</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:96:j_id_jsp_1563688397_23">LABORATÓRIO DE INFORMÁTICA NA EDUCAÇÃO - 45h</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:96:j_id_jsp_1563688397_25">Presencial</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:96:j_id_jsp_1563688397_27"><span style="font-style: italic; margin-left: 10%; text-align: center;">OPTATIVO</span></td></tr><tr class="rich-table-row linhaPar"><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:97:j_id_jsp_1563688397_20">
+<a href="javascript:void(0);">
+<label onclick="PainelComponente.show(44845,'/sigaa/graduacao/componente_programa/view_panel_programa_relatorio.jsf');">
+MATB23</label>
+</a>
+</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:97:j_id_jsp_1563688397_23">SEMINÁRIOS EM EMPREENDEDORISMO - 45h</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:97:j_id_jsp_1563688397_25">Presencial</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:97:j_id_jsp_1563688397_27"><span style="font-style: italic; margin-left: 10%; text-align: center;">OPTATIVO</span></td></tr><tr class="rich-table-row linhaImpar"><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:98:j_id_jsp_1563688397_20">
+<a href="javascript:void(0);">
+<label onclick="PainelComponente.show(44847,'/sigaa/graduacao/componente_programa/view_panel_programa_relatorio.jsf');">
+MATB24</label>
+</a>
+</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:98:j_id_jsp_1563688397_23">ROBÓTICA INTELIGENTE - 45h</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:98:j_id_jsp_1563688397_25">Presencial</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:98:j_id_jsp_1563688397_27"><span style="font-style: italic; margin-left: 10%; text-align: center;">OPTATIVO</span></td></tr><tr class="rich-table-row linhaPar"><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:99:j_id_jsp_1563688397_20">
+<a href="javascript:void(0);">
+<label onclick="PainelComponente.show(44849,'/sigaa/graduacao/componente_programa/view_panel_programa_relatorio.jsf');">
+MATB25</label>
+</a>
+</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:99:j_id_jsp_1563688397_23">TÓPICOS EM ENGENHARIA DE SOFTWARE - 45h</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:99:j_id_jsp_1563688397_25">Presencial</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:99:j_id_jsp_1563688397_27"><span style="font-style: italic; margin-left: 10%; text-align: center;">OPTATIVO</span></td></tr><tr class="rich-table-row linhaImpar"><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:100:j_id_jsp_1563688397_20">
+<a href="javascript:void(0);">
+<label onclick="PainelComponente.show(44851,'/sigaa/graduacao/componente_programa/view_panel_programa_relatorio.jsf');">
+MATB26</label>
+</a>
+</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:100:j_id_jsp_1563688397_23">TÓPICOS EM SISTEMAS MULTIMÍDIA - 45h</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:100:j_id_jsp_1563688397_25">Presencial</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:100:j_id_jsp_1563688397_27"><span style="font-style: italic; margin-left: 10%; text-align: center;">OPTATIVO</span></td></tr><tr class="rich-table-row linhaPar"><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:101:j_id_jsp_1563688397_20">
+<a href="javascript:void(0);">
+<label onclick="PainelComponente.show(44883,'/sigaa/graduacao/componente_programa/view_panel_programa_relatorio.jsf');">
+MATB44</label>
+</a>
+</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:101:j_id_jsp_1563688397_23">ANÁLISE I - 90h</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:101:j_id_jsp_1563688397_25">Presencial</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:101:j_id_jsp_1563688397_27"><span style="font-style: italic; margin-left: 10%; text-align: center;">OPTATIVO</span></td></tr><tr class="rich-table-row linhaImpar"><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:102:j_id_jsp_1563688397_20">
+<a href="javascript:void(0);">
+<label onclick="PainelComponente.show(45037,'/sigaa/graduacao/componente_programa/view_panel_programa_relatorio.jsf');">
+MATC30</label>
+</a>
+</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:102:j_id_jsp_1563688397_23">LABORATÓRIO DE PROGRAMAÇÃO I - 30h</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:102:j_id_jsp_1563688397_25">Presencial</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:102:j_id_jsp_1563688397_27"><span style="font-style: italic; margin-left: 10%; text-align: center;">OPTATIVO</span></td></tr><tr class="rich-table-row linhaPar"><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:103:j_id_jsp_1563688397_20">
+<a href="javascript:void(0);">
+<label onclick="PainelComponente.show(45100,'/sigaa/graduacao/componente_programa/view_panel_programa_relatorio.jsf');">
+MATC76</label>
+</a>
+</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:103:j_id_jsp_1563688397_23">PRÁTICA DE ENSINO DE COMPUTAÇÃO I - 60h</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:103:j_id_jsp_1563688397_25">Presencial</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:103:j_id_jsp_1563688397_27"><span style="font-style: italic; margin-left: 10%; text-align: center;">OPTATIVO</span></td></tr><tr class="rich-table-row linhaImpar"><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:104:j_id_jsp_1563688397_20">
+<a href="javascript:void(0);">
+<label onclick="PainelComponente.show(45106,'/sigaa/graduacao/componente_programa/view_panel_programa_relatorio.jsf');">
+MATC79</label>
+</a>
+</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:104:j_id_jsp_1563688397_23">PROJETOS INTERDISCIPLINARES: CONCEPÇÃO E PRÁTICA - 60h</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:104:j_id_jsp_1563688397_25">Presencial</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:104:j_id_jsp_1563688397_27"><span style="font-style: italic; margin-left: 10%; text-align: center;">OPTATIVO</span></td></tr><tr class="rich-table-row linhaPar"><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:105:j_id_jsp_1563688397_20">
+<a href="javascript:void(0);">
+<label onclick="PainelComponente.show(45118,'/sigaa/graduacao/componente_programa/view_panel_programa_relatorio.jsf');">
+MATC86</label>
+</a>
+</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:105:j_id_jsp_1563688397_23">TECNOLOGIAS DIGITAIS COMO ESTRATÉGIAS DE APRENDIZAGEM - 45h</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:105:j_id_jsp_1563688397_25">Presencial</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:105:j_id_jsp_1563688397_27"><span style="font-style: italic; margin-left: 10%; text-align: center;">OPTATIVO</span></td></tr><tr class="rich-table-row linhaImpar"><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:106:j_id_jsp_1563688397_20">
+<a href="javascript:void(0);">
+<label onclick="PainelComponente.show(45122,'/sigaa/graduacao/componente_programa/view_panel_programa_relatorio.jsf');">
+MATC88</label>
+</a>
+</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:106:j_id_jsp_1563688397_23">ADMINISTRAÇÃO DE REDES DE COMPUTADORES - 45h</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:106:j_id_jsp_1563688397_25">Presencial</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:106:j_id_jsp_1563688397_27"><span style="font-style: italic; margin-left: 10%; text-align: center;">OPTATIVO</span></td></tr><tr class="rich-table-row linhaPar"><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:107:j_id_jsp_1563688397_20">
+<a href="javascript:void(0);">
+<label onclick="PainelComponente.show(45128,'/sigaa/graduacao/componente_programa/view_panel_programa_relatorio.jsf');">
+MATC91</label>
+</a>
+</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:107:j_id_jsp_1563688397_23">COMUNIDADES E AMBIENTES VIRTUAIS - 45h</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:107:j_id_jsp_1563688397_25">Presencial</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:107:j_id_jsp_1563688397_27"><span style="font-style: italic; margin-left: 10%; text-align: center;">OPTATIVO</span></td></tr><tr class="rich-table-row linhaImpar"><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:108:j_id_jsp_1563688397_20">
+<a href="javascript:void(0);">
+<label onclick="PainelComponente.show(45132,'/sigaa/graduacao/componente_programa/view_panel_programa_relatorio.jsf');">
+MATC93</label>
+</a>
+</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:108:j_id_jsp_1563688397_23">INTRODUÇÃO A WEB SEMÂNTICA - 45h</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:108:j_id_jsp_1563688397_25">Presencial</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:108:j_id_jsp_1563688397_27"><span style="font-style: italic; margin-left: 10%; text-align: center;">OPTATIVO</span></td></tr><tr class="rich-table-row linhaPar"><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:109:j_id_jsp_1563688397_20">
+<a href="javascript:void(0);">
+<label onclick="PainelComponente.show(45136,'/sigaa/graduacao/componente_programa/view_panel_programa_relatorio.jsf');">
+MATC95</label>
+</a>
+</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:109:j_id_jsp_1563688397_23">LABORATÓRIO DE INFORMÁTICA MÉDICA - 45h</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:109:j_id_jsp_1563688397_25">Presencial</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:109:j_id_jsp_1563688397_27"><span style="font-style: italic; margin-left: 10%; text-align: center;">OPTATIVO</span></td></tr><tr class="rich-table-row linhaImpar"><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:110:j_id_jsp_1563688397_20">
+<a href="javascript:void(0);">
+<label onclick="PainelComponente.show(45138,'/sigaa/graduacao/componente_programa/view_panel_programa_relatorio.jsf');">
+MATC96</label>
+</a>
+</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:110:j_id_jsp_1563688397_23">ORGANIZAÇÃO, GERENCIAMENTO E RECUPERAÇÃO DA INFORMAÇÃO - 45h</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:110:j_id_jsp_1563688397_25">Presencial</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:110:j_id_jsp_1563688397_27"><span style="font-style: italic; margin-left: 10%; text-align: center;">OPTATIVO</span></td></tr><tr class="rich-table-row linhaPar"><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:111:j_id_jsp_1563688397_20">
+<a href="javascript:void(0);">
+<label onclick="PainelComponente.show(45146,'/sigaa/graduacao/componente_programa/view_panel_programa_relatorio.jsf');">
+MATD01</label>
+</a>
+</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:111:j_id_jsp_1563688397_23">TELEMEDICINA E IMAGENS MÉDICAS - 45h</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:111:j_id_jsp_1563688397_25">Presencial</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:111:j_id_jsp_1563688397_27"><span style="font-style: italic; margin-left: 10%; text-align: center;">OPTATIVO</span></td></tr><tr class="rich-table-row linhaImpar"><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:112:j_id_jsp_1563688397_20">
+<a href="javascript:void(0);">
+<label onclick="PainelComponente.show(45148,'/sigaa/graduacao/componente_programa/view_panel_programa_relatorio.jsf');">
+MATD02</label>
+</a>
+</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:112:j_id_jsp_1563688397_23">TÓPICOS EM SISTEMAS DE INFORMAÇÃO - 45h</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:112:j_id_jsp_1563688397_25">Presencial</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:112:j_id_jsp_1563688397_27"><span style="font-style: italic; margin-left: 10%; text-align: center;">OPTATIVO</span></td></tr><tr class="rich-table-row linhaPar"><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:113:j_id_jsp_1563688397_20">
+<a href="javascript:void(0);">
+<label onclick="PainelComponente.show(45159,'/sigaa/graduacao/componente_programa/view_panel_programa_relatorio.jsf');">
+MATD39</label>
+</a>
+</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:113:j_id_jsp_1563688397_23">ANALISE DESCRITIVA E EXPLORATORIA DE DADOS A - 60h</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:113:j_id_jsp_1563688397_25">Presencial</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:113:j_id_jsp_1563688397_27"><span style="font-style: italic; margin-left: 10%; text-align: center;">OPTATIVO</span></td></tr><tr class="rich-table-row linhaImpar"><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:114:j_id_jsp_1563688397_20">
+<a href="javascript:void(0);">
+<label onclick="PainelComponente.show(45190,'/sigaa/graduacao/componente_programa/view_panel_programa_relatorio.jsf');">
+MATD55</label>
+</a>
+</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:114:j_id_jsp_1563688397_23">INFORMÁTICA EM SAÚDE PARA SISTEMAS DE INFORMAÇÃO - 45h</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:114:j_id_jsp_1563688397_25">Presencial</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:114:j_id_jsp_1563688397_27"><span style="font-style: italic; margin-left: 10%; text-align: center;">OPTATIVO</span></td></tr><tr class="rich-table-row linhaPar"><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:115:j_id_jsp_1563688397_20">
+<a href="javascript:void(0);">
+<label onclick="PainelComponente.show(45336,'/sigaa/graduacao/componente_programa/view_panel_programa_relatorio.jsf');">
+MATF57</label>
+</a>
+</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:115:j_id_jsp_1563688397_23">INTRODUÇÃO AO RACIOCÍNIO COMPUTACIONAL - 60h</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:115:j_id_jsp_1563688397_25">Presencial</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_19:115:j_id_jsp_1563688397_27"><span style="font-style: italic; margin-left: 10%; text-align: center;">OPTATIVO</span></td></tr></tbody></table>
+<table style="background-color: #EFEBDE; width: 100%;">
+<tr>
+<td>
+<span style="font-size: 105%;">Carga Horária Total Optativa: </span><span style="font-size: 105%; font-weight: bold;">7215h</span><span style="font-size: 105%;"> /  Total a Distância: </span><span style="font-size: 105%; font-weight: bold;">0h</span>
+</td>
+</tr>
+</table>
+</td></tr></table></td><td id="formulario:j_id_jsp_1563688397_33" style="display: none;;height:100%"><table border="0" cellpadding="10" cellspacing="0" class="rich-tabpanel-content-position" width="100%"><tr><td class="rich-tabpanel-content" style="; ">
+<table width="100%">
+<tr>
+<td>
+<span style="font-size: 110%; font-weight: bold;">Componentes Complementares</span>
+</td>
+</tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" class="rich-table" id="formulario:j_id_jsp_1563688397_35" width="100%"><colgroup span="4"></colgroup><tbody id="formulario:j_id_jsp_1563688397_35:tb"></tbody></table>
+<table style="background-color: #EFEBDE; width: 100%;">
+<tr>
+<td>
+<span style="font-size: 105%;">Carga Horária Total Complementar: </span><span style="font-size: 105%; font-weight: bold;">0h</span><span style="font-size: 105%;"> /  Total a Distância: </span><span style="font-size: 105%; font-weight: bold;">0h</span>
+</td>
+</tr>
+</table>
+</td></tr></table></td><td id="formulario:j_id_jsp_1563688397_49" style="display: none;;height:100%"><table border="0" cellpadding="10" cellspacing="0" class="rich-tabpanel-content-position" width="100%"><tr><td class="rich-tabpanel-content" style="; ">
+<table width="100%">
+<tr>
+<td>
+<span style="font-size: 110%; font-weight: bold;">1º Nível</span>
+</td>
+</tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" class="rich-table" id="formulario:j_id_jsp_1563688397_51" width="100%"><colgroup span="3"></colgroup><tbody id="formulario:j_id_jsp_1563688397_51:tb"><tr class="rich-table-row rich-table-firstrow linhaImpar"><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_51:0:j_id_jsp_1563688397_52">
+<a href="javascript:void(0);">
+<label onclick="PainelComponente.show(44676,'/sigaa/graduacao/componente_programa/view_panel_programa_relatorio.jsf');">
+MATA02</label>
+</a>
+</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_51:0:j_id_jsp_1563688397_55">CÁLCULO A - 90h</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_51:0:j_id_jsp_1563688397_57">Presencial</td></tr><tr class="rich-table-row linhaPar"><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_51:1:j_id_jsp_1563688397_52">
+<a href="javascript:void(0);">
+<label onclick="PainelComponente.show(44697,'/sigaa/graduacao/componente_programa/view_panel_programa_relatorio.jsf');">
+MATA37</label>
+</a>
+</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_51:1:j_id_jsp_1563688397_55">INTRODUÇÃO À LÓGICA DE PROGRAMAÇÃO - 60h</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_51:1:j_id_jsp_1563688397_57">Presencial</td></tr><tr class="rich-table-row linhaImpar"><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_51:2:j_id_jsp_1563688397_52">
+<a href="javascript:void(0);">
+<label onclick="PainelComponente.show(44701,'/sigaa/graduacao/componente_programa/view_panel_programa_relatorio.jsf');">
+MATA39</label>
+</a>
+</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_51:2:j_id_jsp_1563688397_55">SEMINÁRIOS DE INTRODUÇÃO AO CURSO - 45h</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_51:2:j_id_jsp_1563688397_57">Presencial</td></tr><tr class="rich-table-row linhaPar"><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_51:3:j_id_jsp_1563688397_52">
+<a href="javascript:void(0);">
+<label onclick="PainelComponente.show(44707,'/sigaa/graduacao/componente_programa/view_panel_programa_relatorio.jsf');">
+MATA42</label>
+</a>
+</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_51:3:j_id_jsp_1563688397_55">MATEMÁTICA DISCRETA I - 60h</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_51:3:j_id_jsp_1563688397_57">Presencial</td></tr><tr class="rich-table-row linhaImpar"><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_51:4:j_id_jsp_1563688397_52">
+<a href="javascript:void(0);">
+<label onclick="PainelComponente.show(44756,'/sigaa/graduacao/componente_programa/view_panel_programa_relatorio.jsf');">
+MATA68</label>
+</a>
+</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_51:4:j_id_jsp_1563688397_55">COMPUTADOR, ÉTICA E SOCIEDADE - 45h</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_51:4:j_id_jsp_1563688397_57">Presencial</td></tr></tbody></table>
+<table style="background-color: #EFEBDE; width: 100%;">
+<tr>
+<td>
+<span style="font-size: 105%;">Carga Horária Total: </span><span id="formulario:chSemestre" style="font-size: 105%; font-weight: bold;">300h</span><span style="font-size: 105%;"> /  Total a Distância: </span><span id="formulario:chEadSemestre" style="font-size: 105%; font-weight: bold;">0h</span>
+</td>
+</tr>
+</table>
+</td></tr></table></td><td id="formulario:j_id_jsp_1563688397_49j_id_1" style="display: none;;height:100%"><table border="0" cellpadding="10" cellspacing="0" class="rich-tabpanel-content-position" width="100%"><tr><td class="rich-tabpanel-content" style="; ">
+<table width="100%">
+<tr>
+<td>
+<span style="font-size: 110%; font-weight: bold;">2º Nível</span>
+</td>
+</tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" class="rich-table" id="formulario:j_id_jsp_1563688397_51j_id_1" width="100%"><colgroup span="3"></colgroup><tbody id="formulario:j_id_jsp_1563688397_51j_id_1:tb"><tr class="rich-table-row rich-table-firstrow linhaImpar"><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_51j_id_1:0:j_id_jsp_1563688397_52j_id_1">
+<a href="javascript:void(0);">
+<label onclick="PainelComponente.show(22369,'/sigaa/graduacao/componente_programa/view_panel_programa_relatorio.jsf');">
+ADME99</label>
+</a>
+</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_51j_id_1:0:j_id_jsp_1563688397_55j_id_1">ECONOMIA DA INOVAÇÃO - 60h</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_51j_id_1:0:j_id_jsp_1563688397_57j_id_1">Presencial</td></tr><tr class="rich-table-row linhaPar"><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_51j_id_1:1:j_id_jsp_1563688397_52j_id_1">
+<a href="javascript:void(0);">
+<label onclick="PainelComponente.show(45096,'/sigaa/graduacao/componente_programa/view_panel_programa_relatorio.jsf');">
+MATC73</label>
+</a>
+</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_51j_id_1:1:j_id_jsp_1563688397_55j_id_1">INTRODUÇÃO À LÓGICA MATEMÁTICA - 60h</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_51j_id_1:1:j_id_jsp_1563688397_57j_id_1">Presencial</td></tr><tr class="rich-table-row linhaImpar"><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_51j_id_1:2:j_id_jsp_1563688397_52j_id_1">
+<a href="javascript:void(0);">
+<label onclick="PainelComponente.show(45126,'/sigaa/graduacao/componente_programa/view_panel_programa_relatorio.jsf');">
+MATC90</label>
+</a>
+</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_51j_id_1:2:j_id_jsp_1563688397_55j_id_1">CIRCUITOS DIGITAIS E ARQUITETURA DE COMPUTADORES - 60h</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_51j_id_1:2:j_id_jsp_1563688397_57j_id_1">Presencial</td></tr><tr class="rich-table-row linhaPar"><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_51j_id_1:3:j_id_jsp_1563688397_52j_id_1">
+<a href="javascript:void(0);">
+<label onclick="PainelComponente.show(45130,'/sigaa/graduacao/componente_programa/view_panel_programa_relatorio.jsf');">
+MATC92</label>
+</a>
+</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_51j_id_1:3:j_id_jsp_1563688397_55j_id_1">FUNDAMENTOS DE SISTEMAS DE INFORMAÇÃO - 60h</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_51j_id_1:3:j_id_jsp_1563688397_57j_id_1">Presencial</td></tr><tr class="rich-table-row linhaImpar"><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_51j_id_1:4:j_id_jsp_1563688397_52j_id_1">
+<a href="javascript:void(0);">
+<label onclick="PainelComponente.show(45152,'/sigaa/graduacao/componente_programa/view_panel_programa_relatorio.jsf');">
+MATD04</label>
+</a>
+</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_51j_id_1:4:j_id_jsp_1563688397_55j_id_1">ESTRUTURAS DE DADOS - 60h</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_51j_id_1:4:j_id_jsp_1563688397_57j_id_1">Presencial</td></tr></tbody></table>
+<table style="background-color: #EFEBDE; width: 100%;">
+<tr>
+<td>
+<span style="font-size: 105%;">Carga Horária Total: </span><span id="formulario:chSemestrej_id_1" style="font-size: 105%; font-weight: bold;">300h</span><span style="font-size: 105%;"> /  Total a Distância: </span><span id="formulario:chEadSemestrej_id_1" style="font-size: 105%; font-weight: bold;">0h</span>
+</td>
+</tr>
+</table>
+</td></tr></table></td><td id="formulario:j_id_jsp_1563688397_49j_id_2" style="display: none;;height:100%"><table border="0" cellpadding="10" cellspacing="0" class="rich-tabpanel-content-position" width="100%"><tr><td class="rich-tabpanel-content" style="; ">
+<table width="100%">
+<tr>
+<td>
+<span style="font-size: 110%; font-weight: bold;">3º Nível</span>
+</td>
+</tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" class="rich-table" id="formulario:j_id_jsp_1563688397_51j_id_2" width="100%"><colgroup span="3"></colgroup><tbody id="formulario:j_id_jsp_1563688397_51j_id_2:tb"><tr class="rich-table-row rich-table-firstrow linhaImpar"><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_51j_id_2:0:j_id_jsp_1563688397_52j_id_2">
+<a href="javascript:void(0);">
+<label onclick="PainelComponente.show(21989,'/sigaa/graduacao/componente_programa/view_panel_programa_relatorio.jsf');">
+ADM001</label>
+</a>
+</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_51j_id_2:0:j_id_jsp_1563688397_55j_id_2">INTRODUCÃO À ADMINISTRACAO - 60h</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_51j_id_2:0:j_id_jsp_1563688397_57j_id_2">Presencial</td></tr><tr class="rich-table-row linhaPar"><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_51j_id_2:1:j_id_jsp_1563688397_52j_id_2">
+<a href="javascript:void(0);">
+<label onclick="PainelComponente.show(44686,'/sigaa/graduacao/componente_programa/view_panel_programa_relatorio.jsf');">
+MATA07</label>
+</a>
+</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_51j_id_2:1:j_id_jsp_1563688397_55j_id_2">ÁLGEBRA LINEAR A - 60h</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_51j_id_2:1:j_id_jsp_1563688397_57j_id_2">Presencial</td></tr><tr class="rich-table-row linhaImpar"><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_51j_id_2:2:j_id_jsp_1563688397_52j_id_2">
+<a href="javascript:void(0);">
+<label onclick="PainelComponente.show(44730,'/sigaa/graduacao/componente_programa/view_panel_programa_relatorio.jsf');">
+MATA55</label>
+</a>
+</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_51j_id_2:2:j_id_jsp_1563688397_55j_id_2">PROGRAMAÇÃO ORIENTADA A OBJETOS - 60h</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_51j_id_2:2:j_id_jsp_1563688397_57j_id_2">Presencial</td></tr><tr class="rich-table-row linhaPar"><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_51j_id_2:3:j_id_jsp_1563688397_52j_id_2">
+<a href="javascript:void(0);">
+<label onclick="PainelComponente.show(44736,'/sigaa/graduacao/componente_programa/view_panel_programa_relatorio.jsf');">
+MATA58</label>
+</a>
+</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_51j_id_2:3:j_id_jsp_1563688397_55j_id_2">SISTEMAS OPERACIONAIS - 60h</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_51j_id_2:3:j_id_jsp_1563688397_57j_id_2">Presencial</td></tr><tr class="rich-table-row linhaImpar"><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_51j_id_2:4:j_id_jsp_1563688397_52j_id_2">
+<a href="javascript:void(0);">
+<label onclick="PainelComponente.show(45134,'/sigaa/graduacao/componente_programa/view_panel_programa_relatorio.jsf');">
+MATC94</label>
+</a>
+</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_51j_id_2:4:j_id_jsp_1563688397_55j_id_2">INTRODUÇÃO AS LINGUAGENS FORMAIS E TEORIA DA COMPUTAÇÃO - 60h</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_51j_id_2:4:j_id_jsp_1563688397_57j_id_2">Presencial</td></tr></tbody></table>
+<table style="background-color: #EFEBDE; width: 100%;">
+<tr>
+<td>
+<span style="font-size: 105%;">Carga Horária Total: </span><span id="formulario:chSemestrej_id_2" style="font-size: 105%; font-weight: bold;">300h</span><span style="font-size: 105%;"> /  Total a Distância: </span><span id="formulario:chEadSemestrej_id_2" style="font-size: 105%; font-weight: bold;">0h</span>
+</td>
+</tr>
+</table>
+</td></tr></table></td><td id="formulario:j_id_jsp_1563688397_49j_id_3" style="display: none;;height:100%"><table border="0" cellpadding="10" cellspacing="0" class="rich-tabpanel-content-position" width="100%"><tr><td class="rich-tabpanel-content" style="; ">
+<table width="100%">
+<tr>
+<td>
+<span style="font-size: 110%; font-weight: bold;">4º Nível</span>
+</td>
+</tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" class="rich-table" id="formulario:j_id_jsp_1563688397_51j_id_3" width="100%"><colgroup span="3"></colgroup><tbody id="formulario:j_id_jsp_1563688397_51j_id_3:tb"><tr class="rich-table-row rich-table-firstrow linhaImpar"><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_51j_id_3:0:j_id_jsp_1563688397_52j_id_3">
+<a href="javascript:void(0);">
+<label onclick="PainelComponente.show(43360,'/sigaa/graduacao/componente_programa/view_panel_programa_relatorio.jsf');">
+LETA09</label>
+</a>
+</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_51j_id_3:0:j_id_jsp_1563688397_55j_id_3">OFICINA DE LEITURA E PRODUÇÃO DE TEXTOS - 60h</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_51j_id_3:0:j_id_jsp_1563688397_57j_id_3">Presencial</td></tr><tr class="rich-table-row linhaPar"><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_51j_id_3:1:j_id_jsp_1563688397_52j_id_3">
+<a href="javascript:void(0);">
+<label onclick="PainelComponente.show(44610,'/sigaa/graduacao/componente_programa/view_panel_programa_relatorio.jsf');">
+MAT236</label>
+</a>
+</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_51j_id_3:1:j_id_jsp_1563688397_55j_id_3">MÉTODOS ESTATÍSTICOS - 60h</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_51j_id_3:1:j_id_jsp_1563688397_57j_id_3">Presencial</td></tr><tr class="rich-table-row linhaImpar"><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_51j_id_3:2:j_id_jsp_1563688397_52j_id_3">
+<a href="javascript:void(0);">
+<label onclick="PainelComponente.show(44738,'/sigaa/graduacao/componente_programa/view_panel_programa_relatorio.jsf');">
+MATA59</label>
+</a>
+</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_51j_id_3:2:j_id_jsp_1563688397_55j_id_3">REDES DE COMPUTADORES I - 60h</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_51j_id_3:2:j_id_jsp_1563688397_57j_id_3">Presencial</td></tr><tr class="rich-table-row linhaPar"><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_51j_id_3:3:j_id_jsp_1563688397_52j_id_3">
+<a href="javascript:void(0);">
+<label onclick="PainelComponente.show(44744,'/sigaa/graduacao/componente_programa/view_panel_programa_relatorio.jsf');">
+MATA62</label>
+</a>
+</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_51j_id_3:3:j_id_jsp_1563688397_55j_id_3">ENGENHARIA DE SOFTWARE I - 60h</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_51j_id_3:3:j_id_jsp_1563688397_57j_id_3">Presencial</td></tr><tr class="rich-table-row linhaImpar"><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_51j_id_3:4:j_id_jsp_1563688397_52j_id_3">
+<a href="javascript:void(0);">
+<label onclick="PainelComponente.show(45110,'/sigaa/graduacao/componente_programa/view_panel_programa_relatorio.jsf');">
+MATC82</label>
+</a>
+</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_51j_id_3:4:j_id_jsp_1563688397_55j_id_3">SISTEMAS WEB - 60h</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_51j_id_3:4:j_id_jsp_1563688397_57j_id_3">Presencial</td></tr></tbody></table>
+<table style="background-color: #EFEBDE; width: 100%;">
+<tr>
+<td>
+<span style="font-size: 105%;">Carga Horária Total: </span><span id="formulario:chSemestrej_id_3" style="font-size: 105%; font-weight: bold;">300h</span><span style="font-size: 105%;"> /  Total a Distância: </span><span id="formulario:chEadSemestrej_id_3" style="font-size: 105%; font-weight: bold;">0h</span>
+</td>
+</tr>
+</table>
+</td></tr></table></td><td id="formulario:j_id_jsp_1563688397_49j_id_4" style="display: none;;height:100%"><table border="0" cellpadding="10" cellspacing="0" class="rich-tabpanel-content-position" width="100%"><tr><td class="rich-tabpanel-content" style="; ">
+<table width="100%">
+<tr>
+<td>
+<span style="font-size: 110%; font-weight: bold;">5º Nível</span>
+</td>
+</tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" class="rich-table" id="formulario:j_id_jsp_1563688397_51j_id_4" width="100%"><colgroup span="3"></colgroup><tbody id="formulario:j_id_jsp_1563688397_51j_id_4:tb"><tr class="rich-table-row rich-table-firstrow linhaImpar"><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_51j_id_4:0:j_id_jsp_1563688397_52j_id_4">
+<a href="javascript:void(0);">
+<label onclick="PainelComponente.show(22201,'/sigaa/graduacao/componente_programa/view_panel_programa_relatorio.jsf');">
+ADM211</label>
+</a>
+</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_51j_id_4:0:j_id_jsp_1563688397_55j_id_4">MÉTODOS QUANTITATIVOS APLICADOS À ADMINISTRAÇÃO - 45h</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_51j_id_4:0:j_id_jsp_1563688397_57j_id_4">Presencial</td></tr><tr class="rich-table-row linhaPar"><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_51j_id_4:1:j_id_jsp_1563688397_52j_id_4">
+<a href="javascript:void(0);">
+<label onclick="PainelComponente.show(44732,'/sigaa/graduacao/componente_programa/view_panel_programa_relatorio.jsf');">
+MATA56</label>
+</a>
+</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_51j_id_4:1:j_id_jsp_1563688397_55j_id_4">PARADIGMAS DE LINGUAGENS DE PROGRAMAÇÃO - 60h</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_51j_id_4:1:j_id_jsp_1563688397_57j_id_4">Presencial</td></tr><tr class="rich-table-row linhaImpar"><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_51j_id_4:2:j_id_jsp_1563688397_52j_id_4">
+<a href="javascript:void(0);">
+<label onclick="PainelComponente.show(44740,'/sigaa/graduacao/componente_programa/view_panel_programa_relatorio.jsf');">
+MATA60</label>
+</a>
+</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_51j_id_4:2:j_id_jsp_1563688397_55j_id_4">BANCO DE DADOS - 60h</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_51j_id_4:2:j_id_jsp_1563688397_57j_id_4">Presencial</td></tr><tr class="rich-table-row linhaPar"><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_51j_id_4:3:j_id_jsp_1563688397_52j_id_4">
+<a href="javascript:void(0);">
+<label onclick="PainelComponente.show(44746,'/sigaa/graduacao/componente_programa/view_panel_programa_relatorio.jsf');">
+MATA63</label>
+</a>
+</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_51j_id_4:3:j_id_jsp_1563688397_55j_id_4">ENGENHARIA DE SOFTWARE II - 60h</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_51j_id_4:3:j_id_jsp_1563688397_57j_id_4">Presencial</td></tr><tr class="rich-table-row linhaImpar"><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_51j_id_4:4:j_id_jsp_1563688397_52j_id_4">
+<a href="javascript:void(0);">
+<label onclick="PainelComponente.show(45114,'/sigaa/graduacao/componente_programa/view_panel_programa_relatorio.jsf');">
+MATC84</label>
+</a>
+</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_51j_id_4:4:j_id_jsp_1563688397_55j_id_4">LABORATÓRIO DE PROGRAMAÇÃO WEB - 45h</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_51j_id_4:4:j_id_jsp_1563688397_57j_id_4">Presencial</td></tr></tbody></table>
+<table style="background-color: #EFEBDE; width: 100%;">
+<tr>
+<td>
+<span style="font-size: 105%;">Carga Horária Total: </span><span id="formulario:chSemestrej_id_4" style="font-size: 105%; font-weight: bold;">270h</span><span style="font-size: 105%;"> /  Total a Distância: </span><span id="formulario:chEadSemestrej_id_4" style="font-size: 105%; font-weight: bold;">0h</span>
+</td>
+</tr>
+</table>
+</td></tr></table></td><td id="formulario:j_id_jsp_1563688397_49j_id_5" style="display: none;;height:100%"><table border="0" cellpadding="10" cellspacing="0" class="rich-tabpanel-content-position" width="100%"><tr><td class="rich-tabpanel-content" style="; ">
+<table width="100%">
+<tr>
+<td>
+<span style="font-size: 110%; font-weight: bold;">6º Nível</span>
+</td>
+</tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" class="rich-table" id="formulario:j_id_jsp_1563688397_51j_id_5" width="100%"><colgroup span="3"></colgroup><tbody id="formulario:j_id_jsp_1563688397_51j_id_5:tb"><tr class="rich-table-row rich-table-firstrow linhaImpar"><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_51j_id_5:0:j_id_jsp_1563688397_52j_id_5">
+<a href="javascript:void(0);">
+<label onclick="PainelComponente.show(22371,'/sigaa/graduacao/componente_programa/view_panel_programa_relatorio.jsf');">
+ADMF01</label>
+</a>
+</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_51j_id_5:0:j_id_jsp_1563688397_55j_id_5">SISTEMAS DE APOIO À DECISÃO - 75h</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_51j_id_5:0:j_id_jsp_1563688397_57j_id_5">Presencial</td></tr><tr class="rich-table-row linhaPar"><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_51j_id_5:1:j_id_jsp_1563688397_52j_id_5">
+<a href="javascript:void(0);">
+<label onclick="PainelComponente.show(44579,'/sigaa/graduacao/componente_programa/view_panel_programa_relatorio.jsf');">
+MAT220</label>
+</a>
+</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_51j_id_5:1:j_id_jsp_1563688397_55j_id_5">EMPREENDEDORES EM INFORMATICA - 60h</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_51j_id_5:1:j_id_jsp_1563688397_57j_id_5">Presencial</td></tr><tr class="rich-table-row linhaImpar"><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_51j_id_5:2:j_id_jsp_1563688397_52j_id_5">
+<a href="javascript:void(0);">
+<label onclick="PainelComponente.show(44769,'/sigaa/graduacao/componente_programa/view_panel_programa_relatorio.jsf');">
+MATA76</label>
+</a>
+</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_51j_id_5:2:j_id_jsp_1563688397_55j_id_5">LINGUAGENS PARA APLICAÇÃO COMERCIAL - 45h</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_51j_id_5:2:j_id_jsp_1563688397_57j_id_5">Presencial</td></tr><tr class="rich-table-row linhaPar"><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_51j_id_5:3:j_id_jsp_1563688397_52j_id_5">
+<a href="javascript:void(0);">
+<label onclick="PainelComponente.show(44819,'/sigaa/graduacao/componente_programa/view_panel_programa_relatorio.jsf');">
+MATB09</label>
+</a>
+</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_51j_id_5:3:j_id_jsp_1563688397_55j_id_5">LABORATÓRIO DE BANCO DE DADOS - 45h</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_51j_id_5:3:j_id_jsp_1563688397_57j_id_5">Presencial</td></tr><tr class="rich-table-row linhaImpar"><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_51j_id_5:4:j_id_jsp_1563688397_52j_id_5">
+<a href="javascript:void(0);">
+<label onclick="PainelComponente.show(45124,'/sigaa/graduacao/componente_programa/view_panel_programa_relatorio.jsf');">
+MATC89</label>
+</a>
+</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_51j_id_5:4:j_id_jsp_1563688397_55j_id_5">APLICAÇÕES PARA DISPOSITIVOS MÓVEIS - 60h</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_51j_id_5:4:j_id_jsp_1563688397_57j_id_5">Presencial</td></tr></tbody></table>
+<table style="background-color: #EFEBDE; width: 100%;">
+<tr>
+<td>
+<span style="font-size: 105%;">Carga Horária Total: </span><span id="formulario:chSemestrej_id_5" style="font-size: 105%; font-weight: bold;">285h</span><span style="font-size: 105%;"> /  Total a Distância: </span><span id="formulario:chEadSemestrej_id_5" style="font-size: 105%; font-weight: bold;">0h</span>
+</td>
+</tr>
+</table>
+</td></tr></table></td><td id="formulario:j_id_jsp_1563688397_49j_id_6" style="display: none;;height:100%"><table border="0" cellpadding="10" cellspacing="0" class="rich-tabpanel-content-position" width="100%"><tr><td class="rich-tabpanel-content" style="; ">
+<table width="100%">
+<tr>
+<td>
+<span style="font-size: 110%; font-weight: bold;">7º Nível</span>
+</td>
+</tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" class="rich-table" id="formulario:j_id_jsp_1563688397_51j_id_6" width="100%"><colgroup span="3"></colgroup><tbody id="formulario:j_id_jsp_1563688397_51j_id_6:tb"><tr class="rich-table-row rich-table-firstrow linhaImpar"><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_51j_id_6:0:j_id_jsp_1563688397_52j_id_6">
+<a href="javascript:void(0);">
+<label onclick="PainelComponente.show(44748,'/sigaa/graduacao/componente_programa/view_panel_programa_relatorio.jsf');">
+MATA64</label>
+</a>
+</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_51j_id_6:0:j_id_jsp_1563688397_55j_id_6">INTELIGÊNCIA ARTIFICIAL - 60h</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_51j_id_6:0:j_id_jsp_1563688397_57j_id_6">Presencial</td></tr><tr class="rich-table-row linhaPar"><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_51j_id_6:1:j_id_jsp_1563688397_52j_id_6">
+<a href="javascript:void(0);">
+<label onclick="PainelComponente.show(44807,'/sigaa/graduacao/componente_programa/view_panel_programa_relatorio.jsf');">
+MATB02</label>
+</a>
+</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_51j_id_6:1:j_id_jsp_1563688397_55j_id_6">QUALIDADE DE SOFTWARE - 45h</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_51j_id_6:1:j_id_jsp_1563688397_57j_id_6">Presencial</td></tr><tr class="rich-table-row linhaImpar"><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_51j_id_6:2:j_id_jsp_1563688397_52j_id_6">
+<a href="javascript:void(0);">
+<label onclick="PainelComponente.show(44837,'/sigaa/graduacao/componente_programa/view_panel_programa_relatorio.jsf');">
+MATB19</label>
+</a>
+</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_51j_id_6:2:j_id_jsp_1563688397_55j_id_6">SISTEMAS MULTIMÍDIA - 60h</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_51j_id_6:2:j_id_jsp_1563688397_57j_id_6">Presencial</td></tr><tr class="rich-table-row linhaPar"><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_51j_id_6:3:j_id_jsp_1563688397_52j_id_6">
+<a href="javascript:void(0);">
+<label onclick="PainelComponente.show(45094,'/sigaa/graduacao/componente_programa/view_panel_programa_relatorio.jsf');">
+MATC72</label>
+</a>
+</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_51j_id_6:3:j_id_jsp_1563688397_55j_id_6">INTERAÇÃO HUMANO-COMPUTADOR - 60h</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_51j_id_6:3:j_id_jsp_1563688397_57j_id_6">Presencial</td></tr><tr class="rich-table-row linhaImpar"><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_51j_id_6:4:j_id_jsp_1563688397_52j_id_6">
+<a href="javascript:void(0);">
+<label onclick="PainelComponente.show(45144,'/sigaa/graduacao/componente_programa/view_panel_programa_relatorio.jsf');">
+MATC99</label>
+</a>
+</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_51j_id_6:4:j_id_jsp_1563688397_55j_id_6">SEGURANÇA E AUDITORIA DE SISTEMAS DE INFORMAÇÃO - 60h</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_51j_id_6:4:j_id_jsp_1563688397_57j_id_6">Presencial</td></tr></tbody></table>
+<table style="background-color: #EFEBDE; width: 100%;">
+<tr>
+<td>
+<span style="font-size: 105%;">Carga Horária Total: </span><span id="formulario:chSemestrej_id_6" style="font-size: 105%; font-weight: bold;">285h</span><span style="font-size: 105%;"> /  Total a Distância: </span><span id="formulario:chEadSemestrej_id_6" style="font-size: 105%; font-weight: bold;">0h</span>
+</td>
+</tr>
+</table>
+</td></tr></table></td><td id="formulario:j_id_jsp_1563688397_49j_id_7" style="display: none;;height:100%"><table border="0" cellpadding="10" cellspacing="0" class="rich-tabpanel-content-position" width="100%"><tr><td class="rich-tabpanel-content" style="; ">
+<table width="100%">
+<tr>
+<td>
+<span style="font-size: 110%; font-weight: bold;">8º Nível</span>
+</td>
+</tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" class="rich-table" id="formulario:j_id_jsp_1563688397_51j_id_7" width="100%"><colgroup span="3"></colgroup><tbody id="formulario:j_id_jsp_1563688397_51j_id_7:tb"></tbody></table>
+<table style="background-color: #EFEBDE; width: 100%;">
+<tr>
+<td>
+<span style="font-size: 105%;">Carga Horária Total: </span><span id="formulario:chSemestrej_id_7" style="font-size: 105%; font-weight: bold;">0h</span><span style="font-size: 105%;"> /  Total a Distância: </span><span id="formulario:chEadSemestrej_id_7" style="font-size: 105%; font-weight: bold;">0h</span>
+</td>
+</tr>
+</table>
+</td></tr></table></td><td id="formulario:j_id_jsp_1563688397_49j_id_8" style="display: none;;height:100%"><table border="0" cellpadding="10" cellspacing="0" class="rich-tabpanel-content-position" width="100%"><tr><td class="rich-tabpanel-content" style="; ">
+<table width="100%">
+<tr>
+<td>
+<span style="font-size: 110%; font-weight: bold;">9º Nível</span>
+</td>
+</tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" class="rich-table" id="formulario:j_id_jsp_1563688397_51j_id_8" width="100%"><colgroup span="3"></colgroup><tbody id="formulario:j_id_jsp_1563688397_51j_id_8:tb"><tr class="rich-table-row rich-table-firstrow linhaImpar"><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_51j_id_8:0:j_id_jsp_1563688397_52j_id_8">
+<a href="javascript:void(0);">
+<label onclick="PainelComponente.show(52392,'/sigaa/graduacao/componente_programa/view_panel_programa_relatorio.jsf');">
+GICC0003</label>
+</a>
+</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_51j_id_8:0:j_id_jsp_1563688397_55j_id_8">TCC BACHARELADO SISTEMAS DE INFORMAÇÃO I - 45h</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_51j_id_8:0:j_id_jsp_1563688397_57j_id_8">Presencial</td></tr></tbody></table>
+<table style="background-color: #EFEBDE; width: 100%;">
+<tr>
+<td>
+<span style="font-size: 105%;">Carga Horária Total: </span><span id="formulario:chSemestrej_id_8" style="font-size: 105%; font-weight: bold;">45h</span><span style="font-size: 105%;"> /  Total a Distância: </span><span id="formulario:chEadSemestrej_id_8" style="font-size: 105%; font-weight: bold;">0h</span>
+</td>
+</tr>
+</table>
+</td></tr></table></td><td id="formulario:j_id_jsp_1563688397_49j_id_9" style="display: none;;height:100%"><table border="0" cellpadding="10" cellspacing="0" class="rich-tabpanel-content-position" width="100%"><tr><td class="rich-tabpanel-content" style="; ">
+<table width="100%">
+<tr>
+<td>
+<span style="font-size: 110%; font-weight: bold;">10º Nível</span>
+</td>
+</tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" class="rich-table" id="formulario:j_id_jsp_1563688397_51j_id_9" width="100%"><colgroup span="3"></colgroup><tbody id="formulario:j_id_jsp_1563688397_51j_id_9:tb"><tr class="rich-table-row rich-table-firstrow linhaImpar"><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_51j_id_9:0:j_id_jsp_1563688397_52j_id_9">
+<a href="javascript:void(0);">
+<label onclick="PainelComponente.show(52393,'/sigaa/graduacao/componente_programa/view_panel_programa_relatorio.jsf');">
+GICC0004</label>
+</a>
+</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_51j_id_9:0:j_id_jsp_1563688397_55j_id_9">TCC BACHARELADO SISTEMAS DE INFORMAÇÃO II - 120h</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_51j_id_9:0:j_id_jsp_1563688397_57j_id_9">Presencial</td></tr><tr class="rich-table-row linhaPar"><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_51j_id_9:1:j_id_jsp_1563688397_52j_id_9">
+<a href="javascript:void(0);">
+<label onclick="PainelComponente.show(54480,'/sigaa/graduacao/componente_programa/view_panel_programa_relatorio.jsf');">
+GICC0007</label>
+</a>
+</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_51j_id_9:1:j_id_jsp_1563688397_55j_id_9">COMPONENTE DE HOMOLOGAÇÃO DE EXTENSÃO CURRICULAR - 1h</td><td class="rich-table-cell" id="formulario:j_id_jsp_1563688397_51j_id_9:1:j_id_jsp_1563688397_57j_id_9">Presencial</td></tr></tbody></table>
+<table style="background-color: #EFEBDE; width: 100%;">
+<tr>
+<td>
+<span style="font-size: 105%;">Carga Horária Total: </span><span id="formulario:chSemestrej_id_9" style="font-size: 105%; font-weight: bold;">121h</span><span style="font-size: 105%;"> /  Total a Distância: </span><span id="formulario:chEadSemestrej_id_9" style="font-size: 105%; font-weight: bold;">0h</span>
+</td>
+</tr>
+</table>
+</td></tr></table></td></tr></tbody></table>
+</td>
+</tr>
+<tfoot>
+<tr>
+<td colspan="2"> </td>
+</tr>
+</tfoot>
+</table>
+<input id="javax.faces.ViewState" name="javax.faces.ViewState" type="hidden" value="j_id54"/>
+</form>
+<br/>
+<center>
+<a href="javascript: history.go(-1);"> &lt;&lt; Voltar </a>
+</center>
+<div class="clear"> </div>
+</div>
+<br/>
+<div style="width: 80%; text-align: center; margin: 0 auto;">
+<a href="/sigaa/verPortalDiscente.do">Portal do Discente</a>
+</div>
+<div id="rodape">
+<!-- Redmine 24425 - Substitui&#231;&#227;o de dados dos Rodap&#233;s -->
+<p>	SIGAA | STI/SUPAC | - | Copyright © 2006-2026 - UFBA - sigaapl07.intranet.ufba.br
+		
+		 
+			 - <a onclick="javascript:versao();">v4.13.8_41_hotfix</a>
+</p>
+</div>
+</div>
+<div id="painel-mensagem-envio"> </div>
+<!-- MYFACES JAVASCRIPT -->
+</body>
+</html>
+<html><script charset="UTF-8" type="text/javascript">
+		function versao(){
+			var msg='';
+			msg+='SIGAA 4.13.8_41_hotfix,  publicado em: 25/09/2026 16:18\n\n';
+			msg+='Depend\u00eancias:\n';
+			msg+='Arquitetura 4.4.5\n';
+			msg+='Entidades Comuns 2.3.3\n';
+			msg+='Servicos Integrados 2.0.8\n';
+			msg+='SharedResources 2.1.4\n';
+			msg+='Servicos Remoto Biblioteca 1.0.3\n';
+			msg+='SIGAA Mobile Objects 1.0.0\n\n';
+			msg+='Copyright SINFO/UFRN';
+			alert(msg);
+		}	
+	</script>
+<script language="javascript">
+Relogio.init(25);
+</script>
+</html>

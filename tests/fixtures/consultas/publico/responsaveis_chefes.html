@@ -1,0 +1,708 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta content="no-cache" http-equiv="Pragma"/>
+<title>SIGAA - Sistema Integrado de Gestão de Atividades Acadêmicas</title>
+<link class="component" href="/sigaa/a4j/s/3_3_3.Finalorg/richfaces/renderkit/html/css/basic_classes.xcss/DATB/eAF7sqpgb-jyGdIAFrMEaw__.jsf" rel="stylesheet" type="text/css"/><link class="component" href="/sigaa/a4j/s/3_3_3.Finalorg/richfaces/renderkit/html/css/extended_classes.xcss/DATB/eAF7sqpgb-jyGdIAFrMEaw__.jsf" media="rich-extended-skinning" rel="stylesheet" type="text/css"/><script type="text/javascript">window.RICH_FACES_EXTENDED_SKINNING_ON=true;</script><script src="/sigaa/a4j/g/3_3_3.Finalorg/richfaces/renderkit/html/scripts/skinning.js.jsf" type="text/javascript"></script><link href="/sigaa/img/sigaa.ico" rel="shortcut icon"/>
+<script src="/shared/jsBundles/jawr_loader.js" type="text/javascript"></script>
+<script src="/sigaa/javascript/prevenir-duplo-clique.js" type="text/javascript"></script>
+<script type="text/javascript">
+		JAWR.loader.style('/javascript/ext-2.0.a.1/resources/css/ext-all.css', 'all');
+		JAWR.loader.style('/css/public.css','all');
+	 	JAWR.loader.script('/bundles/js/sigaa_base.js');
+	 	JAWR.loader.script('/bundles/js/ext2_all.js');
+
+	 	
+	</script>
+<link href="/sigaa/cssBundles/gzip_787491763/public/css/public.css" media="all" rel="stylesheet" type="text/css"/>
+<link href="/shared/beta/css/font-awesome.css" media="screen" rel="stylesheet" type="text/css"/>
+<script src="/shared/javascript/STICookieConsent.js"></script>
+<script>
+	    document.addEventListener("DOMContentLoaded", () => {
+	    	generateCookieConsentModal("SIGAA", "N&#243;s usamos cookies para melhorar sua experi&#234;ncia de navega&#231;&#227;o no portal. Ao utilizar o %sitename%, voc&#234; concorda com a pol&#237;&#173;tica de monitoramento de cookies. Para ter mais informa&#231;&#245;es sobre como isso &#233; feito e como remover, acesse a <a href=%cookie-policy%>Pol&#237;tica de Privacidade</a>. Para saber como a UFRN trata os dados, acesse a <a href=%privacy-policy%> Pol&#237;&#173;tica de cookies</a>. Se voc&#234; concorda, clique em %button-text%.", "https://ufrn.br/institucional/politica-de-privacidade-e-termos-de-uso", "https://ufrn.br/institucional/politica-de-cookies");
+	    })
+	</script>
+</head>
+<body>
+<div id="container">
+<div id="container-inner">
+<div id="cabecalho">
+<div id="logo">
+<a href="/sigaa/public/"> <img src="https://sipac.ufba.br/shared/img/instituicao/brasao_ufba48x75.jpg"/> </a>
+</div>
+<div id="identificacao">
+<span class="ufrn"> Universidade Federal da Bahia </span>
+<span class="data">
+				 Salvador, 
+				 19 de Outubro de 
+				 2026 
+			</span>
+<a href="/sigaa/public/" id="home" style="width: 450px;" title="Página inicial"> </a>
+<div id="menu_info">
+<ul>
+<li class="login">
+<a alt="Clique aqui para logar-se no SIGAA" href="/sigaa/" title="Clique aqui para logar-se no SIGAA">
+							Login
+						<i class="fa fa-angle-right"></i></a>
+</li>
+</ul>
+</div>
+</div>
+<br clear="all"/>
+</div>
+<div id="corpo">
+<style>
+	.colCargo{text-transform: uppercase;}
+</style>
+<h2>Chefes, Coordenações e Diretores </h2>
+<form action="/sigaa/public/academico/busca_responsavel.jsf" enctype="application/x-www-form-urlencoded" id="form" method="post" name="form">
+<input name="form" type="hidden" value="form"/>
+<div class="descricaoOperacao">
+<p>
+				Esta página permite ao usuário consultar os chefes dos departamentos, 
+				as coordenações dos cursos de graduação e pós-graduação,
+				 e os diretores das unidades acadêmicas especializadas/centros em exercício.
+			</p>
+</div>
+<table class="formulario" width="55%">
+<caption>Informe qual consulta que deseja realizar</caption>
+<tbody>
+<tr>
+<th width="18%">Buscar por:</th>
+<td>
+<select id="form:tipoConsulta" name="form:tipoConsulta" size="1"> <option selected="selected" value="1">Chefes de Departamento</option>
+<option value="2">Coordenadores e Vice-Coordenadores dos Cursos de Graduação</option>
+<option value="3">Coordenadores e Vice-Coordenadores dos Cursos de Pós-Graduação</option>
+<option value="4">Diretores de Centros/Unidades Acadêmicas Especializadas</option>
+</select>
+</td>
+</tr>
+</tbody>
+<tfoot>
+<tr>
+<td colspan="2">
+<input id="form:btnBuscar" name="form:btnBuscar" type="submit" value="Buscar"/>  
+							<input id="form:btnCancelar" name="form:btnCancelar" onclick="return confirm('Deseja cancelar a operação? Todos os dados digitados serão perdidos!');" type="submit" value="Cancelar"/>
+</td>
+</tr>
+</tfoot>
+</table>
+<br/>
+<table class="listagem">
+<caption>Resultados Encontrados (77)</caption>
+<thead>
+<tr>
+<th>
+						Departamento
+						
+						
+					</th>
+<th>Nome</th>
+<th>Telefone</th>
+<th>E-mail</th>
+</tr>
+<thead>
+</thead></thead><tbody>
+<tr>
+<td class="subListagem" colspan="5">ESCOLA DE ADMINISTRAÇÃO</td>
+</tr>
+<tr class="linhaPar">
+<td> COORDENAÇÃO ACADÊMICA/EADM </td>
+<td> PEDRO PEREIRA 156 </td>
+<td> 0000 </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr>
+<td class="subListagem" colspan="5">ESCOLA DE BELAS ARTES</td>
+</tr>
+<tr class="linhaImpar">
+<td> DEPARTAMENTO DE EXPRESSÃO GRÁFICA E TRIDIMENSIONAL/EBA </td>
+<td> CICLANO PEREIRA 451 </td>
+<td> 0000 </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaPar">
+<td> DEPARTAMENTO DE HISTÓRIA DA ARTE E PINTURA/EBA </td>
+<td> JOAO SANTOS 034 </td>
+<td> 0000 </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr>
+<td class="subListagem" colspan="5">ESCOLA DE DANÇA</td>
+</tr>
+<tr class="linhaImpar">
+<td> DEPARTAMENTO DE DANÇA/EDAN </td>
+<td> ANA DE TAL 105 </td>
+<td> </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr>
+<td class="subListagem" colspan="5">ESCOLA DE MEDICINA VETERINÁRIA E ZOOTECNIA</td>
+</tr>
+<tr class="linhaPar">
+<td> DEPARTAMENTO DE ANATOMIA, PATOLOGIA E CLÍNICAS VETERINÁRIAS/EMEVZ </td>
+<td> MARIA SOUZA 423 </td>
+<td> 0000 </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaImpar">
+<td> DEPARTAMENTO DE MEDICINA VETERINÁRIA PREVENTIVA E PRODUÇÃO ANIMAL/EMEVZ </td>
+<td> MARIA DA SILVA 413 </td>
+<td> 0000 </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaPar">
+<td> DEPARTAMENTO DE ZOOTECNIA/EMEVZ </td>
+<td> PEDRO LIMA 176 </td>
+<td> 0000 </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr>
+<td class="subListagem" colspan="5">ESCOLA DE MÚSICA</td>
+</tr>
+<tr class="linhaImpar">
+<td> DEPARTAMENTO DE MÚSICA/MUS </td>
+<td> BELTRANO SANTOS 232 </td>
+<td> 0000 </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr>
+<td class="subListagem" colspan="5">ESCOLA DE NUTRIÇÃO</td>
+</tr>
+<tr class="linhaPar">
+<td> DEPARTAMENTO DE CIÊNCIA DOS ALIMENTOS/NUT </td>
+<td> CARLOS ALVES 288 </td>
+<td> 0000 </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaImpar">
+<td> DEPARTAMENTO DE CIÊNCIAS DA NUTRIÇÃO/ENUT </td>
+<td> JOAO OLIVEIRA 444 </td>
+<td> 0000 </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr>
+<td class="subListagem" colspan="5">ESCOLA DE TEATRO</td>
+</tr>
+<tr class="linhaPar">
+<td> DEPARTAMENTO DE FUNDAMENTOS DO TEATRO/ETE </td>
+<td> JULIA PEREIRA 159 </td>
+<td> 0000 </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaImpar">
+<td> DEPARTAMENTO DE TÉCNICAS DO ESPETÁCULO/ETE </td>
+<td> BELTRANO OLIVEIRA 442 </td>
+<td> xx </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr>
+<td class="subListagem" colspan="5">ESCOLA POLITÉCNICA</td>
+</tr>
+<tr class="linhaPar">
+<td> DEPARTAMENTO DE CIÊNCIA E TECNOLOGIA DOS MATERIAIS/POLI </td>
+<td> CICLANO SOUZA 121 </td>
+<td> 0000 </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaImpar">
+<td> DEPARTAMENTO DE CONSTRUÇÃO E ESTRUTURAS/POLI </td>
+<td> CICLANO LIMA 371 </td>
+<td> NAO INFORMADO </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaPar">
+<td> DEPARTAMENTO DE ENGENHARIA AMBIENTAL/POLI </td>
+<td> JOAO ALVES 484 </td>
+<td> 0000 </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaImpar">
+<td> DEPARTAMENTO DE ENGENHARIA DE TRANSPORTES E GEODÉSIA/POLI </td>
+<td> CICLANO COSTA 061 </td>
+<td> 0000 </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaPar">
+<td> DEPARTAMENTO DE ENGENHARIA ELÉTRICA E DE COMPUTAÇÃO/POLI </td>
+<td> CICLANO DA SILVA 111 </td>
+<td> 0000 </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaImpar">
+<td> DEPARTAMENTO DE ENGENHARIA MECÂNICA/POLI </td>
+<td> MARIA SANTOS 333 </td>
+<td> NAO INFORMADO </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaPar">
+<td> DEPARTAMENTO DE ENGENHARIA QUÍMICA/POLI </td>
+<td> FULANO LIMA 270 </td>
+<td> 0000 </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr>
+<td class="subListagem" colspan="5">FACULDADE DE CIÊNCIAS CONTÁBEIS</td>
+</tr>
+<tr class="linhaImpar">
+<td> DEPARTAMENTO DE CIÊNCIAS CONTÁBEIS/FCC </td>
+<td> BELTRANO COSTA 062 </td>
+<td> 0000 </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr>
+<td class="subListagem" colspan="5">FACULDADE DE COMUNICAÇÃO</td>
+</tr>
+<tr class="linhaPar">
+<td> DEPARTAMENTO DE COMUNICAÇÃO/FACOM </td>
+<td> PEDRO PEREIRA 456 </td>
+<td> 0000 </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr>
+<td class="subListagem" colspan="5">FACULDADE DE DIREITO</td>
+</tr>
+<tr class="linhaImpar">
+<td> DEPARTAMENTO DE DIREITO PRIVADO/FADIR </td>
+<td> JOAO DE TAL 004 </td>
+<td> </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaPar">
+<td> DEPARTAMENTO DE DIREITO PÚBLICO/FADIR </td>
+<td> JOAO DA SILVA 214 </td>
+<td> 0000 </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaImpar">
+<td> DEPARTAMENTO DE ESTUDOS JURÍDICOS FUNDAMENTAIS/DIR </td>
+<td> CARLOS OLIVEIRA 248 </td>
+<td> 0000 </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr>
+<td class="subListagem" colspan="5">FACULDADE DE ECONOMIA</td>
+</tr>
+<tr class="linhaPar">
+<td> DEPARTAMENTO DE ECONOMIA/FCE </td>
+<td> CICLANO DE TAL 101 </td>
+<td> 0000 </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr>
+<td class="subListagem" colspan="5">FACULDADE DE EDUCAÇÃO</td>
+</tr>
+<tr class="linhaImpar">
+<td> DEPARTAMENTO DE EDUCACAO I/FACED </td>
+<td> MARIA PEREIRA 453 </td>
+<td> 0000 </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaPar">
+<td> DEPARTAMENTO DE EDUCACAO II/FACED </td>
+<td> ANA LIMA 475 </td>
+<td> 0000 </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaImpar">
+<td> DEPARTAMENTO DE EDUCAÇÃO III/FACED </td>
+<td> FULANO PEREIRA 150 </td>
+<td> 0000 </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr>
+<td class="subListagem" colspan="5">FACULDADE DE FARMÁCIA</td>
+</tr>
+<tr class="linhaPar">
+<td> DEPARTAMENTO DE ANÁLISES BROMATOLÓGICAS/FFAR </td>
+<td> FULANO SOUZA 020 </td>
+<td> 0000 </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaImpar">
+<td> DEPARTAMENTO DE ANÁLISES CLÍNICAS E TOXICOLÓGICAS/FFAR </td>
+<td> PEDRO DE TAL 106 </td>
+<td> 0000 </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaPar">
+<td> DEPARTAMENTO DO MEDICAMENTO/FFAR </td>
+<td> JOAO DA SILVA 414 </td>
+<td> 0000 </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr>
+<td class="subListagem" colspan="5">FACULDADE DE FILOSOFIA E CIÊNCIAS HUMANAS</td>
+</tr>
+<tr class="linhaImpar">
+<td> DEPARTAMENTO DE ANTROPOLOGIA/FFCH </td>
+<td> CARLOS DE TAL 208 </td>
+<td> 0000 </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaPar">
+<td> DEPARTAMENTO DE CIÊNCIA POLÍTICA/FFCH </td>
+<td> CARLOS DA SILVA 418 </td>
+<td> 0000 </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaImpar">
+<td> DEPARTAMENTO DE ESTUDOS DE GÊNERO E FEMINISMO/FFCH </td>
+<td> JOAO DA SILVA 314 </td>
+<td> 0000 </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaPar">
+<td> DEPARTAMENTO DE FILOSOFIA/FFCH </td>
+<td> MARIA SANTOS 233 </td>
+<td> 0000 </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaImpar">
+<td> DEPARTAMENTO DE HISTÓRIA/FFCH </td>
+<td> CICLANO ALVES 481 </td>
+<td> 0000 </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaPar">
+<td> DEPARTAMENTO DE MUSEOLOGIA/FFCH </td>
+<td> CARLOS OLIVEIRA 048 </td>
+<td> 0000 </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaImpar">
+<td> DEPARTAMENTO DE SOCIOLOGIA/FFCH </td>
+<td> LUCIA COSTA 167 </td>
+<td> 0000 </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr>
+<td class="subListagem" colspan="5">FACULDADE DE MEDICINA DA BAHIA</td>
+</tr>
+<tr class="linhaPar">
+<td> DEPARTAMENTO DE ANESTESIOLOGIA E CIRURGIA/FMB </td>
+<td> LUCIA SANTOS 137 </td>
+<td> 0000 </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaImpar">
+<td> DEPARTAMENTO DE CIRURGIA EXPERIMENTAL E ESPECIALIDADES CIRÚRGICAS/FMB </td>
+<td> FULANO OLIVEIRA 140 </td>
+<td> 0000 </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaPar">
+<td> DEPARTAMENTO DE GINECOLOGIA E OBSTETRÍCIA/FMB </td>
+<td> FULANO SOUZA 320 </td>
+<td> 0000 </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaImpar">
+<td> DEPARTAMENTO DE MEDICINA INTERNA/FMB </td>
+<td> FULANO OLIVEIRA 340 </td>
+<td> 0000 </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaPar">
+<td> DEPARTAMENTO DE MEDICINA PREVENTIVA E SOCIAL/FMB </td>
+<td> FULANO DE TAL 100 </td>
+<td> 0000 </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaImpar">
+<td> DEPARTAMENTO DE NEUROLOGIA E PSIQUIATRIA/FMB </td>
+<td> PEDRO OLIVEIRA 046 </td>
+<td> 0000 </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaPar">
+<td> DEPARTAMENTO DE NEUROLOGIA E PSIQUIATRIA/FMB </td>
+<td> JULIA ALVES 489 </td>
+<td> 0000 </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaImpar">
+<td> DEPARTAMENTO DE PATOLOGIA, DIAGNÓSTICO POR IMAGEM E MEDICINA LEGAL/FMB </td>
+<td> JULIA COSTA 069 </td>
+<td> 0000 </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaPar">
+<td> DEPARTAMENTO DE PEDIATRIA/FMB </td>
+<td> BELTRANO PEREIRA 252 </td>
+<td> 0000 </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaImpar">
+<td> DEPARTAMENTO DE SAÚDE DA FAMÍLIA E TERAPIA OCUPACIONAL/FMB </td>
+<td> JOAO ALVES 084 </td>
+<td> 0000 </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr>
+<td class="subListagem" colspan="5">FACULDADE DE ODONTOLOGIA</td>
+</tr>
+<tr class="linhaPar">
+<td> DEPARTAMENTO DE CLÍNICA ODONTOLÓGICA/ODON </td>
+<td> ANA ALVES 485 </td>
+<td> 0000 </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaImpar">
+<td> DEPARTAMENTO DE ODONTOLOGIA SOCIAL E PEDIÁTRICA/ODON </td>
+<td> BELTRANO DA SILVA 112 </td>
+<td> 0000 </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaPar">
+<td> DEPARTAMENTO DE PROPEDÊUTICA E CLÍNICA INTEGRADA/ODON </td>
+<td> BELTRANO DE TAL 302 </td>
+<td> 0000 </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr>
+<td class="subListagem" colspan="5">INSTITUTO DE CIÊNCIA DA INFORMAÇÃO</td>
+</tr>
+<tr class="linhaImpar">
+<td> DEPARTAMENTO DE DOCUMENTAÇÃO E INFORMAÇÃO/ICI </td>
+<td> PEDRO OLIVEIRA 446 </td>
+<td> 0000 </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaPar">
+<td> DEPARTAMENTO DE FUNDAMENTOS E PROCESSOS INFORMACIONAIS/ICI </td>
+<td> MARIA DA SILVA 313 </td>
+<td> 0000 </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr>
+<td class="subListagem" colspan="5">INSTITUTO DE CIÊNCIA, TECNOLOGIA E INOVAÇÃO</td>
+</tr>
+<tr class="linhaImpar">
+<td> DEPARTAMENTO DE CIÊNCIA, TECNOLOGIA E INOVAÇÃO/ICTI </td>
+<td> PEDRO COSTA 066 </td>
+<td> 0000 </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr>
+<td class="subListagem" colspan="5">INSTITUTO DE CIÊNCIAS DA SAÚDE</td>
+</tr>
+<tr class="linhaPar">
+<td> DEPARTAMENTO DE BIOINTERAÇÃO/ICS </td>
+<td> CARLOS ALVES 188 </td>
+<td> 0000 </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaImpar">
+<td> DEPARTAMENTO DE BIOMORFOLOGIA/ICS </td>
+<td> ANA SANTOS 335 </td>
+<td> </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaPar">
+<td> DEPARTAMENTO DE BIOQUÍMICA E BIOFÍSICA/ICS </td>
+<td> MARIA COSTA 063 </td>
+<td> 0000 </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaImpar">
+<td> DEPARTAMENTO DE BIORREGULAÇÃO/ICS </td>
+<td> BELTRANO DE TAL 202 </td>
+<td> 0000 </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaPar">
+<td> DEPARTAMENTO DE BIOTECNOLOGIA/ICS </td>
+<td> FULANO LIMA 070 </td>
+<td> 0000 </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr>
+<td class="subListagem" colspan="5">INSTITUTO DE COMPUTAÇÃO</td>
+</tr>
+<tr class="linhaImpar">
+<td> DEPARTAMENTO DE CIÊNCIA DA COMPUTAÇÃO /IC </td>
+<td> JOAO DE TAL 104 </td>
+<td> 0000 </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaPar">
+<td> DEPARTAMENTO DE COMPUTAÇÃO INTERDISCIPLINAR /IC </td>
+<td> LUCIA LIMA 177 </td>
+<td> </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr>
+<td class="subListagem" colspan="5">INSTITUTO DE FÍSICA</td>
+</tr>
+<tr class="linhaImpar">
+<td> DEPARTAMENTO DE FÍSICA DA TERRA E DO MEIO AMBIENTE/IFIS </td>
+<td> JULIA PEREIRA 259 </td>
+<td> 0000 </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaPar">
+<td> DEPARTAMENTO DE FÍSICA DO ESTADO SÓLIDO/IFIS </td>
+<td> LUCIA SANTOS 337 </td>
+<td> 0000 </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaImpar">
+<td> DEPARTAMENTO DE FÍSICA GERAL/IFIS </td>
+<td> JULIA LIMA 179 </td>
+<td> 0000 </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr>
+<td class="subListagem" colspan="5">INSTITUTO DE GEOCIÊNCIAS</td>
+</tr>
+<tr class="linhaPar">
+<td> DEPARTAMENTO DE GEOFÍSICA/IGEO </td>
+<td> CARLOS COSTA 368 </td>
+<td> 8551 ou 8647 </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaImpar">
+<td> DEPARTAMENTO DE GEOGRAFIA/IGEO </td>
+<td> CARLOS ALVES 088 </td>
+<td> 0000 </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaPar">
+<td> DEPARTAMENTO DE GEOLOGIA/IGEO </td>
+<td> LUCIA COSTA 467 </td>
+<td> 0000 </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaImpar">
+<td> DEPARTAMENTO DE OCEANOGRAFIA/IGEO </td>
+<td> JULIA PEREIRA 059 </td>
+<td> 0000 </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr>
+<td class="subListagem" colspan="5">INSTITUTO DE MATEMÁTICA E ESTATÍSTICA</td>
+</tr>
+<tr class="linhaPar">
+<td> DEPARTAMENTO DE ESTATÍSTICA/IME </td>
+<td> BELTRANO SOUZA 322 </td>
+<td> 0000 </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaImpar">
+<td> DEPARTAMENTO DE MATEMÁTICA/IME </td>
+<td> FULANO SANTOS 130 </td>
+<td> 0000 </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr>
+<td class="subListagem" colspan="5">INSTITUTO DE QUÍMICA</td>
+</tr>
+<tr class="linhaPar">
+<td> DEPARTAMENTO DE FÍSICO-QUÍMICA/IQUI </td>
+<td> ANA DE TAL 205 </td>
+<td> 0000 </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaImpar">
+<td> DEPARTAMENTO DE QUÍMICA ANALÍTICA/IQUI </td>
+<td> JULIA DA SILVA 419 </td>
+<td> 0000 </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaPar">
+<td> DEPARTAMENTO DE QUÍMICA GERAL E INORGÂNICA/IQUI </td>
+<td> CICLANO LIMA 171 </td>
+<td> 0000 </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaImpar">
+<td> DEPARTAMENTO DE QUÍMICA ORGÂNICA/IQUI </td>
+<td> CICLANO ALVES 181 </td>
+<td> 0000 </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr>
+<td class="subListagem" colspan="5">INSTITUTO DE SAÚDE COLETIVA</td>
+</tr>
+<tr class="linhaPar">
+<td> COORDENAÇÃO ACADÊMICA/ISC </td>
+<td> JOAO ROCHA 494 </td>
+<td> NAO INFORMADO </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr>
+<td class="subListagem" colspan="5">INSTITUTO MULTIDISCIPLINAR DE REABILITAÇÃO E SAÚDE</td>
+</tr>
+<tr class="linhaImpar">
+<td> DEPARTAMENTO DE FISIOTERAPIA/IMRS </td>
+<td> JULIA SOUZA 029 </td>
+<td> 0000 </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaPar">
+<td> DEPARTAMENTO DE FONOAUDIOLOGIA/IMRS </td>
+<td> ANA SOUZA 325 </td>
+<td> 0000 </td>
+<td> fulano@exemplo.br </td>
+</tr>
+</tbody>
+<tfoot>
+<tr>
+<td colspan="5"> </td>
+</tr>
+</tfoot>
+</table>
+<input id="javax.faces.ViewState" name="javax.faces.ViewState" type="hidden" value="j_id5"/>
+</form>
+<div class="clear"></div>
+</div>
+<div id="rodape">
+<p> <!-- Redmine 24523 - Telas e relat&#243;rios com rodap&#233;s sem a altera&#231;&#227;o - Portal P&#250;blico -->
+			SIGAA | STI/SUPAC | -  | Copyright © 2006-2026 - UFBA - saomiguel.intranet.ufba.br
+			 
+				<a onclick="javascript:versao();">v4.13.8_41_hotfix</a>
+</p>
+</div>
+<!-- Fim dos containers -->
+</div>
+</div>
+<!-- MYFACES JAVASCRIPT -->
+</body>
+</html>
+<html><script charset="UTF-8" type="text/javascript">
+		function versao(){
+			var msg='';
+			msg+='SIGAA 4.13.8_41_hotfix,  publicado em: 25/09/2026 16:18\n\n';
+			msg+='Depend\u00eancias:\n';
+			msg+='Arquitetura 4.4.5\n';
+			msg+='Entidades Comuns 2.3.3\n';
+			msg+='Servicos Integrados 2.0.8\n';
+			msg+='SharedResources 2.1.4\n';
+			msg+='Servicos Remoto Biblioteca null\n';
+			msg+='SIGAA Mobile Objects 1.0.0\n\n';
+			msg+='Copyright SINFO/UFRN';
+			alert(msg);
+		}	
+	</script>
+<style>
+a.linkMobile:link {
+	color: #003395;
+	font-weight: bold;
+	font-size: inherit;
+	text-decoration: none;
+}
+
+a.linkMobile:visited {
+	color: #003390;
+	text-decoration: none;
+	font-weight: bold;
+}
+
+a.linkMobile:active {
+	color: #444444;
+	text-decoration: none;
+	font-weight: bold;
+}
+</style>
+</html>

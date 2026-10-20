@@ -1,0 +1,1399 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta content="no-cache" http-equiv="Pragma"/>
+<title>SIGAA - Sistema Integrado de Gestão de Atividades Acadêmicas</title>
+<link class="component" href="/sigaa/a4j/s/3_3_3.Finalorg/richfaces/renderkit/html/css/basic_classes.xcss/DATB/eAF7sqpgb-jyGdIAFrMEaw__.jsf" rel="stylesheet" type="text/css"/><link class="component" href="/sigaa/a4j/s/3_3_3.Finalorg/richfaces/renderkit/html/css/extended_classes.xcss/DATB/eAF7sqpgb-jyGdIAFrMEaw__.jsf" media="rich-extended-skinning" rel="stylesheet" type="text/css"/><script type="text/javascript">window.RICH_FACES_EXTENDED_SKINNING_ON=true;</script><script src="/sigaa/a4j/g/3_3_3.Finalorg/richfaces/renderkit/html/scripts/skinning.js.jsf" type="text/javascript"></script><link href="/sigaa/img/sigaa.ico" rel="shortcut icon"/>
+<script src="/shared/jsBundles/jawr_loader.js" type="text/javascript"></script>
+<script src="/sigaa/javascript/prevenir-duplo-clique.js" type="text/javascript"></script>
+<script type="text/javascript">
+		JAWR.loader.style('/javascript/ext-2.0.a.1/resources/css/ext-all.css', 'all');
+		JAWR.loader.style('/css/public.css','all');
+	 	JAWR.loader.script('/bundles/js/sigaa_base.js');
+	 	JAWR.loader.script('/bundles/js/ext2_all.js');
+
+	 	
+	</script>
+<link href="/sigaa/cssBundles/gzip_787491763/public/css/public.css" media="all" rel="stylesheet" type="text/css"/>
+<link href="/shared/beta/css/font-awesome.css" media="screen" rel="stylesheet" type="text/css"/>
+<script src="/shared/javascript/STICookieConsent.js"></script>
+<script>
+	    document.addEventListener("DOMContentLoaded", () => {
+	    	generateCookieConsentModal("SIGAA", "N&#243;s usamos cookies para melhorar sua experi&#234;ncia de navega&#231;&#227;o no portal. Ao utilizar o %sitename%, voc&#234; concorda com a pol&#237;&#173;tica de monitoramento de cookies. Para ter mais informa&#231;&#245;es sobre como isso &#233; feito e como remover, acesse a <a href=%cookie-policy%>Pol&#237;tica de Privacidade</a>. Para saber como a UFRN trata os dados, acesse a <a href=%privacy-policy%> Pol&#237;&#173;tica de cookies</a>. Se voc&#234; concorda, clique em %button-text%.", "https://ufrn.br/institucional/politica-de-privacidade-e-termos-de-uso", "https://ufrn.br/institucional/politica-de-cookies");
+	    })
+	</script>
+</head>
+<body>
+<div id="container">
+<div id="container-inner">
+<div id="cabecalho">
+<div id="logo">
+<a href="/sigaa/public/"> <img src="https://sipac.ufba.br/shared/img/instituicao/brasao_ufba48x75.jpg"/> </a>
+</div>
+<div id="identificacao">
+<span class="ufrn"> Universidade Federal da Bahia </span>
+<span class="data">
+				 Salvador, 
+				 19 de Outubro de 
+				 2026 
+			</span>
+<a href="/sigaa/public/" id="home" style="width: 450px;" title="Página inicial"> </a>
+<div id="menu_info">
+<ul>
+<li class="login">
+<a alt="Clique aqui para logar-se no SIGAA" href="/sigaa/" title="Clique aqui para logar-se no SIGAA">
+							Login
+						<i class="fa fa-angle-right"></i></a>
+</li>
+</ul>
+</div>
+</div>
+<br clear="all"/>
+</div>
+<div id="corpo">
+<style>
+	.colCargo{text-transform: uppercase;}
+</style>
+<h2>Chefes, Coordenações e Diretores </h2>
+<form action="/sigaa/public/academico/busca_responsavel.jsf" enctype="application/x-www-form-urlencoded" id="form" method="post" name="form">
+<input name="form" type="hidden" value="form"/>
+<div class="descricaoOperacao">
+<p>
+				Esta página permite ao usuário consultar os chefes dos departamentos, 
+				as coordenações dos cursos de graduação e pós-graduação,
+				 e os diretores das unidades acadêmicas especializadas/centros em exercício.
+			</p>
+</div>
+<table class="formulario" width="55%">
+<caption>Informe qual consulta que deseja realizar</caption>
+<tbody>
+<tr>
+<th width="18%">Buscar por:</th>
+<td>
+<select id="form:tipoConsulta" name="form:tipoConsulta" size="1"> <option value="1">Chefes de Departamento</option>
+<option value="2">Coordenadores e Vice-Coordenadores dos Cursos de Graduação</option>
+<option selected="selected" value="3">Coordenadores e Vice-Coordenadores dos Cursos de Pós-Graduação</option>
+<option value="4">Diretores de Centros/Unidades Acadêmicas Especializadas</option>
+</select>
+</td>
+</tr>
+</tbody>
+<tfoot>
+<tr>
+<td colspan="2">
+<input id="form:btnBuscar" name="form:btnBuscar" type="submit" value="Buscar"/>  
+							<input id="form:btnCancelar" name="form:btnCancelar" onclick="return confirm('Deseja cancelar a operação? Todos os dados digitados serão perdidos!');" type="submit" value="Cancelar"/>
+</td>
+</tr>
+</tfoot>
+</table>
+<br/>
+<table class="listagem">
+<caption>Resultados Encontrados (162)</caption>
+<thead>
+<tr>
+<th>
+						Curso
+						
+						
+					</th>
+<th>Nome</th>
+<th>Cargo</th>
+<th>Telefone</th>
+<th>E-mail</th>
+</tr>
+<thead>
+</thead></thead><tbody>
+<tr>
+<td class="subListagem" colspan="5">ESCOLA DE ADMINISTRAÇÃO</td>
+</tr>
+<tr class="linhaPar">
+<td> PROGRAMA DE POS-GRADUACAO EM DESENVOLVIMENTO E GESTAO SOCIAL (PPGDGS) </td>
+<td> ANA LIMA 375 </td>
+<td> Vice-Coordenação </td>
+<td> </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaImpar">
+<td> PROGRAMA DE POS-GRADUACAO EM DESENVOLVIMENTO E GESTAO SOCIAL (PPGDGS) </td>
+<td> PEDRO DE TAL 306 </td>
+<td> Coordenação </td>
+<td> </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaPar">
+<td> PROGRAMA DE POS-GRADUACAO EM ADMINISTRACAO (NPGA) </td>
+<td> FULANO OLIVEIRA 040 </td>
+<td> Coordenação </td>
+<td> </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaImpar">
+<td> PROGRAMA DE POS-GRADUACAO EM ADMINISTRACAO (NPGA-P) </td>
+<td> MARIA SOUZA 123 </td>
+<td> Coordenação </td>
+<td> </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaPar">
+<td> PROGRAMA DE POS-GRADUACAO EM ADMINISTRACAO (NPGA) </td>
+<td> CARLOS PEREIRA 058 </td>
+<td> Vice-Coordenação </td>
+<td> </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr>
+<td class="subListagem" colspan="5">ESCOLA DE BELAS ARTES</td>
+</tr>
+<tr class="linhaImpar">
+<td> PROGRAMA DE POS-GRADUACAO EM DESIGN/EBA </td>
+<td> BELTRANO ROCHA 392 </td>
+<td> Coordenação </td>
+<td> </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaPar">
+<td> PROGRAMA DE POS-GRADUACAO EM DESIGN/EBA </td>
+<td> JULIA ALVES 389 </td>
+<td> Vice-Coordenação </td>
+<td> 0000 </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaImpar">
+<td> PROGRAMA DE POS-GRADUACAO EM ARTES VISUAIS (PPGAV) </td>
+<td> LUCIA DA SILVA 417 </td>
+<td> Coordenação </td>
+<td> </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr>
+<td class="subListagem" colspan="5">ESCOLA DE DANÇA</td>
+</tr>
+<tr class="linhaPar">
+<td> PROGRAMA DE POS-GRADUACAO EM DANCA (PPGDANCA) </td>
+<td> LUCIA OLIVEIRA 347 </td>
+<td> Coordenação </td>
+<td> </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaImpar">
+<td> PROGRAMA DE POS-GRADUACAO EM DANCA/PRODAN </td>
+<td> JOAO COSTA 064 </td>
+<td> Coordenação </td>
+<td> </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaPar">
+<td> PROGRAMA DE POS-GRADUACAO EM DANCA/PRODAN </td>
+<td> CARLOS SOUZA 028 </td>
+<td> Vice-Coordenação </td>
+<td> </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr>
+<td class="subListagem" colspan="5">ESCOLA DE ENFERMAGEM</td>
+</tr>
+<tr class="linhaImpar">
+<td> PROGRAMA DE POS-GRADUACAO EM ENFERMAGEM E SAUDE (PPGENF) </td>
+<td> ANA SANTOS 035 </td>
+<td> Coordenação </td>
+<td> </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaPar">
+<td> PROGRAMA DE POS-GRADUACAO EM ENFERMAGEM E SAUDE (PPGENF) </td>
+<td> BELTRANO ALVES 482 </td>
+<td> Vice-Coordenação </td>
+<td> 0000 </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr>
+<td class="subListagem" colspan="5">ESCOLA DE MEDICINA VETERINÁRIA E ZOOTECNIA</td>
+</tr>
+<tr class="linhaImpar">
+<td> PROGRAMA DE POS-GRADUACAO EM ZOOTECNIA (PPGZ) </td>
+<td> JOAO DE TAL 204 </td>
+<td> Coordenação </td>
+<td> </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaPar">
+<td> PROGRAMA DE POS-GRADUACAO EM CIENCIA ANIMAL NOS TROPICOS (PPGCAT) </td>
+<td> PEDRO SOUZA 426 </td>
+<td> Coordenação </td>
+<td> </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaImpar">
+<td> PROGRAMA DE POS-GRADUACAO EM CIENCIA ANIMAL NOS TROPICOS (PPGCAT) </td>
+<td> LUCIA COSTA 367 </td>
+<td> Vice-Coordenação </td>
+<td> /(71) 9882-11188 </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr>
+<td class="subListagem" colspan="5">ESCOLA DE MÚSICA</td>
+</tr>
+<tr class="linhaPar">
+<td> PROGRAMA DE POS-GRADUACAO EM MUSICA (PPGPROM) </td>
+<td> ANA ROCHA 295 </td>
+<td> Coordenação </td>
+<td> </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaImpar">
+<td> PROGRAMA DE POS-GRADUACAO EM MUSICA (PPGPROM) </td>
+<td> CICLANO ROCHA 091 </td>
+<td> Vice-Coordenação </td>
+<td> </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaPar">
+<td> PROGRAMA DE POS-GRADUACAO EM MUSICA (PPGMUS) </td>
+<td> PEDRO ROCHA 396 </td>
+<td> Coordenação </td>
+<td> (51) 99300-3931/(51) 99603-4179 </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaImpar">
+<td> PROGRAMA DE POS-GRADUACAO EM MUSICA (PPGMUS) </td>
+<td> PEDRO DA SILVA 016 </td>
+<td> Vice-Coordenação </td>
+<td> </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr>
+<td class="subListagem" colspan="5">ESCOLA DE NUTRIÇÃO</td>
+</tr>
+<tr class="linhaPar">
+<td> PROGRAMA DE POS-GRADUACAO EM ALIMENTOS, NUTRICAO E SAUDE (PGNUT) </td>
+<td> LUCIA ALVES 287 </td>
+<td> Coordenação </td>
+<td> </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaImpar">
+<td> PROGRAMA DE POS-GRADUACAO EM ALIMENTOS, NUTRICAO E SAUDE (PGNUT) </td>
+<td> CICLANO DE TAL 401 </td>
+<td> Vice-Coordenação </td>
+<td> </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr>
+<td class="subListagem" colspan="5">ESCOLA DE TEATRO</td>
+</tr>
+<tr class="linhaPar">
+<td> PROGRAMA DE POS-GRADUACAO EM ARTES CENICAS (PPGAC) </td>
+<td> ANA ALVES 285 </td>
+<td> Coordenação </td>
+<td> </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaImpar">
+<td> PROGRAMA DE POS-GRADUACAO EM ARTES CENICAS (PPGAC) </td>
+<td> JOAO ROCHA 194 </td>
+<td> Vice-Coordenação </td>
+<td> </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr>
+<td class="subListagem" colspan="5">ESCOLA POLITÉCNICA</td>
+</tr>
+<tr class="linhaPar">
+<td> PROGRAMA DE POS-GRADUACAO EM ENERGIA E AMBIENTE (PPGENAM) </td>
+<td> CARLOS ROCHA 298 </td>
+<td> Coordenação </td>
+<td> </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaImpar">
+<td> PROGRAMA DE POS-GRADUACAO EM ENERGIA E AMBIENTE (PPGENAM) </td>
+<td> CARLOS LIMA 078 </td>
+<td> Vice-Coordenação </td>
+<td> </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaPar">
+<td> PROGRAMA DE POS-GRADUACAO EM ENGENHARIA CIVIL (PPEC) </td>
+<td> JULIA OLIVEIRA 449 </td>
+<td> Coordenação </td>
+<td> </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaImpar">
+<td> PROGRAMA DE POS-GRADUACAO EM ENGENHARIA CIVIL (PPEC) </td>
+<td> ANA COSTA 365 </td>
+<td> Vice-Coordenação </td>
+<td> </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaPar">
+<td> PROGRAMA DE POS-GRADUACAO EM GESTAO E REGULACAO DE RECURSOS HIDRICOS (PROFAGUA) </td>
+<td> MARIA OLIVEIRA 043 </td>
+<td> Coordenação </td>
+<td> </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaImpar">
+<td> PROGRAMA DE POS-GRADUACAO EM GESTAO E REGULACAO DE RECURSOS HIDRICOS (PROFAGUA) </td>
+<td> PEDRO ALVES 486 </td>
+<td> Vice-Coordenação </td>
+<td> </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaPar">
+<td> PROGRAMA DE POS-GRADUACAO EM MEIO AMBIENTE, AGUAS E SANEAMENTO (MAASA) </td>
+<td> JOAO ALVES 184 </td>
+<td> Coordenação </td>
+<td> 0000 </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaImpar">
+<td> PROGRAMA DE POS-GRADUACAO EM ENGENHARIA QUIMICA (PPEQ) </td>
+<td> LUCIA SOUZA 027 </td>
+<td> Coordenação </td>
+<td> 0000 </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaPar">
+<td> PROGRAMA DE POS-GRADUACAO EM ENGENHARIA QUIMICA (PPEQ) </td>
+<td> JULIA LIMA 079 </td>
+<td> Vice-Coordenação </td>
+<td> </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaImpar">
+<td> PROGRAMA DE POS-GRADUACAO EM MEIO AMBIENTE, AGUAS E SANEAMENTO (MAASA) </td>
+<td> FULANO LIMA 170 </td>
+<td> Vice-Coordenação </td>
+<td> </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaPar">
+<td> PROGRAMA DE POS-GRADUACAO EM ENGENHARIA INDUSTRIAL (PEI) </td>
+<td> BELTRANO DE TAL 002 </td>
+<td> Coordenação </td>
+<td> </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaImpar">
+<td> PROGRAMA DE POS-GRADUACAO EM ENGENHARIA INDUSTRIAL (PEI-P) </td>
+<td> MARIA OLIVEIRA 443 </td>
+<td> Coordenação </td>
+<td> </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaPar">
+<td> PROGRAMA DE POS-GRADUACAO EM MECATRONICA (PPGM) </td>
+<td> ANA PEREIRA 455 </td>
+<td> Coordenação </td>
+<td> </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaImpar">
+<td> PROGRAMA DE POS-GRADUACAO EM MECATRONICA (PPGM) </td>
+<td> MARIA ALVES 183 </td>
+<td> Vice-Coordenação </td>
+<td> </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaPar">
+<td> PROGRAMA DE POS-GRADUACAO EM ENGENHARIA INDUSTRIAL (PEI) </td>
+<td> BELTRANO DA SILVA 412 </td>
+<td> Vice-Coordenação </td>
+<td> 0000 </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaImpar">
+<td> PROGRAMA DE POS-GRADUACAO EM ENGENHARIA ELETRICA (PPGEE) </td>
+<td> MARIA OLIVEIRA 143 </td>
+<td> Coordenação </td>
+<td> </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaPar">
+<td> PROGRAMA DE POS-GRADUACAO EM ENGENHARIA ELETRICA (PPGEE) </td>
+<td> PEDRO SANTOS 236 </td>
+<td> Vice-Coordenação </td>
+<td> </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaImpar">
+<td> PROGRAMA DE POS-GRADUACAO EM ENGENHARIAS ELETRICA E DE COMPUTACAO (PPGEEC) </td>
+<td> MARIA OLIVEIRA 143 </td>
+<td> Coordenação </td>
+<td> </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaPar">
+<td> PROGRAMA DE POS-GRADUACAO EM ENGENHARIA INDUSTRIAL (PEI-P) </td>
+<td> LUCIA OLIVEIRA 047 </td>
+<td> Vice-Coordenação </td>
+<td> </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr>
+<td class="subListagem" colspan="5">FACULDADE DE ARQUITETURA</td>
+</tr>
+<tr class="linhaImpar">
+<td> PROGRAMA DE POS-GRADUACAO EM CONSERVACAO E RESTAURACAO (CECRE) </td>
+<td> JOAO PEREIRA 354 </td>
+<td> Vice-Coordenação </td>
+<td> </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaPar">
+<td> PROGRAMA DE POS-GRADUACAO EM CONSERVACAO E RESTAURACAO (CECRE) </td>
+<td> PEDRO SOUZA 326 </td>
+<td> Coordenação </td>
+<td> </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaImpar">
+<td> PROGRAMA DE POS-GRADUACAO EM ARQUITETURA E URBANISMO (PPG-AU) </td>
+<td> JULIA DA SILVA 019 </td>
+<td> Coordenação </td>
+<td> 0000 </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaPar">
+<td> PROGRAMA DE POS-GRADUACAO EM ARQUITETURA E URBANISMO (PPG-AU) </td>
+<td> LUCIA PEREIRA 057 </td>
+<td> Vice-Coordenação </td>
+<td> 71 33538102/71 9918614-7 </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr>
+<td class="subListagem" colspan="5">FACULDADE DE CIÊNCIAS CONTÁBEIS</td>
+</tr>
+<tr class="linhaImpar">
+<td> PROGRAMA DE POS-GRADUACAO EM CONTABILIDADE (PPGCONT) </td>
+<td> CICLANO PEREIRA 051 </td>
+<td> Coordenação </td>
+<td> 0000 </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaPar">
+<td> PROGRAMA DE POS-GRADUACAO EM CONTABILIDADE (PPGCONT) </td>
+<td> CICLANO OLIVEIRA 241 </td>
+<td> Vice-Coordenação </td>
+<td> 0000 </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr>
+<td class="subListagem" colspan="5">FACULDADE DE COMUNICAÇÃO</td>
+</tr>
+<tr class="linhaImpar">
+<td> PROGRAMA DE POS-GRADUACAO EM GESTAO E PRATICAS EM COMUNICACAO E CULTURA/FACOM </td>
+<td> CARLOS DE TAL 008 </td>
+<td> Coordenação </td>
+<td> </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaPar">
+<td> PROGRAMA DE POS-GRADUACAO EM GESTAO E PRATICAS EM COMUNICACAO E CULTURA/FACOM </td>
+<td> ANA DA SILVA 415 </td>
+<td> Vice-Coordenação </td>
+<td> </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaImpar">
+<td> PROGRAMA DE POS-GRADUACAO EM COMUNICACAO E CULTURA CONTEMPORANEA (POSCOM) </td>
+<td> PEDRO COSTA 466 </td>
+<td> Coordenação </td>
+<td> </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaPar">
+<td> PROGRAMA DE POS-GRADUACAO EM COMUNICACAO E CULTURA CONTEMPORANEA (POSCOM) </td>
+<td> BELTRANO DE TAL 102 </td>
+<td> Vice-Coordenação </td>
+<td> </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr>
+<td class="subListagem" colspan="5">FACULDADE DE DIREITO</td>
+</tr>
+<tr class="linhaImpar">
+<td> PROGRAMA DE POS-GRADUACAO EM DIREITO (PPGD) </td>
+<td> FULANO OLIVEIRA 240 </td>
+<td> Coordenação </td>
+<td> </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaPar">
+<td> PROGRAMA DE POS-GRADUACAO EM DIREITO (PPGD) </td>
+<td> BELTRANO PEREIRA 452 </td>
+<td> Vice-Coordenação </td>
+<td> </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaImpar">
+<td> PROGRAMA DE POS-GRADUACAO EM SEGURANCA PUBLICA, JUSTICA E CIDADANIA (MPSPJC) </td>
+<td> ANA SOUZA 025 </td>
+<td> Vice-Coordenação </td>
+<td> </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr>
+<td class="subListagem" colspan="5">FACULDADE DE ECONOMIA</td>
+</tr>
+<tr class="linhaPar">
+<td> PROGRAMA DE POS-GRADUACAO EM ECONOMIA (PPGE) </td>
+<td> LUCIA PEREIRA 157 </td>
+<td> Coordenação </td>
+<td> 0000 </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaImpar">
+<td> PROGRAMA DE POS-GRADUACAO EM ECONOMIA (PPGE) </td>
+<td> CARLOS ROCHA 198 </td>
+<td> Vice-Coordenação </td>
+<td> 0000 </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr>
+<td class="subListagem" colspan="5">FACULDADE DE EDUCAÇÃO</td>
+</tr>
+<tr class="linhaPar">
+<td> PROGRAMA DE POS-GRADUACAO EM ENSINO, FILOSOFIA E HISTORIA DAS CIENCIAS (PPGEFHC) </td>
+<td> PEDRO SANTOS 036 </td>
+<td> Vice-Coordenação </td>
+<td> 0000 </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaImpar">
+<td> PROGRAMA DE POS-GRADUACAO EM CURRICULO, LINGUAGENS E INOVACOES PEDAGOGICAS (PGEDU-P) </td>
+<td> FULANO OLIVEIRA 440 </td>
+<td> Coordenação </td>
+<td> </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaPar">
+<td> PROGRAMA DE POS-GRADUACAO EM EDUCACAO (PGEDU) </td>
+<td> JULIA DE TAL 109 </td>
+<td> Vice-Coordenação </td>
+<td> </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaImpar">
+<td> PROGRAMA DE POS-GRADUACAO EM EDUCACAO (PGEDU) </td>
+<td> LUCIA OLIVEIRA 247 </td>
+<td> Coordenação </td>
+<td> 0000 </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaPar">
+<td> PROGRAMA DE POS-GRADUACAO EM DIFUSAO DO CONHECIMENTO (DMMDC) </td>
+<td> FULANO ALVES 180 </td>
+<td> Coordenação </td>
+<td> </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaImpar">
+<td> PROGRAMA DE POS-GRADUACAO EM DIFUSAO DO CONHECIMENTO (DMMDC) </td>
+<td> CARLOS SOUZA 128 </td>
+<td> Vice-Coordenação </td>
+<td> </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaPar">
+<td> PROGRAMA DE POS-GRADUACAO EM ENSINO, FILOSOFIA E HISTORIA DAS CIENCIAS (PPGEFHC) </td>
+<td> LUCIA DE TAL 107 </td>
+<td> Coordenação </td>
+<td> 0000 </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr>
+<td class="subListagem" colspan="5">FACULDADE DE FARMÁCIA</td>
+</tr>
+<tr class="linhaImpar">
+<td> PROGRAMA DE POS-GRADUACAO EM CIENCIA DE ALIMENTOS (PGALI) </td>
+<td> BELTRANO ALVES 082 </td>
+<td> Coordenação </td>
+<td> (71) 3282-6907/(71) 99139-5059 </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaPar">
+<td> PROGRAMA DE POS-GRADUACAO EM CIENCIA DE ALIMENTOS (PGALI) </td>
+<td> CARLOS SANTOS 138 </td>
+<td> Vice-Coordenação </td>
+<td> 0000 </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaImpar">
+<td> PROGRAMA DE POS-GRADUACAO EM ASSISTENCIA FARMACEUTICA (PPGASFAR) </td>
+<td> ANA ALVES 385 </td>
+<td> Coordenação </td>
+<td> </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaPar">
+<td> PROGRAMA DE POS-GRADUACAO EM FARMACIA (PPGFAR) </td>
+<td> JOAO OLIVEIRA 244 </td>
+<td> Coordenação </td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="subListagem" colspan="5">FACULDADE DE FILOSOFIA E CIÊNCIAS HUMANAS</td>
+</tr>
+<tr class="linhaImpar">
+<td> PROGRAMA DE POS-GRADUACAO EM MUSEOLOGIA (PPGMUSEU) </td>
+<td> JULIA SOUZA 429 </td>
+<td> Coordenação </td>
+<td> (71) 3283-6445/(71) 98894-7310 </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaPar">
+<td> PROGRAMA DE POS-GRADUACAO EM MUSEOLOGIA (PPGMUSEU) </td>
+<td> ANA OLIVEIRA 345 </td>
+<td> Vice-Coordenação </td>
+<td> (71) 3283-6431/(71) 99231-2390 </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaImpar">
+<td> PROGRAMA DE POS-GRADUACAO EM ANTROPOLOGIA (PPGA) </td>
+<td> PEDRO COSTA 166 </td>
+<td> Vice-Coordenação </td>
+<td> </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaPar">
+<td> PROGRAMA DE POS-GRADUACAO EM ESTUDOS ETNICOS E AFRICANOS (POSAFRO) </td>
+<td> FULANO DA SILVA 310 </td>
+<td> Coordenação </td>
+<td> </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaImpar">
+<td> PROGRAMA DE POS-GRADUACAO EM ANTROPOLOGIA (PPGA) </td>
+<td> ANA ROCHA 095 </td>
+<td> Coordenação </td>
+<td> (71) 3283-6431/(71) 3331-2755 </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaPar">
+<td> PROGRAMA DE POS-GRADUACAO EM ESTUDOS INTERDISCIPLINARES SOBRE MULHERES, GENERO E FEMINISMO (PPGNEIM) </td>
+<td> JULIA SOUZA 229 </td>
+<td> Coordenação </td>
+<td> 0000 </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaImpar">
+<td> PROGRAMA DE POS-GRADUACAO EM ESTUDOS INTERDISCIPLINARES SOBRE MULHERES, GENERO E FEMINISMO (PPGNEIM) </td>
+<td> LUCIA ROCHA 097 </td>
+<td> Vice-Coordenação </td>
+<td> </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaPar">
+<td> PROGRAMA DE POS-GRADUACAO EM CIENCIA POLITICA (PPGCP) </td>
+<td> CARLOS OLIVEIRA 448 </td>
+<td> Coordenação </td>
+<td> </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaImpar">
+<td> PROGRAMA DE POS-GRADUACAO EM CIENCIA POLITICA (PPGCP) </td>
+<td> ANA COSTA 465 </td>
+<td> Vice-Coordenação </td>
+<td> </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaPar">
+<td> PROGRAMA DE POS-GRADUACAO EM FILOSOFIA (PPGF) </td>
+<td> JOAO ALVES 284 </td>
+<td> Coordenação </td>
+<td> 0000 </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaImpar">
+<td> PROGRAMA DE POS-GRADUACAO EM CIENCIAS SOCIAIS (PPGCS) </td>
+<td> CARLOS COSTA 268 </td>
+<td> Vice-Coordenação </td>
+<td> </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaPar">
+<td> PROGRAMA DE POS-GRADUACAO EM CIENCIAS SOCIAIS (PPGCS) </td>
+<td> BELTRANO SANTOS 032 </td>
+<td> Coordenação </td>
+<td> </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaImpar">
+<td> PROGRAMA DE POS-GRADUACAO EM HISTORIA (PPGH) </td>
+<td> JOAO SOUZA 424 </td>
+<td> Coordenação </td>
+<td> </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaPar">
+<td> PROGRAMA DE POS-GRADUACAO EM HISTORIA (PPGH) </td>
+<td> BELTRANO ROCHA 192 </td>
+<td> Vice-Coordenação </td>
+<td> </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr>
+<td class="subListagem" colspan="5">FACULDADE DE MEDICINA DA BAHIA</td>
+</tr>
+<tr class="linhaImpar">
+<td> PROGRAMA DE POS-GRADUACAO EM MEDICINA E SAUDE (PPGMS) </td>
+<td> FULANO ALVES 080 </td>
+<td> Coordenação </td>
+<td> </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaPar">
+<td> PROGRAMA DE POS-GRADUACAO EM MEDICINA E SAUDE (PPGMS) </td>
+<td> FULANO ROCHA 290 </td>
+<td> Vice-Coordenação </td>
+<td> </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaImpar">
+<td> PROGRAMA DE POS-GRADUACAO EM SAUDE, AMBIENTE E TRABALHO (PPGSAT) </td>
+<td> JOAO LIMA 174 </td>
+<td> Coordenação </td>
+<td> </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaPar">
+<td> PROGRAMA DE POS-GRADUACAO EM SAUDE, AMBIENTE E TRABALHO (PPGSAT) </td>
+<td> JULIA OLIVEIRA 249 </td>
+<td> Vice-Coordenação </td>
+<td> </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaImpar">
+<td> PROGRAMA DE POS-GRADUACAO EM PATOLOGIA HUMANA (PGPAT) </td>
+<td> CARLOS ROCHA 098 </td>
+<td> Vice-Coordenação </td>
+<td> </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaPar">
+<td> PROGRAMA DE POS-GRADUACAO EM CIENCIAS DA SAUDE (PPGCS) </td>
+<td> JOAO ROCHA 294 </td>
+<td> Coordenação </td>
+<td> </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr>
+<td class="subListagem" colspan="5">FACULDADE DE ODONTOLOGIA</td>
+</tr>
+<tr class="linhaImpar">
+<td> PROGRAMA DE POS-GRADUACAO EM ODONTOLOGIA E SAUDE (PPGOS) </td>
+<td> BELTRANO OLIVEIRA 342 </td>
+<td> Coordenação </td>
+<td> </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr>
+<td class="subListagem" colspan="5">INSTITUTO DE BIOLOGIA</td>
+</tr>
+<tr class="linhaPar">
+<td> PROGRAMA DE POS-GRADUACAO EM BIODIVERSIDADE E EVOLUCAO (PPGBIOEVO) </td>
+<td> PEDRO SOUZA 026 </td>
+<td> Vice-Coordenação </td>
+<td> (71) 3283-6519/(71) 3283-6590 </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaImpar">
+<td> PROGRAMA DE POS-GRADUACAO EM ECOLOGIA: TEORIA, APLICACAO E VALORES (PPGECOTAV) </td>
+<td> CICLANO DE TAL 201 </td>
+<td> Coordenação </td>
+<td> 0000 </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaPar">
+<td> PROGRAMA DE POS-GRADUACAO EM ECOLOGIA: TEORIA, APLICACAO E VALORES (PPGECOTAV) </td>
+<td> FULANO SOUZA 220 </td>
+<td> Vice-Coordenação </td>
+<td> </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaImpar">
+<td> PROGRAMA DE POS-GRADUACAO EM MICROBIOLOGIA (PGMICRO) </td>
+<td> BELTRANO SOUZA 422 </td>
+<td> Coordenação </td>
+<td> </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaPar">
+<td> PROGRAMA DE POS-GRADUACAO EM MICROBIOLOGIA (PGMICRO) </td>
+<td> ANA DE TAL 005 </td>
+<td> Vice-Coordenação </td>
+<td> </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaImpar">
+<td> PROGRAMA DE POS-GRADUACAO EM BIODIVERSIDADE E EVOLUCAO (PPGBIOEVO) </td>
+<td> FULANO DE TAL 400 </td>
+<td> Coordenação </td>
+<td> (71) 3283-6519/(71) 3283-6590 </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr>
+<td class="subListagem" colspan="5">INSTITUTO DE CIÊNCIA DA INFORMAÇÃO</td>
+</tr>
+<tr class="linhaPar">
+<td> PROGRAMA DE POS-GRADUACAO EM CIENCIA DA INFORMACAO (PPGCI) </td>
+<td> MARIA PEREIRA 253 </td>
+<td> Coordenação </td>
+<td> </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr>
+<td class="subListagem" colspan="5">INSTITUTO DE CIÊNCIAS DA SAÚDE</td>
+</tr>
+<tr class="linhaImpar">
+<td> PROGRAMA DE POS-GRADUACAO EM BIOQUIMICA E BIOLOGIA MOLECULAR (PMBQBM) </td>
+<td> LUCIA SANTOS 237 </td>
+<td> Coordenação </td>
+<td> </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaPar">
+<td> PROGRAMA DE POS-GRADUACAO EM BIOQUIMICA E BIOLOGIA MOLECULAR (PMBQBM) </td>
+<td> MARIA SOUZA 223 </td>
+<td> Vice-Coordenação </td>
+<td> </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaImpar">
+<td> PROGRAMA DE POS-GRADUACAO EM IMUNOLOGIA (PPGIM) </td>
+<td> JOAO DA SILVA 014 </td>
+<td> Coordenação </td>
+<td> </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaPar">
+<td> PROGRAMA DE POS-GRADUACAO EM PROCESSOS INTERATIVOS DOS ORGAOS E SISTEMAS (PPGORGSIS) </td>
+<td> JULIA PEREIRA 459 </td>
+<td> Coordenação </td>
+<td> </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaImpar">
+<td> PROGRAMA DE POS-GRADUACAO EM PROCESSOS INTERATIVOS DOS ORGAOS E SISTEMAS (PPGORGSIS) </td>
+<td> PEDRO OLIVEIRA 346 </td>
+<td> Vice-Coordenação </td>
+<td> </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaPar">
+<td> PROGRAMA DE POS-GRADUACAO EM BIOTECNOLOGIA (PPGBIOTEC) </td>
+<td> CICLANO ROCHA 391 </td>
+<td> Coordenação </td>
+<td> 0000 </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaImpar">
+<td> PROGRAMA DE POS-GRADUACAO EM BIOTECNOLOGIA (PPGBIOTEC) </td>
+<td> CICLANO COSTA 261 </td>
+<td> Vice-Coordenação </td>
+<td> </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaPar">
+<td> PROGRAMA DE POS-GRADUACAO EM BIOTECNOLOGIA - REDE RENORBIO (RENORBIO) </td>
+<td> MARIA PEREIRA 053 </td>
+<td> Coordenação </td>
+<td> </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaImpar">
+<td> PROGRAMA DE POS-GRADUACAO EM BIOTECNOLOGIA - REDE RENORBIO (RENORBIO) </td>
+<td> CICLANO COSTA 261 </td>
+<td> Vice-Coordenação </td>
+<td> </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr>
+<td class="subListagem" colspan="5">INSTITUTO DE COMPUTAÇÃO</td>
+</tr>
+<tr class="linhaPar">
+<td> PROGRAMA DE POS-GRADUACAO EM CIENCIA DA COMPUTACAO (PGCOMP) </td>
+<td> ANA ALVES 185 </td>
+<td> Coordenação </td>
+<td> 0000 </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaImpar">
+<td> PROGRAMA DE POS-GRADUACAO EM CIENCIA DA COMPUTACAO (PGCOMP) </td>
+<td> MARIA DE TAL 403 </td>
+<td> Vice-Coordenação </td>
+<td> </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaPar">
+<td> PROGRAMA DE POS-GRADUACAO EM ENSINO DE COMPUTACAO (PROFCOMP) </td>
+<td> PEDRO LIMA 276 </td>
+<td> Coordenação </td>
+<td> </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaImpar">
+<td> PROGRAMA DE POS-GRADUACAO EM ENSINO DE COMPUTACAO (PROFCOMP) </td>
+<td> CICLANO SOUZA 021 </td>
+<td> Vice-Coordenação </td>
+<td> </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr>
+<td class="subListagem" colspan="5">INSTITUTO DE FÍSICA</td>
+</tr>
+<tr class="linhaPar">
+<td> PROGRAMA DE POS-GRADUACAO EM FISICA (PPGFIS) </td>
+<td> ANA SANTOS 435 </td>
+<td> Coordenação </td>
+<td> </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaImpar">
+<td> PROGRAMA DE POS-GRADUACAO EM FISICA (PPGFIS) </td>
+<td> BELTRANO SOUZA 222 </td>
+<td> Vice-Coordenação </td>
+<td> </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr>
+<td class="subListagem" colspan="5">INSTITUTO DE GEOCIÊNCIAS</td>
+</tr>
+<tr class="linhaPar">
+<td> PROGRAMA DE POS-GRADUACAO EM GEOGRAFIA (POSGEO) </td>
+<td> BELTRANO DA SILVA 012 </td>
+<td> Coordenação </td>
+<td> </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaImpar">
+<td> PROGRAMA DE POS-GRADUACAO EM GEOGRAFIA (POSGEO) </td>
+<td> LUCIA SOUZA 127 </td>
+<td> Vice-Coordenação </td>
+<td> </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaPar">
+<td> PROGRAMA DE POS-GRADUACAO EM GEOQUIMICA: PETROLEO E MEIO AMBIENTE (POSPETRO-GEO) </td>
+<td> BELTRANO COSTA 462 </td>
+<td> Coordenação </td>
+<td> </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaImpar">
+<td> PROGRAMA DE POS-GRADUACAO EM GEOQUIMICA: PETROLEO E MEIO AMBIENTE (POSPETRO-GEO) </td>
+<td> JULIA DA SILVA 219 </td>
+<td> Vice-Coordenação </td>
+<td> 0000 </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaPar">
+<td> PROGRAMA DE POS-GRADUACAO EM GEOLOGIA (PGGEOLOGIA) </td>
+<td> PEDRO PEREIRA 256 </td>
+<td> Coordenação </td>
+<td> </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaImpar">
+<td> PROGRAMA DE POS-GRADUACAO EM GEOLOGIA (PGGEOLOGIA) </td>
+<td> CARLOS DA SILVA 018 </td>
+<td> Vice-Coordenação </td>
+<td> </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaPar">
+<td> PROGRAMA DE POS-GRADUACAO EM GEOFISICA (PGGEOFISICA) </td>
+<td> CICLANO DA SILVA 011 </td>
+<td> Coordenação </td>
+<td> </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaImpar">
+<td> PROGRAMA DE POS-GRADUACAO EM GEOFISICA (PGGEOFISICA) </td>
+<td> LUCIA ROCHA 397 </td>
+<td> Vice-Coordenação </td>
+<td> </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr>
+<td class="subListagem" colspan="5">INSTITUTO DE HUMANIDADES, ARTES E CIÊNCIAS PROFESSOR MILTON SANTOS</td>
+</tr>
+<tr class="linhaPar">
+<td> PROGRAMA DE POS-GRADUACAO EM ESTUDOS INTERDISCIPLINARES SOBRE A UNIVERSIDADE (PPGEISU) </td>
+<td> CICLANO OLIVEIRA 341 </td>
+<td> Coordenação </td>
+<td> </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaImpar">
+<td> PROGRAMA DE POS-GRADUACAO EM ESTUDOS INTERDISCIPLINARES SOBRE A UNIVERSIDADE (PPGEISU) </td>
+<td> MARIA COSTA 463 </td>
+<td> Vice-Coordenação </td>
+<td> </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaPar">
+<td> PROGRAMA DE POS-GRADUACAO EM CULTURA E SOCIEDADE (POSCULTURA) </td>
+<td> FULANO ROCHA 390 </td>
+<td> Coordenação </td>
+<td> 0000 </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaImpar">
+<td> PROGRAMA DE POS-GRADUACAO EM RELACOES INTERNACIONAIS (PPGRI) </td>
+<td> CARLOS LIMA 478 </td>
+<td> Coordenação </td>
+<td> 0000 </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaPar">
+<td> PROGRAMA DE POS-GRADUACAO EM RELACOES INTERNACIONAIS (PPGRI) </td>
+<td> MARIA PEREIRA 153 </td>
+<td> Vice-Coordenação </td>
+<td> </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaImpar">
+<td> PROGRAMA DE POS-GRADUACAO EM PROFARTES (PROFARTES) </td>
+<td> PEDRO ALVES 386 </td>
+<td> Coordenação </td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="subListagem" colspan="5">INSTITUTO DE LETRAS</td>
+</tr>
+<tr class="linhaPar">
+<td> PROGRAMA DE POS-GRADUACAO EM LITERATURA E CULTURA (PPGLITCULT) </td>
+<td> FULANO COSTA 160 </td>
+<td> Coordenação </td>
+<td> </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaImpar">
+<td> PROGRAMA DE POS-GRADUACAO EM LETRAS (PROFLETRAS) </td>
+<td> JULIA SOUZA 329 </td>
+<td> Coordenação </td>
+<td> </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaPar">
+<td> PROGRAMA DE POS-GRADUACAO EM LETRAS (PROFLETRAS) </td>
+<td> JULIA SANTOS 039 </td>
+<td> Vice-Coordenação </td>
+<td> </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaImpar">
+<td> PROGRAMA DE POS-GRADUACAO EM LITERATURA E CULTURA (PPGLITCULT) </td>
+<td> BELTRANO LIMA 372 </td>
+<td> Vice-Coordenação </td>
+<td> </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaPar">
+<td> PROGRAMA DE POS-GRADUACAO EM LINGUA E CULTURA (PPGLINC) </td>
+<td> MARIA OLIVEIRA 343 </td>
+<td> Vice-Coordenação </td>
+<td> </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaImpar">
+<td> PROGRAMA DE POS-GRADUACAO EM LINGUA E CULTURA (PPGLINC) </td>
+<td> JULIA LIMA 379 </td>
+<td> Coordenação </td>
+<td> </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr>
+<td class="subListagem" colspan="5">INSTITUTO DE MATEMÁTICA E ESTATÍSTICA</td>
+</tr>
+<tr class="linhaPar">
+<td> PROGRAMA DE POS-GRADUACAO EM ESTATISTICA E CIENCIAS DE DADOS </td>
+<td> JOAO ROCHA 394 </td>
+<td> Coordenação </td>
+<td> </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaImpar">
+<td> PROGRAMA DE POS-GRADUACAO EM ESTATISTICA E CIENCIAS DE DADOS </td>
+<td> BELTRANO ALVES 282 </td>
+<td> Vice-Coordenação </td>
+<td> </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaPar">
+<td> PROGRAMA DE POS-GRADUACAO EM MATEMATICA (PGMAT) </td>
+<td> JOAO DA SILVA 114 </td>
+<td> Coordenação </td>
+<td> </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaImpar">
+<td> PROGRAMA DE POS-GRADUACAO EM MATEMATICA (PGMAT) </td>
+<td> FULANO COSTA 060 </td>
+<td> Vice-Coordenação </td>
+<td> </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaPar">
+<td> PROGRAMA DE POS-GRADUACAO EM MATEMATICA EM REDE NACIONAL (PROFMAT) </td>
+<td> CARLOS PEREIRA 158 </td>
+<td> Coordenação </td>
+<td> 0000 </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaImpar">
+<td> PROGRAMA DE POS-GRADUACAO EM MATEMATICA EM REDE NACIONAL (PROFMAT) </td>
+<td> BELTRANO LIMA 272 </td>
+<td> Vice-Coordenação </td>
+<td> </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaPar">
+<td> PROGRAMA DE POS-GRADUACAO EM MATEMATICA (PGMAT-UFAL) </td>
+<td> FULANO LIMA 470 </td>
+<td> Coordenação </td>
+<td> 0000 </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaImpar">
+<td> PROGRAMA DE POS-GRADUACAO EM MATEMATICA (PGMAT-UFAL) </td>
+<td> PEDRO OLIVEIRA 246 </td>
+<td> Vice-Coordenação </td>
+<td> 0000 </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr>
+<td class="subListagem" colspan="5">INSTITUTO DE PSICOLOGIA E SERVIÇO SOCIAL</td>
+</tr>
+<tr class="linhaPar">
+<td> PROGRAMA DE POS-GRADUACAO EM SERVICO SOCIAL (PPGSS) </td>
+<td> LUCIA SOUZA 327 </td>
+<td> Coordenação </td>
+<td> </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaImpar">
+<td> PROGRAMA DE POS-GRADUACAO EM SERVICO SOCIAL (PPGSS) </td>
+<td> BELTRANO COSTA 262 </td>
+<td> Vice-Coordenação </td>
+<td> </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaPar">
+<td> PROGRAMA DE POS-GRADUACAO EM PSICOLOGIA (PPGPSI) </td>
+<td> LUCIA DE TAL 007 </td>
+<td> Coordenação </td>
+<td> </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaImpar">
+<td> PROGRAMA DE POS-GRADUACAO EM PSICOLOGIA (PPGPSI) </td>
+<td> CICLANO PEREIRA 151 </td>
+<td> Vice-Coordenação </td>
+<td> </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr>
+<td class="subListagem" colspan="5">INSTITUTO DE QUÍMICA</td>
+</tr>
+<tr class="linhaPar">
+<td> PROGRAMA DE POS-GRADUACAO EM QUIMICA (PPGQ) </td>
+<td> PEDRO ALVES 286 </td>
+<td> Vice-Coordenação </td>
+<td> </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaImpar">
+<td> PROGRAMA DE POS-GRADUACAO EM PROPRIEDADE INTELECTUAL E TRANSFERENCIA DE TECNOLOGIA PARA INOVACAO (PROFNIT) </td>
+<td> ANA DA SILVA 115 </td>
+<td> Vice-Coordenação </td>
+<td> </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaPar">
+<td> PROGRAMA DE POS-GRADUACAO EM PROPRIEDADE INTELECTUAL E TRANSFERENCIA DE TECNOLOGIA PARA INOVACAO (PROFNIT) </td>
+<td> LUCIA OLIVEIRA 447 </td>
+<td> Coordenação </td>
+<td> </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaImpar">
+<td> PROGRAMA DE POS-GRADUACAO EM QUIMICA (PPGQ) </td>
+<td> MARIA COSTA 363 </td>
+<td> Coordenação </td>
+<td> </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr>
+<td class="subListagem" colspan="5">INSTITUTO DE SAÚDE COLETIVA</td>
+</tr>
+<tr class="linhaPar">
+<td> PROGRAMA DE POS-GRADUACAO EM SAUDE COLETIVA (PPGSC-P) </td>
+<td> LUCIA ALVES 087 </td>
+<td> Coordenação </td>
+<td> </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaImpar">
+<td> PROGRAMA DE POS-GRADUACAO EM SAUDE COLETIVA (PPGSC) </td>
+<td> JOAO LIMA 374 </td>
+<td> Coordenação </td>
+<td> </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaPar">
+<td> PROGRAMA DE POS-GRADUACAO EM SAUDE COLETIVA (PPGSC) </td>
+<td> JULIA SANTOS 339 </td>
+<td> Vice-Coordenação </td>
+<td> </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr>
+<td class="subListagem" colspan="5">INSTITUTO MULTIDISCIPLINAR DE REABILITAÇÃO E SAÚDE</td>
+</tr>
+<tr class="linhaImpar">
+<td> PROGRAMA DE POS-GRADUACAO EM CIENCIAS DA REABILITACAO (PPGREAB) </td>
+<td> LUCIA ALVES 487 </td>
+<td> Coordenação </td>
+<td> </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaPar">
+<td> PROGRAMA DE POS-GRADUACAO EM CIENCIAS DA REABILITACAO (PPGREAB) </td>
+<td> JULIA COSTA 269 </td>
+<td> Vice-Coordenação </td>
+<td> </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr>
+<td class="subListagem" colspan="5">INSTITUTO MULTIDISCIPLINAR EM SAÚDE</td>
+</tr>
+<tr class="linhaImpar">
+<td> PROGRAMA DE POS-GRADUACAO EM SAUDE DA FAMILIA </td>
+<td> JULIA DE TAL 009 </td>
+<td> Coordenação </td>
+<td> </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaPar">
+<td> PROGRAMA DE POS-GRADUACAO EM BIOCIENCIAS (PPGBIOCIENCIAS) </td>
+<td> FULANO ALVES 280 </td>
+<td> Coordenação </td>
+<td> </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaImpar">
+<td> PROGRAMA DE POS-GRADUACAO EM BIOCIENCIAS (PPGBIOCIENCIAS) </td>
+<td> BELTRANO ALVES 182 </td>
+<td> Vice-Coordenação </td>
+<td> </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaPar">
+<td> PROGRAMA DE POS-GRADUACAO EM CIENCIAS FISIOLOGICAS (PMPGCF) </td>
+<td> CICLANO ROCHA 291 </td>
+<td> Coordenação </td>
+<td> </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaImpar">
+<td> PROGRAMA DE POS-GRADUACAO EM SAUDE COLETIVA (PPGSC-IMS) </td>
+<td> ANA SOUZA 125 </td>
+<td> Coordenação </td>
+<td> </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaPar">
+<td> PROGRAMA DE POS-GRADUACAO EM SAUDE COLETIVA (PPGSC-IMS) </td>
+<td> CARLOS PEREIRA 258 </td>
+<td> Vice-Coordenação </td>
+<td> </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaImpar">
+<td> PROGRAMA DE POS-GRADUACAO EM CIENCIAS FISIOLOGICAS (PMPGCF) </td>
+<td> JOAO SOUZA 024 </td>
+<td> Vice-Coordenação </td>
+<td> </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaPar">
+<td> PROGRAMA DE POS-GRADUACAO EM PSICOLOGIA DA SAUDE (PPGPS) </td>
+<td> LUCIA ALVES 387 </td>
+<td> Coordenação </td>
+<td> </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaImpar">
+<td> PROGRAMA DE POS-GRADUACAO EM PSICOLOGIA DA SAUDE (PPGPS) </td>
+<td> JOAO SOUZA 324 </td>
+<td> Vice-Coordenação </td>
+<td> 0000 </td>
+<td> fulano@exemplo.br </td>
+</tr>
+</tbody>
+<tfoot>
+<tr>
+<td colspan="5"> </td>
+</tr>
+</tfoot>
+</table>
+<input id="javax.faces.ViewState" name="javax.faces.ViewState" type="hidden" value="j_id7"/>
+</form>
+<div class="clear"></div>
+</div>
+<div id="rodape">
+<p> <!-- Redmine 24523 - Telas e relat&#243;rios com rodap&#233;s sem a altera&#231;&#227;o - Portal P&#250;blico -->
+			SIGAA | STI/SUPAC | -  | Copyright © 2006-2026 - UFBA - saomiguel.intranet.ufba.br
+			 
+				<a onclick="javascript:versao();">v4.13.8_41_hotfix</a>
+</p>
+</div>
+<!-- Fim dos containers -->
+</div>
+</div>
+<!-- MYFACES JAVASCRIPT -->
+</body>
+</html>
+<html><script charset="UTF-8" type="text/javascript">
+		function versao(){
+			var msg='';
+			msg+='SIGAA 4.13.8_41_hotfix,  publicado em: 25/09/2026 16:18\n\n';
+			msg+='Depend\u00eancias:\n';
+			msg+='Arquitetura 4.4.5\n';
+			msg+='Entidades Comuns 2.3.3\n';
+			msg+='Servicos Integrados 2.0.8\n';
+			msg+='SharedResources 2.1.4\n';
+			msg+='Servicos Remoto Biblioteca null\n';
+			msg+='SIGAA Mobile Objects 1.0.0\n\n';
+			msg+='Copyright SINFO/UFRN';
+			alert(msg);
+		}	
+	</script>
+<style>
+a.linkMobile:link {
+	color: #003395;
+	font-weight: bold;
+	font-size: inherit;
+	text-decoration: none;
+}
+
+a.linkMobile:visited {
+	color: #003390;
+	text-decoration: none;
+	font-weight: bold;
+}
+
+a.linkMobile:active {
+	color: #444444;
+	text-decoration: none;
+	font-weight: bold;
+}
+</style>
+</html>

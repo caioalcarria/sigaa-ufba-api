@@ -1,0 +1,216 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta content="no-cache" http-equiv="Pragma"/>
+<title>SIGAA - Sistema Integrado de Gestão de Atividades Acadêmicas</title>
+<link class="component" href="/sigaa/a4j/s/3_3_3.Finalorg/richfaces/renderkit/html/css/basic_classes.xcss/DATB/eAF7sqpgb-jyGdIAFrMEaw__.jsf" rel="stylesheet" type="text/css"/><link class="component" href="/sigaa/a4j/s/3_3_3.Finalorg/richfaces/renderkit/html/css/extended_classes.xcss/DATB/eAF7sqpgb-jyGdIAFrMEaw__.jsf" media="rich-extended-skinning" rel="stylesheet" type="text/css"/><script src="/sigaa/a4j/g/3_3_3.Finalorg.ajax4jsf.javascript.AjaxScript.jsf" type="text/javascript"></script><script src="/sigaa/a4j/g/3_3_3.Finalorg.ajax4jsf.javascript.PrototypeScript.jsf" type="text/javascript"></script><script src="/sigaa/a4j/g/3_3_3.Finalorg/richfaces/renderkit/html/scripts/jquery/jquery.js.jsf" type="text/javascript"></script><script src="/sigaa/a4j/g/3_3_3.Finalorg/richfaces/renderkit/html/scripts/available.js.jsf" type="text/javascript"></script><script src="/sigaa/a4j/g/3_3_3.Finalorg.ajax4jsf.javascript.SmartPositionScript.jsf" type="text/javascript"></script><script src="/sigaa/a4j/g/3_3_3.Finalorg/richfaces/renderkit/html/scripts/browser_info.js.jsf" type="text/javascript"></script><script src="/sigaa/a4j/g/3_3_3.Finalorg/richfaces/renderkit/html/scripts/utils.js.jsf" type="text/javascript"></script><script src="/sigaa/a4j/g/3_3_3.Finalorg/richfaces/renderkit/html/scripts/scriptaculous/effects.js.jsf" type="text/javascript"></script><script src="/sigaa/a4j/g/3_3_3.Finalscripts/suggestionbox.js.jsf" type="text/javascript"></script><link class="component" href="/sigaa/a4j/s/3_3_3.Finalorg/richfaces/renderkit/html/css/suggestionbox.xcss/DATB/eAF7sqpgb-jyGdIAFrMEaw__.jsf" rel="stylesheet" type="text/css"/><script type="text/javascript">window.RICH_FACES_EXTENDED_SKINNING_ON=true;</script><script src="/sigaa/a4j/g/3_3_3.Finalorg/richfaces/renderkit/html/scripts/skinning.js.jsf" type="text/javascript"></script><link href="/sigaa/img/sigaa.ico" rel="shortcut icon"/>
+<script src="/shared/jsBundles/jawr_loader.js" type="text/javascript"></script>
+<script src="/sigaa/javascript/prevenir-duplo-clique.js" type="text/javascript"></script>
+<script type="text/javascript">
+		JAWR.loader.style('/javascript/ext-2.0.a.1/resources/css/ext-all.css', 'all');
+		JAWR.loader.style('/css/public.css','all');
+	 	JAWR.loader.script('/bundles/js/sigaa_base.js');
+	 	JAWR.loader.script('/bundles/js/ext2_all.js');
+
+	 	
+	</script>
+<link href="/sigaa/cssBundles/gzip_787491763/public/css/public.css" media="all" rel="stylesheet" type="text/css"/>
+<link href="/shared/beta/css/font-awesome.css" media="screen" rel="stylesheet" type="text/css"/>
+<script src="/shared/javascript/STICookieConsent.js"></script>
+
+</head>
+<body>
+<div id="container">
+<div id="container-inner">
+<div id="cabecalho">
+<div id="logo">
+<a href="/sigaa/public/"> <img src="https://sipac.ufba.br/shared/img/instituicao/brasao_ufba48x75.jpg"/> </a>
+</div>
+<div id="identificacao">
+<span class="ufrn"> Universidade Federal da Bahia </span>
+<span class="data">
+				 Salvador, 
+				 19 de Outubro de 
+				 2026 
+			</span>
+<a href="/sigaa/public/" id="home" style="width: 450px;" title="Página inicial"> </a>
+<div id="menu_info">
+<ul>
+<li class="login">
+<a alt="Clique aqui para logar-se no SIGAA" href="/sigaa/" title="Clique aqui para logar-se no SIGAA">
+							Login
+						<i class="fa fa-angle-right"></i></a>
+</li>
+</ul>
+</div>
+</div>
+<br clear="all"/>
+</div>
+<div id="corpo">
+<script src="/sigaa/javascript/encoding.js" type="text/javascript"></script>
+<div id="painel-erros" style="position: relative; padding-bottom: 10px;">
+<ul class="erros">
+<li>Não foram encontrados resultados para a busca com estes parâmetros.</li>
+</ul>
+<div id="fechar-painel-erros" style="position: absolute; bottom: 2px; right: 2px;">
+<a href="javascript://nop/" onclick="$('painel-erros').remove();" style="color: #AAA; font-size: 0.9em;">
+					(x) fechar mensagens
+				</a>
+</div>
+</div>
+<h2>
+	 Consulta de Laboratórios de Pesquisa da UFBA
+</h2>
+<br/>
+<style>
+	span.info {
+		font-size: 0.8em;
+		color: #444;
+	}
+</style>
+<form action="/sigaa/public/pesquisa/consulta_laboratorios.jsf" enctype="application/x-www-form-urlencoded" id="form" method="post" name="form">
+<input name="form" type="hidden" value="form"/>
+<br clear="all"/>
+<table class="formulario" width="90%">
+<caption>Buscar Laboratórios</caption>
+<tbody>
+<tr>
+<td> <input class="noborder" id="form:selectBuscaAno" name="form:selectBuscaAno" type="checkbox"/> </td>
+<td width="20%"> <label for="selectBuscaAno"> Ano: </label> </td>
+<td> <input id="form:buscaAno" maxlength="4" name="form:buscaAno" onchange="javascript:$('form:selectBuscaAno').checked = true;" onkeyup="return formatarInteiro(this)" size="4" type="text"/>
+</td>
+</tr>
+<tr>
+<td> <input class="noborder" id="form:selectBuscaNome" name="form:selectBuscaNome" type="checkbox"/> </td>
+<td> <label for="form:selectBuscaNome">
+Nome do Laboratório:</label> </td>
+<td> <input id="form:buscaNome" name="form:buscaNome" onchange="javascript:$('form:selectBuscaNome').checked = true;" style="width:80%" type="text" value=""/> </td>
+</tr>
+<tr>
+<td> <input class="noborder" id="form:selectBuscaTipoLaboratorio" name="form:selectBuscaTipoLaboratorio" type="checkbox"/> </td>
+<td> <label for="form:selectBuscaTipoLaboratorio">
+Tipo de Laboratório:</label> </td>
+<td>
+<select id="form:buscaTipoLaboratorio" name="form:buscaTipoLaboratorio" onchange="javascript:$('form:selectBuscaTipoLaboratorio').checked = true;" size="1" style="width:80%;"> <option selected="selected" value="0">-- SELECIONE --</option>
+<option value="3">Laboratório de Pesquisa Multiusuários</option>
+<option value="4">Laboratório de Pesquisa de uso Restrito</option>
+</select>
+</td>
+</tr>
+<tr>
+<td><input class="noborder" id="form:selectBuscaUnidade" name="form:selectBuscaUnidade" type="checkbox"/> </td>
+<td> <label for="form:selectBuscaUnidade">
+Unidade:</label> </td>
+<td>
+<input id="form:unidade" name="form:unidade" onchange="javascript:$('form:selectBuscaUnidade').checked = true;" onkeyup="if (!((event.keyCode &gt;= 46 &amp;&amp; event.keyCode &lt;= 90) || (event.keyCode &gt;= 96 &amp;&amp; event.keyCode &lt;= 111) || (event.keyCode &gt;= 186 &amp;&amp; event.keyCode &lt;= 222) || event.keyCode == 8)) { return false};A4J.AJAX.Submit('form',event,{'similarityGroupingId':'form:j_id_jsp_1989632783_15','parameters':{'form:j_id_jsp_1989632783_15':'form:j_id_jsp_1989632783_15'} ,'containerId':'j_id_jsp_1989632783_0'} )" style="width:80%;" type="text" value=""/><div class="rich-sb-common-container" id="form:suggestion" style="display:none; z-index: 201;width:530px;height:250px;;;"><div class="rich-sb-ext-decor-1"><div class="rich-sb-ext-decor-2" style=";; border-width: null  null  null  null ;"><table border="0" cellpadding="0" cellspacing="1" class="rich-sb-ext-decor-3"><tbody><tr><td><div class="_suggestion_size_ rich-sb-overflow" style="width:526px;height:246px;"><table border="0" id="form:suggestion:suggest" width="100%"><tbody><tr style="display:none;"><td></td></tr></tbody></table></div></td></tr></tbody></table></div></div><div class="rich-sb-shadow" style="opacity:0.1; filter:alpha(opacity=10);top: 4px; left: 4px; "></div></div><div id="form:suggestion_script" style="display:none;"><script type="text/javascript">Richfaces.onAvailable('form:unidade', function() { new RichFaces.Suggestion('form','form:unidade','form:suggestion',{'minChars':'3','height':'250','onselect':function(suggestion,event){A4J.AJAX.Submit('form',event,{'similarityGroupingId':'form:suggestion:j_id_jsp_1989632783_19','parameters':{'form:suggestion:j_id_jsp_1989632783_19':'form:suggestion:j_id_jsp_1989632783_19'} ,'containerId':'j_id_jsp_1989632783_0'} )},'implicitEventsQueue':'form:suggestion','width':'530','similarityGroupingId':'form:suggestion','parameters':{'form:suggestion':'form:suggestion','ajaxSingle':'form:suggestion'} ,'containerId':'j_id_jsp_1989632783_0'} );
+});</script></div><iframe id="form:suggestion_iframe" src="/sigaa/a4j/g/3_3_3.Finalorg/richfaces/renderkit/html/images/spacer.gif.jsf" style="position:absolute;display:none;z-index:200;"></iframe><input autocomplete="off" id="form:suggestion_selection" name="form:suggestion_selection" type="hidden"/>
+</td>
+</tr>
+<tr>
+<td><input class="noborder" id="form:selectBuscaSubUnidade" name="form:selectBuscaSubUnidade" type="checkbox"/> </td>
+<td> <label for="form:selectBuscaSubUnidade">
+Subunidade:</label> </td>
+<td>
+<select id="form:buscaSubUnidade" name="form:buscaSubUnidade" onchange="javascript:$('form:selectBuscaSubUnidade').checked = true;" size="1" style="width:80%;"> <option selected="selected" value="0">-- SELECIONE --</option>
+</select>
+</td>
+</tr>
+<tr>
+<td><input class="noborder" id="form:selectBuscaServidor" name="form:selectBuscaServidor" type="checkbox"/> </td>
+<td><label onclick="javascript:$('form:selectBuscaServidor').checked = !$('form:selectBuscaServidor').checked;">Servidor:</label></td>
+<td> <input id="form:nomeServidor" name="form:nomeServidor" onchange="javascript:$('form:selectBuscaServidor').checked = true;" size="59" style="width:80%;" type="text" value=""/> </td>
+</tr>
+<tr>
+<td><input class="noborder" id="form:selectBuscaLaboratorioEmAtividade" name="form:selectBuscaLaboratorioEmAtividade" type="checkbox"/>
+</td>
+<td> <label for="form:selectBuscaLaboratorioEmAtividade">
+Laboratório em Atividade:</label> </td>
+<td>
+<select id="form:buscaEmAtividade" name="form:buscaEmAtividade" onchange="javascript:$('form:selectBuscaLaboratorioEmAtividade').checked = true;" size="1"> <option selected="selected" value="true">Sim</option>
+<option value="false">Não</option>
+</select>
+</td>
+</tr>
+<tr>
+<td><input class="noborder" id="form:selectBuscaLaboratorioComPrestacaoServicos" name="form:selectBuscaLaboratorioComPrestacaoServicos" type="checkbox"/>
+</td>
+<td> <label for="form:selectBuscaLaboratorioComPrestacaoServicos">
+Laboratórios com Prestação de Serviços:</label> </td>
+<td>
+<select id="form:buscaPrestaServicos" name="form:buscaPrestaServicos" onchange="javascript:$('form:selectBuscaLaboratorioComPrestacaoServicos').checked = true;" size="1"> <option selected="selected" value="true">Sim</option>
+<option value="false">Não</option>
+</select>
+</td>
+</tr>
+<tr>
+<td> <input class="noborder" id="form:selectBuscaServicoPrestado" name="form:selectBuscaServicoPrestado" type="checkbox"/> </td>
+<td> <label for="form:selectBuscaServicoPrestado">
+Serviços Prestados:</label> </td>
+<td>
+<input id="form:servicoPrestado" name="form:servicoPrestado" onblur="javascript:$('form:selectBuscaServicoPrestado').checked = true;" style="width:80%;" type="text" value=""/><div class="rich-sb-common-container" id="form:suggestionServicoPrestado" style="display:none; z-index: 201;width:530px;height:250px;;;"><div class="rich-sb-ext-decor-1"><div class="rich-sb-ext-decor-2" style=";; border-width: null  null  null  null ;"><table border="0" cellpadding="0" cellspacing="1" class="rich-sb-ext-decor-3"><tbody><tr><td><div class="_suggestion_size_ rich-sb-overflow" style="width:526px;height:246px;"><table border="0" id="form:suggestionServicoPrestado:suggest" width="100%"><tbody><tr style="display:none;"><td></td></tr></tbody></table></div></td></tr></tbody></table></div></div><div class="rich-sb-shadow" style="opacity:0.1; filter:alpha(opacity=10);top: 4px; left: 4px; "></div></div><div id="form:suggestionServicoPrestado_script" style="display:none;"><script type="text/javascript">Richfaces.onAvailable('form:servicoPrestado', function() { new RichFaces.Suggestion('form','form:servicoPrestado','form:suggestionServicoPrestado',{'minChars':'3','height':'250','onselect':function(suggestion,event){A4J.AJAX.Submit('form',event,{'similarityGroupingId':'form:suggestionServicoPrestado:j_id_jsp_1989632783_41','parameters':{'form:suggestionServicoPrestado:j_id_jsp_1989632783_41':'form:suggestionServicoPrestado:j_id_jsp_1989632783_41'} ,'containerId':'j_id_jsp_1989632783_0'} )},'implicitEventsQueue':'form:suggestionServicoPrestado','width':'530','similarityGroupingId':'form:suggestionServicoPrestado','parameters':{'ajaxSingle':'form:suggestionServicoPrestado','form:suggestionServicoPrestado':'form:suggestionServicoPrestado'} ,'containerId':'j_id_jsp_1989632783_0'} );
+});</script></div><iframe id="form:suggestionServicoPrestado_iframe" src="/sigaa/a4j/g/3_3_3.Finalorg/richfaces/renderkit/html/images/spacer.gif.jsf" style="position:absolute;display:none;z-index:200;"></iframe><input autocomplete="off" id="form:suggestionServicoPrestado_selection" name="form:suggestionServicoPrestado_selection" type="hidden"/>
+</td>
+</tr>
+<tr>
+<td width="5px">
+<input class="noborder" id="form:selectGerarRelatorio" name="form:selectGerarRelatorio" type="checkbox"/>
+</td>
+<th style="text-align:left;font-weight: bold;"> <label for="form:selectGerarRelatorio">
+Gerar Relatório</label></th>
+<td></td>
+</tr>
+</tbody>
+<tfoot>
+<tr>
+<td colspan="3">
+<input id="form:btnBuscar" name="form:btnBuscar" type="submit" value="Buscar"/> 
+					<input id="form:btnCancelar" name="form:btnCancelar" onclick="return confirm('Deseja cancelar a operação? Todos os dados digitados serão perdidos!');" type="submit" value="Cancelar"/>
+</td>
+</tr>
+</tfoot>
+</table>
+<br/>
+<input id="javax.faces.ViewState" name="javax.faces.ViewState" type="hidden" value="j_id13"/>
+</form>
+<br/>
+<div style="width: 80%; text-align: center; margin: 0 auto;">
+<a href="/sigaa/public/home.jsf" style="color: #404E82;"> &lt;&lt; voltar ao menu principal</a>
+</div>
+<br/>
+<div class="clear"></div>
+</div>
+<div id="rodape">
+<p> <!-- Redmine 24523 - Telas e relat&#243;rios com rodap&#233;s sem a altera&#231;&#227;o - Portal P&#250;blico -->
+			SIGAA | STI/SUPAC | -  | Copyright © 2006-2026 - UFBA - sigaapl08.intranet.ufba.br
+			 
+				<a onclick="javascript:versao();">v4.13.8_41_hotfix</a>
+</p>
+</div>
+<!-- Fim dos containers -->
+</div>
+</div>
+<!-- MYFACES JAVASCRIPT -->
+</body>
+</html>
+<html>
+<style>
+a.linkMobile:link {
+	color: #003395;
+	font-weight: bold;
+	font-size: inherit;
+	text-decoration: none;
+}
+
+a.linkMobile:visited {
+	color: #003390;
+	text-decoration: none;
+	font-weight: bold;
+}
+
+a.linkMobile:active {
+	color: #444444;
+	text-decoration: none;
+	font-weight: bold;
+}
+</style>
+</html>

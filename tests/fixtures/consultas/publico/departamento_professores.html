@@ -1,0 +1,1364 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta content="no-cache" http-equiv="Pragma"/>
+<title>SIGAA - Sistema Integrado de Gestão de Atividades Acadêmicas</title>
+<link class="component" href="/sigaa/a4j/s/3_3_3.Finalorg/richfaces/renderkit/html/css/basic_classes.xcss/DATB/eAF7sqpgb-jyGdIAFrMEaw__.jsf" rel="stylesheet" type="text/css"/><link class="component" href="/sigaa/a4j/s/3_3_3.Finalorg/richfaces/renderkit/html/css/extended_classes.xcss/DATB/eAF7sqpgb-jyGdIAFrMEaw__.jsf" media="rich-extended-skinning" rel="stylesheet" type="text/css"/><script type="text/javascript">window.RICH_FACES_EXTENDED_SKINNING_ON=true;</script><script src="/sigaa/a4j/g/3_3_3.Finalorg/richfaces/renderkit/html/scripts/skinning.js.jsf" type="text/javascript"></script><script src="/shared/jsBundles/jawr_loader.js" type="text/javascript"></script>
+<script type="text/javascript">
+		JAWR.loader.style('/javascript/ext-2.0.a.1/resources/css/ext-all.css', 'all');
+		JAWR.loader.style('/css/public.css','all');
+	 	JAWR.loader.script('/bundles/js/sigaa_base.js');
+	 	JAWR.loader.script('/bundles/js/ext2_all.js');
+	</script>
+<link href="/sigaa/cssBundles/gzip_787491763/public/css/public.css" media="all" rel="stylesheet" type="text/css"/>
+<link href="/sigaa/cssBundles/gzip_N976796624/public/css/departamento.css" media="all" rel="stylesheet" type="text/css"/>
+<script src="/shared/javascript/STICookieConsent.js"></script>
+<script>
+	    document.addEventListener("DOMContentLoaded", () => {
+	    	generateCookieConsentModal("SIGAA", "Nós usamos cookies para melhorar sua experiência de navegação no portal. Ao utilizar o %sitename%, você concorda com a polí­tica de monitoramento de cookies. Para ter mais informações sobre como isso é feito e como remover, acesse a <a href=%cookie-policy%>Política de Privacidade</a>. Para saber como a UFRN trata os dados, acesse a <a href=%privacy-policy%> Polí­tica de cookies</a>. Se você concorda, clique em %button-text%.", "https://ufrn.br/institucional/politica-de-privacidade-e-termos-de-uso", "https://ufrn.br/institucional/politica-de-cookies");
+	    })
+	</script>
+</head>
+<body>
+<div id="container">
+<div id="container-inner">
+<div id="cabecalho">
+<div id="identificacao">
+<span class="ufrn">
+							UFBA › 
+							<a href="/sigaa/public" title="Página Inicial do SIGAA">
+							SIGAA - Sistema Integrado de Gestão de Atividades Acadêmicas
+							</a>
+</span>
+<span class="data">
+							 Salvador, 
+							 19 de Outubro de 
+							 2026 
+						</span>
+</div>
+</div>
+<div id="colEsq">
+<div id="logo">
+<p>
+<span>
+<a href="portal.jsf?id=1114">
+<img border="0" src="../images/departamento/brasao_ufrn.png"/>
+</a>
+</span>
+</p>
+</div>
+<br clear="all"/>
+<form action="/sigaa/public/departamento/professores.jsf" enctype="application/x-www-form-urlencoded" id="formMenuDepartamento" method="post" name="formMenuDepartamento">
+<input name="formMenuDepartamento" type="hidden" value="formMenuDepartamento"/>
+<div id="menu-pri">
+<ul>
+<li><a class="apresentacao" href="/sigaa/public/departamento/portal.jsf?id=1114">Apresentação</a></li>
+<li><a class="adm" href="/sigaa/public/departamento/administrativo.jsf?id=1114">Corpo Administrativo</a></li>
+<li><a class="prof" href="/sigaa/public/departamento/professores.jsf?id=1114">Corpo Docente</a></li>
+<li><a class="curriculo" href="/sigaa/public/departamento/componentes.jsf?id=1114">Componentes Curriculares</a></li>
+<li><a class="extensao" href="/sigaa/public/departamento/extensao.jsf?id=1114">Ações de Extensão</a></li>
+<li><a class="pesq" href="/sigaa/public/departamento/pesquisa.jsf?id=1114">Projetos de Pesquisa</a></li>
+<li><a class="monitoria" href="/sigaa/public/departamento/monitoria.jsf?id=1114">Projetos de Ensino</a></li>
+<li><a class="doc" href="/sigaa/public/departamento/documentos.jsf?lc=pt_BR&amp;id=1114">Documentos</a></li>
+</ul>
+</div>
+<div id="menu-opcoes">
+<ul>
+<li class="titulo">Outras Opções</li>
+<li><a class="especial" href="/sigaa/">Acessar o SIGAA</a></li>
+<li class="pe"></li>
+</ul>
+</div>
+<div id="home-link">
+<script language="Javascript" type="text/javascript">function dpf(f) {var adp = f.adp;if (adp != null) {for (var i = 0;i < adp.length;i++) {f.removeChild(adp[i]);}}};function apf(f, pvp) {var adp = new Array();f.adp = adp;var i = 0;for (k in pvp) {var p = document.createElement("input");p.type = "hidden";p.name = k;p.value = pvp[k];f.appendChild(p);adp[i++] = p;}};function jsfcljs(f, pvp, t) {apf(f, pvp);var ft = f.target;if (t) {f.target = t;}f.submit();f.target = ft;dpf(f);};</script>
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formMenuDepartamento'),{'formMenuDepartamento:j_id_jsp_237149351_8':'formMenuDepartamento:j_id_jsp_237149351_8'},'');}return false" title="Ir para o Portal Público do SIGAA">Ir ao Menu Principal</a>
+</div>
+<input id="javax.faces.ViewState" name="javax.faces.ViewState" type="hidden" value="j_id3"/>
+</form>
+<br clear="all"/>
+</div>
+<div id="colDir">
+<div id="colDirTop">
+<h1>DCC/IC/UFBA</h1>
+<span class="flags">
+<form action="/sigaa/public/departamento/professores.jsf" enctype="application/x-www-form-urlencoded" id="formIdioma" method="post" name="formIdioma">
+<input name="formIdioma" type="hidden" value="formIdioma"/>
+<input id="javax.faces.ViewState" name="javax.faces.ViewState" type="hidden" value="j_id3"/>
+</form>
+</span>
+<h2>DEPARTAMENTO DE CIÊNCIA DA COMPUTAÇÃO /IC</h2>
+<a href="/sigaa/public/centro/portal.jsf?lc=pt_BR&amp;id=78" title="Clique para acessar o portal do centro.">
+	UNIVERSIDADE FEDERAL DA BAHIA
+	</a>
+</div>
+<div id="colDirCorpo">
+<!--  INÍCIO CONTEÚDO -->
+<div id="professores">
+<div id="titulo">
+<h1>Corpo Docente</h1>
+</div>
+<h2 style="line-height: 25px;">
+							
+								
+								
+								
+									
+									
+										Ativo Permanente
+									
+								
+							
+						</h2>
+<table align="left">
+<tr>
+<td class="foto">
+<img height="85" src="/shared/verFoto?idFoto=1&amp;key=0" width="70"/>
+								
+								
+							 
+						</td>
+<td class="descricao">
+<span class="nome">
+							BELTRANO PEREIRA 052 	
+								
+									(DOUTOR)
+										
+							</span>
+<span class="departamento">
+								
+									
+									
+										Bacharel em Matemática - Modalidade Informática - UERJ
+Mestrado e Doutorado em Engenharia de Sistemas e Computação - COPPE/UFRJ								
+									
+								
+							</span>
+<br clear="all"/>
+<span class="enderecoLattes">
+<a href="http://lattes.cnpq.br/0000000000000000" target="_blank">
+								 Currículo Lattes 
+								</a> 
+								</span>
+<span class="pagina">
+<a href="/sigaa/public/docente/portal.jsf?siape=9000041" target="_blank" title="Clique aqui para acessar a página pública deste docente"> 
+								Ver página 
+								</a>
+</span>
+</td>
+</tr>
+</table>
+<table align="left">
+<tr>
+<td class="foto">
+<img height="85" src="/shared/verFoto?idFoto=1&amp;key=0" width="70"/>
+								
+								
+							 
+						</td>
+<td class="descricao">
+<span class="nome">
+							BELTRANO LIMA 072 	
+								
+									(DOUTOR)
+										
+							</span>
+<span class="departamento">
+								
+									
+									
+										He is currently a Professor at the Universidade Federal da Bahia (UFBA). From 2019 to 2022, he was a professor at the Universidade Federal de Ouro ...								
+									
+								
+							</span>
+<br clear="all"/>
+<span class="enderecoLattes">
+<a href="http://lattes.cnpq.br/0000000000000000" target="_blank">
+								 Currículo Lattes 
+								</a> 
+								</span>
+<span class="pagina">
+<a href="/sigaa/public/docente/portal.jsf?siape=9000042" target="_blank" title="Clique aqui para acessar a página pública deste docente"> 
+								Ver página 
+								</a>
+</span>
+</td>
+</tr>
+</table>
+<br clear="all"/>
+<table align="left">
+<tr>
+<td class="foto">
+<img height="85" src="/shared/verFoto?idFoto=1&amp;key=0" width="70"/>
+								
+								
+							 
+						</td>
+<td class="descricao">
+<span class="nome">
+							PEDRO ALVES 086 	
+								
+									(DOUTOR)
+										
+							</span>
+<span class="departamento">
+								
+									
+									
+										Doutorado em Ciência da Computação, USP/ICMC, 2009
+Mestrado em Ciência da Computação - Universidade Salvador, UNIFACS, 2003
+Bacharel em Ciência da ...								
+									
+								
+							</span>
+<br clear="all"/>
+<span class="enderecoLattes">
+<a href="http://lattes.cnpq.br/0000000000000000" target="_blank">
+								 Currículo Lattes 
+								</a> 
+								</span>
+<span class="pagina">
+<a href="/sigaa/public/docente/portal.jsf?siape=9000043" target="_blank" title="Clique aqui para acessar a página pública deste docente"> 
+								Ver página 
+								</a>
+</span>
+</td>
+</tr>
+</table>
+<table align="left">
+<tr>
+<td class="foto">
+<img height="85" src="/shared/verFoto?idFoto=1&amp;key=0" width="70"/>
+								
+								
+							 
+						</td>
+<td class="descricao">
+<span class="nome">
+							JOAO ROCHA 094 	
+								
+									(DOUTOR)
+										
+							</span>
+<span class="departamento">
+								
+									
+									
+										Possui doutorado em Informática pela Pontifícia Universidade Católica do Rio de Janeiro (2004), mestrado em Ciência da Computação pela UNICAMP (1992) ...								
+									
+								
+							</span>
+<br clear="all"/>
+<span class="enderecoLattes">
+<a href="http://lattes.cnpq.br/0000000000000000" target="_blank">
+								 Currículo Lattes 
+								</a> 
+								</span>
+<span class="pagina">
+<a href="/sigaa/public/docente/portal.jsf?siape=9000044" target="_blank" title="Clique aqui para acessar a página pública deste docente"> 
+								Ver página 
+								</a>
+</span>
+</td>
+</tr>
+</table>
+<br clear="all"/>
+<table align="left">
+<tr>
+<td class="foto">
+<img height="85" src="/sigaa/img/no_picture.png" width="70"/>
+								
+							 
+						</td>
+<td class="descricao">
+<span class="nome">
+							JOAO DE TAL 104 	
+								
+									(DOUTOR)
+										
+							</span>
+<span class="departamento">
+								
+									
+										Formação não informada.
+									
+									
+								
+							</span>
+<br clear="all"/>
+<span class="pagina">
+<a href="/sigaa/public/docente/portal.jsf?siape=9000045" target="_blank" title="Clique aqui para acessar a página pública deste docente"> 
+								Ver página 
+								</a>
+</span>
+</td>
+</tr>
+</table>
+<table align="left">
+<tr>
+<td class="foto">
+<img height="85" src="/shared/verFoto?idFoto=1&amp;key=0" width="70"/>
+								
+								
+							 
+						</td>
+<td class="descricao">
+<span class="nome">
+							BELTRANO SOUZA 122 	
+								
+									(DOUTOR)
+										
+							</span>
+<span class="departamento">
+								
+									
+									
+										Doutora pela Université d'Angers - França								
+									
+								
+							</span>
+<br clear="all"/>
+<span class="enderecoLattes">
+<a href="http://lattes.cnpq.br/0000000000000000" target="_blank">
+								 Currículo Lattes 
+								</a> 
+								</span>
+<span class="pagina">
+<a href="/sigaa/public/docente/portal.jsf?siape=9000046" target="_blank" title="Clique aqui para acessar a página pública deste docente"> 
+								Ver página 
+								</a>
+</span>
+</td>
+</tr>
+</table>
+<br clear="all"/>
+<table align="left">
+<tr>
+<td class="foto">
+<img height="85" src="/shared/verFoto?idFoto=1&amp;key=0" width="70"/>
+								
+								
+							 
+						</td>
+<td class="descricao">
+<span class="nome">
+							PEDRO SOUZA 126 	
+								
+									(DOUTOR)
+										
+							</span>
+<span class="departamento">
+								
+									
+									
+										Possui graduação em Ciência da Computação pela União de Cursos Superiores COC (2007). Cursou a pós-graduação no Instituto de Ciências Matemáticas e ...								
+									
+								
+							</span>
+<br clear="all"/>
+<span class="enderecoLattes">
+<a href="http://lattes.cnpq.br/0000000000000000" target="_blank">
+								 Currículo Lattes 
+								</a> 
+								</span>
+<span class="pagina">
+<a href="/sigaa/public/docente/portal.jsf?siape=9000040" target="_blank" title="Clique aqui para acessar a página pública deste docente"> 
+								Ver página 
+								</a>
+</span>
+</td>
+</tr>
+</table>
+<table align="left">
+<tr>
+<td class="foto">
+<img height="85" src="/shared/verFoto?idFoto=1&amp;key=0" width="70"/>
+								
+								
+							 
+						</td>
+<td class="descricao">
+<span class="nome">
+							ANA OLIVEIRA 145 	
+								
+									(DOUTOR)
+										
+							</span>
+<span class="departamento">
+								
+									
+									
+										B.Sc., UNIFACS, 2001, Ciência da Computação
+M.Sc., UFSCar, 2003, Ciência da Computação
+D.Sc., UFPE, 2007, Ciência da Computação
+Pós-Doutorado, ...								
+									
+								
+							</span>
+<br clear="all"/>
+<span class="enderecoLattes">
+<a href="http://lattes.cnpq.br/0000000000000000" target="_blank">
+								 Currículo Lattes 
+								</a> 
+								</span>
+<span class="pagina">
+<a href="/sigaa/public/docente/portal.jsf?siape=9000021" target="_blank" title="Clique aqui para acessar a página pública deste docente"> 
+								Ver página 
+								</a>
+</span>
+</td>
+</tr>
+</table>
+<br clear="all"/>
+<table align="left">
+<tr>
+<td class="foto">
+<img height="85" src="/shared/verFoto?idFoto=1&amp;key=0" width="70"/>
+								
+								
+							 
+						</td>
+<td class="descricao">
+<span class="nome">
+							PEDRO OLIVEIRA 146 	
+								
+									(DOUTOR)
+										
+							</span>
+<span class="departamento">
+								
+									
+									
+										Doutor em Computação pela Universidade Federal Fluminense (UFF), mestre em Informática e bacharel em Ciência da Computação pela Universidade Federal ...								
+									
+								
+							</span>
+<br clear="all"/>
+<span class="enderecoLattes">
+<a href="http://lattes.cnpq.br/0000000000000000" target="_blank">
+								 Currículo Lattes 
+								</a> 
+								</span>
+<span class="pagina">
+<a href="/sigaa/public/docente/portal.jsf?siape=9000022" target="_blank" title="Clique aqui para acessar a página pública deste docente"> 
+								Ver página 
+								</a>
+</span>
+</td>
+</tr>
+</table>
+<table align="left">
+<tr>
+<td class="foto">
+<img height="85" src="/shared/verFoto?idFoto=1&amp;key=0" width="70"/>
+								
+								
+							 
+						</td>
+<td class="descricao">
+<span class="nome">
+							ANA ALVES 185 	
+								
+									(DOUTOR)
+										
+							</span>
+<span class="departamento">
+								
+									
+									
+										Bachelor - Ruy Barbosa College (Salvador-BA-Brasil)
+Master - Federal University of Pernambuco (Recife-PE-Brasil)
+Ph.D.  - Aalborg University ...								
+									
+								
+							</span>
+<br clear="all"/>
+<span class="enderecoLattes">
+<a href="http://lattes.cnpq.br/0000000000000000" target="_blank">
+								 Currículo Lattes 
+								</a> 
+								</span>
+<span class="pagina">
+<a href="/sigaa/public/docente/portal.jsf?siape=9000047" target="_blank" title="Clique aqui para acessar a página pública deste docente"> 
+								Ver página 
+								</a>
+</span>
+</td>
+</tr>
+</table>
+<br clear="all"/>
+<table align="left">
+<tr>
+<td class="foto">
+<img height="85" src="/shared/verFoto?idFoto=1&amp;key=0" width="70"/>
+								
+								
+							 
+						</td>
+<td class="descricao">
+<span class="nome">
+							MARIA ROCHA 193 	
+								
+									(DOUTOR)
+										
+							</span>
+<span class="departamento">
+								
+									
+									
+										Doutorado em Ciência da Computação (2003) pela University of York no Reino Unido.
+Mestrado em Ciência da Computação (1992) pela Universidade ...								
+									
+								
+							</span>
+<br clear="all"/>
+<span class="enderecoLattes">
+<a href="http://lattes.cnpq.br/0000000000000000" target="_blank">
+								 Currículo Lattes 
+								</a> 
+								</span>
+<span class="pagina">
+<a href="/sigaa/public/docente/portal.jsf?siape=9000048" target="_blank" title="Clique aqui para acessar a página pública deste docente"> 
+								Ver página 
+								</a>
+</span>
+</td>
+</tr>
+</table>
+<table align="left">
+<tr>
+<td class="foto">
+<img height="85" src="/shared/verFoto?idFoto=1&amp;key=0" width="70"/>
+								
+								
+							 
+						</td>
+<td class="descricao">
+<span class="nome">
+							JULIA DE TAL 209 	
+								
+									(DOUTOR)
+										
+							</span>
+<span class="departamento">
+								
+									
+									
+										- B.Sc em Ciência da Computação (UNIFACS 2000)
+- M.Sc em Ciência da Computação (UNICAMP 2003) 
+- D.Sc em Ciência da Computação (UNICAMP 2009)								
+									
+								
+							</span>
+<br clear="all"/>
+<span class="enderecoLattes">
+<a href="http://lattes.cnpq.br/0000000000000000" target="_blank">
+								 Currículo Lattes 
+								</a> 
+								</span>
+<span class="pagina">
+<a href="/sigaa/public/docente/portal.jsf?siape=9000049" target="_blank" title="Clique aqui para acessar a página pública deste docente"> 
+								Ver página 
+								</a>
+</span>
+</td>
+</tr>
+</table>
+<br clear="all"/>
+<table align="left">
+<tr>
+<td class="foto">
+<img height="85" src="/shared/verFoto?idFoto=1&amp;key=0" width="70"/>
+								
+								
+							 
+						</td>
+<td class="descricao">
+<span class="nome">
+							ANA SOUZA 225 	
+								
+									(DOUTOR)
+										
+							</span>
+<span class="departamento">
+								
+									
+									
+										Doutorado (UFRN, 2022)
+Mestrado (UFRN, 2018)
+Graduação (UFRN, 2016)								
+									
+								
+							</span>
+<br clear="all"/>
+<span class="enderecoLattes">
+<a href="http://lattes.cnpq.br/0000000000000000" target="_blank">
+								 Currículo Lattes 
+								</a> 
+								</span>
+<span class="pagina">
+<a href="/sigaa/public/docente/portal.jsf?siape=9000050" target="_blank" title="Clique aqui para acessar a página pública deste docente"> 
+								Ver página 
+								</a>
+</span>
+</td>
+</tr>
+</table>
+<table align="left">
+<tr>
+<td class="foto">
+<img height="85" src="/shared/verFoto?idFoto=1&amp;key=0" width="70"/>
+								
+								
+							 
+						</td>
+<td class="descricao">
+<span class="nome">
+							LUCIA SOUZA 227 	
+								
+									(DOUTOR)
+										
+							</span>
+<span class="departamento">
+								
+									
+									
+										Doutorado em Ciência da Computação, UFBA (2014)
+Mestrado em Ciência da Computação, UFPE (2010)
+Graduação em Análise de Sistemas, UNEB (2006)								
+									
+								
+							</span>
+<br clear="all"/>
+<span class="enderecoLattes">
+<a href="http://lattes.cnpq.br/0000000000000000" target="_blank">
+								 Currículo Lattes 
+								</a> 
+								</span>
+<span class="pagina">
+<a href="/sigaa/public/docente/portal.jsf?siape=9000051" target="_blank" title="Clique aqui para acessar a página pública deste docente"> 
+								Ver página 
+								</a>
+</span>
+</td>
+</tr>
+</table>
+<br clear="all"/>
+<table align="left">
+<tr>
+<td class="foto">
+<img height="85" src="/sigaa/img/no_picture.png" width="70"/>
+								
+							 
+						</td>
+<td class="descricao">
+<span class="nome">
+							CICLANO LIMA 271 	
+								
+									(DOUTOR)
+										
+							</span>
+<span class="departamento">
+								
+									
+										Formação não informada.
+									
+									
+								
+							</span>
+<br clear="all"/>
+<span class="pagina">
+<a href="/sigaa/public/docente/portal.jsf?siape=9000029" target="_blank" title="Clique aqui para acessar a página pública deste docente"> 
+								Ver página 
+								</a>
+</span>
+</td>
+</tr>
+</table>
+<table align="left">
+<tr>
+<td class="foto">
+<img height="85" src="/shared/verFoto?idFoto=1&amp;key=0" width="70"/>
+								
+								
+							 
+						</td>
+<td class="descricao">
+<span class="nome">
+							MARIA ALVES 283 	
+								
+									(DOUTOR)
+										
+							</span>
+<span class="departamento">
+								
+									
+									
+										Doutor em ciência da computação pela Universidade Federal de Pernambuco - UFPE (2011), Mestre em Redes de Computadores pela Universidade Salvador - ...								
+									
+								
+							</span>
+<br clear="all"/>
+<span class="enderecoLattes">
+<a href="http://lattes.cnpq.br/0000000000000000" target="_blank">
+								 Currículo Lattes 
+								</a> 
+								</span>
+<span class="pagina">
+<a href="/sigaa/public/docente/portal.jsf?siape=9000038" target="_blank" title="Clique aqui para acessar a página pública deste docente"> 
+								Ver página 
+								</a>
+</span>
+</td>
+</tr>
+</table>
+<br clear="all"/>
+<table align="left">
+<tr>
+<td class="foto">
+<img height="85" src="/shared/verFoto?idFoto=1&amp;key=0" width="70"/>
+								
+								
+							 
+						</td>
+<td class="descricao">
+<span class="nome">
+							JULIA ROCHA 299 	
+								
+									(DOUTOR)
+										
+							</span>
+<span class="departamento">
+								
+									
+									
+										Doutorado em Engenharia Elétrica e de Computadores								
+									
+								
+							</span>
+<br clear="all"/>
+<span class="pagina">
+<a href="/sigaa/public/docente/portal.jsf?siape=9000026" target="_blank" title="Clique aqui para acessar a página pública deste docente"> 
+								Ver página 
+								</a>
+</span>
+</td>
+</tr>
+</table>
+<table align="left">
+<tr>
+<td class="foto">
+<img height="85" src="/shared/verFoto?idFoto=1&amp;key=0" width="70"/>
+								
+								
+							 
+						</td>
+<td class="descricao">
+<span class="nome">
+							ANA DA SILVA 315 	
+								
+									(DOUTOR)
+										
+							</span>
+<span class="departamento">
+								
+									
+									
+										Ph.D. em Ciência da Computação pela Universidade de Maryland em College Park (EUA), Mestre em Engenharia de Computação e Automação Industrial pela ...								
+									
+								
+							</span>
+<br clear="all"/>
+<span class="enderecoLattes">
+<a href="http://lattes.cnpq.br/0000000000000000" target="_blank">
+								 Currículo Lattes 
+								</a> 
+								</span>
+<span class="pagina">
+<a href="/sigaa/public/docente/portal.jsf?siape=9000037" target="_blank" title="Clique aqui para acessar a página pública deste docente"> 
+								Ver página 
+								</a>
+</span>
+</td>
+</tr>
+</table>
+<br clear="all"/>
+<table align="left">
+<tr>
+<td class="foto">
+<img height="85" src="/shared/verFoto?idFoto=1&amp;key=0" width="70"/>
+								
+								
+							 
+						</td>
+<td class="descricao">
+<span class="nome">
+							PEDRO COSTA 366 	
+								
+									(DOUTOR)
+										
+							</span>
+<span class="departamento">
+								
+									
+									
+										Mestrado (2008) e Doutorado (2012) pela Universidade de São Paulo (USP); e pós-doutorado (2020) pela Universidade Estadual de Campinas (UNICAMP). Foi ...								
+									
+								
+							</span>
+<br clear="all"/>
+<span class="enderecoLattes">
+<a href="http://lattes.cnpq.br/0000000000000000" target="_blank">
+								 Currículo Lattes 
+								</a> 
+								</span>
+<span class="pagina">
+<a href="/sigaa/public/docente/portal.jsf?siape=9000052" target="_blank" title="Clique aqui para acessar a página pública deste docente"> 
+								Ver página 
+								</a>
+</span>
+</td>
+</tr>
+</table>
+<table align="left">
+<tr>
+<td class="foto">
+<img height="85" src="/shared/verFoto?idFoto=1&amp;key=0" width="70"/>
+								
+								
+							 
+						</td>
+<td class="descricao">
+<span class="nome">
+							MARIA DE TAL 403 	
+								
+									(DOUTOR)
+										
+							</span>
+<span class="departamento">
+								
+									
+										Formação não informada.
+									
+									
+								
+							</span>
+<br clear="all"/>
+<span class="pagina">
+<a href="/sigaa/public/docente/portal.jsf?siape=9000053" target="_blank" title="Clique aqui para acessar a página pública deste docente"> 
+								Ver página 
+								</a>
+</span>
+</td>
+</tr>
+</table>
+<br clear="all"/>
+<table align="left">
+<tr>
+<td class="foto">
+<img height="85" src="/shared/verFoto?idFoto=1&amp;key=0" width="70"/>
+								
+								
+							 
+						</td>
+<td class="descricao">
+<span class="nome">
+							FULANO SOUZA 420 	
+								
+									(DOUTOR)
+										
+							</span>
+<span class="departamento">
+								
+									
+									
+										Possui graduação em Ciência da Computação pela Universidade Estadual do Sudoeste da Bahia (2006), mestrado em Ciência da Computação pela Universidade ...								
+									
+								
+							</span>
+<br clear="all"/>
+<span class="enderecoLattes">
+<a href="http://lattes.cnpq.br/0000000000000000" target="_blank">
+								 Currículo Lattes 
+								</a> 
+								</span>
+<span class="pagina">
+<a href="/sigaa/public/docente/portal.jsf?siape=9000054" target="_blank" title="Clique aqui para acessar a página pública deste docente"> 
+								Ver página 
+								</a>
+</span>
+</td>
+</tr>
+</table>
+<table align="left">
+<tr>
+<td class="foto">
+<img height="85" src="/sigaa/img/no_picture.png" width="70"/>
+								
+							 
+						</td>
+<td class="descricao">
+<span class="nome">
+							FULANO SANTOS 430 	
+								
+									(DOUTOR)
+										
+							</span>
+<span class="departamento">
+								
+									
+									
+										Doutorado na UFPE
+Mestrado   na UFRGS
+Graduação na Ufba
+Pos Doutorado								
+									
+								
+							</span>
+<br clear="all"/>
+<span class="enderecoLattes">
+<a href="http://lattes.cnpq.br/0000000000000000" target="_blank">
+								 Currículo Lattes 
+								</a> 
+								</span>
+<span class="pagina">
+<a href="/sigaa/public/docente/portal.jsf?siape=9000055" target="_blank" title="Clique aqui para acessar a página pública deste docente"> 
+								Ver página 
+								</a>
+</span>
+</td>
+</tr>
+</table>
+<br clear="all"/>
+<table align="left">
+<tr>
+<td class="foto">
+<img height="85" src="/shared/verFoto?idFoto=1&amp;key=0" width="70"/>
+								
+								
+							 
+						</td>
+<td class="descricao">
+<span class="nome">
+							BELTRANO SANTOS 432 	
+								
+									(DOUTOR)
+										
+							</span>
+<span class="departamento">
+								
+									
+									
+										Doutor em Ciência da Computação, UFBA 2019.
+Mestre em Ciência da Computação, UFBA 2015. 
+Especialista em Redes de Computadores, UNIFACS ...								
+									
+								
+							</span>
+<br clear="all"/>
+<span class="enderecoLattes">
+<a href="http://lattes.cnpq.br/0000000000000000" target="_blank">
+								 Currículo Lattes 
+								</a> 
+								</span>
+<span class="pagina">
+<a href="/sigaa/public/docente/portal.jsf?siape=9000011" target="_blank" title="Clique aqui para acessar a página pública deste docente"> 
+								Ver página 
+								</a>
+</span>
+</td>
+</tr>
+</table>
+<table align="left">
+<tr>
+<td class="foto">
+<img height="85" src="/shared/verFoto?idFoto=1&amp;key=0" width="70"/>
+								
+								
+							 
+						</td>
+<td class="descricao">
+<span class="nome">
+							LUCIA SANTOS 437 	
+								
+									(DOUTOR)
+										
+							</span>
+<span class="departamento">
+								
+									
+										Formação não informada.
+									
+									
+								
+							</span>
+<br clear="all"/>
+<span class="enderecoLattes">
+<a href="http://lattes.cnpq.br/0000000000000000" target="_blank">
+								 Currículo Lattes 
+								</a> 
+								</span>
+<span class="pagina">
+<a href="/sigaa/public/docente/portal.jsf?siape=9000006" target="_blank" title="Clique aqui para acessar a página pública deste docente"> 
+								Ver página 
+								</a>
+</span>
+</td>
+</tr>
+</table>
+<br clear="all"/>
+<table align="left">
+<tr>
+<td class="foto">
+<img height="85" src="/shared/verFoto?idFoto=1&amp;key=0" width="70"/>
+								
+								
+							 
+						</td>
+<td class="descricao">
+<span class="nome">
+							ANA OLIVEIRA 445 	
+								
+									(DOUTOR)
+										
+							</span>
+<span class="departamento">
+								
+									
+									
+										Bachelor - Federal University of Paraná (Curitiba - PR - Brazil)
+Master - Federal University of Paraná (Curitiba - PR - Brazil)
+Ph. D. - Federal ...								
+									
+								
+							</span>
+<br clear="all"/>
+<span class="enderecoLattes">
+<a href="http://lattes.cnpq.br/0000000000000000" target="_blank">
+								 Currículo Lattes 
+								</a> 
+								</span>
+<span class="pagina">
+<a href="/sigaa/public/docente/portal.jsf?siape=9000008" target="_blank" title="Clique aqui para acessar a página pública deste docente"> 
+								Ver página 
+								</a>
+</span>
+</td>
+</tr>
+</table>
+<table align="left">
+<tr>
+<td class="foto">
+<img height="85" src="/sigaa/img/no_picture.png" width="70"/>
+								
+							 
+						</td>
+<td class="descricao">
+<span class="nome">
+							JOAO COSTA 464 	
+								
+									(DOUTOR)
+										
+							</span>
+<span class="departamento">
+								
+									
+									
+										Diplom-Informatiker (Bachelor/Master) - Technische Universitaet Berlin
+Doutorado - Universidade Federal de Pernambuco								
+									
+								
+							</span>
+<br clear="all"/>
+<span class="enderecoLattes">
+<a href="http://lattes.cnpq.br/0000000000000000" target="_blank">
+								 Currículo Lattes 
+								</a> 
+								</span>
+<span class="pagina">
+<a href="/sigaa/public/docente/portal.jsf?siape=9000030" target="_blank" title="Clique aqui para acessar a página pública deste docente"> 
+								Ver página 
+								</a>
+</span>
+</td>
+</tr>
+</table>
+<br clear="all"/>
+<table align="left">
+<tr>
+<td class="foto">
+<img height="85" src="/shared/verFoto?idFoto=1&amp;key=0" width="70"/>
+								
+								
+							 
+						</td>
+<td class="descricao">
+<span class="nome">
+							CARLOS COSTA 468 	
+								
+									(DOUTOR)
+										
+							</span>
+<span class="departamento">
+								
+									
+									
+										Doutorado em Ciência da Computação e Matemática Computacional pela Universidade de São Paulo (ICMC/USP/Brasil), trabalhando com agrupamento fuzzy ...								
+									
+								
+							</span>
+<br clear="all"/>
+<span class="enderecoLattes">
+<a href="http://lattes.cnpq.br/0000000000000000" target="_blank">
+								 Currículo Lattes 
+								</a> 
+								</span>
+<span class="pagina">
+<a href="/sigaa/public/docente/portal.jsf?siape=9000056" target="_blank" title="Clique aqui para acessar a página pública deste docente"> 
+								Ver página 
+								</a>
+</span>
+</td>
+</tr>
+</table>
+<table align="left">
+<tr>
+<td class="foto">
+<img height="85" src="/shared/verFoto?idFoto=1&amp;key=0" width="70"/>
+								
+								
+							 
+						</td>
+<td class="descricao">
+<span class="nome">
+							LUCIA LIMA 477 	
+								
+									(DOUTOR)
+										
+							</span>
+<span class="departamento">
+								
+									
+									
+										2014 - 2015 - Pós-Doutorado
+University of Southern California (USC) Los Angeles, EUA
+
+2004 - 2008 - Doutorado em Ciências da Computação (Conceito ...								
+									
+								
+							</span>
+<br clear="all"/>
+<span class="enderecoLattes">
+<a href="http://lattes.cnpq.br/0000000000000000" target="_blank">
+								 Currículo Lattes 
+								</a> 
+								</span>
+<span class="pagina">
+<a href="/sigaa/public/docente/portal.jsf?siape=9000057" target="_blank" title="Clique aqui para acessar a página pública deste docente"> 
+								Ver página 
+								</a>
+</span>
+</td>
+</tr>
+</table>
+<br clear="all"/>
+<table align="left">
+<tr>
+<td class="foto">
+<img height="85" src="/sigaa/img/no_picture.png" width="70"/>
+								
+							 
+						</td>
+<td class="descricao">
+<span class="nome">
+							FULANO ALVES 480 	
+										
+							</span>
+<span class="departamento">
+								
+									
+										Formação não informada.
+									
+									
+								
+							</span>
+<br clear="all"/>
+<span class="pagina">
+<a href="/sigaa/public/docente/portal.jsf?siape=9000027" target="_blank" title="Clique aqui para acessar a página pública deste docente"> 
+								Ver página 
+								</a>
+</span>
+</td>
+</tr>
+</table>
+<br clear="all"/>
+<h2 style="line-height: 25px;">
+							
+								
+								
+								
+									
+									
+										Professor Substituto
+									
+								
+							
+						</h2>
+<table align="left">
+<tr>
+<td class="foto">
+<img height="85" src="/shared/verFoto?idFoto=1&amp;key=0" width="70"/>
+								
+								
+							 
+						</td>
+<td class="descricao">
+<span class="nome">
+							MARIA OLIVEIRA 243 	
+								
+									(MESTRE)
+										
+							</span>
+<span class="departamento">
+								
+									
+										Formação não informada.
+									
+									
+								
+							</span>
+<br clear="all"/>
+<span class="pagina">
+<a href="/sigaa/public/docente/portal.jsf?siape=9000039" target="_blank" title="Clique aqui para acessar a página pública deste docente"> 
+								Ver página 
+								</a>
+</span>
+</td>
+</tr>
+</table>
+<table align="left">
+<tr>
+<td class="foto">
+<img height="85" src="/shared/verFoto?idFoto=1&amp;key=0" width="70"/>
+								
+								
+							 
+						</td>
+<td class="descricao">
+<span class="nome">
+							FULANO COSTA 260 	
+								
+									(MESTRE)
+										
+							</span>
+<span class="departamento">
+								
+									
+									
+										Graduado em Ciência da Computação (20132019). Mestre em Ciência da Computação pela Universidade Federal da Bahia (UFBA), onde desenvolveu a ...								
+									
+								
+							</span>
+<br clear="all"/>
+<span class="enderecoLattes">
+<a href="http://lattes.cnpq.br/0000000000000000" target="_blank">
+								 Currículo Lattes 
+								</a> 
+								</span>
+<span class="pagina">
+<a href="/sigaa/public/docente/portal.jsf?siape=9000020" target="_blank" title="Clique aqui para acessar a página pública deste docente"> 
+								Ver página 
+								</a>
+</span>
+</td>
+</tr>
+</table>
+<br clear="all"/>
+<table align="left">
+<tr>
+<td class="foto">
+<img height="85" src="/sigaa/img/no_picture.png" width="70"/>
+								
+							 
+						</td>
+<td class="descricao">
+<span class="nome">
+							CARLOS LIMA 278 	
+										
+							</span>
+<span class="departamento">
+								
+									
+										Formação não informada.
+									
+									
+								
+							</span>
+<br clear="all"/>
+<span class="pagina">
+<a href="/sigaa/public/docente/portal.jsf?siape=9000016" target="_blank" title="Clique aqui para acessar a página pública deste docente"> 
+								Ver página 
+								</a>
+</span>
+</td>
+</tr>
+</table>
+<br clear="all"/>
+</div>
+<table class="listagem" width="100%">
+<tfoot>
+<td colspan="5"><b>32 Docente(s) </b></td>
+</tfoot>
+</table>
+<!--  FIM CONTEÚDO  -->
+</div>
+</div>
+<div class="clear"></div>
+</div>
+<div id="rodape">
+<p> <!-- Redmine 24523 - Telas e relatórios com rodapés sem a alteração - Portal Público -->
+			SIGAA | STI/SUPAC | -  | Copyright © 2006-2026 - UFBA - sigaapl04.intranet.ufba.br
+			 
+				<a onclick="javascript:versao();">v4.13.8_41_hotfix</a>
+</p>
+</div>
+<!-- Fim dos containers -->
+</div>
+<!-- MYFACES JAVASCRIPT -->
+</body>
+</html>
+<html><script charset="UTF-8" type="text/javascript">
+		function versao(){
+			var msg='';
+			msg+='SIGAA 4.13.8_41_hotfix,  publicado em: 25/09/2026 16:18\n\n';
+			msg+='Depend\u00eancias:\n';
+			msg+='Arquitetura 4.4.5\n';
+			msg+='Entidades Comuns 2.3.3\n';
+			msg+='Servicos Integrados 2.0.8\n';
+			msg+='SharedResources 2.1.4\n';
+			msg+='Servicos Remoto Biblioteca null\n';
+			msg+='SIGAA Mobile Objects 1.0.0\n\n';
+			msg+='Copyright SINFO/UFRN';
+			alert(msg);
+		}	
+	</script>
+<style>
+a.linkMobile:link {
+	color: #003395;
+	font-weight: bold;
+	font-size: inherit;
+	text-decoration: none;
+}
+
+a.linkMobile:visited {
+	color: #003390;
+	text-decoration: none;
+	font-weight: bold;
+}
+
+a.linkMobile:active {
+	color: #444444;
+	text-decoration: none;
+	font-weight: bold;
+}
+</style>
+</html>

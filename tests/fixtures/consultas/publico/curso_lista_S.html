@@ -1,0 +1,3415 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta content="no-cache" http-equiv="Pragma"/>
+<title>SIGAA - Sistema Integrado de Gestão de Atividades Acadêmicas</title>
+<link class="component" href="/sigaa/a4j/s/3_3_3.Finalorg/richfaces/renderkit/html/css/basic_classes.xcss/DATB/eAF7sqpgb-jyGdIAFrMEaw__.jsf;jsessionid=0" rel="stylesheet" type="text/css"/><link class="component" href="/sigaa/a4j/s/3_3_3.Finalorg/richfaces/renderkit/html/css/extended_classes.xcss/DATB/eAF7sqpgb-jyGdIAFrMEaw__.jsf;jsessionid=0" media="rich-extended-skinning" rel="stylesheet" type="text/css"/><script type="text/javascript">window.RICH_FACES_EXTENDED_SKINNING_ON=true;</script><script src="/sigaa/a4j/g/3_3_3.Finalorg/richfaces/renderkit/html/scripts/skinning.js.jsf" type="text/javascript"></script><link href="/sigaa/img/sigaa.ico" rel="shortcut icon"/>
+<script src="/shared/jsBundles/jawr_loader.js" type="text/javascript"></script>
+<script src="/sigaa/javascript/prevenir-duplo-clique.js" type="text/javascript"></script>
+<script type="text/javascript">
+		JAWR.loader.style('/javascript/ext-2.0.a.1/resources/css/ext-all.css', 'all');
+		JAWR.loader.style('/css/public.css','all');
+	 	JAWR.loader.script('/bundles/js/sigaa_base.js');
+	 	JAWR.loader.script('/bundles/js/ext2_all.js');
+
+	 	
+	</script>
+<link href="/sigaa/cssBundles/gzip_787491763/public/css/public.css" media="all" rel="stylesheet" type="text/css"/>
+<link href="/shared/beta/css/font-awesome.css" media="screen" rel="stylesheet" type="text/css"/>
+<script src="/shared/javascript/STICookieConsent.js"></script>
+<script>
+	    document.addEventListener("DOMContentLoaded", () => {
+	    	generateCookieConsentModal("SIGAA", "N&#243;s usamos cookies para melhorar sua experi&#234;ncia de navega&#231;&#227;o no portal. Ao utilizar o %sitename%, voc&#234; concorda com a pol&#237;&#173;tica de monitoramento de cookies. Para ter mais informa&#231;&#245;es sobre como isso &#233; feito e como remover, acesse a <a href=%cookie-policy%>Pol&#237;tica de Privacidade</a>. Para saber como a UFRN trata os dados, acesse a <a href=%privacy-policy%> Pol&#237;&#173;tica de cookies</a>. Se voc&#234; concorda, clique em %button-text%.", "https://ufrn.br/institucional/politica-de-privacidade-e-termos-de-uso", "https://ufrn.br/institucional/politica-de-cookies");
+	    })
+	</script>
+</head>
+<body>
+<div id="container">
+<div id="container-inner">
+<div id="cabecalho">
+<div id="logo">
+<a href="/sigaa/public/"> <img src="https://sipac.ufba.br/shared/img/instituicao/brasao_ufba48x75.jpg"/> </a>
+</div>
+<div id="identificacao">
+<span class="ufrn"> Universidade Federal da Bahia </span>
+<span class="data">
+				 Salvador, 
+				 19 de Outubro de 
+				 2026 
+			</span>
+<a href="/sigaa/public/" id="home" style="width: 450px;" title="Página inicial"> </a>
+<div id="menu_info">
+<ul>
+<li class="login">
+<a alt="Clique aqui para logar-se no SIGAA" href="/sigaa/" title="Clique aqui para logar-se no SIGAA">
+							Login
+						<i class="fa fa-angle-right"></i></a>
+</li>
+</ul>
+</div>
+</div>
+<br clear="all"/>
+</div>
+<div id="corpo">
+<script>
+	var marcar = function(idCheck) {
+		$(idCheck).checked = true;
+	}
+</script>
+<h2 class="title">Consulta de Cursos -
+	STRICTO SENSU</h2>
+<div class="descricaoOperacao">
+<p>Através desta página você pode consultar os cursos de
+	STRICTO SENSU ofereridos pela UFBA. </p>
+<p>Para cada curso listado é possível consultar mais detalhes sobre ele,
+	incluindo as estruturas curriculares ou as disciplinas por módulos
+	disponíveis.</p>
+<p>Utilize o formulário abaixo para filtrar os cursos de acordo com
+	os critérios desejados.</p>
+</div>
+<form action="/sigaa/public/curso/lista.jsf;jsessionid=0" enctype="application/x-www-form-urlencoded" id="form" method="post" name="form">
+<input name="form" type="hidden" value="form"/>
+<input name="nivel" type="hidden" value="S"/>
+<table class="formulario" style="width: 60%;">
+<caption>Informe os critérios de filtragem</caption>
+<tr>
+<td width="3%"><input class="noborder" id="form:checkNome" name="form:checkNome" type="checkbox"/></td>
+<td width="25%">Nome do Curso:</td>
+<td><input id="form:nomeDoCurso" name="form:nomeDoCurso" onchange="marcar('form:checkNome');" onkeydown="marcar('form:checkNome')" style="width:95%;" type="text"/></td>
+</tr>
+<tr>
+<td>
+<input class="noborder" id="form:checkNivel" name="form:checkNivel" type="checkbox"/>
+</td>
+<td>Nível:</td>
+<td><select id="form:nivel" name="form:nivel" onchange="marcar('form:checkNivel');" size="1" style="width: 60%"> <option selected="selected" value="S">MESTRADO E DOUTORADO</option>
+<option value="E">MESTRADO</option>
+<option value="D">DOUTORADO</option>
+</select></td>
+</tr>
+<tfoot>
+<tr>
+<td colspan="3"><input id="form:consultarCursos" name="form:consultarCursos" type="submit" value="Consultar"/>
+</td>
+</tr>
+</tfoot>
+</table>
+<input id="javax.faces.ViewState" name="javax.faces.ViewState" type="hidden" value="j_id1"/>
+</form>
+<br/>
+<div class="legenda" style="width: 90%;">
+<img src="/sigaa/img/view.gif;jsessionid=0"/>:
+			
+				
+				 Visualizar Detalhes do Curso
+				
+				
+			
+		</div>
+<form action="/sigaa/public/curso/lista.jsf;jsessionid=0" enctype="application/x-www-form-urlencoded" id="formListagemCursos" method="post" name="formListagemCursos">
+<input name="formListagemCursos" type="hidden" value="formListagemCursos"/>
+<input name="nivel" type="hidden" value="S"/>
+<table class="listagem" style="width: 90%;">
+<caption>Cursos (169) </caption>
+<thead>
+<tr>
+<th>Nome</th>
+<th>Nível</th>
+<th>Sede</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="subFormulario" colspan="5">
+<a href="/sigaa/public/programa/portal.jsf?lc=pt_BR&amp;id=2257">
+											CECRE - PROGRAMA DE PÓS-GRADUAÇÃO EM CONSERVAÇÃO E RESTAURAÇÃO (CECRE)
+											</a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td>
+							MESTRADO PROFISSIONAL EM CONSERVAÇÃO E RESTAURAÇÃO DE MONUMENTOS E NÚCLEOS HISTÓRICOS								
+							</td>
+<td>
+								MESTRADO
+								</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>
+<script language="Javascript" type="text/javascript">function dpf(f) {var adp = f.adp;if (adp != null) {for (var i = 0;i < adp.length;i++) {f.removeChild(adp[i]);}}};function apf(f, pvp) {var adp = new Array();f.adp = adp;var i = 0;for (k in pvp) {var p = document.createElement("input");p.type = "hidden";p.name = k;p.value = pvp[k];f.appendChild(p);adp[i++] = p;}};function jsfcljs(f, pvp, t) {apf(f, pvp);var ft = f.target;if (t) {f.target = t;}f.submit();f.target = ft;dpf(f);};</script>
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formListagemCursos'),{'formListagemCursos:j_id_jsp_1302309529_17':'formListagemCursos:j_id_jsp_1302309529_17','id':'21393'},'');}return false" title="Visualizar Detalhes do Curso"><img src="/sigaa/img/view.gif;jsessionid=0"/></a>
+</td>
+</tr>
+<tr>
+<td class="subFormulario" colspan="5">
+<a href="/sigaa/public/programa/portal.jsf?lc=pt_BR&amp;id=2143">
+											CPGCM/ICADS - PROGRAMA DE PÓS-GRADUAÇÃO EM CIÊNCIAS AMBIENTAIS (CPGCM/ICADS)
+											</a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td>
+							MESTRADO EM CIÊNCIAS AMBIENTAIS								
+							</td>
+<td>
+								MESTRADO
+								</td>
+<td>
+								BARREIRAS
+								
+								</td>
+<td>
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formListagemCursos'),{'formListagemCursos:j_id_jsp_1302309529_17j_id_1':'formListagemCursos:j_id_jsp_1302309529_17j_id_1','id':'31038'},'');}return false" title="Visualizar Detalhes do Curso"><img src="/sigaa/img/view.gif;jsessionid=0"/></a>
+</td>
+</tr>
+<tr>
+<td class="subFormulario" colspan="5">
+<a href="/sigaa/public/programa/portal.jsf?lc=pt_BR&amp;id=1577">
+											DMMDC - PROGRAMA DE PÓS-GRADUAÇÃO EM DIFUSÃO DO CONHECIMENTO (DMMDC)
+											</a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td>
+							DOUTORADO EM DIFUSÃO DO CONHECIMENTO								
+							</td>
+<td>
+								DOUTORADO
+								</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formListagemCursos'),{'formListagemCursos:j_id_jsp_1302309529_17j_id_2':'formListagemCursos:j_id_jsp_1302309529_17j_id_2','id':'38052'},'');}return false" title="Visualizar Detalhes do Curso"><img src="/sigaa/img/view.gif;jsessionid=0"/></a>
+</td>
+</tr>
+<tr>
+<td class="subFormulario" colspan="5">
+<a href="/sigaa/public/programa/portal.jsf?lc=pt_BR&amp;id=2106">
+											MAASA - PROGRAMA DE PÓS-GRADUAÇÃO EM MEIO AMBIENTE, ÁGUAS E SANEAMENTO (MAASA)
+											</a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td>
+							DOUTORADO EM MEIO AMBIENTE, ÁGUAS E SANEAMENTO								
+							</td>
+<td>
+								DOUTORADO
+								</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formListagemCursos'),{'formListagemCursos:j_id_jsp_1302309529_17j_id_3':'formListagemCursos:j_id_jsp_1302309529_17j_id_3','id':'1628899'},'');}return false" title="Visualizar Detalhes do Curso"><img src="/sigaa/img/view.gif;jsessionid=0"/></a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td>
+							MESTRADO EM MEIO AMBIENTE, ÁGUAS E SANEAMENTO								
+							</td>
+<td>
+								MESTRADO
+								</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formListagemCursos'),{'formListagemCursos:j_id_jsp_1302309529_17j_id_4':'formListagemCursos:j_id_jsp_1302309529_17j_id_4','id':'24965'},'');}return false" title="Visualizar Detalhes do Curso"><img src="/sigaa/img/view.gif;jsessionid=0"/></a>
+</td>
+</tr>
+<tr>
+<td class="subFormulario" colspan="5">
+<a href="/sigaa/public/programa/portal.jsf?lc=pt_BR&amp;id=2108">
+											MPSPJC - PROGRAMA DE PÓS-GRADUAÇÃO EM SEGURANÇA PÚBLICA, JUSTIÇA E CIDADANIA (MPSPJC)
+											</a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td>
+							MESTRADO PROFISSIONAL EM SEGURANÇA PÚBLICA, JUSTIÇA E CIDADANIA								
+							</td>
+<td>
+								MESTRADO
+								</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formListagemCursos'),{'formListagemCursos:j_id_jsp_1302309529_17j_id_5':'formListagemCursos:j_id_jsp_1302309529_17j_id_5','id':'38318'},'');}return false" title="Visualizar Detalhes do Curso"><img src="/sigaa/img/view.gif;jsessionid=0"/></a>
+</td>
+</tr>
+<tr>
+<td class="subFormulario" colspan="5">
+<a href="/sigaa/public/programa/portal.jsf?lc=pt_BR&amp;id=1289">
+											NPGA - PROGRAMA DE PÓS-GRADUAÇÃO EM ADMINISTRAÇÃO (NPGA)
+											</a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td>
+							DOUTORADO EM ADMINISTRAÇÃO								
+							</td>
+<td>
+								DOUTORADO
+								</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formListagemCursos'),{'formListagemCursos:j_id_jsp_1302309529_17j_id_6':'formListagemCursos:j_id_jsp_1302309529_17j_id_6','id':'36442'},'');}return false" title="Visualizar Detalhes do Curso"><img src="/sigaa/img/view.gif;jsessionid=0"/></a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td>
+							MESTRADO EM ADMINISTRAÇÃO								
+							</td>
+<td>
+								MESTRADO
+								</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formListagemCursos'),{'formListagemCursos:j_id_jsp_1302309529_17j_id_7':'formListagemCursos:j_id_jsp_1302309529_17j_id_7','id':'32784'},'');}return false" title="Visualizar Detalhes do Curso"><img src="/sigaa/img/view.gif;jsessionid=0"/></a>
+</td>
+</tr>
+<tr>
+<td class="subFormulario" colspan="5">
+<a href="/sigaa/public/programa/portal.jsf?lc=pt_BR&amp;id=1839">
+											NPGA-P - PROGRAMA DE PÓS-GRADUAÇÃO EM ADMINISTRAÇÃO (NPGA-P)
+											</a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td>
+							MESTRADO PROFISSIONAL EM ADMINISTRAÇÃO								
+							</td>
+<td>
+								MESTRADO
+								</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formListagemCursos'),{'formListagemCursos:j_id_jsp_1302309529_17j_id_8':'formListagemCursos:j_id_jsp_1302309529_17j_id_8','id':'34829'},'');}return false" title="Visualizar Detalhes do Curso"><img src="/sigaa/img/view.gif;jsessionid=0"/></a>
+</td>
+</tr>
+<tr>
+<td class="subFormulario" colspan="5">
+<a href="/sigaa/public/programa/portal.jsf?lc=pt_BR&amp;id=1833">
+											PEI - PROGRAMA DE PÓS-GRADUAÇÃO EM ENGENHARIA INDUSTRIAL (PEI)
+											</a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td>
+							DOUTORADO EM ENGENHARIA INDUSTRIAL								
+							</td>
+<td>
+								DOUTORADO
+								</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formListagemCursos'),{'formListagemCursos:j_id_jsp_1302309529_17j_id_9':'formListagemCursos:j_id_jsp_1302309529_17j_id_9','id':'24253'},'');}return false" title="Visualizar Detalhes do Curso"><img src="/sigaa/img/view.gif;jsessionid=0"/></a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td>
+							MESTRADO EM ENGENHARIA INDUSTRIAL								
+							</td>
+<td>
+								MESTRADO
+								</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formListagemCursos'),{'formListagemCursos:j_id_jsp_1302309529_17j_id_10':'formListagemCursos:j_id_jsp_1302309529_17j_id_10','id':'24388'},'');}return false" title="Visualizar Detalhes do Curso"><img src="/sigaa/img/view.gif;jsessionid=0"/></a>
+</td>
+</tr>
+<tr>
+<td class="subFormulario" colspan="5">
+<a href="/sigaa/public/programa/portal.jsf?lc=pt_BR&amp;id=1835">
+											PEI-P - PROGRAMA DE PÓS-GRADUAÇÃO EM ENGENHARIA INDUSTRIAL (PEI-P)
+											</a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td>
+							MESTRADO PROFISSIONAL EM ENGENHARIA INDUSTRIAL								
+							</td>
+<td>
+								MESTRADO
+								</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formListagemCursos'),{'formListagemCursos:j_id_jsp_1302309529_17j_id_11':'formListagemCursos:j_id_jsp_1302309529_17j_id_11','id':'24616'},'');}return false" title="Visualizar Detalhes do Curso"><img src="/sigaa/img/view.gif;jsessionid=0"/></a>
+</td>
+</tr>
+<tr>
+<td class="subFormulario" colspan="5">
+<a href="/sigaa/public/programa/portal.jsf?lc=pt_BR&amp;id=1829">
+											PGALI - PROGRAMA DE PÓS-GRADUAÇÃO EM CIÊNCIA DE ALIMENTOS (PGALI)
+											</a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td>
+							DOUTORADO EM CIÊNCIA DE ALIMENTOS								
+							</td>
+<td>
+								DOUTORADO
+								</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formListagemCursos'),{'formListagemCursos:j_id_jsp_1302309529_17j_id_12':'formListagemCursos:j_id_jsp_1302309529_17j_id_12','id':'273162'},'');}return false" title="Visualizar Detalhes do Curso"><img src="/sigaa/img/view.gif;jsessionid=0"/></a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td>
+							MESTRADO EM CIÊNCIA DE ALIMENTOS								
+							</td>
+<td>
+								MESTRADO
+								</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formListagemCursos'),{'formListagemCursos:j_id_jsp_1302309529_17j_id_13':'formListagemCursos:j_id_jsp_1302309529_17j_id_13','id':'30352'},'');}return false" title="Visualizar Detalhes do Curso"><img src="/sigaa/img/view.gif;jsessionid=0"/></a>
+</td>
+</tr>
+<tr>
+<td class="subFormulario" colspan="5">
+<a href="/sigaa/public/programa/portal.jsf?lc=pt_BR&amp;id=1820">
+											PGCOMP/IC - PROGRAMA DE PÓS-GRADUAÇÃO EM CIÊNCIA DA COMPUTAÇÃO (PGCOMP)
+											</a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td>
+							DOUTORADO EM CIÊNCIA DA COMPUTAÇÃO								
+							</td>
+<td>
+								DOUTORADO
+								</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formListagemCursos'),{'formListagemCursos:j_id_jsp_1302309529_17j_id_14':'formListagemCursos:j_id_jsp_1302309529_17j_id_14','id':'43753'},'');}return false" title="Visualizar Detalhes do Curso"><img src="/sigaa/img/view.gif;jsessionid=0"/></a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td>
+							MESTRADO EM CIÊNCIA DA COMPUTAÇÃO								
+							</td>
+<td>
+								MESTRADO
+								</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formListagemCursos'),{'formListagemCursos:j_id_jsp_1302309529_17j_id_15':'formListagemCursos:j_id_jsp_1302309529_17j_id_15','id':'25210'},'');}return false" title="Visualizar Detalhes do Curso"><img src="/sigaa/img/view.gif;jsessionid=0"/></a>
+</td>
+</tr>
+<tr>
+<td class="subFormulario" colspan="5">
+<a href="/sigaa/public/programa/portal.jsf?lc=pt_BR&amp;id=1323">
+											PGEDU - PROGRAMA DE PÓS-GRADUAÇÃO EM EDUCAÇÃO (PGEDU)
+											</a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td>
+							DOUTORADO EM EDUCAÇÃO								
+							</td>
+<td>
+								DOUTORADO
+								</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formListagemCursos'),{'formListagemCursos:j_id_jsp_1302309529_17j_id_16':'formListagemCursos:j_id_jsp_1302309529_17j_id_16','id':'35813'},'');}return false" title="Visualizar Detalhes do Curso"><img src="/sigaa/img/view.gif;jsessionid=0"/></a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td>
+							MESTRADO EM EDUCAÇÃO								
+							</td>
+<td>
+								MESTRADO
+								</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formListagemCursos'),{'formListagemCursos:j_id_jsp_1302309529_17j_id_17':'formListagemCursos:j_id_jsp_1302309529_17j_id_17','id':'31744'},'');}return false" title="Visualizar Detalhes do Curso"><img src="/sigaa/img/view.gif;jsessionid=0"/></a>
+</td>
+</tr>
+<tr>
+<td class="subFormulario" colspan="5">
+<a href="/sigaa/public/programa/portal.jsf?lc=pt_BR&amp;id=2260">
+											PGEDU-P - PROGRAMA DE PÓS-GRADUAÇÃO EM CURRÍCULO, LINGUAGENS E INOVAÇÕES PEDAGÓGICAS (PGEDU-P)
+											</a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td>
+							MESTRADO PROFISSIONAL EM CURRÍCULO, LINGUAGENS E INOVAÇÕES PEDAGÓGICAS								
+							</td>
+<td>
+								MESTRADO
+								</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formListagemCursos'),{'formListagemCursos:j_id_jsp_1302309529_17j_id_18':'formListagemCursos:j_id_jsp_1302309529_17j_id_18','id':'38349'},'');}return false" title="Visualizar Detalhes do Curso"><img src="/sigaa/img/view.gif;jsessionid=0"/></a>
+</td>
+</tr>
+<tr>
+<td class="subFormulario" colspan="5">
+<a href="/sigaa/public/programa/portal.jsf?lc=pt_BR&amp;id=1152">
+											PGGEOFISICA - PROGRAMA DE PÓS-GRADUAÇÃO EM GEOFÍSICA (PGGEOFISICA)
+											</a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td>
+							DOUTORADO EM GEOFÍSICA								
+							</td>
+<td>
+								DOUTORADO
+								</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formListagemCursos'),{'formListagemCursos:j_id_jsp_1302309529_17j_id_19':'formListagemCursos:j_id_jsp_1302309529_17j_id_19','id':'21453'},'');}return false" title="Visualizar Detalhes do Curso"><img src="/sigaa/img/view.gif;jsessionid=0"/></a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td>
+							MESTRADO EM GEOFÍSICA								
+							</td>
+<td>
+								MESTRADO
+								</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formListagemCursos'),{'formListagemCursos:j_id_jsp_1302309529_17j_id_20':'formListagemCursos:j_id_jsp_1302309529_17j_id_20','id':'15099'},'');}return false" title="Visualizar Detalhes do Curso"><img src="/sigaa/img/view.gif;jsessionid=0"/></a>
+</td>
+</tr>
+<tr>
+<td class="subFormulario" colspan="5">
+<a href="/sigaa/public/programa/portal.jsf?lc=pt_BR&amp;id=1155">
+											PGGEOLOGIA - PROGRAMA DE PÓS-GRADUAÇÃO EM GEOLOGIA (PGGEOLOGIA)
+											</a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td>
+							DOUTORADO EM GEOLOGIA								
+							</td>
+<td>
+								DOUTORADO
+								</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formListagemCursos'),{'formListagemCursos:j_id_jsp_1302309529_17j_id_21':'formListagemCursos:j_id_jsp_1302309529_17j_id_21','id':'23245'},'');}return false" title="Visualizar Detalhes do Curso"><img src="/sigaa/img/view.gif;jsessionid=0"/></a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td>
+							MESTRADO EM GEOLOGIA								
+							</td>
+<td>
+								MESTRADO
+								</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formListagemCursos'),{'formListagemCursos:j_id_jsp_1302309529_17j_id_22':'formListagemCursos:j_id_jsp_1302309529_17j_id_22','id':'19122'},'');}return false" title="Visualizar Detalhes do Curso"><img src="/sigaa/img/view.gif;jsessionid=0"/></a>
+</td>
+</tr>
+<tr>
+<td class="subFormulario" colspan="5">
+<a href="/sigaa/public/programa/portal.jsf?lc=pt_BR&amp;id=1110">
+											PGMAT - PROGRAMA DE PÓS-GRADUAÇÃO EM MATEMÁTICA (PGMAT)
+											</a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td>
+							MESTRADO EM MATEMÁTICA								
+							</td>
+<td>
+								MESTRADO
+								</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formListagemCursos'),{'formListagemCursos:j_id_jsp_1302309529_17j_id_23':'formListagemCursos:j_id_jsp_1302309529_17j_id_23','id':'16125'},'');}return false" title="Visualizar Detalhes do Curso"><img src="/sigaa/img/view.gif;jsessionid=0"/></a>
+</td>
+</tr>
+<tr>
+<td class="subFormulario" colspan="5">
+<a href="/sigaa/public/programa/portal.jsf?lc=pt_BR&amp;id=2147">
+											PGMAT-UFAL - PROGRAMA DE PÓS-GRADUAÇÃO EM MATEMÁTICA (PGMAT-UFAL)
+											</a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td>
+							DOUTORADO EM MATEMÁTICA								
+							</td>
+<td>
+								DOUTORADO
+								</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formListagemCursos'),{'formListagemCursos:j_id_jsp_1302309529_17j_id_24':'formListagemCursos:j_id_jsp_1302309529_17j_id_24','id':'24989'},'');}return false" title="Visualizar Detalhes do Curso"><img src="/sigaa/img/view.gif;jsessionid=0"/></a>
+</td>
+</tr>
+<tr>
+<td class="subFormulario" colspan="5">
+<a href="/sigaa/public/programa/portal.jsf?lc=pt_BR&amp;id=2191">
+											PGMICRO - PROGRAMA DE PÓS-GRADUAÇÃO EM MICROBIOLOGIA (PGMICRO)
+											</a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td>
+							MESTRADO EM MICROBIOLOGIA								
+							</td>
+<td>
+								MESTRADO
+								</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formListagemCursos'),{'formListagemCursos:j_id_jsp_1302309529_17j_id_25':'formListagemCursos:j_id_jsp_1302309529_17j_id_25','id':'44400'},'');}return false" title="Visualizar Detalhes do Curso"><img src="/sigaa/img/view.gif;jsessionid=0"/></a>
+</td>
+</tr>
+<tr>
+<td class="subFormulario" colspan="5">
+<a href="/sigaa/public/programa/portal.jsf?lc=pt_BR&amp;id=1306">
+											PGNUT - PROGRAMA DE PÓS-GRADUAÇÃO EM ALIMENTOS, NUTRIÇÃO E SAÚDE (PGNUT)
+											</a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td>
+							DOUTORADO EM ALIMENTOS, NUTRIÇÃO E SAÚDE								
+							</td>
+<td>
+								DOUTORADO
+								</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formListagemCursos'),{'formListagemCursos:j_id_jsp_1302309529_17j_id_26':'formListagemCursos:j_id_jsp_1302309529_17j_id_26','id':'25673'},'');}return false" title="Visualizar Detalhes do Curso"><img src="/sigaa/img/view.gif;jsessionid=0"/></a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td>
+							MESTRADO EM ALIMENTOS, NUTRIÇÃO E SAÚDE								
+							</td>
+<td>
+								MESTRADO
+								</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formListagemCursos'),{'formListagemCursos:j_id_jsp_1302309529_17j_id_27':'formListagemCursos:j_id_jsp_1302309529_17j_id_27','id':'30312'},'');}return false" title="Visualizar Detalhes do Curso"><img src="/sigaa/img/view.gif;jsessionid=0"/></a>
+</td>
+</tr>
+<tr>
+<td class="subFormulario" colspan="5">
+<a href="/sigaa/public/programa/portal.jsf?lc=pt_BR&amp;id=1188">
+											PGPAT - PROGRAMA DE PÓS-GRADUAÇÃO EM PATOLOGIA HUMANA (PGPAT)
+											</a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td>
+							DOUTORADO EM PATOLOGIA HUMANA								
+							</td>
+<td>
+								DOUTORADO
+								</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formListagemCursos'),{'formListagemCursos:j_id_jsp_1302309529_17j_id_28':'formListagemCursos:j_id_jsp_1302309529_17j_id_28','id':'29056'},'');}return false" title="Visualizar Detalhes do Curso"><img src="/sigaa/img/view.gif;jsessionid=0"/></a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td>
+							MESTRADO EM PATOLOGIA HUMANA								
+							</td>
+<td>
+								MESTRADO
+								</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formListagemCursos'),{'formListagemCursos:j_id_jsp_1302309529_17j_id_29':'formListagemCursos:j_id_jsp_1302309529_17j_id_29','id':'26015'},'');}return false" title="Visualizar Detalhes do Curso"><img src="/sigaa/img/view.gif;jsessionid=0"/></a>
+</td>
+</tr>
+<tr>
+<td class="subFormulario" colspan="5">
+<a href="/sigaa/public/programa/portal.jsf?lc=pt_BR&amp;id=2131">
+											PMBQBM - PROGRAMA DE PÓS-GRADUAÇÃO EM BIOQUÍMICA E BIOLOGIA MOLECULAR (PMBQBM)
+											</a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td>
+							DOUTORADO EM MULTICÊNTRICO EM BIOQUÍMICA E BIOLOGIA MOLECULAR								
+							</td>
+<td>
+								DOUTORADO
+								</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formListagemCursos'),{'formListagemCursos:j_id_jsp_1302309529_17j_id_30':'formListagemCursos:j_id_jsp_1302309529_17j_id_30','id':'25613'},'');}return false" title="Visualizar Detalhes do Curso"><img src="/sigaa/img/view.gif;jsessionid=0"/></a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td>
+							MESTRADO EM MULTICÊNTRICO EM BIOQUÍMICA E BIOLOGIA MOLECULAR								
+							</td>
+<td>
+								MESTRADO
+								</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formListagemCursos'),{'formListagemCursos:j_id_jsp_1302309529_17j_id_31':'formListagemCursos:j_id_jsp_1302309529_17j_id_31','id':'25555'},'');}return false" title="Visualizar Detalhes do Curso"><img src="/sigaa/img/view.gif;jsessionid=0"/></a>
+</td>
+</tr>
+<tr>
+<td class="subFormulario" colspan="5">
+<a href="/sigaa/public/programa/portal.jsf?lc=pt_BR&amp;id=2146">
+											PMCC/IC - PROGRAMA DE PÓS-GRADUAÇÃO EM CIÊNCIA DA COMPUTAÇÃO (PMCC)
+											</a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td>
+							DOUTORADO EM CIÊNCIA DA COMPUTAÇÃO								
+							</td>
+<td>
+								DOUTORADO
+								</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formListagemCursos'),{'formListagemCursos:j_id_jsp_1302309529_17j_id_32':'formListagemCursos:j_id_jsp_1302309529_17j_id_32','id':'24220'},'');}return false" title="Visualizar Detalhes do Curso"><img src="/sigaa/img/view.gif;jsessionid=0"/></a>
+</td>
+</tr>
+<tr>
+<td class="subFormulario" colspan="5">
+<a href="/sigaa/public/programa/portal.jsf?lc=pt_BR&amp;id=1826">
+											PMPGCF - PROGRAMA DE PÓS-GRADUAÇÃO EM CIÊNCIAS FISIOLÓGICAS (PMPGCF)
+											</a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td>
+							DOUTORADO EM MULTICÊNTRICO EM CIÊNCIAS FISIOLÓGICAS								
+							</td>
+<td>
+								DOUTORADO
+								</td>
+<td>
+								VITÓRIA DA CONQUISTA
+								
+								</td>
+<td>
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formListagemCursos'),{'formListagemCursos:j_id_jsp_1302309529_17j_id_33':'formListagemCursos:j_id_jsp_1302309529_17j_id_33','id':'30292'},'');}return false" title="Visualizar Detalhes do Curso"><img src="/sigaa/img/view.gif;jsessionid=0"/></a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td>
+							MESTRADO EM MULTICÊNTRICO EM CIÊNCIAS FISIOLÓGICAS								
+							</td>
+<td>
+								MESTRADO
+								</td>
+<td>
+								VITÓRIA DA CONQUISTA
+								
+								</td>
+<td>
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formListagemCursos'),{'formListagemCursos:j_id_jsp_1302309529_17j_id_34':'formListagemCursos:j_id_jsp_1302309529_17j_id_34','id':'28411'},'');}return false" title="Visualizar Detalhes do Curso"><img src="/sigaa/img/view.gif;jsessionid=0"/></a>
+</td>
+</tr>
+<tr>
+<td class="subFormulario" colspan="5">
+<a href="/sigaa/public/programa/portal.jsf?lc=pt_BR&amp;id=1913">
+											POSAFRO - PROGRAMA DE PÓS-GRADUAÇÃO EM ESTUDOS ÉTNICOS E AFRICANOS (POSAFRO)
+											</a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td>
+							DOUTORADO EM ESTUDOS ÉTNICOS E AFRICANOS								
+							</td>
+<td>
+								DOUTORADO
+								</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formListagemCursos'),{'formListagemCursos:j_id_jsp_1302309529_17j_id_35':'formListagemCursos:j_id_jsp_1302309529_17j_id_35','id':'36254'},'');}return false" title="Visualizar Detalhes do Curso"><img src="/sigaa/img/view.gif;jsessionid=0"/></a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td>
+							MESTRADO EM ESTUDOS ÉTNICOS E AFRICANOS								
+							</td>
+<td>
+								MESTRADO
+								</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formListagemCursos'),{'formListagemCursos:j_id_jsp_1302309529_17j_id_36':'formListagemCursos:j_id_jsp_1302309529_17j_id_36','id':'35457'},'');}return false" title="Visualizar Detalhes do Curso"><img src="/sigaa/img/view.gif;jsessionid=0"/></a>
+</td>
+</tr>
+<tr>
+<td class="subFormulario" colspan="5">
+<a href="/sigaa/public/programa/portal.jsf?lc=pt_BR&amp;id=1351">
+											POSCOM - PROGRAMA DE PÓS-GRADUAÇÃO EM COMUNICAÇÃO E CULTURA CONTEMPORÂNEA (POSCOM)
+											</a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td>
+							DOUTORADO EM COMUNICAÇÃO E CULTURA CONTEMPORÂNEAS								
+							</td>
+<td>
+								DOUTORADO
+								</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formListagemCursos'),{'formListagemCursos:j_id_jsp_1302309529_17j_id_37':'formListagemCursos:j_id_jsp_1302309529_17j_id_37','id':'36071'},'');}return false" title="Visualizar Detalhes do Curso"><img src="/sigaa/img/view.gif;jsessionid=0"/></a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td>
+							MESTRADO EM COMUNICAÇÃO E CULTURA CONTEMPORÂNEAS								
+							</td>
+<td>
+								MESTRADO
+								</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formListagemCursos'),{'formListagemCursos:j_id_jsp_1302309529_17j_id_38':'formListagemCursos:j_id_jsp_1302309529_17j_id_38','id':'34547'},'');}return false" title="Visualizar Detalhes do Curso"><img src="/sigaa/img/view.gif;jsessionid=0"/></a>
+</td>
+</tr>
+<tr>
+<td class="subFormulario" colspan="5">
+<a href="/sigaa/public/programa/portal.jsf?lc=pt_BR&amp;id=2094">
+											POSCULTURA - PROGRAMA DE PÓS-GRADUAÇÃO EM CULTURA E SOCIEDADE (POSCULTURA)
+											</a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td>
+							DOUTORADO EM CULTURA E SOCIEDADE								
+							</td>
+<td>
+								DOUTORADO
+								</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formListagemCursos'),{'formListagemCursos:j_id_jsp_1302309529_17j_id_39':'formListagemCursos:j_id_jsp_1302309529_17j_id_39','id':'36336'},'');}return false" title="Visualizar Detalhes do Curso"><img src="/sigaa/img/view.gif;jsessionid=0"/></a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td>
+							MESTRADO EM CULTURA E SOCIEDADE								
+							</td>
+<td>
+								MESTRADO
+								</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formListagemCursos'),{'formListagemCursos:j_id_jsp_1302309529_17j_id_40':'formListagemCursos:j_id_jsp_1302309529_17j_id_40','id':'32679'},'');}return false" title="Visualizar Detalhes do Curso"><img src="/sigaa/img/view.gif;jsessionid=0"/></a>
+</td>
+</tr>
+<tr>
+<td class="subFormulario" colspan="5">
+<a href="/sigaa/public/programa/portal.jsf?lc=pt_BR&amp;id=1154">
+											POSGEO - PROGRAMA DE PÓS-GRADUAÇÃO EM GEOGRAFIA (POSGEO)
+											</a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td>
+							DOUTORADO EM GEOGRAFIA								
+							</td>
+<td>
+								DOUTORADO
+								</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formListagemCursos'),{'formListagemCursos:j_id_jsp_1302309529_17j_id_41':'formListagemCursos:j_id_jsp_1302309529_17j_id_41','id':'25106'},'');}return false" title="Visualizar Detalhes do Curso"><img src="/sigaa/img/view.gif;jsessionid=0"/></a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td>
+							MESTRADO EM GEOGRAFIA								
+							</td>
+<td>
+								MESTRADO
+								</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formListagemCursos'),{'formListagemCursos:j_id_jsp_1302309529_17j_id_42':'formListagemCursos:j_id_jsp_1302309529_17j_id_42','id':'20134'},'');}return false" title="Visualizar Detalhes do Curso"><img src="/sigaa/img/view.gif;jsessionid=0"/></a>
+</td>
+</tr>
+<tr>
+<td class="subFormulario" colspan="5">
+<a href="/sigaa/public/programa/portal.jsf?lc=pt_BR&amp;id=1153">
+											POSPETRO-GEO - PROGRAMA DE PÓS-GRADUAÇÃO EM GEOQUÍMICA: PETRÓLEO E MEIO AMBIENTE (POSPETRO-GEO)
+											</a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td>
+							DOUTORADO EM GEOQUÍMICA: PETRÓLEO E MEIO AMBIENTE								
+							</td>
+<td>
+								DOUTORADO
+								</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formListagemCursos'),{'formListagemCursos:j_id_jsp_1302309529_17j_id_43':'formListagemCursos:j_id_jsp_1302309529_17j_id_43','id':'21440'},'');}return false" title="Visualizar Detalhes do Curso"><img src="/sigaa/img/view.gif;jsessionid=0"/></a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td>
+							MESTRADO EM GEOQUÍMICA: PETRÓLEO E MEIO AMBIENTE								
+							</td>
+<td>
+								MESTRADO
+								</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formListagemCursos'),{'formListagemCursos:j_id_jsp_1302309529_17j_id_44':'formListagemCursos:j_id_jsp_1302309529_17j_id_44','id':'21356'},'');}return false" title="Visualizar Detalhes do Curso"><img src="/sigaa/img/view.gif;jsessionid=0"/></a>
+</td>
+</tr>
+<tr>
+<td class="subFormulario" colspan="5">
+<a href="/sigaa/public/programa/portal.jsf?lc=pt_BR&amp;id=2178">
+											PPEC - PROGRAMA DE PÓS-GRADUAÇÃO EM ENGENHARIA CIVIL (PPEC)
+											</a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td>
+							DOUTORADO EM ENGENHARIA CIVIL								
+							</td>
+<td>
+								DOUTORADO
+								</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formListagemCursos'),{'formListagemCursos:j_id_jsp_1302309529_17j_id_45':'formListagemCursos:j_id_jsp_1302309529_17j_id_45','id':'44419'},'');}return false" title="Visualizar Detalhes do Curso"><img src="/sigaa/img/view.gif;jsessionid=0"/></a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td>
+							MESTRADO EM ENGENHARIA CIVIL								
+							</td>
+<td>
+								MESTRADO
+								</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formListagemCursos'),{'formListagemCursos:j_id_jsp_1302309529_17j_id_46':'formListagemCursos:j_id_jsp_1302309529_17j_id_46','id':'44316'},'');}return false" title="Visualizar Detalhes do Curso"><img src="/sigaa/img/view.gif;jsessionid=0"/></a>
+</td>
+</tr>
+<tr>
+<td class="subFormulario" colspan="5">
+<a href="/sigaa/public/programa/portal.jsf?lc=pt_BR&amp;id=2145">
+											PPEQ - PROGRAMA DE PÓS-GRADUAÇÃO EM ENGENHARIA QUÍMICA (PPEQ)
+											</a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td>
+							DOUTORADO EM ENGENHARIA QUÍMICA								
+							</td>
+<td>
+								DOUTORADO
+								</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formListagemCursos'),{'formListagemCursos:j_id_jsp_1302309529_17j_id_47':'formListagemCursos:j_id_jsp_1302309529_17j_id_47','id':'24031'},'');}return false" title="Visualizar Detalhes do Curso"><img src="/sigaa/img/view.gif;jsessionid=0"/></a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td>
+							MESTRADO EM ENGENHARIA QUÍMICA								
+							</td>
+<td>
+								MESTRADO
+								</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formListagemCursos'),{'formListagemCursos:j_id_jsp_1302309529_17j_id_48':'formListagemCursos:j_id_jsp_1302309529_17j_id_48','id':'19887'},'');}return false" title="Visualizar Detalhes do Curso"><img src="/sigaa/img/view.gif;jsessionid=0"/></a>
+</td>
+</tr>
+<tr>
+<td class="subFormulario" colspan="5">
+<a href="/sigaa/public/programa/portal.jsf?lc=pt_BR&amp;id=1832">
+											PPGA - PROGRAMA DE PÓS-GRADUAÇÃO EM ANTROPOLOGIA (PPGA)
+											</a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td>
+							DOUTORADO EM ANTROPOLOGIA								
+							</td>
+<td>
+								DOUTORADO
+								</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formListagemCursos'),{'formListagemCursos:j_id_jsp_1302309529_17j_id_49':'formListagemCursos:j_id_jsp_1302309529_17j_id_49','id':'37903'},'');}return false" title="Visualizar Detalhes do Curso"><img src="/sigaa/img/view.gif;jsessionid=0"/></a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td>
+							MESTRADO EM ANTROPOLOGIA								
+							</td>
+<td>
+								MESTRADO
+								</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formListagemCursos'),{'formListagemCursos:j_id_jsp_1302309529_17j_id_50':'formListagemCursos:j_id_jsp_1302309529_17j_id_50','id':'35734'},'');}return false" title="Visualizar Detalhes do Curso"><img src="/sigaa/img/view.gif;jsessionid=0"/></a>
+</td>
+</tr>
+<tr>
+<td class="subFormulario" colspan="5">
+<a href="/sigaa/public/programa/portal.jsf?lc=pt_BR&amp;id=1366">
+											PPGAC - PROGRAMA DE PÓS-GRADUAÇÃO EM ARTES CÊNICAS (PPGAC)
+											</a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td>
+							DOUTORADO EM ARTES CÊNICAS								
+							</td>
+<td>
+								DOUTORADO
+								</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formListagemCursos'),{'formListagemCursos:j_id_jsp_1302309529_17j_id_51':'formListagemCursos:j_id_jsp_1302309529_17j_id_51','id':'43582'},'');}return false" title="Visualizar Detalhes do Curso"><img src="/sigaa/img/view.gif;jsessionid=0"/></a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td>
+							MESTRADO EM ARTES CÊNICAS								
+							</td>
+<td>
+								MESTRADO
+								</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formListagemCursos'),{'formListagemCursos:j_id_jsp_1302309529_17j_id_52':'formListagemCursos:j_id_jsp_1302309529_17j_id_52','id':'42514'},'');}return false" title="Visualizar Detalhes do Curso"><img src="/sigaa/img/view.gif;jsessionid=0"/></a>
+</td>
+</tr>
+<tr>
+<td class="subFormulario" colspan="5">
+<a href="/sigaa/public/programa/portal.jsf?lc=pt_BR&amp;id=2251">
+											PPGASFAR - PROGRAMA DE PÓS-GRADUAÇÃO EM ASSISTÊNCIA FARMACÊUTICA (PPGASFAR)
+											</a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td>
+							DOUTORADO EM ASSISTÊNCIA FARMACÊUTICA								
+							</td>
+<td>
+								DOUTORADO
+								</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formListagemCursos'),{'formListagemCursos:j_id_jsp_1302309529_17j_id_53':'formListagemCursos:j_id_jsp_1302309529_17j_id_53','id':'1161120'},'');}return false" title="Visualizar Detalhes do Curso"><img src="/sigaa/img/view.gif;jsessionid=0"/></a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td>
+							MESTRADO EM ASSISTÊNCIA FARMACÊUTICA								
+							</td>
+<td>
+								MESTRADO
+								</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formListagemCursos'),{'formListagemCursos:j_id_jsp_1302309529_17j_id_54':'formListagemCursos:j_id_jsp_1302309529_17j_id_54','id':'25506'},'');}return false" title="Visualizar Detalhes do Curso"><img src="/sigaa/img/view.gif;jsessionid=0"/></a>
+</td>
+</tr>
+<tr>
+<td class="subFormulario" colspan="5">
+<a href="/sigaa/public/programa/portal.jsf?lc=pt_BR&amp;id=1281">
+											PPG-AU - PROGRAMA DE PÓS-GRADUAÇÃO EM ARQUITETURA E URBANISMO (PPG-AU)
+											</a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td>
+							DOUTORADO EM ARQUITETURA E URBANISMO								
+							</td>
+<td>
+								DOUTORADO
+								</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formListagemCursos'),{'formListagemCursos:j_id_jsp_1302309529_17j_id_55':'formListagemCursos:j_id_jsp_1302309529_17j_id_55','id':'23721'},'');}return false" title="Visualizar Detalhes do Curso"><img src="/sigaa/img/view.gif;jsessionid=0"/></a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td>
+							MESTRADO EM ARQUITETURA E URBANISMO								
+							</td>
+<td>
+								MESTRADO
+								</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formListagemCursos'),{'formListagemCursos:j_id_jsp_1302309529_17j_id_56':'formListagemCursos:j_id_jsp_1302309529_17j_id_56','id':'19444'},'');}return false" title="Visualizar Detalhes do Curso"><img src="/sigaa/img/view.gif;jsessionid=0"/></a>
+</td>
+</tr>
+<tr>
+<td class="subFormulario" colspan="5">
+<a href="/sigaa/public/programa/portal.jsf?lc=pt_BR&amp;id=1242">
+											PPGAV - PROGRAMA DE PÓS-GRADUAÇÃO EM ARTES VISUAIS (PPGAV)
+											</a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td>
+							DOUTORADO EM ARTES VISUAIS								
+							</td>
+<td>
+								DOUTORADO
+								</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formListagemCursos'),{'formListagemCursos:j_id_jsp_1302309529_17j_id_57':'formListagemCursos:j_id_jsp_1302309529_17j_id_57','id':'43724'},'');}return false" title="Visualizar Detalhes do Curso"><img src="/sigaa/img/view.gif;jsessionid=0"/></a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td>
+							MESTRADO EM ARTES VISUAIS								
+							</td>
+<td>
+								MESTRADO
+								</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formListagemCursos'),{'formListagemCursos:j_id_jsp_1302309529_17j_id_58':'formListagemCursos:j_id_jsp_1302309529_17j_id_58','id':'42650'},'');}return false" title="Visualizar Detalhes do Curso"><img src="/sigaa/img/view.gif;jsessionid=0"/></a>
+</td>
+</tr>
+<tr>
+<td class="subFormulario" colspan="5">
+<a href="/sigaa/public/programa/portal.jsf?lc=pt_BR&amp;id=1951">
+											PPGBIOCIENCIAS - PROGRAMA DE PÓS-GRADUAÇÃO EM BIOCIÊNCIAS (PPGBIOCIENCIAS)
+											</a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td>
+							DOUTORADO EM BIOCIÊNCIAS								
+							</td>
+<td>
+								DOUTORADO
+								</td>
+<td>
+								VITÓRIA DA CONQUISTA
+								
+								</td>
+<td>
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formListagemCursos'),{'formListagemCursos:j_id_jsp_1302309529_17j_id_59':'formListagemCursos:j_id_jsp_1302309529_17j_id_59','id':'1629474'},'');}return false" title="Visualizar Detalhes do Curso"><img src="/sigaa/img/view.gif;jsessionid=0"/></a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td>
+							MESTRADO EM BIOCIÊNCIAS								
+							</td>
+<td>
+								MESTRADO
+								</td>
+<td>
+								VITÓRIA DA CONQUISTA
+								
+								</td>
+<td>
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formListagemCursos'),{'formListagemCursos:j_id_jsp_1302309529_17j_id_60':'formListagemCursos:j_id_jsp_1302309529_17j_id_60','id':'25384'},'');}return false" title="Visualizar Detalhes do Curso"><img src="/sigaa/img/view.gif;jsessionid=0"/></a>
+</td>
+</tr>
+<tr>
+<td class="subFormulario" colspan="5">
+<a href="/sigaa/public/programa/portal.jsf?lc=pt_BR&amp;id=1825">
+											PPGBIOEVO - PROGRAMA DE PÓS-GRADUAÇÃO EM BIODIVERSIDADE E EVOLUÇÃO (PPGBIOEVO)
+											</a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td>
+							DOUTORADO EM BIODIVERSIDADE E EVOLUÇÃO								
+							</td>
+<td>
+								DOUTORADO
+								</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formListagemCursos'),{'formListagemCursos:j_id_jsp_1302309529_17j_id_61':'formListagemCursos:j_id_jsp_1302309529_17j_id_61','id':'43933'},'');}return false" title="Visualizar Detalhes do Curso"><img src="/sigaa/img/view.gif;jsessionid=0"/></a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td>
+							DOUTORADO EM DIVERSIDADE ANIMAL								
+							</td>
+<td>
+								DOUTORADO
+								</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formListagemCursos'),{'formListagemCursos:j_id_jsp_1302309529_17j_id_62':'formListagemCursos:j_id_jsp_1302309529_17j_id_62','id':'176242'},'');}return false" title="Visualizar Detalhes do Curso"><img src="/sigaa/img/view.gif;jsessionid=0"/></a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td>
+							MESTRADO EM BIODIVERSIDADE E EVOLUÇÃO								
+							</td>
+<td>
+								MESTRADO
+								</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formListagemCursos'),{'formListagemCursos:j_id_jsp_1302309529_17j_id_63':'formListagemCursos:j_id_jsp_1302309529_17j_id_63','id':'30772'},'');}return false" title="Visualizar Detalhes do Curso"><img src="/sigaa/img/view.gif;jsessionid=0"/></a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td>
+							MESTRADO EM DIVERSIDADE ANIMAL								
+							</td>
+<td>
+								MESTRADO
+								</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formListagemCursos'),{'formListagemCursos:j_id_jsp_1302309529_17j_id_64':'formListagemCursos:j_id_jsp_1302309529_17j_id_64','id':'176239'},'');}return false" title="Visualizar Detalhes do Curso"><img src="/sigaa/img/view.gif;jsessionid=0"/></a>
+</td>
+</tr>
+<tr>
+<td class="subFormulario" colspan="5">
+<a href="/sigaa/public/programa/portal.jsf?lc=pt_BR&amp;id=1759">
+											PPGBIOTEC - PROGRAMA DE PÓS-GRADUAÇÃO EM BIOTECNOLOGIA (PPGBIOTEC)
+											</a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td>
+							DOUTORADO EM BIOTECNOLOGIA								
+							</td>
+<td>
+								DOUTORADO
+								</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formListagemCursos'),{'formListagemCursos:j_id_jsp_1302309529_17j_id_65':'formListagemCursos:j_id_jsp_1302309529_17j_id_65','id':'43988'},'');}return false" title="Visualizar Detalhes do Curso"><img src="/sigaa/img/view.gif;jsessionid=0"/></a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td>
+							MESTRADO EM BIOTECNOLOGIA								
+							</td>
+<td>
+								MESTRADO
+								</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formListagemCursos'),{'formListagemCursos:j_id_jsp_1302309529_17j_id_66':'formListagemCursos:j_id_jsp_1302309529_17j_id_66','id':'31531'},'');}return false" title="Visualizar Detalhes do Curso"><img src="/sigaa/img/view.gif;jsessionid=0"/></a>
+</td>
+</tr>
+<tr>
+<td class="subFormulario" colspan="5">
+<a href="/sigaa/public/programa/portal.jsf?lc=pt_BR&amp;id=1342">
+											PPGCAT - PROGRAMA DE PÓS-GRADUAÇÃO EM CIÊNCIA ANIMAL NOS TRÓPICOS (PPGCAT)
+											</a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td>
+							DOUTORADO EM CIÊNCIA ANIMAL NOS TRÓPICOS								
+							</td>
+<td>
+								DOUTORADO
+								</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formListagemCursos'),{'formListagemCursos:j_id_jsp_1302309529_17j_id_67':'formListagemCursos:j_id_jsp_1302309529_17j_id_67','id':'30898'},'');}return false" title="Visualizar Detalhes do Curso"><img src="/sigaa/img/view.gif;jsessionid=0"/></a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td>
+							MESTRADO EM CIÊNCIA ANIMAL DOS TRÓPICOS								
+							</td>
+<td>
+								MESTRADO
+								</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formListagemCursos'),{'formListagemCursos:j_id_jsp_1302309529_17j_id_68':'formListagemCursos:j_id_jsp_1302309529_17j_id_68','id':'28547'},'');}return false" title="Visualizar Detalhes do Curso"><img src="/sigaa/img/view.gif;jsessionid=0"/></a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td>
+							MESTRADO EM CIÊNCIA ANIMAL NOS TRÓPICOS								
+							</td>
+<td>
+								MESTRADO
+								</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formListagemCursos'),{'formListagemCursos:j_id_jsp_1302309529_17j_id_69':'formListagemCursos:j_id_jsp_1302309529_17j_id_69','id':'214926'},'');}return false" title="Visualizar Detalhes do Curso"><img src="/sigaa/img/view.gif;jsessionid=0"/></a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td>
+							MESTRADO EM MEDICINA VETERINÁRIA TROPICAL								
+							</td>
+<td>
+								MESTRADO
+								</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formListagemCursos'),{'formListagemCursos:j_id_jsp_1302309529_17j_id_70':'formListagemCursos:j_id_jsp_1302309529_17j_id_70','id':'323967'},'');}return false" title="Visualizar Detalhes do Curso"><img src="/sigaa/img/view.gif;jsessionid=0"/></a>
+</td>
+</tr>
+<tr>
+<td class="subFormulario" colspan="5">
+<a href="/sigaa/public/programa/portal.jsf?lc=pt_BR&amp;id=1313">
+											PPGCI - PROGRAMA DE PÓS-GRADUAÇÃO EM CIÊNCIA DA INFORMAÇÃO (PPGCI)
+											</a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td>
+							DOUTORADO EM CIÊNCIA DA INFORMAÇÃO								
+							</td>
+<td>
+								DOUTORADO
+								</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formListagemCursos'),{'formListagemCursos:j_id_jsp_1302309529_17j_id_71':'formListagemCursos:j_id_jsp_1302309529_17j_id_71','id':'36974'},'');}return false" title="Visualizar Detalhes do Curso"><img src="/sigaa/img/view.gif;jsessionid=0"/></a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td>
+							MESTRADO EM CIÊNCIA DA INFORMAÇÃO								
+							</td>
+<td>
+								MESTRADO
+								</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formListagemCursos'),{'formListagemCursos:j_id_jsp_1302309529_17j_id_72':'formListagemCursos:j_id_jsp_1302309529_17j_id_72','id':'34996'},'');}return false" title="Visualizar Detalhes do Curso"><img src="/sigaa/img/view.gif;jsessionid=0"/></a>
+</td>
+</tr>
+<tr>
+<td class="subFormulario" colspan="5">
+<a href="/sigaa/public/programa/portal.jsf?lc=pt_BR&amp;id=1831">
+											PPGCONT - PROGRAMA DE PÓS-GRADUAÇÃO EM CONTABILIDADE (PPGCONT)
+											</a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td>
+							MESTRADO EM CONTABILIDADE								
+							</td>
+<td>
+								MESTRADO
+								</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formListagemCursos'),{'formListagemCursos:j_id_jsp_1302309529_17j_id_73':'formListagemCursos:j_id_jsp_1302309529_17j_id_73','id':'35768'},'');}return false" title="Visualizar Detalhes do Curso"><img src="/sigaa/img/view.gif;jsessionid=0"/></a>
+</td>
+</tr>
+<tr>
+<td class="subFormulario" colspan="5">
+<a href="/sigaa/public/programa/portal.jsf?lc=pt_BR&amp;id=2433">
+											PPGCP - PROGRAMA DE PÓS-GRADUAÇÃO EM CIÊNCIA POLÍTICA (PPGCP)
+											</a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td>
+							MESTRADO EM CIÊNCIA POLÍTICA								
+							</td>
+<td>
+								MESTRADO
+								</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formListagemCursos'),{'formListagemCursos:j_id_jsp_1302309529_17j_id_74':'formListagemCursos:j_id_jsp_1302309529_17j_id_74','id':'667364'},'');}return false" title="Visualizar Detalhes do Curso"><img src="/sigaa/img/view.gif;jsessionid=0"/></a>
+</td>
+</tr>
+<tr>
+<td class="subFormulario" colspan="5">
+<a href="/sigaa/public/programa/portal.jsf?lc=pt_BR&amp;id=1819">
+											PPGCS - PROGRAMA DE PÓS-GRADUAÇÃO EM CIÊNCIAS DA SAÚDE (PPGCS)
+											</a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td>
+							DOUTORADO EM CIÊNCIAS DA SAÚDE								
+							</td>
+<td>
+								DOUTORADO
+								</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formListagemCursos'),{'formListagemCursos:j_id_jsp_1302309529_17j_id_75':'formListagemCursos:j_id_jsp_1302309529_17j_id_75','id':'31008'},'');}return false" title="Visualizar Detalhes do Curso"><img src="/sigaa/img/view.gif;jsessionid=0"/></a>
+</td>
+</tr>
+<tr>
+<td class="subFormulario" colspan="5">
+<a href="/sigaa/public/programa/portal.jsf?lc=pt_BR&amp;id=1232">
+											PPGCS - PROGRAMA DE PÓS-GRADUAÇÃO EM CIÊNCIAS SOCIAIS (PPGCS)
+											</a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td>
+							DOUTORADO EM CIÊNCIAS SOCIAIS								
+							</td>
+<td>
+								DOUTORADO
+								</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formListagemCursos'),{'formListagemCursos:j_id_jsp_1302309529_17j_id_76':'formListagemCursos:j_id_jsp_1302309529_17j_id_76','id':'37012'},'');}return false" title="Visualizar Detalhes do Curso"><img src="/sigaa/img/view.gif;jsessionid=0"/></a>
+</td>
+</tr>
+<tr>
+<td class="subFormulario" colspan="5">
+<a href="/sigaa/public/programa/portal.jsf?lc=pt_BR&amp;id=1819">
+											PPGCS - PROGRAMA DE PÓS-GRADUAÇÃO EM CIÊNCIAS DA SAÚDE (PPGCS)
+											</a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td>
+							MESTRADO EM CIÊNCIAS DA SAÚDE								
+							</td>
+<td>
+								MESTRADO
+								</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formListagemCursos'),{'formListagemCursos:j_id_jsp_1302309529_17j_id_77':'formListagemCursos:j_id_jsp_1302309529_17j_id_77','id':'30982'},'');}return false" title="Visualizar Detalhes do Curso"><img src="/sigaa/img/view.gif;jsessionid=0"/></a>
+</td>
+</tr>
+<tr>
+<td class="subFormulario" colspan="5">
+<a href="/sigaa/public/programa/portal.jsf?lc=pt_BR&amp;id=1232">
+											PPGCS - PROGRAMA DE PÓS-GRADUAÇÃO EM CIÊNCIAS SOCIAIS (PPGCS)
+											</a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td>
+							MESTRADO EM CIÊNCIAS HUMANAS								
+							</td>
+<td>
+								MESTRADO
+								</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formListagemCursos'),{'formListagemCursos:j_id_jsp_1302309529_17j_id_78':'formListagemCursos:j_id_jsp_1302309529_17j_id_78','id':'329967'},'');}return false" title="Visualizar Detalhes do Curso"><img src="/sigaa/img/view.gif;jsessionid=0"/></a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td>
+							MESTRADO EM CIÊNCIAS SOCIAIS								
+							</td>
+<td>
+								MESTRADO
+								</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formListagemCursos'),{'formListagemCursos:j_id_jsp_1302309529_17j_id_79':'formListagemCursos:j_id_jsp_1302309529_17j_id_79','id':'33644'},'');}return false" title="Visualizar Detalhes do Curso"><img src="/sigaa/img/view.gif;jsessionid=0"/></a>
+</td>
+</tr>
+<tr>
+<td class="subFormulario" colspan="5">
+<a href="/sigaa/public/programa/portal.jsf?lc=pt_BR&amp;id=1197">
+											PPGD - PROGRAMA DE PÓS-GRADUAÇÃO EM DIREITO (PPGD)
+											</a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td>
+							DOUTORADO EM DIREITO								
+							</td>
+<td>
+								DOUTORADO
+								</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formListagemCursos'),{'formListagemCursos:j_id_jsp_1302309529_17j_id_80':'formListagemCursos:j_id_jsp_1302309529_17j_id_80','id':'37664'},'');}return false" title="Visualizar Detalhes do Curso"><img src="/sigaa/img/view.gif;jsessionid=0"/></a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td>
+							MESTRADO EM DIREITO								
+							</td>
+<td>
+								MESTRADO
+								</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formListagemCursos'),{'formListagemCursos:j_id_jsp_1302309529_17j_id_81':'formListagemCursos:j_id_jsp_1302309529_17j_id_81','id':'32335'},'');}return false" title="Visualizar Detalhes do Curso"><img src="/sigaa/img/view.gif;jsessionid=0"/></a>
+</td>
+</tr>
+<tr>
+<td class="subFormulario" colspan="5">
+<a href="/sigaa/public/programa/portal.jsf?lc=pt_BR&amp;id=1822">
+											PPGDANCA - PROGRAMA DE PÓS-GRADUAÇÃO EM DANÇA (PPGDANCA)
+											</a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td>
+							DOUTORADO EM DANÇA								
+							</td>
+<td>
+								DOUTORADO
+								</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formListagemCursos'),{'formListagemCursos:j_id_jsp_1302309529_17j_id_82':'formListagemCursos:j_id_jsp_1302309529_17j_id_82','id':'165609'},'');}return false" title="Visualizar Detalhes do Curso"><img src="/sigaa/img/view.gif;jsessionid=0"/></a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td>
+							MESTRADO EM DANÇA								
+							</td>
+<td>
+								MESTRADO
+								</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formListagemCursos'),{'formListagemCursos:j_id_jsp_1302309529_17j_id_83':'formListagemCursos:j_id_jsp_1302309529_17j_id_83','id':'42860'},'');}return false" title="Visualizar Detalhes do Curso"><img src="/sigaa/img/view.gif;jsessionid=0"/></a>
+</td>
+</tr>
+<tr>
+<td class="subFormulario" colspan="5">
+<a href="/sigaa/public/programa/portal.jsf?lc=pt_BR&amp;id=2657">
+											PPGDesign - PROGRAMA DE PÓS-GRADUAÇÃO EM DESIGN/EBA
+											</a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td>
+							MESTRADO EM DESIGN								
+							</td>
+<td>
+								MESTRADO
+								</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formListagemCursos'),{'formListagemCursos:j_id_jsp_1302309529_17j_id_84':'formListagemCursos:j_id_jsp_1302309529_17j_id_84','id':'1640625'},'');}return false" title="Visualizar Detalhes do Curso"><img src="/sigaa/img/view.gif;jsessionid=0"/></a>
+</td>
+</tr>
+<tr>
+<td class="subFormulario" colspan="5">
+<a href="/sigaa/public/programa/portal.jsf?lc=pt_BR&amp;id=1578">
+											PPGDGS - PROGRAMA DE PÓS-GRADUAÇÃO EM DESENVOLVIMENTO E GESTÃO SOCIAL (PPGDGS)
+											</a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td>
+							MESTRADO PROFISSIONAL EM DESENVOLVIMENTO E GESTÃO SOCIAL								
+							</td>
+<td>
+								MESTRADO
+								</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formListagemCursos'),{'formListagemCursos:j_id_jsp_1302309529_17j_id_85':'formListagemCursos:j_id_jsp_1302309529_17j_id_85','id':'35679'},'');}return false" title="Visualizar Detalhes do Curso"><img src="/sigaa/img/view.gif;jsessionid=0"/></a>
+</td>
+</tr>
+<tr>
+<td class="subFormulario" colspan="5">
+<a href="/sigaa/public/programa/portal.jsf?lc=pt_BR&amp;id=1249">
+											PPGE - PROGRAMA DE PÓS-GRADUAÇÃO EM ECONOMIA (PPGE)
+											</a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td>
+							DOUTORADO EM ECONOMIA								
+							</td>
+<td>
+								DOUTORADO
+								</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formListagemCursos'),{'formListagemCursos:j_id_jsp_1302309529_17j_id_86':'formListagemCursos:j_id_jsp_1302309529_17j_id_86','id':'38365'},'');}return false" title="Visualizar Detalhes do Curso"><img src="/sigaa/img/view.gif;jsessionid=0"/></a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td>
+							MESTRADO EM ECONOMIA								
+							</td>
+<td>
+								MESTRADO
+								</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formListagemCursos'),{'formListagemCursos:j_id_jsp_1302309529_17j_id_87':'formListagemCursos:j_id_jsp_1302309529_17j_id_87','id':'31956'},'');}return false" title="Visualizar Detalhes do Curso"><img src="/sigaa/img/view.gif;jsessionid=0"/></a>
+</td>
+</tr>
+<tr>
+<td class="subFormulario" colspan="5">
+<a href="/sigaa/public/programa/portal.jsf?lc=pt_BR&amp;id=2653">
+											PPGECD - PROGRAMA DE PÓS-GRADUAÇÃO EM ESTATÍSTICA E CIÊNCIAS DE DADOS
+											</a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td>
+							DOUTORADO EM ESTATÍSTICA E CIÊNCIAS DE DADOS								
+							</td>
+<td>
+								DOUTORADO
+								</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formListagemCursos'),{'formListagemCursos:j_id_jsp_1302309529_17j_id_88':'formListagemCursos:j_id_jsp_1302309529_17j_id_88','id':'1634336'},'');}return false" title="Visualizar Detalhes do Curso"><img src="/sigaa/img/view.gif;jsessionid=0"/></a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td>
+							MESTRADO EM ESTATÍSTICA E CIÊNCIAS DE DADOS								
+							</td>
+<td>
+								MESTRADO
+								</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formListagemCursos'),{'formListagemCursos:j_id_jsp_1302309529_17j_id_89':'formListagemCursos:j_id_jsp_1302309529_17j_id_89','id':'1634330'},'');}return false" title="Visualizar Detalhes do Curso"><img src="/sigaa/img/view.gif;jsessionid=0"/></a>
+</td>
+</tr>
+<tr>
+<td class="subFormulario" colspan="5">
+<a href="/sigaa/public/programa/portal.jsf?lc=pt_BR&amp;id=2258">
+											PPGECOLOGIA - PROGRAMA DE PÓS-GRADUAÇÃO EM ECOLOGIA (PPGECOLOGIA)
+											</a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td>
+							MESTRADO PROFISSIONAL EM ECOLOGIA APLICADA À GESTÃO AMBIENTAL								
+							</td>
+<td>
+								MESTRADO
+								</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formListagemCursos'),{'formListagemCursos:j_id_jsp_1302309529_17j_id_90':'formListagemCursos:j_id_jsp_1302309529_17j_id_90','id':'31590'},'');}return false" title="Visualizar Detalhes do Curso"><img src="/sigaa/img/view.gif;jsessionid=0"/></a>
+</td>
+</tr>
+<tr>
+<td class="subFormulario" colspan="5">
+<a href="/sigaa/public/programa/portal.jsf?lc=pt_BR&amp;id=1141">
+											PPGECOTAV - PROGRAMA DE PÓS-GRADUAÇÃO EM ECOLOGIA: TEORIA, APLICAÇÃO E VALORES (PPGECOTAV)
+											</a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td>
+							DOUTORADO EM ECOLOGIA								
+							</td>
+<td>
+								DOUTORADO
+								</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formListagemCursos'),{'formListagemCursos:j_id_jsp_1302309529_17j_id_91':'formListagemCursos:j_id_jsp_1302309529_17j_id_91','id':'30844'},'');}return false" title="Visualizar Detalhes do Curso"><img src="/sigaa/img/view.gif;jsessionid=0"/></a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td>
+							MESTRADO EM ECOLOGIA								
+							</td>
+<td>
+								MESTRADO
+								</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formListagemCursos'),{'formListagemCursos:j_id_jsp_1302309529_17j_id_92':'formListagemCursos:j_id_jsp_1302309529_17j_id_92','id':'234487'},'');}return false" title="Visualizar Detalhes do Curso"><img src="/sigaa/img/view.gif;jsessionid=0"/></a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td>
+							MESTRADO EM ECOLOGIA E BIOMONITORAMENTO								
+							</td>
+<td>
+								MESTRADO
+								</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formListagemCursos'),{'formListagemCursos:j_id_jsp_1302309529_17j_id_93':'formListagemCursos:j_id_jsp_1302309529_17j_id_93','id':'28732'},'');}return false" title="Visualizar Detalhes do Curso"><img src="/sigaa/img/view.gif;jsessionid=0"/></a>
+</td>
+</tr>
+<tr>
+<td class="subFormulario" colspan="5">
+<a href="/sigaa/public/programa/portal.jsf?lc=pt_BR&amp;id=1215">
+											PPGEE - PROGRAMA DE PÓS-GRADUAÇÃO EM ENGENHARIA ELÉTRICA (PPGEE)
+											</a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td>
+							DOUTORADO EM ENGENHARIA ELÉTRICA								
+							</td>
+<td>
+								DOUTORADO
+								</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formListagemCursos'),{'formListagemCursos:j_id_jsp_1302309529_17j_id_94':'formListagemCursos:j_id_jsp_1302309529_17j_id_94','id':'24926'},'');}return false" title="Visualizar Detalhes do Curso"><img src="/sigaa/img/view.gif;jsessionid=0"/></a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td>
+							MESTRADO EM ENGENHARIA ELÉTRICA								
+							</td>
+<td>
+								MESTRADO
+								</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formListagemCursos'),{'formListagemCursos:j_id_jsp_1302309529_17j_id_95':'formListagemCursos:j_id_jsp_1302309529_17j_id_95','id':'20373'},'');}return false" title="Visualizar Detalhes do Curso"><img src="/sigaa/img/view.gif;jsessionid=0"/></a>
+</td>
+</tr>
+<tr>
+<td class="subFormulario" colspan="5">
+<a href="/sigaa/public/programa/portal.jsf?lc=pt_BR&amp;id=2685">
+											PPGEEC - PROGRAMA DE PÓS-GRADUAÇÃO EM ENGENHARIAS ELÉTRICA E DE COMPUTAÇÃO (PPGEEC)
+											</a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td>
+							DOUTORADO EM ENGENHARIAS ELÉTRICA E DE COMPUTAÇÃO								
+							</td>
+<td>
+								DOUTORADO
+								</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formListagemCursos'),{'formListagemCursos:j_id_jsp_1302309529_17j_id_96':'formListagemCursos:j_id_jsp_1302309529_17j_id_96','id':'2428961'},'');}return false" title="Visualizar Detalhes do Curso"><img src="/sigaa/img/view.gif;jsessionid=0"/></a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td>
+							MESTRADO EM ENGENHARIAS ELÉTRICA E DE COMPUTAÇÃO								
+							</td>
+<td>
+								MESTRADO
+								</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formListagemCursos'),{'formListagemCursos:j_id_jsp_1302309529_17j_id_97':'formListagemCursos:j_id_jsp_1302309529_17j_id_97','id':'2428960'},'');}return false" title="Visualizar Detalhes do Curso"><img src="/sigaa/img/view.gif;jsessionid=0"/></a>
+</td>
+</tr>
+<tr>
+<td class="subFormulario" colspan="5">
+<a href="/sigaa/public/programa/portal.jsf?lc=pt_BR&amp;id=1966">
+											PPGEFHC - PROGRAMA DE PÓS-GRADUAÇÃO EM ENSINO, FILOSOFIA E HISTÓRIA DAS CIÊNCIAS (PPGEFHC)
+											</a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td>
+							DOUTORADO EM ENSINO, FILOSOFIA E HISTÓRIA DAS CIÊNCIAS								
+							</td>
+<td>
+								DOUTORADO
+								</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formListagemCursos'),{'formListagemCursos:j_id_jsp_1302309529_17j_id_98':'formListagemCursos:j_id_jsp_1302309529_17j_id_98','id':'22028'},'');}return false" title="Visualizar Detalhes do Curso"><img src="/sigaa/img/view.gif;jsessionid=0"/></a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td>
+							MESTRADO EM ENSINO, FILOSOFIA E HISTÓRIA DAS CIÊNCIAS								
+							</td>
+<td>
+								MESTRADO
+								</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formListagemCursos'),{'formListagemCursos:j_id_jsp_1302309529_17j_id_99':'formListagemCursos:j_id_jsp_1302309529_17j_id_99','id':'20779'},'');}return false" title="Visualizar Detalhes do Curso"><img src="/sigaa/img/view.gif;jsessionid=0"/></a>
+</td>
+</tr>
+<tr>
+<td class="subFormulario" colspan="5">
+<a href="/sigaa/public/programa/portal.jsf?lc=pt_BR&amp;id=1983">
+											PPGEISU - PROGRAMA DE PÓS-GRADUAÇÃO EM ESTUDOS INTERDISCIPLINARES SOBRE A UNIVERSIDADE (PPGEISU)
+											</a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td>
+							DOUTORADO EM ESTUDOS INTERDISCIPLINARES SOBRE A UNIVERSIDADE								
+							</td>
+<td>
+								DOUTORADO
+								</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formListagemCursos'),{'formListagemCursos:j_id_jsp_1302309529_17j_id_100':'formListagemCursos:j_id_jsp_1302309529_17j_id_100','id':'1237907'},'');}return false" title="Visualizar Detalhes do Curso"><img src="/sigaa/img/view.gif;jsessionid=0"/></a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td>
+							MESTRADO EM ESTUDOS INTERDISCIPLINARES SOBRE A UNIVERSIDADE								
+							</td>
+<td>
+								MESTRADO
+								</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formListagemCursos'),{'formListagemCursos:j_id_jsp_1302309529_17j_id_101':'formListagemCursos:j_id_jsp_1302309529_17j_id_101','id':'38105'},'');}return false" title="Visualizar Detalhes do Curso"><img src="/sigaa/img/view.gif;jsessionid=0"/></a>
+</td>
+</tr>
+<tr>
+<td class="subFormulario" colspan="5">
+<a href="/sigaa/public/programa/portal.jsf?lc=pt_BR&amp;id=1827">
+											PPGENAM - PROGRAMA DE PÓS-GRADUAÇÃO EM ENERGIA E AMBIENTE (PPGENAM)
+											</a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td>
+							DOUTORADO EM ENERGIA E AMBIENTE								
+							</td>
+<td>
+								DOUTORADO
+								</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formListagemCursos'),{'formListagemCursos:j_id_jsp_1302309529_17j_id_102':'formListagemCursos:j_id_jsp_1302309529_17j_id_102','id':'24099'},'');}return false" title="Visualizar Detalhes do Curso"><img src="/sigaa/img/view.gif;jsessionid=0"/></a>
+</td>
+</tr>
+<tr>
+<td class="subFormulario" colspan="5">
+<a href="/sigaa/public/programa/portal.jsf?lc=pt_BR&amp;id=1256">
+											PPGENF - PROGRAMA DE PÓS-GRADUAÇÃO EM ENFERMAGEM E SAÚDE (PPGENF)
+											</a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td>
+							DOUTORADO EM ENFERMAGEM E SAÚDE								
+							</td>
+<td>
+								DOUTORADO
+								</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formListagemCursos'),{'formListagemCursos:j_id_jsp_1302309529_17j_id_103':'formListagemCursos:j_id_jsp_1302309529_17j_id_103','id':'30526'},'');}return false" title="Visualizar Detalhes do Curso"><img src="/sigaa/img/view.gif;jsessionid=0"/></a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td>
+							MESTRADO EM ENFERMAGEM E SAÚDE								
+							</td>
+<td>
+								MESTRADO
+								</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formListagemCursos'),{'formListagemCursos:j_id_jsp_1302309529_17j_id_104':'formListagemCursos:j_id_jsp_1302309529_17j_id_104','id':'26837'},'');}return false" title="Visualizar Detalhes do Curso"><img src="/sigaa/img/view.gif;jsessionid=0"/></a>
+</td>
+</tr>
+<tr>
+<td class="subFormulario" colspan="5">
+<a href="/sigaa/public/programa/portal.jsf?lc=pt_BR&amp;id=1566">
+											PPGF - PROGRAMA DE PÓS-GRADUAÇÃO EM FILOSOFIA (PPGF)
+											</a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td>
+							DOUTORADO EM FILOSOFIA								
+							</td>
+<td>
+								DOUTORADO
+								</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formListagemCursos'),{'formListagemCursos:j_id_jsp_1302309529_17j_id_105':'formListagemCursos:j_id_jsp_1302309529_17j_id_105','id':'38085'},'');}return false" title="Visualizar Detalhes do Curso"><img src="/sigaa/img/view.gif;jsessionid=0"/></a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td>
+							MESTRADO EM FILOSOFIA								
+							</td>
+<td>
+								MESTRADO
+								</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formListagemCursos'),{'formListagemCursos:j_id_jsp_1302309529_17j_id_106':'formListagemCursos:j_id_jsp_1302309529_17j_id_106','id':'35185'},'');}return false" title="Visualizar Detalhes do Curso"><img src="/sigaa/img/view.gif;jsessionid=0"/></a>
+</td>
+</tr>
+<tr>
+<td class="subFormulario" colspan="5">
+<a href="/sigaa/public/programa/portal.jsf?lc=pt_BR&amp;id=1756">
+											PPGFAR - PROGRAMA DE PÓS-GRADUAÇÃO EM FARMÁCIA (PPGFAR)
+											</a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td>
+							DOUTORADO EM FARMÁCIA								
+							</td>
+<td>
+								DOUTORADO
+								</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formListagemCursos'),{'formListagemCursos:j_id_jsp_1302309529_17j_id_107':'formListagemCursos:j_id_jsp_1302309529_17j_id_107','id':'137745'},'');}return false" title="Visualizar Detalhes do Curso"><img src="/sigaa/img/view.gif;jsessionid=0"/></a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td>
+							MESTRADO EM FARMÁCIA								
+							</td>
+<td>
+								MESTRADO
+								</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formListagemCursos'),{'formListagemCursos:j_id_jsp_1302309529_17j_id_108':'formListagemCursos:j_id_jsp_1302309529_17j_id_108','id':'30932'},'');}return false" title="Visualizar Detalhes do Curso"><img src="/sigaa/img/view.gif;jsessionid=0"/></a>
+</td>
+</tr>
+<tr>
+<td class="subFormulario" colspan="5">
+<a href="/sigaa/public/programa/portal.jsf?lc=pt_BR&amp;id=1125">
+											PPGFIS - PROGRAMA DE PÓS-GRADUAÇÃO EM FÍSICA (PPGFIS)
+											</a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td>
+							DOUTORADO EM FÍSICA								
+							</td>
+<td>
+								DOUTORADO
+								</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formListagemCursos'),{'formListagemCursos:j_id_jsp_1302309529_17j_id_109':'formListagemCursos:j_id_jsp_1302309529_17j_id_109','id':'21894'},'');}return false" title="Visualizar Detalhes do Curso"><img src="/sigaa/img/view.gif;jsessionid=0"/></a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td>
+							MESTRADO EM FÍSICA								
+							</td>
+<td>
+								MESTRADO
+								</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formListagemCursos'),{'formListagemCursos:j_id_jsp_1302309529_17j_id_110':'formListagemCursos:j_id_jsp_1302309529_17j_id_110','id':'15613'},'');}return false" title="Visualizar Detalhes do Curso"><img src="/sigaa/img/view.gif;jsessionid=0"/></a>
+</td>
+</tr>
+<tr>
+<td class="subFormulario" colspan="5">
+<a href="/sigaa/public/programa/portal.jsf?lc=pt_BR&amp;id=1963">
+											PPGGENBIO - PROGRAMA DE PÓS-GRADUAÇÃO EM GENÉTICA E BIODIVERSIDADE (PPGGENBIO)
+											</a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td>
+							MESTRADO EM GENÉTICA E BIODIVERSIDADE								
+							</td>
+<td>
+								MESTRADO
+								</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formListagemCursos'),{'formListagemCursos:j_id_jsp_1302309529_17j_id_111':'formListagemCursos:j_id_jsp_1302309529_17j_id_111','id':'31072'},'');}return false" title="Visualizar Detalhes do Curso"><img src="/sigaa/img/view.gif;jsessionid=0"/></a>
+</td>
+</tr>
+<tr>
+<td class="subFormulario" colspan="5">
+<a href="/sigaa/public/programa/portal.jsf?lc=pt_BR&amp;id=2660">
+											PPGGESTCOMCULT - PROGRAMA DE PÓS-GRADUAÇÃO EM GESTÃO E PRÁTICAS EM COMUNICAÇÃO E CULTURA/FACOM
+											</a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td>
+							MESTRADO PROFISSIONAL EM GESTÃO E PRÁTICAS EM COMUNICAÇÃO E CULTURA								
+							</td>
+<td>
+								MESTRADO
+								</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formListagemCursos'),{'formListagemCursos:j_id_jsp_1302309529_17j_id_112':'formListagemCursos:j_id_jsp_1302309529_17j_id_112','id':'3740097'},'');}return false" title="Visualizar Detalhes do Curso"><img src="/sigaa/img/view.gif;jsessionid=0"/></a>
+</td>
+</tr>
+<tr>
+<td class="subFormulario" colspan="5">
+<a href="/sigaa/public/programa/portal.jsf?lc=pt_BR&amp;id=1231">
+											PPGH - PROGRAMA DE PÓS-GRADUAÇÃO EM HISTÓRIA (PPGH)
+											</a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td>
+							DOUTORADO EM HISTÓRIA								
+							</td>
+<td>
+								DOUTORADO
+								</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formListagemCursos'),{'formListagemCursos:j_id_jsp_1302309529_17j_id_113':'formListagemCursos:j_id_jsp_1302309529_17j_id_113','id':'37562'},'');}return false" title="Visualizar Detalhes do Curso"><img src="/sigaa/img/view.gif;jsessionid=0"/></a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td>
+							MESTRADO EM HISTÓRIA								
+							</td>
+<td>
+								MESTRADO
+								</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formListagemCursos'),{'formListagemCursos:j_id_jsp_1302309529_17j_id_114':'formListagemCursos:j_id_jsp_1302309529_17j_id_114','id':'33498'},'');}return false" title="Visualizar Detalhes do Curso"><img src="/sigaa/img/view.gif;jsessionid=0"/></a>
+</td>
+</tr>
+<tr>
+<td class="subFormulario" colspan="5">
+<a href="/sigaa/public/programa/portal.jsf?lc=pt_BR&amp;id=1824">
+											PPGIM - PROGRAMA DE PÓS-GRADUAÇÃO EM IMUNOLOGIA (PPGIM)
+											</a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td>
+							DOUTORADO EM IMUNOLOGIA								
+							</td>
+<td>
+								DOUTORADO
+								</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formListagemCursos'),{'formListagemCursos:j_id_jsp_1302309529_17j_id_115':'formListagemCursos:j_id_jsp_1302309529_17j_id_115','id':'29949'},'');}return false" title="Visualizar Detalhes do Curso"><img src="/sigaa/img/view.gif;jsessionid=0"/></a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td>
+							MESTRADO EM IMUNOLOGIA								
+							</td>
+<td>
+								MESTRADO
+								</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formListagemCursos'),{'formListagemCursos:j_id_jsp_1302309529_17j_id_116':'formListagemCursos:j_id_jsp_1302309529_17j_id_116','id':'27936'},'');}return false" title="Visualizar Detalhes do Curso"><img src="/sigaa/img/view.gif;jsessionid=0"/></a>
+</td>
+</tr>
+<tr>
+<td class="subFormulario" colspan="5">
+<a href="/sigaa/public/programa/portal.jsf?lc=pt_BR&amp;id=1897">
+											PPGLINC - PROGRAMA DE PÓS-GRADUAÇÃO EM LÍNGUA E CULTURA (PPGLINC)
+											</a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td>
+							DOUTORADO EM LÍNGUA E CULTURA								
+							</td>
+<td>
+								DOUTORADO
+								</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formListagemCursos'),{'formListagemCursos:j_id_jsp_1302309529_17j_id_117':'formListagemCursos:j_id_jsp_1302309529_17j_id_117','id':'41514'},'');}return false" title="Visualizar Detalhes do Curso"><img src="/sigaa/img/view.gif;jsessionid=0"/></a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td>
+							MESTRADO EM LÍNGUA E CULTURA								
+							</td>
+<td>
+								MESTRADO
+								</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formListagemCursos'),{'formListagemCursos:j_id_jsp_1302309529_17j_id_118':'formListagemCursos:j_id_jsp_1302309529_17j_id_118','id':'40019'},'');}return false" title="Visualizar Detalhes do Curso"><img src="/sigaa/img/view.gif;jsessionid=0"/></a>
+</td>
+</tr>
+<tr>
+<td class="subFormulario" colspan="5">
+<a href="/sigaa/public/programa/portal.jsf?lc=pt_BR&amp;id=1898">
+											PPGLITCULT - PROGRAMA DE PÓS-GRADUAÇÃO EM LITERATURA E CULTURA (PPGLITCULT)
+											</a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td>
+							DOUTORADO EM LITERATURA E CULTURA								
+							</td>
+<td>
+								DOUTORADO
+								</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formListagemCursos'),{'formListagemCursos:j_id_jsp_1302309529_17j_id_119':'formListagemCursos:j_id_jsp_1302309529_17j_id_119','id':'41606'},'');}return false" title="Visualizar Detalhes do Curso"><img src="/sigaa/img/view.gif;jsessionid=0"/></a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td>
+							MESTRADO EM LITERATURA E CULTURA								
+							</td>
+<td>
+								MESTRADO
+								</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formListagemCursos'),{'formListagemCursos:j_id_jsp_1302309529_17j_id_120':'formListagemCursos:j_id_jsp_1302309529_17j_id_120','id':'40111'},'');}return false" title="Visualizar Detalhes do Curso"><img src="/sigaa/img/view.gif;jsessionid=0"/></a>
+</td>
+</tr>
+<tr>
+<td class="subFormulario" colspan="5">
+<a href="/sigaa/public/programa/portal.jsf?lc=pt_BR&amp;id=1164">
+											PPGLL - PROGRAMA DE PÓS-GRADUAÇÃO EM LETRAS E LINGÜÍSTICA (PPGLL)
+											</a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td>
+							DOUTORADO EM LETRAS E LINGÜÍSTICA								
+							</td>
+<td>
+								DOUTORADO
+								</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formListagemCursos'),{'formListagemCursos:j_id_jsp_1302309529_17j_id_121':'formListagemCursos:j_id_jsp_1302309529_17j_id_121','id':'40164'},'');}return false" title="Visualizar Detalhes do Curso"><img src="/sigaa/img/view.gif;jsessionid=0"/></a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td>
+							MESTRADO EM LETRAS E LINGÜÍSTICA								
+							</td>
+<td>
+								MESTRADO
+								</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formListagemCursos'),{'formListagemCursos:j_id_jsp_1302309529_17j_id_122':'formListagemCursos:j_id_jsp_1302309529_17j_id_122','id':'38643'},'');}return false" title="Visualizar Detalhes do Curso"><img src="/sigaa/img/view.gif;jsessionid=0"/></a>
+</td>
+</tr>
+<tr>
+<td class="subFormulario" colspan="5">
+<a href="/sigaa/public/programa/portal.jsf?lc=pt_BR&amp;id=1572">
+											PPGM - PROGRAMA DE PÓS-GRADUAÇÃO EM MECATRÔNICA (PPGM)
+											</a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td>
+							DOUTORADO EM MECATRÔNICA								
+							</td>
+<td>
+								DOUTORADO
+								</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formListagemCursos'),{'formListagemCursos:j_id_jsp_1302309529_17j_id_123':'formListagemCursos:j_id_jsp_1302309529_17j_id_123','id':'22249'},'');}return false" title="Visualizar Detalhes do Curso"><img src="/sigaa/img/view.gif;jsessionid=0"/></a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td>
+							MESTRADO EM MECATRÔNICA								
+							</td>
+<td>
+								MESTRADO
+								</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formListagemCursos'),{'formListagemCursos:j_id_jsp_1302309529_17j_id_124':'formListagemCursos:j_id_jsp_1302309529_17j_id_124','id':'21105'},'');}return false" title="Visualizar Detalhes do Curso"><img src="/sigaa/img/view.gif;jsessionid=0"/></a>
+</td>
+</tr>
+<tr>
+<td class="subFormulario" colspan="5">
+<a href="/sigaa/public/programa/portal.jsf?lc=pt_BR&amp;id=1187">
+											PPGMS - PROGRAMA DE PÓS-GRADUAÇÃO EM MEDICINA E SAÚDE (PPGMS)
+											</a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td>
+							DOUTORADO EM MEDICINA E SAÚDE								
+							</td>
+<td>
+								DOUTORADO
+								</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formListagemCursos'),{'formListagemCursos:j_id_jsp_1302309529_17j_id_125':'formListagemCursos:j_id_jsp_1302309529_17j_id_125','id':'29764'},'');}return false" title="Visualizar Detalhes do Curso"><img src="/sigaa/img/view.gif;jsessionid=0"/></a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td>
+							MESTRADO EM MEDICINA E SAÚDE								
+							</td>
+<td>
+								MESTRADO
+								</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formListagemCursos'),{'formListagemCursos:j_id_jsp_1302309529_17j_id_126':'formListagemCursos:j_id_jsp_1302309529_17j_id_126','id':'25742'},'');}return false" title="Visualizar Detalhes do Curso"><img src="/sigaa/img/view.gif;jsessionid=0"/></a>
+</td>
+</tr>
+<tr>
+<td class="subFormulario" colspan="5">
+<a href="/sigaa/public/programa/portal.jsf?lc=pt_BR&amp;id=1299">
+											PPGMUS - PROGRAMA DE PÓS-GRADUAÇÃO EM MÚSICA (PPGMUS)
+											</a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td>
+							DOUTORADO EM MÚSICA								
+							</td>
+<td>
+								DOUTORADO
+								</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formListagemCursos'),{'formListagemCursos:j_id_jsp_1302309529_17j_id_127':'formListagemCursos:j_id_jsp_1302309529_17j_id_127','id':'43031'},'');}return false" title="Visualizar Detalhes do Curso"><img src="/sigaa/img/view.gif;jsessionid=0"/></a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td>
+							MESTRADO EM MÚSICA								
+							</td>
+<td>
+								MESTRADO
+								</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formListagemCursos'),{'formListagemCursos:j_id_jsp_1302309529_17j_id_128':'formListagemCursos:j_id_jsp_1302309529_17j_id_128','id':'41668'},'');}return false" title="Visualizar Detalhes do Curso"><img src="/sigaa/img/view.gif;jsessionid=0"/></a>
+</td>
+</tr>
+<tr>
+<td class="subFormulario" colspan="5">
+<a href="/sigaa/public/programa/portal.jsf?lc=pt_BR&amp;id=2012">
+											PPGMUSEU - PROGRAMA DE PÓS-GRADUAÇÃO EM MUSEOLOGIA (PPGMUSEU)
+											</a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td>
+							MESTRADO EM MUSEOLOGIA								
+							</td>
+<td>
+								MESTRADO
+								</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formListagemCursos'),{'formListagemCursos:j_id_jsp_1302309529_17j_id_129':'formListagemCursos:j_id_jsp_1302309529_17j_id_129','id':'38502'},'');}return false" title="Visualizar Detalhes do Curso"><img src="/sigaa/img/view.gif;jsessionid=0"/></a>
+</td>
+</tr>
+<tr>
+<td class="subFormulario" colspan="5">
+<a href="/sigaa/public/programa/portal.jsf?lc=pt_BR&amp;id=1828">
+											PPGNEIM - PROGRAMA DE PÓS-GRADUAÇÃO EM ESTUDOS INTERDISCIPLINARES SOBRE MULHERES, GÊNERO E FEMINISMO (PPGNEIM)
+											</a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td>
+							DOUTORADO EM ESTUDOS INTERDISCIPLINARES SOBRE MULHERES, GÊNERO E FEMINISMO								
+							</td>
+<td>
+								DOUTORADO
+								</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formListagemCursos'),{'formListagemCursos:j_id_jsp_1302309529_17j_id_130':'formListagemCursos:j_id_jsp_1302309529_17j_id_130','id':'37814'},'');}return false" title="Visualizar Detalhes do Curso"><img src="/sigaa/img/view.gif;jsessionid=0"/></a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td>
+							MESTRADO EM ESTUDOS INTERDISCIPLINARES SOBRE MULHERES, GÊNERO E FEMINISMO								
+							</td>
+<td>
+								MESTRADO
+								</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formListagemCursos'),{'formListagemCursos:j_id_jsp_1302309529_17j_id_131':'formListagemCursos:j_id_jsp_1302309529_17j_id_131','id':'35598'},'');}return false" title="Visualizar Detalhes do Curso"><img src="/sigaa/img/view.gif;jsessionid=0"/></a>
+</td>
+</tr>
+<tr>
+<td class="subFormulario" colspan="5">
+<a href="/sigaa/public/programa/portal.jsf?lc=pt_BR&amp;id=1830">
+											PPGORGSIS - PROGRAMA DE PÓS-GRADUAÇÃO EM PROCESSOS INTERATIVOS DOS ÓRGÃOS E SISTEMAS (PPGORGSIS)
+											</a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td>
+							DOUTORADO EM PROCESSOS INTERATIVOS DOS ÓRGÃOS E SISTEMAS								
+							</td>
+<td>
+								DOUTORADO
+								</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formListagemCursos'),{'formListagemCursos:j_id_jsp_1302309529_17j_id_132':'formListagemCursos:j_id_jsp_1302309529_17j_id_132','id':'30372'},'');}return false" title="Visualizar Detalhes do Curso"><img src="/sigaa/img/view.gif;jsessionid=0"/></a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td>
+							MESTRADO EM PROCESSOS INTERATIVOS DOS ÓRGÃOS E SISTEMAS								
+							</td>
+<td>
+								MESTRADO
+								</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formListagemCursos'),{'formListagemCursos:j_id_jsp_1302309529_17j_id_133':'formListagemCursos:j_id_jsp_1302309529_17j_id_133','id':'28431'},'');}return false" title="Visualizar Detalhes do Curso"><img src="/sigaa/img/view.gif;jsessionid=0"/></a>
+</td>
+</tr>
+<tr>
+<td class="subFormulario" colspan="5">
+<a href="/sigaa/public/programa/portal.jsf?lc=pt_BR&amp;id=1271">
+											PPGOS - PROGRAMA DE PÓS-GRADUAÇÃO EM ODONTOLOGIA E SAÚDE (PPGOS)
+											</a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td>
+							DOUTORADO EM ODONTOLOGIA E SAÚDE								
+							</td>
+<td>
+								DOUTORADO
+								</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formListagemCursos'),{'formListagemCursos:j_id_jsp_1302309529_17j_id_134':'formListagemCursos:j_id_jsp_1302309529_17j_id_134','id':'43896'},'');}return false" title="Visualizar Detalhes do Curso"><img src="/sigaa/img/view.gif;jsessionid=0"/></a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td>
+							MESTRADO EM ODONTOLOGIA								
+							</td>
+<td>
+								MESTRADO
+								</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formListagemCursos'),{'formListagemCursos:j_id_jsp_1302309529_17j_id_135':'formListagemCursos:j_id_jsp_1302309529_17j_id_135','id':'28144'},'');}return false" title="Visualizar Detalhes do Curso"><img src="/sigaa/img/view.gif;jsessionid=0"/></a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td>
+							MESTRADO EM ODONTOLOGIA E SAÚDE								
+							</td>
+<td>
+								MESTRADO
+								</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formListagemCursos'),{'formListagemCursos:j_id_jsp_1302309529_17j_id_136':'formListagemCursos:j_id_jsp_1302309529_17j_id_136','id':'31097'},'');}return false" title="Visualizar Detalhes do Curso"><img src="/sigaa/img/view.gif;jsessionid=0"/></a>
+</td>
+</tr>
+<tr>
+<td class="subFormulario" colspan="5">
+<a href="/sigaa/public/programa/portal.jsf?lc=pt_BR&amp;id=2011">
+											PPGPROM - PROGRAMA DE PÓS-GRADUAÇÃO EM MÚSICA (PPGPROM)
+											</a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td>
+							DOUTORADO PROFISSIONAL EM MÚSICA								
+							</td>
+<td>
+								DOUTORADO
+								</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formListagemCursos'),{'formListagemCursos:j_id_jsp_1302309529_17j_id_137':'formListagemCursos:j_id_jsp_1302309529_17j_id_137','id':'3021586'},'');}return false" title="Visualizar Detalhes do Curso"><img src="/sigaa/img/view.gif;jsessionid=0"/></a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td>
+							MESTRADO PROFISSIONAL EM MÚSICA								
+							</td>
+<td>
+								MESTRADO
+								</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formListagemCursos'),{'formListagemCursos:j_id_jsp_1302309529_17j_id_138':'formListagemCursos:j_id_jsp_1302309529_17j_id_138','id':'42880'},'');}return false" title="Visualizar Detalhes do Curso"><img src="/sigaa/img/view.gif;jsessionid=0"/></a>
+</td>
+</tr>
+<tr>
+<td class="subFormulario" colspan="5">
+<a href="/sigaa/public/programa/portal.jsf?lc=pt_BR&amp;id=2318">
+											PPGPS - PROGRAMA DE PÓS-GRADUAÇÃO EM PSICOLOGIA DA SAÚDE (PPGPS)
+											</a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td>
+							MESTRADO PROFISSIONAL EM PSICOLOGIA DA SAÚDE								
+							</td>
+<td>
+								MESTRADO
+								</td>
+<td>
+								VITÓRIA DA CONQUISTA
+								
+								</td>
+<td>
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formListagemCursos'),{'formListagemCursos:j_id_jsp_1302309529_17j_id_139':'formListagemCursos:j_id_jsp_1302309529_17j_id_139','id':'236486'},'');}return false" title="Visualizar Detalhes do Curso"><img src="/sigaa/img/view.gif;jsessionid=0"/></a>
+</td>
+</tr>
+<tr>
+<td class="subFormulario" colspan="5">
+<a href="/sigaa/public/programa/portal.jsf?lc=pt_BR&amp;id=1815">
+											PPGPSI - PROGRAMA DE PÓS-GRADUAÇÃO EM PSICOLOGIA (PPGPSI)
+											</a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td>
+							DOUTORADO EM PSICOLOGIA								
+							</td>
+<td>
+								DOUTORADO
+								</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formListagemCursos'),{'formListagemCursos:j_id_jsp_1302309529_17j_id_140':'formListagemCursos:j_id_jsp_1302309529_17j_id_140','id':'37936'},'');}return false" title="Visualizar Detalhes do Curso"><img src="/sigaa/img/view.gif;jsessionid=0"/></a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td>
+							MESTRADO EM PSICOLOGIA								
+							</td>
+<td>
+								MESTRADO
+								</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formListagemCursos'),{'formListagemCursos:j_id_jsp_1302309529_17j_id_141':'formListagemCursos:j_id_jsp_1302309529_17j_id_141','id':'35237'},'');}return false" title="Visualizar Detalhes do Curso"><img src="/sigaa/img/view.gif;jsessionid=0"/></a>
+</td>
+</tr>
+<tr>
+<td class="subFormulario" colspan="5">
+<a href="/sigaa/public/programa/portal.jsf?lc=pt_BR&amp;id=1134">
+											PPGQ - PROGRAMA DE PÓS-GRADUAÇÃO EM QUÍMICA (PPGQ)
+											</a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td>
+							DOUTORADO EM QUÍMICA								
+							</td>
+<td>
+								DOUTORADO
+								</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formListagemCursos'),{'formListagemCursos:j_id_jsp_1302309529_17j_id_142':'formListagemCursos:j_id_jsp_1302309529_17j_id_142','id':'22358'},'');}return false" title="Visualizar Detalhes do Curso"><img src="/sigaa/img/view.gif;jsessionid=0"/></a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td>
+							MESTRADO EM QUÍMICA								
+							</td>
+<td>
+								MESTRADO
+								</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formListagemCursos'),{'formListagemCursos:j_id_jsp_1302309529_17j_id_143':'formListagemCursos:j_id_jsp_1302309529_17j_id_143','id':'16494'},'');}return false" title="Visualizar Detalhes do Curso"><img src="/sigaa/img/view.gif;jsessionid=0"/></a>
+</td>
+</tr>
+<tr>
+<td class="subFormulario" colspan="5">
+<a href="/sigaa/public/programa/portal.jsf?lc=pt_BR&amp;id=2394">
+											PPGREAB - PROGRAMA DE PÓS-GRADUAÇÃO EM CIÊNCIAS DA REABILITAÇÃO (PPGREAB)
+											</a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td>
+							MESTRADO EM CIÊNCIAS DA REABILITAÇÃO								
+							</td>
+<td>
+								MESTRADO
+								</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formListagemCursos'),{'formListagemCursos:j_id_jsp_1302309529_17j_id_144':'formListagemCursos:j_id_jsp_1302309529_17j_id_144','id':'540766'},'');}return false" title="Visualizar Detalhes do Curso"><img src="/sigaa/img/view.gif;jsessionid=0"/></a>
+</td>
+</tr>
+<tr>
+<td class="subFormulario" colspan="5">
+<a href="/sigaa/public/programa/portal.jsf?lc=pt_BR&amp;id=1982">
+											PPGRI - PROGRAMA DE PÓS-GRADUAÇÃO EM RELAÇÕES INTERNACIONAIS (PPGRI)
+											</a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td>
+							DOUTORADO EM RELAÇÕES INTERNACIONAIS (PPGRI)								
+							</td>
+<td>
+								DOUTORADO
+								</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formListagemCursos'),{'formListagemCursos:j_id_jsp_1302309529_17j_id_145':'formListagemCursos:j_id_jsp_1302309529_17j_id_145','id':'491480'},'');}return false" title="Visualizar Detalhes do Curso"><img src="/sigaa/img/view.gif;jsessionid=0"/></a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td>
+							MESTRADO EM RELAÇÕES INTERNACIONAIS								
+							</td>
+<td>
+								MESTRADO
+								</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formListagemCursos'),{'formListagemCursos:j_id_jsp_1302309529_17j_id_146':'formListagemCursos:j_id_jsp_1302309529_17j_id_146','id':'38619'},'');}return false" title="Visualizar Detalhes do Curso"><img src="/sigaa/img/view.gif;jsessionid=0"/></a>
+</td>
+</tr>
+<tr>
+<td class="subFormulario" colspan="5">
+<a href="/sigaa/public/programa/portal.jsf?lc=pt_BR&amp;id=1821">
+											PPGSAT - PROGRAMA DE PÓS-GRADUAÇÃO EM SAÚDE, AMBIENTE E TRABALHO (PPGSAT)
+											</a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td>
+							DOUTORADO EM SAÚDE, AMBIENTE E TRABALHO								
+							</td>
+<td>
+								DOUTORADO
+								</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formListagemCursos'),{'formListagemCursos:j_id_jsp_1302309529_17j_id_147':'formListagemCursos:j_id_jsp_1302309529_17j_id_147','id':'1249607'},'');}return false" title="Visualizar Detalhes do Curso"><img src="/sigaa/img/view.gif;jsessionid=0"/></a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td>
+							MESTRADO EM SAÚDE, AMBIENTE E TRABALHO								
+							</td>
+<td>
+								MESTRADO
+								</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formListagemCursos'),{'formListagemCursos:j_id_jsp_1302309529_17j_id_148':'formListagemCursos:j_id_jsp_1302309529_17j_id_148','id':'30580'},'');}return false" title="Visualizar Detalhes do Curso"><img src="/sigaa/img/view.gif;jsessionid=0"/></a>
+</td>
+</tr>
+<tr>
+<td class="subFormulario" colspan="5">
+<a href="/sigaa/public/programa/portal.jsf?lc=pt_BR&amp;id=1107">
+											PPGSC - PROGRAMA DE PÓS-GRADUAÇÃO EM SAÚDE COLETIVA (PPGSC)
+											</a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td>
+							DOUTORADO EM SAÚDE COLETIVA								
+							</td>
+<td>
+								DOUTORADO
+								</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formListagemCursos'),{'formListagemCursos:j_id_jsp_1302309529_17j_id_149':'formListagemCursos:j_id_jsp_1302309529_17j_id_149','id':'176848'},'');}return false" title="Visualizar Detalhes do Curso"><img src="/sigaa/img/view.gif;jsessionid=0"/></a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td>
+							DOUTORADO EM SAÚDE PÚBLICA								
+							</td>
+<td>
+								DOUTORADO
+								</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formListagemCursos'),{'formListagemCursos:j_id_jsp_1302309529_17j_id_150':'formListagemCursos:j_id_jsp_1302309529_17j_id_150','id':'29342'},'');}return false" title="Visualizar Detalhes do Curso"><img src="/sigaa/img/view.gif;jsessionid=0"/></a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td>
+							MESTRADO EM SAÚDE COLETIVA								
+							</td>
+<td>
+								MESTRADO
+								</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formListagemCursos'),{'formListagemCursos:j_id_jsp_1302309529_17j_id_151':'formListagemCursos:j_id_jsp_1302309529_17j_id_151','id':'175511'},'');}return false" title="Visualizar Detalhes do Curso"><img src="/sigaa/img/view.gif;jsessionid=0"/></a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td>
+							MESTRADO EM SAÚDE COMUNITÁRIA								
+							</td>
+<td>
+								MESTRADO
+								</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formListagemCursos'),{'formListagemCursos:j_id_jsp_1302309529_17j_id_152':'formListagemCursos:j_id_jsp_1302309529_17j_id_152','id':'26362'},'');}return false" title="Visualizar Detalhes do Curso"><img src="/sigaa/img/view.gif;jsessionid=0"/></a>
+</td>
+</tr>
+<tr>
+<td class="subFormulario" colspan="5">
+<a href="/sigaa/public/programa/portal.jsf?lc=pt_BR&amp;id=2172">
+											PPGSC-IMS - PROGRAMA DE PÓS-GRADUAÇÃO EM SAÚDE COLETIVA (PPGSC-IMS)
+											</a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td>
+							DOUTORADO EM SAÚDE COLETIVA								
+							</td>
+<td>
+								DOUTORADO
+								</td>
+<td>
+								VITÓRIA DA CONQUISTA
+								
+								</td>
+<td>
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formListagemCursos'),{'formListagemCursos:j_id_jsp_1302309529_17j_id_153':'formListagemCursos:j_id_jsp_1302309529_17j_id_153','id':'1239686'},'');}return false" title="Visualizar Detalhes do Curso"><img src="/sigaa/img/view.gif;jsessionid=0"/></a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td>
+							MESTRADO EM SAÚDE COLETIVA								
+							</td>
+<td>
+								MESTRADO
+								</td>
+<td>
+								VITÓRIA DA CONQUISTA
+								
+								</td>
+<td>
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formListagemCursos'),{'formListagemCursos:j_id_jsp_1302309529_17j_id_154':'formListagemCursos:j_id_jsp_1302309529_17j_id_154','id':'44277'},'');}return false" title="Visualizar Detalhes do Curso"><img src="/sigaa/img/view.gif;jsessionid=0"/></a>
+</td>
+</tr>
+<tr>
+<td class="subFormulario" colspan="5">
+<a href="/sigaa/public/programa/portal.jsf?lc=pt_BR&amp;id=2208">
+											PPGSC-P - PROGRAMA DE PÓS-GRADUAÇÃO EM SAÚDE COLETIVA (PPGSC-P)
+											</a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td>
+							DOUTORADO PROFISSIONAL EM SAÚDE COLETIVA								
+							</td>
+<td>
+								DOUTORADO
+								</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formListagemCursos'),{'formListagemCursos:j_id_jsp_1302309529_17j_id_155':'formListagemCursos:j_id_jsp_1302309529_17j_id_155','id':'3802303'},'');}return false" title="Visualizar Detalhes do Curso"><img src="/sigaa/img/view.gif;jsessionid=0"/></a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td>
+							MESTRADO PROFISSIONAL EM SAÚDE COLETIVA								
+							</td>
+<td>
+								MESTRADO
+								</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formListagemCursos'),{'formListagemCursos:j_id_jsp_1302309529_17j_id_156':'formListagemCursos:j_id_jsp_1302309529_17j_id_156','id':'28872'},'');}return false" title="Visualizar Detalhes do Curso"><img src="/sigaa/img/view.gif;jsessionid=0"/></a>
+</td>
+</tr>
+<tr>
+<td class="subFormulario" colspan="5">
+<a href="/sigaa/public/programa/portal.jsf?lc=pt_BR&amp;id=2314">
+											PPGSS - PROGRAMA DE PÓS-GRADUAÇÃO EM SERVIÇO SOCIAL (PPGSS)
+											</a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td>
+							MESTRADO ACADÊMICO EM SERVIÇO SOCIAL								
+							</td>
+<td>
+								MESTRADO
+								</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formListagemCursos'),{'formListagemCursos:j_id_jsp_1302309529_17j_id_157':'formListagemCursos:j_id_jsp_1302309529_17j_id_157','id':'176805'},'');}return false" title="Visualizar Detalhes do Curso"><img src="/sigaa/img/view.gif;jsessionid=0"/></a>
+</td>
+</tr>
+<tr>
+<td class="subFormulario" colspan="5">
+<a href="/sigaa/public/programa/portal.jsf?lc=pt_BR&amp;id=1734">
+											PPGZ - PROGRAMA DE PÓS-GRADUAÇÃO EM ZOOTECNIA (PPGZ)
+											</a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td>
+							DOUTORADO EM ZOOTECNIA								
+							</td>
+<td>
+								DOUTORADO
+								</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formListagemCursos'),{'formListagemCursos:j_id_jsp_1302309529_17j_id_158':'formListagemCursos:j_id_jsp_1302309529_17j_id_158','id':'31677'},'');}return false" title="Visualizar Detalhes do Curso"><img src="/sigaa/img/view.gif;jsessionid=0"/></a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td>
+							MESTRADO EM ZOOTECNIA								
+							</td>
+<td>
+								MESTRADO
+								</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formListagemCursos'),{'formListagemCursos:j_id_jsp_1302309529_17j_id_159':'formListagemCursos:j_id_jsp_1302309529_17j_id_159','id':'31612'},'');}return false" title="Visualizar Detalhes do Curso"><img src="/sigaa/img/view.gif;jsessionid=0"/></a>
+</td>
+</tr>
+<tr>
+<td class="subFormulario" colspan="5">
+<a href="/sigaa/public/programa/portal.jsf?lc=pt_BR&amp;id=2316">
+											PRODAN - PROGRAMA DE PÓS-GRADUAÇÃO EM DANÇA/PRODAN
+											</a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td>
+							MESTRADO PROFISSIONAL EM DANÇA								
+							</td>
+<td>
+								MESTRADO
+								</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formListagemCursos'),{'formListagemCursos:j_id_jsp_1302309529_17j_id_160':'formListagemCursos:j_id_jsp_1302309529_17j_id_160','id':'162287'},'');}return false" title="Visualizar Detalhes do Curso"><img src="/sigaa/img/view.gif;jsessionid=0"/></a>
+</td>
+</tr>
+<tr>
+<td class="subFormulario" colspan="5">
+<a href="/sigaa/public/programa/portal.jsf?lc=pt_BR&amp;id=2301">
+											PROFAGUA - PROGRAMA DE PÓS-GRADUAÇÃO EM GESTÃO E REGULAÇÃO DE RECURSOS HÍDRICOS (PROFAGUA)
+											</a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td>
+							MESTRADO PROFISSIONAL EM GESTÃO E REGULAÇÃO DE RECURSOS HÍDRICOS								
+							</td>
+<td>
+								MESTRADO
+								</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formListagemCursos'),{'formListagemCursos:j_id_jsp_1302309529_17j_id_161':'formListagemCursos:j_id_jsp_1302309529_17j_id_161','id':'41637'},'');}return false" title="Visualizar Detalhes do Curso"><img src="/sigaa/img/view.gif;jsessionid=0"/></a>
+</td>
+</tr>
+<tr>
+<td class="subFormulario" colspan="5">
+<a href="/sigaa/public/programa/portal.jsf?lc=pt_BR&amp;id=2168">
+											PROFARTES - PROGRAMA DE PÓS-GRADUAÇÃO EM PROFARTES (PROFARTES)
+											</a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td>
+							MESTRADO PROFISSIONAL EM PROFARTES								
+							</td>
+<td>
+								MESTRADO
+								</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formListagemCursos'),{'formListagemCursos:j_id_jsp_1302309529_17j_id_162':'formListagemCursos:j_id_jsp_1302309529_17j_id_162','id':'42955'},'');}return false" title="Visualizar Detalhes do Curso"><img src="/sigaa/img/view.gif;jsessionid=0"/></a>
+</td>
+</tr>
+<tr>
+<td class="subFormulario" colspan="5">
+<a href="/sigaa/public/programa/portal.jsf?lc=pt_BR&amp;id=2693">
+											PROFCOMP - PROGRAMA DE PÓS-GRADUAÇÃO EM ENSINO DE COMPUTAÇÃO (PROFCOMP)
+											</a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td>
+							MESTRADO PROFISSIONAL EM ENSINO DE COMPUTAÇÃO								
+							</td>
+<td>
+								MESTRADO
+								</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formListagemCursos'),{'formListagemCursos:j_id_jsp_1302309529_17j_id_163':'formListagemCursos:j_id_jsp_1302309529_17j_id_163','id':'4426691'},'');}return false" title="Visualizar Detalhes do Curso"><img src="/sigaa/img/view.gif;jsessionid=0"/></a>
+</td>
+</tr>
+<tr>
+<td class="subFormulario" colspan="5">
+<a href="/sigaa/public/programa/portal.jsf?lc=pt_BR&amp;id=2261">
+											PROFLETRAS - PROGRAMA DE PÓS-GRADUAÇÃO EM LETRAS (PROFLETRAS)
+											</a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td>
+							MESTRADO PROFISSIONAL EM LETRAS								
+							</td>
+<td>
+								MESTRADO
+								</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formListagemCursos'),{'formListagemCursos:j_id_jsp_1302309529_17j_id_164':'formListagemCursos:j_id_jsp_1302309529_17j_id_164','id':'40142'},'');}return false" title="Visualizar Detalhes do Curso"><img src="/sigaa/img/view.gif;jsessionid=0"/></a>
+</td>
+</tr>
+<tr>
+<td class="subFormulario" colspan="5">
+<a href="/sigaa/public/programa/portal.jsf?lc=pt_BR&amp;id=2164">
+											PROFMAT - PROGRAMA DE PÓS-GRADUAÇÃO EM MATEMÁTICA EM REDE NACIONAL (PROFMAT)
+											</a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td>
+							MESTRADO PROFISSIONAL EM MATEMÁTICA EM REDE NACIONAL								
+							</td>
+<td>
+								MESTRADO
+								</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formListagemCursos'),{'formListagemCursos:j_id_jsp_1302309529_17j_id_165':'formListagemCursos:j_id_jsp_1302309529_17j_id_165','id':'25349'},'');}return false" title="Visualizar Detalhes do Curso"><img src="/sigaa/img/view.gif;jsessionid=0"/></a>
+</td>
+</tr>
+<tr>
+<td class="subFormulario" colspan="5">
+<a href="/sigaa/public/programa/portal.jsf?lc=pt_BR&amp;id=2296">
+											PROFNIT - PROGRAMA DE PÓS-GRADUAÇÃO EM PROPRIEDADE INTELECTUAL E TRANSFERÊNCIA DE TECNOLOGIA PARA INOVAÇÃO (PROFNIT)
+											</a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td>
+							MESTRADO PROFISSIONAL EM PROPRIEDADE INTELECTUAL E TRANSFERÊNCIA DE TECNOLOGIA PARA INOVAÇÃO								
+							</td>
+<td>
+								MESTRADO
+								</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formListagemCursos'),{'formListagemCursos:j_id_jsp_1302309529_17j_id_166':'formListagemCursos:j_id_jsp_1302309529_17j_id_166','id':'44372'},'');}return false" title="Visualizar Detalhes do Curso"><img src="/sigaa/img/view.gif;jsessionid=0"/></a>
+</td>
+</tr>
+<tr>
+<td class="subFormulario" colspan="5">
+<a href="/sigaa/public/programa/portal.jsf?lc=pt_BR&amp;id=2656">
+											PROFSAÚDE - PROGRAMA DE PÓS-GRADUAÇÃO EM SAÚDE DA FAMÍLIA
+											</a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td>
+							MESTRADO PROFISSIONAL EM SAÚDE DA FAMÍLIA								
+							</td>
+<td>
+								MESTRADO
+								</td>
+<td>
+								VITÓRIA DA CONQUISTA
+								
+								</td>
+<td>
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formListagemCursos'),{'formListagemCursos:j_id_jsp_1302309529_17j_id_167':'formListagemCursos:j_id_jsp_1302309529_17j_id_167','id':'1631608'},'');}return false" title="Visualizar Detalhes do Curso"><img src="/sigaa/img/view.gif;jsessionid=0"/></a>
+</td>
+</tr>
+<tr>
+<td class="subFormulario" colspan="5">
+<a href="/sigaa/public/programa/portal.jsf?lc=pt_BR&amp;id=2022">
+											RENORBIO - PROGRAMA DE PÓS-GRADUAÇÃO EM BIOTECNOLOGIA - REDE RENORBIO (RENORBIO)
+											</a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td>
+							DOUTORADO EM BIOTECNOLOGIA - REDE RENORBIO								
+							</td>
+<td>
+								DOUTORADO
+								</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formListagemCursos'),{'formListagemCursos:j_id_jsp_1302309529_17j_id_168':'formListagemCursos:j_id_jsp_1302309529_17j_id_168','id':'31131'},'');}return false" title="Visualizar Detalhes do Curso"><img src="/sigaa/img/view.gif;jsessionid=0"/></a>
+</td>
+</tr>
+</tbody>
+</table>
+<input id="javax.faces.ViewState" name="javax.faces.ViewState" type="hidden" value="j_id1"/>
+</form>
+<br/>
+<div style="width: 80%; text-align: center; margin: 0 auto;">
+<a href="/sigaa/public/home.jsf" style="color: #404E82;">&lt;&lt; Voltar ao menu principal</a>
+</div>
+<br/>
+<div class="clear"></div>
+</div>
+<div id="rodape">
+<p> <!-- Redmine 24523 - Telas e relat&#243;rios com rodap&#233;s sem a altera&#231;&#227;o - Portal P&#250;blico -->
+			SIGAA | STI/SUPAC | -  | Copyright © 2006-2026 - UFBA - sigaapl04.intranet.ufba.br
+			 
+				<a onclick="javascript:versao();">v4.13.8_41_hotfix</a>
+</p>
+</div>
+<!-- Fim dos containers -->
+</div>
+</div>
+<!-- MYFACES JAVASCRIPT -->
+</body>
+</html>
+<html><script charset="UTF-8" type="text/javascript">
+		function versao(){
+			var msg='';
+			msg+='SIGAA 4.13.8_41_hotfix,  publicado em: 25/09/2026 16:18\n\n';
+			msg+='Depend\u00eancias:\n';
+			msg+='Arquitetura 4.4.5\n';
+			msg+='Entidades Comuns 2.3.3\n';
+			msg+='Servicos Integrados 2.0.8\n';
+			msg+='SharedResources 2.1.4\n';
+			msg+='Servicos Remoto Biblioteca null\n';
+			msg+='SIGAA Mobile Objects 1.0.0\n\n';
+			msg+='Copyright SINFO/UFRN';
+			alert(msg);
+		}	
+	</script>
+<style>
+a.linkMobile:link {
+	color: #003395;
+	font-weight: bold;
+	font-size: inherit;
+	text-decoration: none;
+}
+
+a.linkMobile:visited {
+	color: #003390;
+	text-decoration: none;
+	font-weight: bold;
+}
+
+a.linkMobile:active {
+	color: #444444;
+	text-decoration: none;
+	font-weight: bold;
+}
+</style>
+<style type="text/css">
+a:link, a:visited {
+	text-decoration: none;
+	color: #333; 
+	}
+a:hover {
+	text-decoration: none;
+	}
+a:active {
+	text-decoration: none;
+	}
+</style></html>

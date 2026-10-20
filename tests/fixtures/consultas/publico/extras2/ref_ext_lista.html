@@ -1,0 +1,1511 @@
+<!DOCTYPE HTML>
+<html lang="pt-br" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title> SIGAA- Sistema Integrado de Gestão de Atividades Acadêmicas </title>
+<link class="component" href="/sigaa/a4j/s/3_3_3.Finalorg/richfaces/renderkit/html/css/basic_classes.xcss/DATB/eAF7sqpgb-jyGdIAFrMEaw__.jsf" rel="stylesheet" type="text/css"/><link class="component" href="/sigaa/a4j/s/3_3_3.Finalorg/richfaces/renderkit/html/css/extended_classes.xcss/DATB/eAF7sqpgb-jyGdIAFrMEaw__.jsf" media="rich-extended-skinning" rel="stylesheet" type="text/css"/><script src="/sigaa/a4j/g/3_3_3.Finalorg.ajax4jsf.javascript.AjaxScript.jsf" type="text/javascript"></script><script src="/sigaa/a4j/g/3_3_3.Finalorg.ajax4jsf.javascript.PrototypeScript.jsf" type="text/javascript"></script><script src="/sigaa/a4j/g/3_3_3.Finalorg/richfaces/renderkit/html/scripts/jquery/jquery.js.jsf" type="text/javascript"></script><script src="/sigaa/a4j/g/3_3_3.Finalorg/richfaces/renderkit/html/scripts/available.js.jsf" type="text/javascript"></script><script src="/sigaa/a4j/g/3_3_3.Finalorg.ajax4jsf.javascript.SmartPositionScript.jsf" type="text/javascript"></script><script src="/sigaa/a4j/g/3_3_3.Finalorg/richfaces/renderkit/html/scripts/browser_info.js.jsf" type="text/javascript"></script><script src="/sigaa/a4j/g/3_3_3.Finalorg/richfaces/renderkit/html/scripts/utils.js.jsf" type="text/javascript"></script><script src="/sigaa/a4j/g/3_3_3.Finalorg/richfaces/renderkit/html/scripts/scriptaculous/effects.js.jsf" type="text/javascript"></script><script src="/sigaa/a4j/g/3_3_3.Finalscripts/suggestionbox.js.jsf" type="text/javascript"></script><link class="component" href="/sigaa/a4j/s/3_3_3.Finalorg/richfaces/renderkit/html/css/suggestionbox.xcss/DATB/eAF7sqpgb-jyGdIAFrMEaw__.jsf" rel="stylesheet" type="text/css"/><script type="text/javascript">window.RICH_FACES_EXTENDED_SKINNING_ON=true;</script><script src="/sigaa/a4j/g/3_3_3.Finalorg/richfaces/renderkit/html/scripts/skinning.js.jsf" type="text/javascript"></script><link href="/sigaa/img/sigaa_UFPB.ico" rel="shortcut icon"/>
+<script>
+		//Indica para algumas fun&#231;&#245;es javascript que o layout utilizado &#233; o do SIGAA beta.
+		const LAYOUT_BETA = true;
+		</script>
+<script src="/sigaa/shared/beta/js/jquery-3.2.1.min.js" type="text/javascript"></script>
+<script src="/sigaa/shared/beta/js/jquery-migrate-3.0.0.min.js" type="text/javascript"></script>
+<script src="/sigaa/shared/beta/js/bootstrap.js" type="text/javascript"></script>
+<script src="/sigaa/shared/beta/js/bootstrap-dialog.js" type="text/javascript"></script>
+<script src="/sigaa/shared/beta/js/sigaa_beta_utils.js" type="text/javascript"></script>
+<script src="/sigaa/shared/javascript/paineis/painel_generico.js" type="text/javascript"></script>
+<script src="/sigaa/shared/javascript/formatador.js" type="text/javascript"></script>
+<script src="/sigaa/jsBundles/jawr_loader.js" type="text/javascript"></script>
+<script type="text/javascript">
+			<!-- jawr_loader.js / jawr.shared.properties -->
+			JAWR.loader.script('/sigaa/bundles/js/sigaa_base.js');
+		</script>
+<link href="/sigaa/shared/beta/css/bootstrap.css" media="screen" rel="stylesheet" type="text/css"/>
+<link href="/sigaa/shared/beta/css/font-awesome.css" media="screen" rel="stylesheet" type="text/css"/>
+<!-- Tema do SIGAA BETA -->
+<link href="/sigaa/shared/beta/css/tema9.css" id="temaLayout" media="screen" rel="stylesheet" type="text/css"/>
+<!-- INICIO MENU -->
+<script src="/sigaa/shared/beta/js/jquery.smartmenus.js" type="text/javascript"></script>
+<script src="/sigaa/shared/beta/js/jquery.smartmenus.keyboard.js" type="text/javascript"></script>
+<link href="/sigaa/shared/beta/css/sm-core-css.css" media="screen" rel="stylesheet" type="text/css"/>
+<style>ul.sm *{z-index: 5;}</style>
+<script type="text/javascript">
+			var itemWithSubMenu = null;
+			jQuery(function($) {
+				<!-- SmartMenus jQuery init - jquery.smartmenus.js -->
+				$menu = $('#main-menu');
+				if ( $menu ){
+					$menu.smartmenus({
+						subMenusSubOffsetX : 1,
+						subMenusSubOffsetY : -8,
+						hideDuration : 0,
+						showDuration : 0,
+						subMenusMaxWidth: '26em',
+					});
+					$menu.smartmenus('keyboardSetHotkey', '123', 'shiftKey');
+				}
+				<!-- FIM MENU -->
+				
+				<!-- Detalhes do usu&#225;rio -->
+				//mostra ou oculta a op&#231;&#227;o de alterar a foto do discente
+				$("#detalhes-usuario .foto-perfil").bind({
+					mouseenter:function(){$(this).find(".acoes").slideDown()},
+					mouseleave:function(){$(this).find(".acoes").slideUp()}
+				})
+				
+				
+				<!-- paleta cores - sigaa_beta_utils.js -->
+				if ( $('#paleta-cores') ){
+					$('#paleta-cores').paletaCores();
+					$('#paleta-cores-horizontal').paletaCores();
+				}
+				<!-- FIM paleta cores -->
+
+				<!-- acessibilidade texto - sigaa_beta_utils.js -->
+				if ($('#menu-acessibilidade')){
+					$('#acessibilidade-contraste').contraste();
+					//inicia o contraste, caso tenha a a&#231;&#227;o sido executada anteriormente
+					$('#menu-acessibilidade').contraste("iniciar");
+					
+				}
+				<!-- FIM acessibilidade texto -->
+			});
+		</script>
+<script type="text/javascript">var useGeneralJS = false;</script>
+<script src="/sigaa/shared/javascript/general.js" type="text/javascript"></script>
+</head>
+<body>
+<div class="wrapper">
+<div id="ufrn-cabecalho">
+<div id="barra-sistema">
+<div class="ufrn-container">
+<div class="ufrn-marca pull-left">
+<p>UFPB</p>
+</div>
+<ul id="menu-acessibilidade">
+<li><a class="sr-only sr-only-focusable" href="#conteudo">Pular para conteúdo</a></li>
+<li class="separador"></li>
+<li><a class="toggleable" href="#" id="acessibilidade-contraste" title="Contraste"><span class="icone-contraste"></span><span class="sr-only">Auto Contraste</span></a></li>
+<li class="separador"></li>
+<li>
+<a href="/sigaa/logon/" style="font-size: 15px; font-weight: bold;" title="Acessar o SIGAA">Entrar</a>
+</li>
+</ul>
+</div>
+</div>
+<!-- INICIO PAINEL -->
+<div id="painel-usuario">
+<div class="ufrn-container">
+<div class="logo pull-left" style="width: 18%;">
+<img alt="SIGAA beta" height="51" src="/sigaa/shared/beta/img/SIGAA-horizontal.png" title="SIGAA"/>
+<span style="left: 32%; top: 80%;"> <a href="/sigaa/public/"> Portal Público</a></span>
+</div>
+<div class="painel-usuario-row pull-right" style="max-width: 75%;">
+<div class="painel-usuario-acoes">
+<ul>
+</ul>
+</div>
+<div class="painel-usuario-identificacao" style="width: 60%;">
+<span style="color: var(--fonte-cor-texto-primaria); font-size: 20px; text-align: right; line-height: 20px;">
+					Universidade Federal da Paraíba
+				</span>
+</div>
+<div class="painel-usuario-foto">
+<img alt="Brasão da UFPB" src="/sigaa/img/brasao_ufpb.png" style="width: 85%;"/>
+</div>
+</div>
+</div>
+</div>
+<!-- FIM PAINEL -->
+</div>
+<div class="ufrn-container" id="conteudo"> <!-- Ser&#225; fechado em rodape.jsp -->
+<script>
+	//#FIX conflito prototype e bootstrap
+	//INICIO
+	jQuery.noConflict();
+	/*if (Prototype.BrowserFeatures.ElementExtensions) {
+	    var disablePrototypeJS = function (method, pluginsToDisable) {
+	            var handler = function (event) {
+	                event.target[method] = undefined;
+	                setTimeout(function () {
+	                    delete event.target[method];
+	                }, 0);
+	            };
+	            pluginsToDisable.each(function (plugin) { 
+	                jQuery(window).on(method + '.bs.' + plugin, handler);
+	            });
+	        },
+	        pluginsToDisable = ['collapse', 'dropdown', 'modal', 'tooltip'];
+	    disablePrototypeJS('show', pluginsToDisable);
+	    disablePrototypeJS('hide', pluginsToDisable);
+	}*/
+	//FIM
+	
+	jQuery(function($) {
+		transformaBreadcumbs();
+		tranformaDescricaoOperacao();
+		selecionarPrimeiraAba();
+		//transformaBotoes();
+		
+		//adicionaCssTabelaListagem();
+		
+		//removeRichFaceCss();
+		
+		function transformaBreadcumbs(){
+			//Transforma o breadcumbs da vers&#227;o antiga para a vers&#227;o nova
+			var breadcumbsAtual = jQuery(".ufrn-container > h2");
+			if ( breadcumbsAtual.length == 0 ) {
+				breadcumbsAtual = jQuery(".ufrn-container form > h2");
+			}
+			
+			if ( breadcumbsAtual.length == 0 ) return;
+
+			var arrPath = breadcumbsAtual.html().split("&gt;");
+			var expressaoLink = /<a href=\"(.+)">(.+)<\/a>/m;
+			var padraoLink = new RegExp( expressaoLink );
+			template = "<ol class='breadcrumb'>";
+			for( i=0; i<arrPath.length-1; i++ ){
+				if ( i == 0 && padraoLink.test( arrPath[i] ) ){
+					link = arrPath[i].match( expressaoLink )[1];
+					nome = arrPath[i].match( expressaoLink )[2];
+					template += "<li><a href="+ link +"><span class='glyphicon glyphicon-home'></span>"+ nome +"</a></li>";	
+				}else{
+					template += "<li>"+ jQuery.trim(arrPath[i]) +"</li>";	
+				}				
+			}
+			template += "</ol>";
+			
+			//ultimo elemento &#233; o t&#237;tulo da p&#225;gina
+			template += "<div class='page-header'>";
+			template += "<h1>"+jQuery.trim(arrPath[arrPath.length-1])+"</h1>";
+			template += "</div>";
+
+			breadcumbsAtual[0].outerHTML = template ;
+		}
+		
+		function tranformaDescricaoOperacao(){
+			//pega apenas a descri&#231;&#227;o da opera&#231;&#227;o da tela.
+			var descricaoOperacao = jQuery(".ufrn-container > .descricaoOperacao");
+			
+			if ( descricaoOperacao.length == 0 ) {
+				descricaoOperacao = jQuery(".ufrn-container form > .descricaoOperacao");
+			}
+			
+			if ( descricaoOperacao.length == 0 ) {
+				descricaoOperacao = jQuery(".bootstrap-dialog-message .descricaoOperacao");
+				descricaoOperacao.find('br').remove();
+			}
+			
+			descricaoOperacao.each( function( index ){
+				obj = jQuery(this);
+				obj.removeClass("descricaoOperacao");
+				
+				if (!obj.hasClass("alert")){//se j&#225; tem a classe alert, assume-se que j&#225; est&#225; no padr&#227;o do sigaa beta
+					obj.addClass("conteudo");
+					obj.wrap("<div class='alert alert-info'></div>");
+					obj.parent().prepend( "<div class='icone'><span class='glyphicon glyphicon-info-sign'></span></div>" );
+				}
+			});
+			
+		}
+		
+		function transformaBotoes(){
+			jQuery("table.formulario tfoot,table.visualizacao tfoot, table.listagem tfoot").find("button,input[type=submit],input[type=button]").each( function( index ){
+				if( !jQuery(this).hasClass("btn") ){
+					jQuery(this).addClass("btn");
+				}
+				
+				if ( !jQuery(this).hasClass("btn-default") && !jQuery(this).hasClass("btn-primary") ){
+					jQuery(this).addClass("btn-default");
+				}
+			});
+		}
+		
+		function removeRichFaceCss(){
+			/** Remove todas as classes do rich-faces **/
+			jQuery("[class*='rich-']").each(function () {
+			    var className = this.className.match(/rich-(\w|-)+/i);
+			    if ( jQuery(this).hasClass( className[0] ) ){
+			       jQuery(this).removeClass( className[0] );
+			    }
+			});
+		}
+		
+		function adicionaCssTabelaListagem(){
+			jQuery("table.listagem").each( function(){
+				var arrClassToAdd = ["table","table-hover"];
+				var table = jQuery(this);
+				for ( i=0; i < arrClassToAdd.length; i++ ){
+					if ( !table.hasClass( arrClassToAdd[i] ) ){
+						table.addClass( arrClassToAdd[i] );
+					}
+				}
+			});
+		}
+		
+		//remove o menu antigo se ele estiver incluido
+		if (jQuery('#menu-dropdown')){
+		  jQuery('#menu-dropdown').remove();
+		}
+		
+	});
+	</script>
+<style>
+	.camposBusca{
+		width: 560px;
+	}
+</style>
+<h2>Consulte as atividades de extensão desenvolvidas pela UFPB</h2>
+<br/>
+<form action="/sigaa/public/extensao/consulta_extensao.jsf" enctype="application/x-www-form-urlencoded" id="formBuscaAtividade" method="post" name="formBuscaAtividade">
+<input name="formBuscaAtividade" type="hidden" value="formBuscaAtividade"/>
+<table class="formulario" width="80%">
+<caption>Busca por Ações de Extensão</caption>
+<tbody>
+<tr>
+<td><input checked="checked" class="noborder" id="formBuscaAtividade:selectBuscaTitulo" name="formBuscaAtividade:selectBuscaTitulo" type="checkbox"/> </td>
+<td> <label for="nomeProjeto"> Título da Ação </label> </td>
+<td><input class="camposBusca" id="formBuscaAtividade:buscaTitulo" name="formBuscaAtividade:buscaTitulo" onfocus="javascript:$('formBuscaAtividade:selectBuscaTitulo').checked = true;" type="text" value="educação"/>
+<img border="0" onmouseout="document.getElementById('ajuda518824').style.visibility = 'hidden';" onmouseover="document.getElementById('ajuda518824').style.visibility = 'visible';" src="/shared/img/geral/ajuda.gif"/>
+<span style="position: absolute;">
+<div class="popUp" id="ajuda518824" onmouseout="document.getElementById('ajuda518824').style.visibility = 'hidden';">
+		
+Preencha o <b>Título da Ação</b> a ser utilizado como filtro de pesquisa.	</div>
+</span>
+</td>
+</tr>
+<tr>
+<td><input checked="checked" class="noborder" id="formBuscaAtividade:selectBuscaTipoAtividade" name="formBuscaAtividade:selectBuscaTipoAtividade" type="checkbox"/> </td>
+<td> <label for="situacaoProjeto"> Tipo de Atividade </label> </td>
+<td><select class="camposBusca" id="formBuscaAtividade:buscaTipoAcao" name="formBuscaAtividade:buscaTipoAcao" onfocus="javascript:$('formBuscaAtividade:selectBuscaTipoAtividade').checked = true;" size="1"> <option value="0">-- SELECIONE UM TIPO DE AÇÃO --</option>
+<option value="3">CURSO</option>
+<option value="4">EVENTO</option>
+<option value="5">PRESTAÇÃO DE SERVIÇOS</option>
+<option value="6">PRODUTO</option>
+
+
+</select>
+<img border="0" onmouseout="document.getElementById('ajuda141716').style.visibility = 'hidden';" onmouseover="document.getElementById('ajuda141716').style.visibility = 'visible';" src="/shared/img/geral/ajuda.gif"/>
+<span style="position: absolute;">
+<div class="popUp" id="ajuda141716" onmouseout="document.getElementById('ajuda141716').style.visibility = 'hidden';">
+		
+Selecione o <b>Tipo de Atividade</b> a ser utilizado como filtro de pesquisa.	</div>
+</span>
+</td>
+</tr>
+<tr>
+<td><input class="noborder" id="formBuscaAtividade:selectBuscaUnidadeProponente" name="formBuscaAtividade:selectBuscaUnidadeProponente" type="checkbox"/> </td>
+<td><label for="unidade"> Unidade Responsável: </label> </td>
+<td>
+<select class="camposBusca" id="formBuscaAtividade:buscaUnidade" name="formBuscaAtividade:buscaUnidade" onfocus="javascript:$('formBuscaAtividade:selectBuscaUnidadeProponente').checked = true;" size="1"> <option selected="selected" value="0">-- SELECIONE UM DEPARTAMENTO --</option>
+<option value="3450">ACE - CAIP - DIVISÃO DE DIFUSÃO, PESQUISA E AÇÃO CULTURAL (11.00.46.83)</option>
+<option value="3443">ACE - CGDS - DIVISÃO DE PROTOCOLO E EXPEDIÇÃO DE DOCUMENTOS (11.00.46.85)</option>
+<option value="3399">AGÊNCIA UFPB DE COOPERAÇÃO INTERNACIONAL (11.00.46.36)</option>
+<option value="2827">AGÊNCIA UFPB DE INOVAÇÃO TECNOLÓGICA (INOVA UFPB) (11.00.02.01.04)</option>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</select>
+<img border="0" onmouseout="document.getElementById('ajuda840369').style.visibility = 'hidden';" onmouseover="document.getElementById('ajuda840369').style.visibility = 'visible';" src="/shared/img/geral/ajuda.gif"/>
+<span style="position: absolute;">
+<div class="popUp" id="ajuda840369" onmouseout="document.getElementById('ajuda840369').style.visibility = 'hidden';">
+		
+Selecione a <b>Unidade Responsável</b> a ser utilizada como filtro de pesquisa.	</div>
+</span>
+</td>
+</tr>
+<tr>
+<td><input class="noborder" id="formBuscaAtividade:selectBuscaServidor" name="formBuscaAtividade:selectBuscaServidor" type="checkbox"/> </td>
+<td>Coordenador:</td>
+<td>
+<input class="camposBusca" id="formBuscaAtividade:nomeServidor" name="formBuscaAtividade:nomeServidor" size="59" type="text" value=""/><div class="rich-sb-common-container" id="formBuscaAtividade:suggestionNomeServ" style="display:none; z-index: 201;width:450px;height:100px;;;"><div class="rich-sb-ext-decor-1"><div class="rich-sb-ext-decor-2" style=";; border-width: null  null  null  null ;"><table border="0" cellpadding="0" cellspacing="1" class="rich-sb-ext-decor-3"><tbody><tr><td><div class="_suggestion_size_ rich-sb-overflow" style="width:446px;height:96px;"><table border="0" id="formBuscaAtividade:suggestionNomeServ:suggest" width="100%"><tbody><tr style="display:none;"><td></td></tr></tbody></table></div></td></tr></tbody></table></div></div><div class="rich-sb-shadow" style="opacity:0.1; filter:alpha(opacity=10);top: 4px; left: 4px; "></div></div><div id="formBuscaAtividade:suggestionNomeServ_script" style="display:none;"><script type="text/javascript">Richfaces.onAvailable('formBuscaAtividade:nomeServidor', function() { new RichFaces.Suggestion('formBuscaAtividade','formBuscaAtividade:nomeServidor','formBuscaAtividade:suggestionNomeServ',{'minChars':'3','height':'100','onselect':function(suggestion,event){A4J.AJAX.Submit('formBuscaAtividade',event,{'similarityGroupingId':'formBuscaAtividade:suggestionNomeServ:j_id_jsp_1537298410_18','parameters':{'apenasAtivos':'false','formBuscaAtividade:suggestionNomeServ:j_id_jsp_1537298410_18':'formBuscaAtividade:suggestionNomeServ:j_id_jsp_1537298410_18'} ,'containerId':'j_id_jsp_1537298410_0'} )},'implicitEventsQueue':'formBuscaAtividade:suggestionNomeServ','width':'450','similarityGroupingId':'formBuscaAtividade:suggestionNomeServ','parameters':{'ajaxSingle':'formBuscaAtividade:suggestionNomeServ','formBuscaAtividade:suggestionNomeServ':'formBuscaAtividade:suggestionNomeServ'} ,'containerId':'j_id_jsp_1537298410_0'} );
+});</script></div><iframe id="formBuscaAtividade:suggestionNomeServ_iframe" src="/sigaa/a4j/g/3_3_3.Finalorg/richfaces/renderkit/html/images/spacer.gif.jsf" style="position:absolute;display:none;z-index:200;"></iframe><input autocomplete="off" id="formBuscaAtividade:suggestionNomeServ_selection" name="formBuscaAtividade:suggestionNomeServ_selection" type="hidden"/>
+<img border="0" onmouseout="document.getElementById('ajuda593979').style.visibility = 'hidden';" onmouseover="document.getElementById('ajuda593979').style.visibility = 'visible';" src="/shared/img/geral/ajuda.gif"/>
+<span style="position: absolute;">
+<div class="popUp" id="ajuda593979" onmouseout="document.getElementById('ajuda593979').style.visibility = 'hidden';">
+		
+Entre com o <b>Nome do Coordenador(a)</b> a ser utilizado como filtro de pesquisa.	</div>
+</span>
+</td>
+</tr>
+<tr>
+<td><input checked="checked" class="noborder" id="formBuscaAtividade:selectBuscaAno" name="formBuscaAtividade:selectBuscaAno" type="checkbox"/></td>
+<td><label for="nomeProjeto"> Ano </label> </td>
+<td><input id="formBuscaAtividade:buscaAno" name="formBuscaAtividade:buscaAno" onfocus="javascript:$('formBuscaAtividade:selectBuscaAno').checked = true;" onkeyup="return formatarInteiro(this);" size="10" type="text" value="2024"/>
+<img border="0" onmouseout="document.getElementById('ajuda915054').style.visibility = 'hidden';" onmouseover="document.getElementById('ajuda915054').style.visibility = 'visible';" src="/shared/img/geral/ajuda.gif"/>
+<span style="position: absolute;">
+<div class="popUp" id="ajuda915054" onmouseout="document.getElementById('ajuda915054').style.visibility = 'hidden';">
+		
+Preencha o <b>Ano</b> da Ação da Extensão a ser utilizado como filtro de pesquisa.	</div>
+</span>
+</td>
+</tr>
+</tbody>
+<tfoot>
+<tr>
+<td colspan="3">
+<input id="formBuscaAtividade:btBuscar" name="formBuscaAtividade:btBuscar" type="submit" value="Buscar"/> 
+						<input id="formBuscaAtividade:limpar" name="formBuscaAtividade:limpar" type="submit" value="Cancelar"/>
+</td>
+</tr>
+</tfoot>
+</table>
+<input id="javax.faces.ViewState" name="javax.faces.ViewState" type="hidden" value="j_id2"/>
+</form>
+<br/><br/><br/>
+<!-- ######################################################################################################################## -->
+<!-- Resultado da busca -->
+<form action="/sigaa/public/extensao/consulta_extensao.jsf" enctype="application/x-www-form-urlencoded" id="form" method="post" name="form">
+<input name="form" type="hidden" value="form"/>
+<table class="listagem" width="100%">
+<caption>Ações de extensão localizadas (131)</caption>
+<thead>
+<tr>
+<th>Ano/Título</th>
+<th>Tipo</th>
+<th>Departamento</th>
+</tr>
+</thead>
+<tbody>
+<tr class="linhaPar">
+<td>
+<script language="Javascript" type="text/javascript">function dpf(f) {var adp = f.adp;if (adp != null) {for (var i = 0;i < adp.length;i++) {f.removeChild(adp[i]);}}};function apf(f, pvp) {var adp = new Array();f.adp = adp;var i = 0;for (k in pvp) {var p = document.createElement("input");p.type = "hidden";p.name = k;p.value = pvp[k];f.appendChild(p);adp[i++] = p;}};function jsfcljs(f, pvp, t) {apf(f, pvp);var ft = f.target;if (t) {f.target = t;}f.submit();f.target = ft;dpf(f);};</script>
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('form'),{'form:j_id_jsp_1537298410_25':'form:j_id_jsp_1537298410_25','idAtividadeExtensaoSelecionada':'13035','acao':'2'},'');}return false" title="Visualizar Ação">2024 - QUEBRA GELO: Karaokê como Ponte entre Bem-Estar e Educação"</a>
+</td>
+<td> PROJETO </td>
+<td>CCTA - DTH</td>
+</tr>
+<tr class="linhaImpar">
+<td>
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('form'),{'form:j_id_jsp_1537298410_25j_id_1':'form:j_id_jsp_1537298410_25j_id_1','idAtividadeExtensaoSelecionada':'12954','acao':'2'},'');}return false" title="Visualizar Ação">2024 - (Co)Laboratório de Invenções de Educação Popular em Educação Alimentar e Nutricional na Atenção Primária à Saúde</a>
+</td>
+<td> PROJETO </td>
+<td>CCM-DPS</td>
+</tr>
+<tr class="linhaPar">
+<td>
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('form'),{'form:j_id_jsp_1537298410_25j_id_2':'form:j_id_jsp_1537298410_25j_id_2','idAtividadeExtensaoSelecionada':'12839','acao':'2'},'');}return false" title="Visualizar Ação">2024 - CAPACITAÇÃO EM HEMATOLOGIA PARA A EDUCAÇÃO PROFISSIONAL 
+E SUPERIOR EM SAÚDE
+</a>
+</td>
+<td> PROJETO </td>
+<td>CPT-DDPLO</td>
+</tr>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</tbody>
+</table>
+<input id="javax.faces.ViewState" name="javax.faces.ViewState" type="hidden" value="j_id2"/>
+</form>
+<!-- ######################################################################################################################### -->
+<br/>
+<div style="width: 80%; text-align: center; margin: 0 auto;">
+<a href="/sigaa/public/home.jsf" style="color: #404E82;">&lt;&lt; voltar ao menu principal</a>
+</div>
+<br/>
+<script type="text/javascript">
+		var lista = getEl(document).getChildrenByClassName('descricao')
+		for (i = 0; i < lista.size(); i++) {
+			lista[i].setDisplayed(false);
+		}
+	</script>
+<script type="text/javascript">
+			$('formBuscaAtividade:selectBuscaTipoAtividade').checked = true;
+		</script>
+</div> <!-- fecha ufrn-container -->
+<div class="push"></div>
+</div> <!-- fecha wrapper -->
+<div id="ufrn-rodape">
+<div class="ufrn-container">
+<div class="rodape-sinfo">
+<a href="">
+<img alt="STI - Superintendência de Tecnologia da Informação" src="/sigaa/shared/beta/img/sti_logo_preto_branco.png" title="STI - Superintendência de Tecnologia da Informação" width="60px"/>
+</a>
+</div>
+<div class="rodape-informacao-sistema">
+			SIGAA - 26.10.6 -| STI - Superintendência de Tecnologia da Informação | Copyright © 2006-2026 - UFPB
+		</div>
+<div class="rodape-redes-sociais">
+</div>
+</div>
+</div>
+<!-- MYFACES JAVASCRIPT -->
+</body>
+</html>

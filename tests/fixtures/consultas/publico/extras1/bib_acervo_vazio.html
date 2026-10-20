@@ -1,0 +1,371 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta content="no-cache" http-equiv="Pragma"/>
+<title>SIGAA - Sistema Integrado de Gestão de Atividades Acadêmicas</title>
+<link class="component" href="/sigaa/a4j/s/3_3_3.Finalorg/richfaces/renderkit/html/css/basic_classes.xcss/DATB/eAF7sqpgb-jyGdIAFrMEaw__.jsf" rel="stylesheet" type="text/css"/><link class="component" href="/sigaa/a4j/s/3_3_3.Finalorg/richfaces/renderkit/html/css/extended_classes.xcss/DATB/eAF7sqpgb-jyGdIAFrMEaw__.jsf" media="rich-extended-skinning" rel="stylesheet" type="text/css"/><script src="/sigaa/a4j/g/3_3_3.Finalorg.ajax4jsf.javascript.PrototypeScript.jsf" type="text/javascript"></script><script src="/sigaa/a4j/g/3_3_3.Finalorg.ajax4jsf.javascript.AjaxScript.jsf" type="text/javascript"></script><script src="/sigaa/a4j/g/3_3_3.Finalscripts/menu.js.jsf" type="text/javascript"></script><script src="/sigaa/a4j/g/3_3_3.Finalorg/richfaces/renderkit/html/scripts/json/json-dom.js.jsf" type="text/javascript"></script><script src="/sigaa/a4j/g/3_3_3.Finalorg/richfaces/renderkit/html/scripts/utils.js.jsf" type="text/javascript"></script><script src="/sigaa/a4j/g/3_3_3.Finalorg/richfaces/renderkit/html/scripts/context-menu.js.jsf" type="text/javascript"></script><script src="/sigaa/a4j/g/3_3_3.Finalorg/richfaces/renderkit/html/scripts/available.js.jsf" type="text/javascript"></script><script src="/sigaa/a4j/g/3_3_3.Finalorg/richfaces/renderkit/html/scripts/jquery/jquery.js.jsf" type="text/javascript"></script><script src="/sigaa/a4j/g/3_3_3.Finalorg/richfaces/renderkit/html/scripts/jquery.utils.js.jsf" type="text/javascript"></script><script src="/sigaa/a4j/g/3_3_3.Finalorg/ajax4jsf/javascript/scripts/form.js.jsf" type="text/javascript"></script><script src="/sigaa/a4j/g/3_3_3.Finalorg/richfaces/renderkit/html/scripts/form.js.jsf" type="text/javascript"></script><script src="/sigaa/a4j/g/3_3_3.Finalorg/richfaces/renderkit/html/scripts/menu.js.jsf" type="text/javascript"></script><link class="component" href="/sigaa/a4j/s/3_3_3.Finalcss/menucomponents.xcss/DATB/eAF7sqpgb-jyGdIAFrMEaw__.jsf" rel="stylesheet" type="text/css"/><script type="text/javascript"></script><script src="/sigaa/a4j/g/3_3_3.Finalorg/richfaces/renderkit/html/scripts/skinning.js.jsf" type="text/javascript"></script><link href="/sigaa/img/sigaa.ico" rel="shortcut icon"/>
+<script src="/shared/jsBundles/jawr_loader.js" type="text/javascript"></script>
+<script src="/sigaa/javascript/prevenir-duplo-clique.js" type="text/javascript"></script>
+<script type="text/javascript"></script>
+<link href="/sigaa/cssBundles/gzip_787491763/public/css/public.css" media="all" rel="stylesheet" type="text/css"/>
+<link href="/shared/beta/css/font-awesome.css" media="screen" rel="stylesheet" type="text/css"/>
+<script src="/shared/javascript/STICookieConsent.js"></script>
+<script></script>
+</head>
+<body>
+<div id="container">
+<div id="container-inner">
+<div id="cabecalho">
+<div id="logo">
+<a href="/sigaa/public/"> <img src="https://sipac.ufba.br/shared/img/instituicao/brasao_ufba48x75.jpg"/> </a>
+</div>
+<div id="identificacao">
+<span class="ufrn"> Universidade Federal da Bahia </span>
+<span class="data">
+				 Salvador, 
+				 19 de Outubro de 
+				 2026 
+			</span>
+<a href="/sigaa/public/" id="home" style="width: 450px;" title="Página inicial"> </a>
+<div id="menu_info">
+<ul>
+<li class="login">
+<a alt="Clique aqui para logar-se no SIGAA" href="/sigaa/" title="Clique aqui para logar-se no SIGAA">
+							Login
+						<i class="fa fa-angle-right"></i></a>
+</li>
+</ul>
+</div>
+</div>
+<br clear="all"/>
+</div>
+<div id="corpo">
+<script src="/sigaa/javascript/encoding.js" type="text/javascript"></script>
+<div id="painel-erros" style="position: relative; padding-bottom: 10px;">
+<ul class="erros">
+<li>Não foram encontrados resultados para a busca com estes parâmetros.</li>
+</ul>
+<div id="fechar-painel-erros" style="position: absolute; bottom: 2px; right: 2px;">
+<a href="javascript://nop/" onclick="$('painel-erros').remove();" style="color: #AAA; font-size: 0.9em;">
+					(x) fechar mensagens
+				</a>
+</div>
+</div>
+<script type="text/javascript"></script>
+<script src="/sigaa/javascript/biblioteca/functions.js" type="text/javascript"></script>
+<style></style>
+<h2>
+	 Sistema de Bibliotecas
+</h2>
+<div class="descricaoOperacao">
+<h4 style="text-align:left; ">Dicas de busca:</h4>
+<p>Preencha os campos conforme desejado. Usando mais de uma linha, a busca será mais específica.</p>
+<p>O sistema <b>não</b> diferencia caracteres maiúsculos e minúsculos, nem acentos. Por exemplo, o termo 
+	<i>bibliográfico</i> recupera registros com as palavras: <i>bibliografico</i>, <i>Bibliografico</i>, <i>Bibliográfico</i>, <i>BIBLIOGRAFICO</i> e <i>BIBLIOGRÁFICO</i>.</p>
+</div>
+<form action="/sigaa/public/biblioteca/buscaPublicaAcervo.jsf" enctype="application/x-www-form-urlencoded" id="formBuscaPublica" method="post" name="formBuscaPublica">
+<input name="formBuscaPublica" type="hidden" value="formBuscaPublica"/>
+<div style="text-align:center; font-weight: bold; color: #666666; margin-bottom: 20px;  margin-top: 20px; margin-right: auto; margin-left: auto;">
+<script language="Javascript" type="text/javascript"></script>
+<a href="#" id="formBuscaPublica:buscaSimples" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formBuscaPublica'),{'formBuscaPublica:buscaSimples':'formBuscaPublica:buscaSimples'},'');}return false" style="padding-right: 40px;"> &lt;&lt; Busca Simples </a>
+<span style="padding-right: 40px;"> Busca Multi Campo</span>
+<a href="#" id="formBuscaPublica:buscaAvancada" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formBuscaPublica'),{'formBuscaPublica:buscaAvancada':'formBuscaPublica:buscaAvancada'},'');}return false" style="padding-right: 40px;"> Busca Avançada &gt;&gt; </a><a href="#" id="formBuscaPublica:buscaSimplesAutoridades" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formBuscaPublica'),{'formBuscaPublica:buscaSimplesAutoridades':'formBuscaPublica:buscaSimplesAutoridades'},'');}return false" style="padding-right: 40px;"> Busca de Autoridades &gt;&gt; </a>
+</div>
+<script type="text/javascript"></script>
+<div id="formBuscaPublica:j_id_jsp_2100579884_40">
+<table class="formulario" id="tableDadosPesquisa" width="80%">
+<caption>Selecione os campos para a busca</caption>
+<tr>
+<td colspan="3"></td>
+<td colspan="5">
+<table>
+<tr>
+<td>
+<input id="formBuscaPublica:j_id_jsp_2100579884_41:0" name="formBuscaPublica:j_id_jsp_2100579884_41" type="radio" value="1"/><label for="formBuscaPublica:j_id_jsp_2100579884_41:0"> Inicia com</label></td>
+<td>
+<input checked="checked" id="formBuscaPublica:j_id_jsp_2100579884_41:1" name="formBuscaPublica:j_id_jsp_2100579884_41" type="radio" value="2"/><label for="formBuscaPublica:j_id_jsp_2100579884_41:1"> Contém</label></td>
+<td>
+<input id="formBuscaPublica:j_id_jsp_2100579884_41:2" name="formBuscaPublica:j_id_jsp_2100579884_41" type="radio" value="3"/><label for="formBuscaPublica:j_id_jsp_2100579884_41:2"> Busca Exata</label></td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td width="2%">
+<input checked="checked" class="noborder" id="formBuscaPublica:checkTitulo" name="formBuscaPublica:checkTitulo" type="checkbox"/>
+</td>
+<th style="text-align:left" width="22%">
+							Título:
+						</th>
+<td colspan="6" width="76%">
+<input maxlength="100" name="formBuscaPublica:j_id_jsp_2100579884_46" onchange="marcarCheckBox(this, 'formBuscaPublica:checkTitulo');" size="60" type="text" value="calculo diferencial"/>
+</td>
+</tr>
+<tr>
+<td colspan="3"></td>
+<td colspan="5">
+<table>
+<tr>
+<td>
+<input id="formBuscaPublica:j_id_jsp_2100579884_47:0" name="formBuscaPublica:j_id_jsp_2100579884_47" type="radio" value="1"/><label for="formBuscaPublica:j_id_jsp_2100579884_47:0"> Inicia com</label></td>
+<td>
+<input checked="checked" id="formBuscaPublica:j_id_jsp_2100579884_47:1" name="formBuscaPublica:j_id_jsp_2100579884_47" type="radio" value="2"/><label for="formBuscaPublica:j_id_jsp_2100579884_47:1"> Contém</label></td>
+<td>
+<input id="formBuscaPublica:j_id_jsp_2100579884_47:2" name="formBuscaPublica:j_id_jsp_2100579884_47" type="radio" value="3"/><label for="formBuscaPublica:j_id_jsp_2100579884_47:2"> Busca Exata</label></td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td>
+<input class="noborder" id="formBuscaPublica:checkAutor" name="formBuscaPublica:checkAutor" type="checkbox"/>
+</td>
+<th style="text-align:left">
+							Autor:
+						</th>
+<td colspan="6">
+<input maxlength="100" name="formBuscaPublica:j_id_jsp_2100579884_52" onchange="marcarCheckBox(this, 'formBuscaPublica:checkAutor');" size="60" type="text" value=""/>
+</td>
+</tr>
+<tr>
+<td colspan="3"></td>
+<td colspan="5">
+<input name="formBuscaPublica:j_id_jsp_2100579884_53" type="checkbox"/>Assunto Principal
+						</td>
+</tr>
+<tr>
+<td>
+<input class="noborder" id="formBuscaPublica:checkAssunto" name="formBuscaPublica:checkAssunto" type="checkbox"/>
+</td>
+<th style="text-align:left">
+							Assunto:
+						</th>
+<td colspan="6">
+<input maxlength="100" name="formBuscaPublica:j_id_jsp_2100579884_55" onchange="marcarCheckBox(this, 'formBuscaPublica:checkAssunto');" size="60" type="text" value=""/>
+</td>
+</tr>
+<tr>
+<td>
+<input class="noborder" id="formBuscaPublica:checkLocalPublicao" name="formBuscaPublica:checkLocalPublicao" type="checkbox"/>
+</td>
+<th style="text-align:left">
+							Local de Publicação:
+						</th>
+<td colspan="6">
+<input maxlength="100" name="formBuscaPublica:j_id_jsp_2100579884_57" onchange="marcarCheckBox(this, 'formBuscaPublica:checkLocalPublicao');" size="60" type="text" value=""/>
+</td>
+</tr>
+<tr>
+<td>
+<input class="noborder" id="formBuscaPublica:checkEditora" name="formBuscaPublica:checkEditora" type="checkbox"/>
+</td>
+<th style="text-align:left">
+							Editora:
+						</th>
+<td colspan="6">
+<input maxlength="100" name="formBuscaPublica:j_id_jsp_2100579884_59" onchange="marcarCheckBox(this, 'formBuscaPublica:checkEditora');" size="60" type="text" value=""/>
+</td>
+</tr>
+<tr>
+<td>
+<input class="noborder" id="formBuscaPublica:checkAnoPublicacao" name="formBuscaPublica:checkAnoPublicacao" type="checkbox"/>
+</td>
+<th style="text-align:left">
+							Ano de Publicação de:
+						</th>
+<td width="10%">
+<input maxlength="4" name="formBuscaPublica:j_id_jsp_2100579884_61" onchange="marcarCheckBox(this, 'formBuscaPublica:checkAnoPublicacao');" onkeypress="return ApenasNumeros(event);" size="7" type="text"/>
+</td>
+<th width="10%">
+							até:
+						</th>
+<td colspan="4">
+<input maxlength="4" name="formBuscaPublica:j_id_jsp_2100579884_62" onchange="marcarCheckBox(this, 'formBuscaPublica:checkAnoPublicacao');" onkeypress="return ApenasNumeros(event);" size="7" type="text"/>
+</td>
+</tr>
+<tr>
+<td>
+<input class="noborder" id="formBuscaPublica:checkSomenteDigitaisBuscaSimples" name="formBuscaPublica:checkSomenteDigitaisBuscaSimples" type="checkbox"/>
+</td>
+<th colspan="7" style="text-align:left;">Exibir Somente Títulos Digitais</th>
+</tr>
+<tr>
+<td></td>
+<th style="text-align:left">Ordenação:</th>
+<td colspan="6">
+<select name="formBuscaPublica:j_id_jsp_2100579884_64" size="1"> <option selected="selected" value="1">Título</option>
+<option value="2">Autor</option>
+<option value="3">Assunto</option>
+<option value="4">Ano</option>
+<option value="5">Edição</option>
+<option value="6">Com mais Materiais</option>
+<option value="7">Mais Recentes</option>
+<option value="8">Mais Buscados</option>
+<option value="9">Mais Visualizados</option>
+<option value="10">Mais Emprestados</option>
+</select>
+</td>
+</tr>
+<tr>
+<td></td>
+<th style="text-align:left">Registros por página:</th>
+<td colspan="6">
+<select name="formBuscaPublica:j_id_jsp_2100579884_66" size="1"> <option selected="selected" value="25">25</option>
+<option value="50">50</option>
+<option value="100">100</option>
+</select>
+</td>
+</tr>
+<tr style="height: 30px;">
+<td colspan="8"></td>
+</tr>
+<tr>
+<td colspan="8" style=" padding: 0px; ">
+<table align="left" class="subFormulario" id="tableDadosPesquisaInterna">
+<tr>
+<td width="2%">
+<input class="noborder" id="formBuscaPublica:checkBiblioteca" name="formBuscaPublica:checkBiblioteca" type="checkbox"/>
+</td>
+<th colspan="1" style="text-align:left; width:23%;">Biblioteca:</th>
+<td colspan="4" style=" padding: 0px; ">
+<select name="formBuscaPublica:j_id_jsp_2100579884_69" onchange="marcarCheckBox(this, 'formBuscaPublica:checkBiblioteca');" size="1" style="width:95%"> <option selected="selected" value="-1">-- SELECIONE --</option>
+</select>
+</td>
+</tr>
+<tr>
+<td width="2%">
+<input class="noborder" id="formBuscaPublica:checkColecao" name="formBuscaPublica:checkColecao" type="checkbox"/>
+</td>
+<th colspan="1" style="text-align:left;">Coleção:</th>
+<td colspan="4" style=" padding: 0px; ">
+<select name="formBuscaPublica:j_id_jsp_2100579884_73" onchange="marcarCheckBox(this, 'formBuscaPublica:checkColecao');" size="1"> <option selected="selected" value="-1">-- SELECIONE --</option>
+<option value="792651">BRAIL - Coleção Braile</option>
+<option value="1">CIRC
+ - Acervo Circulante</option>
+<option value="724181">CORDEL - Literatura de Cordel</option>
+<option value="1398690">DESBASTE - Acervo de Desbaste</option>
+<option value="723671">DISSERT - Dissertações</option>
+<option value="675717">EVEN - Eventos</option>
+<option value="792649">FOLH
+ - Folhetos</option>
+<option value="6">HEMER
+ - Hemeroteca</option>
+<option value="724183">MONOG - Monografias</option>
+<option value="792652">MOSS - Coleção Mossoroense</option>
+<option value="694419">MULTI - Multimeios</option>
+<option value="3">OR - Obras Raras</option>
+<option value="661401">PER - Periódicos</option>
+<option value="1598574">PR - Periódicos de Referência</option>
+<option value="792648">PRN
+ - Autores norte-riograndenses</option>
+<option value="2">REF - Obras de Referência</option>
+<option value="724315">RELAT - Relatório Acadêmico</option>
+<option value="723673">TESE - Teses</option>
+<option value="792650">UFRN
+ - Publicações da UFRN</option>
+<option value="661429">ZILA - Coleção Zila Mamede</option>
+</select>
+</td>
+</tr>
+<tr>
+<td width="2%">
+<input class="noborder" id="formBuscaPublica:checkTipoMaterial" name="formBuscaPublica:checkTipoMaterial" type="checkbox"/>
+</td>
+<th colspan="1" style="text-align:left">Tipo de Material:</th>
+<td colspan="4" style=" padding: 0px; ">
+<select name="formBuscaPublica:j_id_jsp_2100579884_77" onchange="marcarCheckBox(this, 'formBuscaPublica:checkTipoMaterial');" size="1"> <option selected="selected" value="-1">-- SELECIONE --</option>
+<option value="1760453">Blu-ray Disc</option>
+<option value="9">CD de Áudio</option>
+<option value="8">CD-ROM</option>
+<option value="21">DVD</option>
+<option value="1708643">DVD-ROM</option>
+<option value="10">Disco</option>
+<option value="11">Disquete</option>
+<option value="7">Dissertação</option>
+<option value="14">Fita Cassete</option>
+<option value="12">Folheto</option>
+<option value="13">Fotografia</option>
+<option value="22">LD</option>
+<option value="1">Livro</option>
+<option value="15">Mapa</option>
+<option value="17">Microficha</option>
+<option value="16">Microfilme</option>
+<option value="5">Monografia Externa</option>
+<option value="6">Monografia UFRN</option>
+<option value="20">Partitura</option>
+<option value="2">Periódico</option>
+<option value="1158955">Perspectiva</option>
+<option value="1158953">Prancha</option>
+<option value="1158954">Projeto de Pesquisa</option>
+<option value="1893272">Pôster</option>
+<option value="23">Relatório Acadêmico</option>
+<option value="18">Slide</option>
+<option value="19">Tese</option>
+<option value="4">Vídeo</option>
+</select>
+</td>
+</tr>
+</table>
+</td>
+</tr><tr>
+</tr><tfoot>
+<tr>
+<td colspan="8">
+<input id="formBuscaPublica:botaoPesquisarPublicaMulti" name="formBuscaPublica:botaoPesquisarPublicaMulti" onclick="ativaBotaoFalso();" style="margin-right: 5px" type="submit" value="Pesquisar"/><input disabled="disabled" id="formBuscaPublica:fakeBotaoPesquisarPublicaMulti" name="formBuscaPublica:fakeBotaoPesquisarPublicaMulti" style="display: none;" type="submit" value="Aguarde ..."/>
+<span id="indicatorPesquisaPublicaMulti" style="display: none;"> <img src="/sigaa/img/indicator.gif"/> </span>
+<input name="formBuscaPublica:j_id_jsp_2100579884_83" style="margin-right: 5px" type="submit" value="Limpar"/><input id="formBuscaPublica:cancelarBuscaMultiCampo" name="formBuscaPublica:cancelarBuscaMultiCampo" onclick="return confirm('Deseja cancelar a operação? Todos os dados digitados serão perdidos!');" style="margin-right: 5px" type="submit" value="Cancelar"/>
+</td>
+</tr>
+</tfoot>
+</table>
+</div><div id="formBuscaPublica:j_id_jsp_2100579884_137" style="text-align: center; margin-top: 20px;  margin-bottom: 20px;  color: #404E82; ">
+<a href="/sigaa/verTelaLogin.do?urlRedirect=/sigaa/biblioteca/disseminacao_seletiva_informacao/listaMeuPerfilDeInteresse.jsf&amp;subsistemaRedirect=14000" style="color: #404E82; font-weight: bold;">
+				Não encontrou o que estava procurando?  Cadastre-se para receber avisos quando novos materiais forem incluídos no acervo. 
+				</a>
+<br/>
+				(requer autenticação)
+			
+			
+			
+			
+			
+		</div>
+<style></style>
+<div style="width: 100%; text-align: center; margin-top: 10px; margin-bottom: 20px;">
+		
+	      
+		
+		     
+
+	
+	
+	      
+	
+		
+	
+</div>
+<br/>
+<div style="width: 80%; text-align: center; margin: 0 auto;">
+<a href="/sigaa/public/home.jsf" style="color: #404E82;">&lt;&lt; Voltar ao menu principal</a>
+</div>
+<br/>
+<input id="javax.faces.ViewState" name="javax.faces.ViewState" type="hidden" value="j_id2"/>
+</form>
+<div class="clear"></div>
+</div>
+<div id="rodape">
+<p> 
+			SIGAA | STI/SUPAC | -  | Copyright © 2006-2026 - UFBA - sigaapl08.intranet.ufba.br
+			 
+				<a onclick="javascript:versao();">v4.13.8_41_hotfix</a>
+</p>
+</div>
+
+</div>
+</div>
+
+</body>
+</html>
+<html><script charset="UTF-8" type="text/javascript"></script>
+<style></style>
+</html>

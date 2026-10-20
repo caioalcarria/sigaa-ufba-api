@@ -1,0 +1,1639 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta content="no-cache" http-equiv="Pragma"/>
+<title>SIGAA - Sistema Integrado de Gestão de Atividades Acadêmicas</title>
+<link class="component" href="/sigaa/a4j/s/3_3_3.Finalorg/richfaces/renderkit/html/css/basic_classes.xcss/DATB/eAF7sqpgb-jyGdIAFrMEaw__.jsf" rel="stylesheet" type="text/css"/><link class="component" href="/sigaa/a4j/s/3_3_3.Finalorg/richfaces/renderkit/html/css/extended_classes.xcss/DATB/eAF7sqpgb-jyGdIAFrMEaw__.jsf" media="rich-extended-skinning" rel="stylesheet" type="text/css"/><script type="text/javascript">window.RICH_FACES_EXTENDED_SKINNING_ON=true;</script><script src="/sigaa/a4j/g/3_3_3.Finalorg/richfaces/renderkit/html/scripts/skinning.js.jsf" type="text/javascript"></script><script src="/shared/jsBundles/jawr_loader.js" type="text/javascript"></script>
+<script type="text/javascript">
+		JAWR.loader.style('/javascript/ext-2.0.a.1/resources/css/ext-all.css', 'all');
+		JAWR.loader.style('/css/public.css','all');
+	 	JAWR.loader.script('/bundles/js/sigaa_base.js');
+	 	JAWR.loader.script('/bundles/js/ext2_all.js');
+	</script>
+<link href="/sigaa/cssBundles/gzip_787491763/public/css/public.css" media="all" rel="stylesheet" type="text/css"/>
+<link href="/sigaa/cssBundles/gzip_N976796624/public/css/departamento.css" media="all" rel="stylesheet" type="text/css"/>
+<script src="/shared/javascript/STICookieConsent.js"></script>
+<script>
+	    document.addEventListener("DOMContentLoaded", () => {
+	    	generateCookieConsentModal("SIGAA", "Nós usamos cookies para melhorar sua experiência de navegação no portal. Ao utilizar o %sitename%, você concorda com a polí­tica de monitoramento de cookies. Para ter mais informações sobre como isso é feito e como remover, acesse a <a href=%cookie-policy%>Política de Privacidade</a>. Para saber como a UFRN trata os dados, acesse a <a href=%privacy-policy%> Polí­tica de cookies</a>. Se você concorda, clique em %button-text%.", "https://ufrn.br/institucional/politica-de-privacidade-e-termos-de-uso", "https://ufrn.br/institucional/politica-de-cookies");
+	    })
+	</script>
+</head>
+<body>
+<div id="container">
+<div id="container-inner">
+<div id="cabecalho">
+<div id="identificacao">
+<span class="ufrn">
+							UFBA › 
+							<a href="/sigaa/public" title="Página Inicial do SIGAA">
+							SIGAA - Sistema Integrado de Gestão de Atividades Acadêmicas
+							</a>
+</span>
+<span class="data">
+							 Salvador, 
+							 19 de Outubro de 
+							 2026 
+						</span>
+</div>
+</div>
+<div id="colEsq">
+<div id="logo">
+<p>
+<span>
+<a href="portal.jsf?id=1114">
+<img border="0" src="../images/departamento/brasao_ufrn.png"/>
+</a>
+</span>
+</p>
+</div>
+<br clear="all"/>
+<form action="/sigaa/public/departamento/componentes.jsf" enctype="application/x-www-form-urlencoded" id="formMenuDepartamento" method="post" name="formMenuDepartamento">
+<input name="formMenuDepartamento" type="hidden" value="formMenuDepartamento"/>
+<div id="menu-pri">
+<ul>
+<li><a class="apresentacao" href="/sigaa/public/departamento/portal.jsf?id=1114">Apresentação</a></li>
+<li><a class="adm" href="/sigaa/public/departamento/administrativo.jsf?id=1114">Corpo Administrativo</a></li>
+<li><a class="prof" href="/sigaa/public/departamento/professores.jsf?id=1114">Corpo Docente</a></li>
+<li><a class="curriculo" href="/sigaa/public/departamento/componentes.jsf?id=1114">Componentes Curriculares</a></li>
+<li><a class="extensao" href="/sigaa/public/departamento/extensao.jsf?id=1114">Ações de Extensão</a></li>
+<li><a class="pesq" href="/sigaa/public/departamento/pesquisa.jsf?id=1114">Projetos de Pesquisa</a></li>
+<li><a class="monitoria" href="/sigaa/public/departamento/monitoria.jsf?id=1114">Projetos de Ensino</a></li>
+<li><a class="doc" href="/sigaa/public/departamento/documentos.jsf?lc=pt_BR&amp;id=1114">Documentos</a></li>
+</ul>
+</div>
+<div id="menu-opcoes">
+<ul>
+<li class="titulo">Outras Opções</li>
+<li><a class="especial" href="/sigaa/">Acessar o SIGAA</a></li>
+<li class="pe"></li>
+</ul>
+</div>
+<div id="home-link">
+<script language="Javascript" type="text/javascript">function dpf(f) {var adp = f.adp;if (adp != null) {for (var i = 0;i < adp.length;i++) {f.removeChild(adp[i]);}}};function apf(f, pvp) {var adp = new Array();f.adp = adp;var i = 0;for (k in pvp) {var p = document.createElement("input");p.type = "hidden";p.name = k;p.value = pvp[k];f.appendChild(p);adp[i++] = p;}};function jsfcljs(f, pvp, t) {apf(f, pvp);var ft = f.target;if (t) {f.target = t;}f.submit();f.target = ft;dpf(f);};</script>
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formMenuDepartamento'),{'formMenuDepartamento:j_id_jsp_1418940761_8':'formMenuDepartamento:j_id_jsp_1418940761_8'},'');}return false" title="Ir para o Portal Público do SIGAA">Ir ao Menu Principal</a>
+</div>
+<input id="javax.faces.ViewState" name="javax.faces.ViewState" type="hidden" value="j_id4"/>
+</form>
+<br clear="all"/>
+</div>
+<div id="colDir">
+<form action="/sigaa/public/departamento/componentes.jsf" enctype="application/x-www-form-urlencoded" id="formComponenteDepartamento" method="post" name="formComponenteDepartamento">
+<input name="formComponenteDepartamento" type="hidden" value="formComponenteDepartamento"/>
+<div id="colDirTop">
+<h1>DCC/IC/UFBA</h1>
+<span class="flags">
+<form action="/sigaa/public/departamento/componentes.jsf" enctype="application/x-www-form-urlencoded" id="formComponenteDepartamento:formIdioma" method="post" name="formComponenteDepartamento:formIdioma">
+<input name="formComponenteDepartamento:formIdioma" type="hidden" value="formComponenteDepartamento:formIdioma"/>
+<input id="javax.faces.ViewState" name="javax.faces.ViewState" type="hidden" value="j_id4"/>
+</form>
+</span>
+<h2>DEPARTAMENTO DE CIÊNCIA DA COMPUTAÇÃO /IC</h2>
+<a href="/sigaa/public/centro/portal.jsf?lc=pt_BR&amp;id=78" title="Clique para acessar o portal do centro.">
+	UNIVERSIDADE FEDERAL DA BAHIA
+	</a>
+</div>
+<div id="colDirCorpo">
+<!--  INÍCIO CONTEÚDO -->
+<div id="disciplinas-docente">
+<div id="titulo">
+<h1>Componentes Curriculares</h1>
+</div>
+<br/>
+<table class="listagem">
+<tfoot>
+<td colspan="4">
+<img height="12px" src="/sigaa/img/view.gif" width="12px"/>
+<b>: Visualizar Detalhes do Componente Curricular</b>
+</td>
+</tfoot>
+</table>
+<h2>DISCIPLINA</h2>
+<br clear="all"/>
+<table class="listagem">
+<thead>
+<th class="codigo"> Código </th>
+<th class="nome">Nome</th>
+<th class="tipo">Tipo da Atividade</th>
+<th align="left" class="ch"> CH </th>
+<th class="ver">Ver</th>
+</thead>
+<tbody>
+<tr class="linhaPar">
+<td class="cod"> GICC0009 </td>
+<td class="nome"> ACCS: JOGOS NA EDUCAÇÃO BÁSICA </td>
+<td> </td>
+<td class="ch"> 	60h </td>
+<td class="ver">
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formComponenteDepartamento'),{'formComponenteDepartamento:j_id_jsp_1418940761_13':'formComponenteDepartamento:j_id_jsp_1418940761_13','id':'54931','publico':'public'},'');}return false" title="Visualizar Detalhes do Componente Curricular"><img src="/sigaa/img/view.gif"/>
+<br clear="all"/>
+</a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td class="cod"> MATF34 </td>
+<td class="nome"> ACCS:PROGRAMAÇÃO COMPETITIVA-COMPUTAÇÃO PARA ALUNOS </td>
+<td> </td>
+<td class="ch"> 	60h </td>
+<td class="ver">
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formComponenteDepartamento'),{'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_1':'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_1','id':'45325','publico':'public'},'');}return false" title="Visualizar Detalhes do Componente Curricular"><img src="/sigaa/img/view.gif"/>
+<br clear="all"/>
+</a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td class="cod"> MATC88 </td>
+<td class="nome"> ADMINISTRAÇÃO DE REDES DE COMPUTADORES </td>
+<td> </td>
+<td class="ch"> 	45h </td>
+<td class="ver">
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formComponenteDepartamento'),{'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_2':'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_2','id':'45122','publico':'public'},'');}return false" title="Visualizar Detalhes do Componente Curricular"><img src="/sigaa/img/view.gif"/>
+<br clear="all"/>
+</a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td class="cod"> MATA90 </td>
+<td class="nome"> ALGORITMOS DISTRIBUIDOS </td>
+<td> </td>
+<td class="ch"> 	45h </td>
+<td class="ver">
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formComponenteDepartamento'),{'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_3':'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_3','id':'44795','publico':'public'},'');}return false" title="Visualizar Detalhes do Componente Curricular"><img src="/sigaa/img/view.gif"/>
+<br clear="all"/>
+</a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td class="cod"> MATC19 </td>
+<td class="nome"> ALGORÍTMOS E PROGRAMAÇÃO </td>
+<td> </td>
+<td class="ch"> 	60h </td>
+<td class="ver">
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formComponenteDepartamento'),{'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_4':'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_4','id':'45012','publico':'public'},'');}return false" title="Visualizar Detalhes do Componente Curricular"><img src="/sigaa/img/view.gif"/>
+<br clear="all"/>
+</a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td class="cod"> MAT053 </td>
+<td class="nome"> ANALISE DE PROJETO DE ALGORITMOS </td>
+<td> </td>
+<td class="ch"> 	60h </td>
+<td class="ver">
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formComponenteDepartamento'),{'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_5':'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_5','id':'44305','publico':'public'},'');}return false" title="Visualizar Detalhes do Componente Curricular"><img src="/sigaa/img/view.gif"/>
+<br clear="all"/>
+</a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td class="cod"> MATA52 </td>
+<td class="nome"> ANÁLISE E PROJETO DE ALGORITMOS </td>
+<td> </td>
+<td class="ch"> 	60h </td>
+<td class="ver">
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formComponenteDepartamento'),{'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_6':'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_6','id':'44724','publico':'public'},'');}return false" title="Visualizar Detalhes do Componente Curricular"><img src="/sigaa/img/view.gif"/>
+<br clear="all"/>
+</a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td class="cod"> MATC32 </td>
+<td class="nome"> ANÁLISE E PROJETO DE ALGORITMOS </td>
+<td> </td>
+<td class="ch"> 	60h </td>
+<td class="ver">
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formComponenteDepartamento'),{'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_7':'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_7','id':'45039','publico':'public'},'');}return false" title="Visualizar Detalhes do Componente Curricular"><img src="/sigaa/img/view.gif"/>
+<br clear="all"/>
+</a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td class="cod"> MAT162 </td>
+<td class="nome"> ANALISE E PROJETO DE SISTEMAS DE INFORMACAO I </td>
+<td> </td>
+<td class="ch"> 	60h </td>
+<td class="ver">
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formComponenteDepartamento'),{'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_8':'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_8','id':'44462','publico':'public'},'');}return false" title="Visualizar Detalhes do Componente Curricular"><img src="/sigaa/img/view.gif"/>
+<br clear="all"/>
+</a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td class="cod"> MAT163 </td>
+<td class="nome"> ANALISE E PROJETO DE SISTEMAS DE INFORMACAO II </td>
+<td> </td>
+<td class="ch"> 	60h </td>
+<td class="ver">
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formComponenteDepartamento'),{'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_9':'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_9','id':'44465','publico':'public'},'');}return false" title="Visualizar Detalhes do Componente Curricular"><img src="/sigaa/img/view.gif"/>
+<br clear="all"/>
+</a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td class="cod"> MATC89 </td>
+<td class="nome"> APLICAÇÕES PARA DISPOSITIVOS MÓVEIS </td>
+<td> </td>
+<td class="ch"> 	60h </td>
+<td class="ver">
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formComponenteDepartamento'),{'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_10':'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_10','id':'45124','publico':'public'},'');}return false" title="Visualizar Detalhes do Componente Curricular"><img src="/sigaa/img/view.gif"/>
+<br clear="all"/>
+</a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td class="cod"> MATA48 </td>
+<td class="nome"> ARQUITETURA DE COMPUTADORES </td>
+<td> </td>
+<td class="ch"> 	60h </td>
+<td class="ver">
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formComponenteDepartamento'),{'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_11':'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_11','id':'44716','publico':'public'},'');}return false" title="Visualizar Detalhes do Componente Curricular"><img src="/sigaa/img/view.gif"/>
+<br clear="all"/>
+</a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td class="cod"> MATC29 </td>
+<td class="nome"> ARQUITETURA DE COMPUTADORES </td>
+<td> </td>
+<td class="ch"> 	60h </td>
+<td class="ver">
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formComponenteDepartamento'),{'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_12':'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_12','id':'45035','publico':'public'},'');}return false" title="Visualizar Detalhes do Componente Curricular"><img src="/sigaa/img/view.gif"/>
+<br clear="all"/>
+</a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td class="cod"> MAT151 </td>
+<td class="nome"> ARQUITETURA DE COMPUTADORES </td>
+<td> </td>
+<td class="ch"> 	60h </td>
+<td class="ver">
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formComponenteDepartamento'),{'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_13':'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_13','id':'44430','publico':'public'},'');}return false" title="Visualizar Detalhes do Componente Curricular"><img src="/sigaa/img/view.gif"/>
+<br clear="all"/>
+</a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td class="cod"> MATC34 </td>
+<td class="nome"> ARQUITETURAS DE SISTEMAS DISTRIBUÍDOS </td>
+<td> </td>
+<td class="ch"> 	45h </td>
+<td class="ver">
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formComponenteDepartamento'),{'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_14':'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_14','id':'45043','publico':'public'},'');}return false" title="Visualizar Detalhes do Componente Curricular"><img src="/sigaa/img/view.gif"/>
+<br clear="all"/>
+</a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td class="cod"> MAT165 </td>
+<td class="nome"> BANCO DE DADOS </td>
+<td> </td>
+<td class="ch"> 	60h </td>
+<td class="ver">
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formComponenteDepartamento'),{'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_15':'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_15','id':'44472','publico':'public'},'');}return false" title="Visualizar Detalhes do Componente Curricular"><img src="/sigaa/img/view.gif"/>
+<br clear="all"/>
+</a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td class="cod"> MATA60 </td>
+<td class="nome"> BANCO DE DADOS </td>
+<td> </td>
+<td class="ch"> 	60h </td>
+<td class="ver">
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formComponenteDepartamento'),{'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_16':'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_16','id':'44740','publico':'public'},'');}return false" title="Visualizar Detalhes do Componente Curricular"><img src="/sigaa/img/view.gif"/>
+<br clear="all"/>
+</a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td class="cod"> MATC35 </td>
+<td class="nome"> BANCO DE DADOS </td>
+<td> </td>
+<td class="ch"> 	60h </td>
+<td class="ver">
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formComponenteDepartamento'),{'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_17':'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_17','id':'45045','publico':'public'},'');}return false" title="Visualizar Detalhes do Componente Curricular"><img src="/sigaa/img/view.gif"/>
+<br clear="all"/>
+</a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td class="cod"> MATD05 </td>
+<td class="nome"> BANCO DE DADOS E APLICAÇÕES </td>
+<td> </td>
+<td class="ch"> 	60h </td>
+<td class="ver">
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formComponenteDepartamento'),{'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_18':'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_18','id':'45154','publico':'public'},'');}return false" title="Visualizar Detalhes do Componente Curricular"><img src="/sigaa/img/view.gif"/>
+<br clear="all"/>
+</a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td class="cod"> MATC18 </td>
+<td class="nome"> CÁLCULO NUMÉRICO </td>
+<td> </td>
+<td class="ch"> 	60h </td>
+<td class="ver">
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formComponenteDepartamento'),{'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_19':'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_19','id':'45010','publico':'public'},'');}return false" title="Visualizar Detalhes do Componente Curricular"><img src="/sigaa/img/view.gif"/>
+<br clear="all"/>
+</a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td class="cod"> MATC90 </td>
+<td class="nome"> CIRCUITOS DIGITAIS E ARQUITETURA DE COMPUTADORES </td>
+<td> </td>
+<td class="ch"> 	60h </td>
+<td class="ver">
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formComponenteDepartamento'),{'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_20':'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_20','id':'45126','publico':'public'},'');}return false" title="Visualizar Detalhes do Componente Curricular"><img src="/sigaa/img/view.gif"/>
+<br clear="all"/>
+</a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td class="cod"> MATA61 </td>
+<td class="nome"> COMPILADORES </td>
+<td> </td>
+<td class="ch"> 	60h </td>
+<td class="ver">
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formComponenteDepartamento'),{'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_21':'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_21','id':'44742','publico':'public'},'');}return false" title="Visualizar Detalhes do Componente Curricular"><img src="/sigaa/img/view.gif"/>
+<br clear="all"/>
+</a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td class="cod"> MAT056 </td>
+<td class="nome"> COMPUTACAO GRAFICA </td>
+<td> </td>
+<td class="ch"> 	60h </td>
+<td class="ver">
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formComponenteDepartamento'),{'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_22':'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_22','id':'44311','publico':'public'},'');}return false" title="Visualizar Detalhes do Componente Curricular"><img src="/sigaa/img/view.gif"/>
+<br clear="all"/>
+</a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td class="cod"> MATC36 </td>
+<td class="nome"> COMPUTAÇÃO GRÁFICA </td>
+<td> </td>
+<td class="ch"> 	60h </td>
+<td class="ver">
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formComponenteDepartamento'),{'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_23':'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_23','id':'45047','publico':'public'},'');}return false" title="Visualizar Detalhes do Componente Curricular"><img src="/sigaa/img/view.gif"/>
+<br clear="all"/>
+</a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td class="cod"> MATA65 </td>
+<td class="nome"> COMPUTAÇÃO GRÁFICA </td>
+<td> </td>
+<td class="ch"> 	60h </td>
+<td class="ver">
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formComponenteDepartamento'),{'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_24':'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_24','id':'44750','publico':'public'},'');}return false" title="Visualizar Detalhes do Componente Curricular"><img src="/sigaa/img/view.gif"/>
+<br clear="all"/>
+</a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td class="cod"> MAT159 </td>
+<td class="nome"> COMPUTADORES E SOCIEDADE </td>
+<td> </td>
+<td class="ch"> 	45h </td>
+<td class="ver">
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formComponenteDepartamento'),{'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_25':'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_25','id':'44452','publico':'public'},'');}return false" title="Visualizar Detalhes do Componente Curricular"><img src="/sigaa/img/view.gif"/>
+<br clear="all"/>
+</a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td class="cod"> MAT153 </td>
+<td class="nome"> CONSTRUCAO DE COMPILADORES </td>
+<td> </td>
+<td class="ch"> 	60h </td>
+<td class="ver">
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formComponenteDepartamento'),{'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_26':'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_26','id':'44436','publico':'public'},'');}return false" title="Visualizar Detalhes do Componente Curricular"><img src="/sigaa/img/view.gif"/>
+<br clear="all"/>
+</a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td class="cod"> MAT220 </td>
+<td class="nome"> EMPREENDEDORES EM INFORMATICA </td>
+<td> </td>
+<td class="ch"> 	60h </td>
+<td class="ver">
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formComponenteDepartamento'),{'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_27':'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_27','id':'44579','publico':'public'},'');}return false" title="Visualizar Detalhes do Componente Curricular"><img src="/sigaa/img/view.gif"/>
+<br clear="all"/>
+</a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td class="cod"> MATB65 </td>
+<td class="nome"> EMPREENDIMENTOS E INFORMÁTICA </td>
+<td> </td>
+<td class="ch"> 	60h </td>
+<td class="ver">
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formComponenteDepartamento'),{'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_28':'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_28','id':'44920','publico':'public'},'');}return false" title="Visualizar Detalhes do Componente Curricular"><img src="/sigaa/img/view.gif"/>
+<br clear="all"/>
+</a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td class="cod"> MAT161 </td>
+<td class="nome"> ENGENHARIA DE PROGRAMACAO </td>
+<td> </td>
+<td class="ch"> 	60h </td>
+<td class="ver">
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formComponenteDepartamento'),{'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_29':'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_29','id':'44459','publico':'public'},'');}return false" title="Visualizar Detalhes do Componente Curricular"><img src="/sigaa/img/view.gif"/>
+<br clear="all"/>
+</a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td class="cod"> MATC38 </td>
+<td class="nome"> ENGENHARIA DE SOFTWARE I </td>
+<td> </td>
+<td class="ch"> 	60h </td>
+<td class="ver">
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formComponenteDepartamento'),{'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_30':'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_30','id':'45051','publico':'public'},'');}return false" title="Visualizar Detalhes do Componente Curricular"><img src="/sigaa/img/view.gif"/>
+<br clear="all"/>
+</a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td class="cod"> MATA62 </td>
+<td class="nome"> ENGENHARIA DE SOFTWARE I </td>
+<td> </td>
+<td class="ch"> 	60h </td>
+<td class="ver">
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formComponenteDepartamento'),{'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_31':'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_31','id':'44744','publico':'public'},'');}return false" title="Visualizar Detalhes do Componente Curricular"><img src="/sigaa/img/view.gif"/>
+<br clear="all"/>
+</a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td class="cod"> MATC39 </td>
+<td class="nome"> ENGENHARIA DE SOFTWARE II </td>
+<td> </td>
+<td class="ch"> 	60h </td>
+<td class="ver">
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formComponenteDepartamento'),{'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_32':'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_32','id':'45053','publico':'public'},'');}return false" title="Visualizar Detalhes do Componente Curricular"><img src="/sigaa/img/view.gif"/>
+<br clear="all"/>
+</a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td class="cod"> MATA63 </td>
+<td class="nome"> ENGENHARIA DE SOFTWARE II </td>
+<td> </td>
+<td class="ch"> 	60h </td>
+<td class="ver">
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formComponenteDepartamento'),{'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_33':'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_33','id':'44746','publico':'public'},'');}return false" title="Visualizar Detalhes do Componente Curricular"><img src="/sigaa/img/view.gif"/>
+<br clear="all"/>
+</a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td class="cod"> MATE11 </td>
+<td class="nome"> ENGENHARIA DE SOFTWARE II-A </td>
+<td> </td>
+<td class="ch"> 	60h </td>
+<td class="ver">
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formComponenteDepartamento'),{'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_34':'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_34','id':'45229','publico':'public'},'');}return false" title="Visualizar Detalhes do Componente Curricular"><img src="/sigaa/img/view.gif"/>
+<br clear="all"/>
+</a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td class="cod"> MAT152 </td>
+<td class="nome"> ESTRUTURAS DE ARQUIVOS </td>
+<td> </td>
+<td class="ch"> 	60h </td>
+<td class="ver">
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formComponenteDepartamento'),{'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_35':'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_35','id':'44433','publico':'public'},'');}return false" title="Visualizar Detalhes do Componente Curricular"><img src="/sigaa/img/view.gif"/>
+<br clear="all"/>
+</a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td class="cod"> MATD04 </td>
+<td class="nome"> ESTRUTURAS DE DADOS </td>
+<td> </td>
+<td class="ch"> 	60h </td>
+<td class="ver">
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formComponenteDepartamento'),{'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_36':'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_36','id':'45152','publico':'public'},'');}return false" title="Visualizar Detalhes do Componente Curricular"><img src="/sigaa/img/view.gif"/>
+<br clear="all"/>
+</a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td class="cod"> MATA40 </td>
+<td class="nome"> ESTRUTURAS DE DADOS E ALGORITMOS I </td>
+<td> </td>
+<td class="ch"> 	60h </td>
+<td class="ver">
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formComponenteDepartamento'),{'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_37':'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_37','id':'44703','publico':'public'},'');}return false" title="Visualizar Detalhes do Componente Curricular"><img src="/sigaa/img/view.gif"/>
+<br clear="all"/>
+</a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td class="cod"> MATA54 </td>
+<td class="nome"> ESTRUTURAS DE DADOS E ALGORITMOS II </td>
+<td> </td>
+<td class="ch"> 	60h </td>
+<td class="ver">
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formComponenteDepartamento'),{'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_38':'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_38','id':'44728','publico':'public'},'');}return false" title="Visualizar Detalhes do Componente Curricular"><img src="/sigaa/img/view.gif"/>
+<br clear="all"/>
+</a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td class="cod"> MATC37 </td>
+<td class="nome"> ESTRUTURAS DE DADOS E ALGORITMOS II </td>
+<td> </td>
+<td class="ch"> 	60h </td>
+<td class="ver">
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formComponenteDepartamento'),{'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_39':'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_39','id':'45049','publico':'public'},'');}return false" title="Visualizar Detalhes do Componente Curricular"><img src="/sigaa/img/view.gif"/>
+<br clear="all"/>
+</a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td class="cod"> MAT052 </td>
+<td class="nome"> ESTUDO COMPARATIVO DE LINGUAGENS DE PROGRAMACAO </td>
+<td> </td>
+<td class="ch"> 	60h </td>
+<td class="ver">
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formComponenteDepartamento'),{'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_40':'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_40','id':'44303','publico':'public'},'');}return false" title="Visualizar Detalhes do Componente Curricular"><img src="/sigaa/img/view.gif"/>
+<br clear="all"/>
+</a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td class="cod"> MATB03 </td>
+<td class="nome"> EVOLUÇÃO DE SOFTWARE </td>
+<td> </td>
+<td class="ch"> 	45h </td>
+<td class="ver">
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formComponenteDepartamento'),{'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_41':'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_41','id':'44809','publico':'public'},'');}return false" title="Visualizar Detalhes do Componente Curricular"><img src="/sigaa/img/view.gif"/>
+<br clear="all"/>
+</a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td class="cod"> MATC92 </td>
+<td class="nome"> FUNDAMENTOS DE SISTEMAS DE INFORMAÇÃO </td>
+<td> </td>
+<td class="ch"> 	60h </td>
+<td class="ver">
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formComponenteDepartamento'),{'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_42':'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_42','id':'45130','publico':'public'},'');}return false" title="Visualizar Detalhes do Componente Curricular"><img src="/sigaa/img/view.gif"/>
+<br clear="all"/>
+</a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td class="cod"> MAT054 </td>
+<td class="nome"> INTELIGENCIA ARTIFICIAL </td>
+<td> </td>
+<td class="ch"> 	60h </td>
+<td class="ver">
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formComponenteDepartamento'),{'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_43':'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_43','id':'44307','publico':'public'},'');}return false" title="Visualizar Detalhes do Componente Curricular"><img src="/sigaa/img/view.gif"/>
+<br clear="all"/>
+</a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td class="cod"> MATA64 </td>
+<td class="nome"> INTELIGÊNCIA ARTIFICIAL </td>
+<td> </td>
+<td class="ch"> 	60h </td>
+<td class="ver">
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formComponenteDepartamento'),{'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_44':'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_44','id':'44748','publico':'public'},'');}return false" title="Visualizar Detalhes do Componente Curricular"><img src="/sigaa/img/view.gif"/>
+<br clear="all"/>
+</a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td class="cod"> MATC40 </td>
+<td class="nome"> INTELIGÊNCIA ARTIFICIAL </td>
+<td> </td>
+<td class="ch"> 	60h </td>
+<td class="ver">
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formComponenteDepartamento'),{'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_45':'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_45','id':'45055','publico':'public'},'');}return false" title="Visualizar Detalhes do Componente Curricular"><img src="/sigaa/img/view.gif"/>
+<br clear="all"/>
+</a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td class="cod"> MAT146 </td>
+<td class="nome"> INTRODUCAO A LOGICA DE PROGRAMACAO </td>
+<td> </td>
+<td class="ch"> 	60h </td>
+<td class="ver">
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formComponenteDepartamento'),{'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_46':'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_46','id':'44416','publico':'public'},'');}return false" title="Visualizar Detalhes do Componente Curricular"><img src="/sigaa/img/view.gif"/>
+<br clear="all"/>
+</a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td class="cod"> MATA37 </td>
+<td class="nome"> INTRODUÇÃO À LÓGICA DE PROGRAMAÇÃO </td>
+<td> </td>
+<td class="ch"> 	60h </td>
+<td class="ver">
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formComponenteDepartamento'),{'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_47':'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_47','id':'44697','publico':'public'},'');}return false" title="Visualizar Detalhes do Componente Curricular"><img src="/sigaa/img/view.gif"/>
+<br clear="all"/>
+</a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td class="cod"> MATC73 </td>
+<td class="nome"> INTRODUÇÃO À LÓGICA MATEMÁTICA </td>
+<td> </td>
+<td class="ch"> 	60h </td>
+<td class="ver">
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formComponenteDepartamento'),{'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_48':'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_48','id':'45096','publico':'public'},'');}return false" title="Visualizar Detalhes do Componente Curricular"><img src="/sigaa/img/view.gif"/>
+<br clear="all"/>
+</a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td class="cod"> MATC93 </td>
+<td class="nome"> INTRODUÇÃO A WEB SEMÂNTICA </td>
+<td> </td>
+<td class="ch"> 	45h </td>
+<td class="ver">
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formComponenteDepartamento'),{'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_49':'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_49','id':'45132','publico':'public'},'');}return false" title="Visualizar Detalhes do Componente Curricular"><img src="/sigaa/img/view.gif"/>
+<br clear="all"/>
+</a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td class="cod"> MAT150 </td>
+<td class="nome"> INTRODUCAO AOS SISTEMAS DE COMPUTACAO </td>
+<td> </td>
+<td class="ch"> 	60h </td>
+<td class="ver">
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formComponenteDepartamento'),{'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_50':'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_50','id':'44427','publico':'public'},'');}return false" title="Visualizar Detalhes do Componente Curricular"><img src="/sigaa/img/view.gif"/>
+<br clear="all"/>
+</a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td class="cod"> MATC94 </td>
+<td class="nome"> INTRODUÇÃO AS LINGUAGENS FORMAIS E TEORIA DA COMPUTAÇÃO </td>
+<td> </td>
+<td class="ch"> 	60h </td>
+<td class="ver">
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formComponenteDepartamento'),{'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_51':'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_51','id':'45134','publico':'public'},'');}return false" title="Visualizar Detalhes do Componente Curricular"><img src="/sigaa/img/view.gif"/>
+<br clear="all"/>
+</a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td class="cod"> MATB17 </td>
+<td class="nome"> LAB. DE COMPUTAÇÃO GRÁFICA E PROCESSAMENTO DE IMAGENS </td>
+<td> </td>
+<td class="ch"> 	45h </td>
+<td class="ver">
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formComponenteDepartamento'),{'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_52':'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_52','id':'44835','publico':'public'},'');}return false" title="Visualizar Detalhes do Componente Curricular"><img src="/sigaa/img/view.gif"/>
+<br clear="all"/>
+</a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td class="cod"> MATB09 </td>
+<td class="nome"> LABORATÓRIO DE BANCO DE DADOS </td>
+<td> </td>
+<td class="ch"> 	45h </td>
+<td class="ver">
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formComponenteDepartamento'),{'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_53':'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_53','id':'44819','publico':'public'},'');}return false" title="Visualizar Detalhes do Componente Curricular"><img src="/sigaa/img/view.gif"/>
+<br clear="all"/>
+</a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td class="cod"> MATA73 </td>
+<td class="nome"> LABORATÓRIO DE CIRCUITOS DIGITAIS </td>
+<td> </td>
+<td class="ch"> 	45h </td>
+<td class="ver">
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formComponenteDepartamento'),{'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_54':'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_54','id':'44763','publico':'public'},'');}return false" title="Visualizar Detalhes do Componente Curricular"><img src="/sigaa/img/view.gif"/>
+<br clear="all"/>
+</a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td class="cod"> MATB11 </td>
+<td class="nome"> LABORATÓRIO DE COMPILADORES </td>
+<td> </td>
+<td class="ch"> 	45h </td>
+<td class="ver">
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formComponenteDepartamento'),{'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_55':'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_55','id':'44823','publico':'public'},'');}return false" title="Visualizar Detalhes do Componente Curricular"><img src="/sigaa/img/view.gif"/>
+<br clear="all"/>
+</a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td class="cod"> MATB14 </td>
+<td class="nome"> LABORATÓRIO DE ENGENHARIA DE SOFTWARE </td>
+<td> </td>
+<td class="ch"> 	45h </td>
+<td class="ver">
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formComponenteDepartamento'),{'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_56':'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_56','id':'44829','publico':'public'},'');}return false" title="Visualizar Detalhes do Componente Curricular"><img src="/sigaa/img/view.gif"/>
+<br clear="all"/>
+</a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td class="cod"> MATB16 </td>
+<td class="nome"> LABORATÓRIO DE INTELIGÊNCIA ARTIFICIAL </td>
+<td> </td>
+<td class="ch"> 	45h </td>
+<td class="ver">
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formComponenteDepartamento'),{'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_57':'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_57','id':'44833','publico':'public'},'');}return false" title="Visualizar Detalhes do Componente Curricular"><img src="/sigaa/img/view.gif"/>
+<br clear="all"/>
+</a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td class="cod"> MATC30 </td>
+<td class="nome"> LABORATÓRIO DE PROGRAMAÇÃO I </td>
+<td> </td>
+<td class="ch"> 	30h </td>
+<td class="ver">
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formComponenteDepartamento'),{'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_58':'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_58','id':'45037','publico':'public'},'');}return false" title="Visualizar Detalhes do Componente Curricular"><img src="/sigaa/img/view.gif"/>
+<br clear="all"/>
+</a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td class="cod"> MATA57 </td>
+<td class="nome"> LABORATÓRIO DE PROGRAMAÇÃO I </td>
+<td> </td>
+<td class="ch"> 	45h </td>
+<td class="ver">
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formComponenteDepartamento'),{'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_59':'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_59','id':'44734','publico':'public'},'');}return false" title="Visualizar Detalhes do Componente Curricular"><img src="/sigaa/img/view.gif"/>
+<br clear="all"/>
+</a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td class="cod"> MATA80 </td>
+<td class="nome"> LABORATÓRIO DE PROGRAMAÇÃO II </td>
+<td> </td>
+<td class="ch"> 	45h </td>
+<td class="ver">
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formComponenteDepartamento'),{'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_60':'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_60','id':'44775','publico':'public'},'');}return false" title="Visualizar Detalhes do Componente Curricular"><img src="/sigaa/img/view.gif"/>
+<br clear="all"/>
+</a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td class="cod"> MATC84 </td>
+<td class="nome"> LABORATÓRIO DE PROGRAMAÇÃO WEB </td>
+<td> </td>
+<td class="ch"> 	45h </td>
+<td class="ver">
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formComponenteDepartamento'),{'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_61':'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_61','id':'45114','publico':'public'},'');}return false" title="Visualizar Detalhes do Componente Curricular"><img src="/sigaa/img/view.gif"/>
+<br clear="all"/>
+</a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td class="cod"> MATB01 </td>
+<td class="nome"> LABORATÓRIO DE REDES DE COMPUTADORES </td>
+<td> </td>
+<td class="ch"> 	45h </td>
+<td class="ver">
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formComponenteDepartamento'),{'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_62':'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_62','id':'44805','publico':'public'},'');}return false" title="Visualizar Detalhes do Componente Curricular"><img src="/sigaa/img/view.gif"/>
+<br clear="all"/>
+</a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td class="cod"> MATA84 </td>
+<td class="nome"> LABORATÓRIO DE REDES E COMPUTADORES </td>
+<td> </td>
+<td class="ch"> 	45h </td>
+<td class="ver">
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formComponenteDepartamento'),{'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_63':'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_63','id':'44783','publico':'public'},'');}return false" title="Visualizar Detalhes do Componente Curricular"><img src="/sigaa/img/view.gif"/>
+<br clear="all"/>
+</a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td class="cod"> MATA81 </td>
+<td class="nome"> LABORATÓRIO DE SISTEMAS OPERACIONAIS </td>
+<td> </td>
+<td class="ch"> 	45h </td>
+<td class="ver">
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formComponenteDepartamento'),{'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_64':'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_64','id':'44777','publico':'public'},'');}return false" title="Visualizar Detalhes do Componente Curricular"><img src="/sigaa/img/view.gif"/>
+<br clear="all"/>
+</a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td class="cod"> MAT149 </td>
+<td class="nome"> LINGUAGENS DE MONTAGEM </td>
+<td> </td>
+<td class="ch"> 	60h </td>
+<td class="ver">
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formComponenteDepartamento'),{'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_65':'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_65','id':'44424','publico':'public'},'');}return false" title="Visualizar Detalhes do Componente Curricular"><img src="/sigaa/img/view.gif"/>
+<br clear="all"/>
+</a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td class="cod"> MAT147 </td>
+<td class="nome"> LINGUAGENS DE PROGRAMACAO I </td>
+<td> </td>
+<td class="ch"> 	90h </td>
+<td class="ver">
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formComponenteDepartamento'),{'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_66':'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_66','id':'44418','publico':'public'},'');}return false" title="Visualizar Detalhes do Componente Curricular"><img src="/sigaa/img/view.gif"/>
+<br clear="all"/>
+</a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td class="cod"> MAT148 </td>
+<td class="nome"> LINGUAGENS DE PROGRAMACAO II </td>
+<td> </td>
+<td class="ch"> 	60h </td>
+<td class="ver">
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formComponenteDepartamento'),{'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_67':'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_67','id':'44421','publico':'public'},'');}return false" title="Visualizar Detalhes do Componente Curricular"><img src="/sigaa/img/view.gif"/>
+<br clear="all"/>
+</a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td class="cod"> MATA50 </td>
+<td class="nome"> LINGUAGENS FORMAIS E AUTÔMATOS </td>
+<td> </td>
+<td class="ch"> 	60h </td>
+<td class="ver">
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formComponenteDepartamento'),{'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_68':'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_68','id':'44720','publico':'public'},'');}return false" title="Visualizar Detalhes do Componente Curricular"><img src="/sigaa/img/view.gif"/>
+<br clear="all"/>
+</a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td class="cod"> MAT157 </td>
+<td class="nome"> LINGUAGENS FORMAIS E TEORIA DA COMPILACAO </td>
+<td> </td>
+<td class="ch"> 	60h </td>
+<td class="ver">
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formComponenteDepartamento'),{'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_69':'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_69','id':'44448','publico':'public'},'');}return false" title="Visualizar Detalhes do Componente Curricular"><img src="/sigaa/img/view.gif"/>
+<br clear="all"/>
+</a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td class="cod"> MATA76 </td>
+<td class="nome"> LINGUAGENS PARA APLICAÇÃO COMERCIAL </td>
+<td> </td>
+<td class="ch"> 	45h </td>
+<td class="ver">
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formComponenteDepartamento'),{'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_70':'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_70','id':'44769','publico':'public'},'');}return false" title="Visualizar Detalhes do Componente Curricular"><img src="/sigaa/img/view.gif"/>
+<br clear="all"/>
+</a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td class="cod"> MATA47 </td>
+<td class="nome"> LÓGICA PARA COMPUTAÇÃO </td>
+<td> </td>
+<td class="ch"> 	60h </td>
+<td class="ver">
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formComponenteDepartamento'),{'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_71':'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_71','id':'44714','publico':'public'},'');}return false" title="Visualizar Detalhes do Componente Curricular"><img src="/sigaa/img/view.gif"/>
+<br clear="all"/>
+</a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td class="cod"> MATB13 </td>
+<td class="nome"> MÉTODOS FORMAIS </td>
+<td> </td>
+<td class="ch"> 	45h </td>
+<td class="ver">
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formComponenteDepartamento'),{'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_72':'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_72','id':'44827','publico':'public'},'');}return false" title="Visualizar Detalhes do Componente Curricular"><img src="/sigaa/img/view.gif"/>
+<br clear="all"/>
+</a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td class="cod"> MATC41 </td>
+<td class="nome"> MODELAGEM E SIMULAÇÃO DE SISTEMAS </td>
+<td> </td>
+<td class="ch"> 	60h </td>
+<td class="ver">
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formComponenteDepartamento'),{'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_73':'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_73','id':'45057','publico':'public'},'');}return false" title="Visualizar Detalhes do Componente Curricular"><img src="/sigaa/img/view.gif"/>
+<br clear="all"/>
+</a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td class="cod"> MATA69 </td>
+<td class="nome"> MODELAGEM E SIMULAÇÃO DE SISTEMAS </td>
+<td> </td>
+<td class="ch"> 	60h </td>
+<td class="ver">
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formComponenteDepartamento'),{'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_74':'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_74','id':'44758','publico':'public'},'');}return false" title="Visualizar Detalhes do Componente Curricular"><img src="/sigaa/img/view.gif"/>
+<br clear="all"/>
+</a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td class="cod"> MAT160 </td>
+<td class="nome"> MODELOS PROBABILISTICOS DE PESQUISA OPERACIONAL </td>
+<td> </td>
+<td class="ch"> 	60h </td>
+<td class="ver">
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formComponenteDepartamento'),{'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_75':'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_75','id':'44456','publico':'public'},'');}return false" title="Visualizar Detalhes do Componente Curricular"><img src="/sigaa/img/view.gif"/>
+<br clear="all"/>
+</a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td class="cod"> MATC96 </td>
+<td class="nome"> ORGANIZAÇÃO, GERENCIAMENTO E RECUPERAÇÃO DA INFORMAÇÃO </td>
+<td> </td>
+<td class="ch"> 	45h </td>
+<td class="ver">
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formComponenteDepartamento'),{'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_76':'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_76','id':'45138','publico':'public'},'');}return false" title="Visualizar Detalhes do Componente Curricular"><img src="/sigaa/img/view.gif"/>
+<br clear="all"/>
+</a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td class="cod"> MATC42 </td>
+<td class="nome"> PARADIGMAS DE LINGUAGENS DE PROGRAMAÇÃO </td>
+<td> </td>
+<td class="ch"> 	60h </td>
+<td class="ver">
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formComponenteDepartamento'),{'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_77':'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_77','id':'45059','publico':'public'},'');}return false" title="Visualizar Detalhes do Componente Curricular"><img src="/sigaa/img/view.gif"/>
+<br clear="all"/>
+</a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td class="cod"> MATA56 </td>
+<td class="nome"> PARADIGMAS DE LINGUAGENS DE PROGRAMAÇÃO </td>
+<td> </td>
+<td class="ch"> 	60h </td>
+<td class="ver">
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formComponenteDepartamento'),{'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_78':'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_78','id':'44732','publico':'public'},'');}return false" title="Visualizar Detalhes do Componente Curricular"><img src="/sigaa/img/view.gif"/>
+<br clear="all"/>
+</a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td class="cod"> MATE12 </td>
+<td class="nome"> PARADIGMAS DE LINGUAGENS DE PROGRAMAÇÃO A </td>
+<td> </td>
+<td class="ch"> 	60h </td>
+<td class="ver">
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formComponenteDepartamento'),{'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_79':'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_79','id':'45231','publico':'public'},'');}return false" title="Visualizar Detalhes do Componente Curricular"><img src="/sigaa/img/view.gif"/>
+<br clear="all"/>
+</a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td class="cod"> MAT045 </td>
+<td class="nome"> PROCESSAMENTO DE DADOS </td>
+<td> </td>
+<td class="ch"> 	60h </td>
+<td class="ver">
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formComponenteDepartamento'),{'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_80':'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_80','id':'44289','publico':'public'},'');}return false" title="Visualizar Detalhes do Componente Curricular"><img src="/sigaa/img/view.gif"/>
+<br clear="all"/>
+</a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td class="cod"> MATE13 </td>
+<td class="nome"> PROGRAMAÇÃO CONCORRENTE, DISTRIBUÍDA E PARALELA </td>
+<td> </td>
+<td class="ch"> 	45h </td>
+<td class="ver">
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formComponenteDepartamento'),{'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_81':'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_81','id':'45233','publico':'public'},'');}return false" title="Visualizar Detalhes do Componente Curricular"><img src="/sigaa/img/view.gif"/>
+<br clear="all"/>
+</a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td class="cod"> MATA49 </td>
+<td class="nome"> PROGRAMAÇÃO DE SOFTWARE BÁSICO </td>
+<td> </td>
+<td class="ch"> 	60h </td>
+<td class="ver">
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formComponenteDepartamento'),{'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_82':'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_82','id':'44718','publico':'public'},'');}return false" title="Visualizar Detalhes do Componente Curricular"><img src="/sigaa/img/view.gif"/>
+<br clear="all"/>
+</a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td class="cod"> MATC44 </td>
+<td class="nome"> PROGRAMAÇÃO DE SOFTWARE BÁSICO </td>
+<td> </td>
+<td class="ch"> 	60h </td>
+<td class="ver">
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formComponenteDepartamento'),{'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_83':'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_83','id':'45063','publico':'public'},'');}return false" title="Visualizar Detalhes do Componente Curricular"><img src="/sigaa/img/view.gif"/>
+<br clear="all"/>
+</a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td class="cod"> MATA77 </td>
+<td class="nome"> PROGRAMAÇÃO FUNCIONAL </td>
+<td> </td>
+<td class="ch"> 	60h </td>
+<td class="ver">
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formComponenteDepartamento'),{'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_84':'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_84','id':'44771','publico':'public'},'');}return false" title="Visualizar Detalhes do Componente Curricular"><img src="/sigaa/img/view.gif"/>
+<br clear="all"/>
+</a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td class="cod"> MAT155 </td>
+<td class="nome"> PROGRAMACAO MATEMATICA </td>
+<td> </td>
+<td class="ch"> 	60h </td>
+<td class="ver">
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formComponenteDepartamento'),{'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_85':'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_85','id':'44442','publico':'public'},'');}return false" title="Visualizar Detalhes do Componente Curricular"><img src="/sigaa/img/view.gif"/>
+<br clear="all"/>
+</a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td class="cod"> MATC43 </td>
+<td class="nome"> PROGRAMAÇÃO ORIENTADA A OBJETOS </td>
+<td> </td>
+<td class="ch"> 	60h </td>
+<td class="ver">
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formComponenteDepartamento'),{'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_86':'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_86','id':'45061','publico':'public'},'');}return false" title="Visualizar Detalhes do Componente Curricular"><img src="/sigaa/img/view.gif"/>
+<br clear="all"/>
+</a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td class="cod"> MATA55 </td>
+<td class="nome"> PROGRAMAÇÃO ORIENTADA A OBJETOS </td>
+<td> </td>
+<td class="ch"> 	60h </td>
+<td class="ver">
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formComponenteDepartamento'),{'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_87':'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_87','id':'44730','publico':'public'},'');}return false" title="Visualizar Detalhes do Componente Curricular"><img src="/sigaa/img/view.gif"/>
+<br clear="all"/>
+</a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td class="cod"> MATA38 </td>
+<td class="nome"> PROJETO DE CIRCUITOS LÓGICOS </td>
+<td> </td>
+<td class="ch"> 	60h </td>
+<td class="ver">
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formComponenteDepartamento'),{'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_88':'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_88','id':'44699','publico':'public'},'');}return false" title="Visualizar Detalhes do Componente Curricular"><img src="/sigaa/img/view.gif"/>
+<br clear="all"/>
+</a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td class="cod"> MATB02 </td>
+<td class="nome"> QUALIDADE DE SOFTWARE </td>
+<td> </td>
+<td class="ch"> 	45h </td>
+<td class="ver">
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formComponenteDepartamento'),{'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_89':'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_89','id':'44807','publico':'public'},'');}return false" title="Visualizar Detalhes do Componente Curricular"><img src="/sigaa/img/view.gif"/>
+<br clear="all"/>
+</a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td class="cod"> MAT055 </td>
+<td class="nome"> REDES DE COMPUTADORES </td>
+<td> </td>
+<td class="ch"> 	60h </td>
+<td class="ver">
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formComponenteDepartamento'),{'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_90':'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_90','id':'44309','publico':'public'},'');}return false" title="Visualizar Detalhes do Componente Curricular"><img src="/sigaa/img/view.gif"/>
+<br clear="all"/>
+</a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td class="cod"> MATC45 </td>
+<td class="nome"> REDES DE COMPUTADORES I </td>
+<td> </td>
+<td class="ch"> 	60h </td>
+<td class="ver">
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formComponenteDepartamento'),{'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_91':'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_91','id':'45065','publico':'public'},'');}return false" title="Visualizar Detalhes do Componente Curricular"><img src="/sigaa/img/view.gif"/>
+<br clear="all"/>
+</a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td class="cod"> MATA59 </td>
+<td class="nome"> REDES DE COMPUTADORES I </td>
+<td> </td>
+<td class="ch"> 	60h </td>
+<td class="ver">
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formComponenteDepartamento'),{'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_92':'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_92','id':'44738','publico':'public'},'');}return false" title="Visualizar Detalhes do Componente Curricular"><img src="/sigaa/img/view.gif"/>
+<br clear="all"/>
+</a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td class="cod"> MATA85 </td>
+<td class="nome"> REDES DE COMPUTADORES II </td>
+<td> </td>
+<td class="ch"> 	60h </td>
+<td class="ver">
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formComponenteDepartamento'),{'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_93':'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_93','id':'44785','publico':'public'},'');}return false" title="Visualizar Detalhes do Componente Curricular"><img src="/sigaa/img/view.gif"/>
+<br clear="all"/>
+</a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td class="cod"> MATC46 </td>
+<td class="nome"> REDES DE COMPUTADORES II </td>
+<td> </td>
+<td class="ch"> 	60h </td>
+<td class="ver">
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formComponenteDepartamento'),{'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_94':'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_94','id':'45067','publico':'public'},'');}return false" title="Visualizar Detalhes do Componente Curricular"><img src="/sigaa/img/view.gif"/>
+<br clear="all"/>
+</a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td class="cod"> MATC47 </td>
+<td class="nome"> ROBÓTICA INTELIGENTE </td>
+<td> </td>
+<td class="ch"> 	45h </td>
+<td class="ver">
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formComponenteDepartamento'),{'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_95':'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_95','id':'45069','publico':'public'},'');}return false" title="Visualizar Detalhes do Componente Curricular"><img src="/sigaa/img/view.gif"/>
+<br clear="all"/>
+</a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td class="cod"> MATB24 </td>
+<td class="nome"> ROBÓTICA INTELIGENTE </td>
+<td> </td>
+<td class="ch"> 	45h </td>
+<td class="ver">
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formComponenteDepartamento'),{'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_96':'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_96','id':'44847','publico':'public'},'');}return false" title="Visualizar Detalhes do Componente Curricular"><img src="/sigaa/img/view.gif"/>
+<br clear="all"/>
+</a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td class="cod"> MATC48 </td>
+<td class="nome"> SEGURANÇA DA INFORMAÇÃO </td>
+<td> </td>
+<td class="ch"> 	60h </td>
+<td class="ver">
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formComponenteDepartamento'),{'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_97':'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_97','id':'45071','publico':'public'},'');}return false" title="Visualizar Detalhes do Componente Curricular"><img src="/sigaa/img/view.gif"/>
+<br clear="all"/>
+</a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td class="cod"> MATA87 </td>
+<td class="nome"> SEGURANÇA DA INFORMAÇÃO </td>
+<td> </td>
+<td class="ch"> 	60h </td>
+<td class="ver">
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formComponenteDepartamento'),{'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_98':'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_98','id':'44789','publico':'public'},'');}return false" title="Visualizar Detalhes do Componente Curricular"><img src="/sigaa/img/view.gif"/>
+<br clear="all"/>
+</a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td class="cod"> MATC99 </td>
+<td class="nome"> SEGURANÇA E AUDITORIA DE SISTEMAS DE INFORMAÇÃO </td>
+<td> </td>
+<td class="ch"> 	60h </td>
+<td class="ver">
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formComponenteDepartamento'),{'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_99':'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_99','id':'45144','publico':'public'},'');}return false" title="Visualizar Detalhes do Componente Curricular"><img src="/sigaa/img/view.gif"/>
+<br clear="all"/>
+</a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td class="cod"> MATA75 </td>
+<td class="nome"> SEMÂNTICA DE LINGUAGEM DE PROGRAMAÇÃO </td>
+<td> </td>
+<td class="ch"> 	60h </td>
+<td class="ver">
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formComponenteDepartamento'),{'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_100':'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_100','id':'44767','publico':'public'},'');}return false" title="Visualizar Detalhes do Componente Curricular"><img src="/sigaa/img/view.gif"/>
+<br clear="all"/>
+</a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td class="cod"> MATB23 </td>
+<td class="nome"> SEMINÁRIOS EM EMPREENDEDORISMO </td>
+<td> </td>
+<td class="ch"> 	45h </td>
+<td class="ver">
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formComponenteDepartamento'),{'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_101':'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_101','id':'44845','publico':'public'},'');}return false" title="Visualizar Detalhes do Componente Curricular"><img src="/sigaa/img/view.gif"/>
+<br clear="all"/>
+</a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td class="cod"> MATC50 </td>
+<td class="nome"> SISTEMAS DE TEMPO REAL </td>
+<td> </td>
+<td class="ch"> 	60h </td>
+<td class="ver">
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formComponenteDepartamento'),{'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_102':'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_102','id':'45075','publico':'public'},'');}return false" title="Visualizar Detalhes do Componente Curricular"><img src="/sigaa/img/view.gif"/>
+<br clear="all"/>
+</a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td class="cod"> MATB19 </td>
+<td class="nome"> SISTEMAS MULTIMÍDIA </td>
+<td> </td>
+<td class="ch"> 	60h </td>
+<td class="ver">
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formComponenteDepartamento'),{'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_103':'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_103','id':'44837','publico':'public'},'');}return false" title="Visualizar Detalhes do Componente Curricular"><img src="/sigaa/img/view.gif"/>
+<br clear="all"/>
+</a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td class="cod"> MATC49 </td>
+<td class="nome"> SISTEMAS OPERACIONAIS </td>
+<td> </td>
+<td class="ch"> 	60h </td>
+<td class="ver">
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formComponenteDepartamento'),{'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_104':'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_104','id':'45073','publico':'public'},'');}return false" title="Visualizar Detalhes do Componente Curricular"><img src="/sigaa/img/view.gif"/>
+<br clear="all"/>
+</a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td class="cod"> MATA58 </td>
+<td class="nome"> SISTEMAS OPERACIONAIS </td>
+<td> </td>
+<td class="ch"> 	60h </td>
+<td class="ver">
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formComponenteDepartamento'),{'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_105':'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_105','id':'44736','publico':'public'},'');}return false" title="Visualizar Detalhes do Componente Curricular"><img src="/sigaa/img/view.gif"/>
+<br clear="all"/>
+</a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td class="cod"> MAT154 </td>
+<td class="nome"> SISTEMAS OPERACIONAIS </td>
+<td> </td>
+<td class="ch"> 	60h </td>
+<td class="ver">
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formComponenteDepartamento'),{'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_106':'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_106','id':'44439','publico':'public'},'');}return false" title="Visualizar Detalhes do Componente Curricular"><img src="/sigaa/img/view.gif"/>
+<br clear="all"/>
+</a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td class="cod"> MATC82 </td>
+<td class="nome"> SISTEMAS WEB </td>
+<td> </td>
+<td class="ch"> 	60h </td>
+<td class="ver">
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formComponenteDepartamento'),{'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_107':'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_107','id':'45110','publico':'public'},'');}return false" title="Visualizar Detalhes do Componente Curricular"><img src="/sigaa/img/view.gif"/>
+<br clear="all"/>
+</a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td class="cod"> MAT164 </td>
+<td class="nome"> TELEPROCESSAMENTO </td>
+<td> </td>
+<td class="ch"> 	60h </td>
+<td class="ver">
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formComponenteDepartamento'),{'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_108':'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_108','id':'44468','publico':'public'},'');}return false" title="Visualizar Detalhes do Componente Curricular"><img src="/sigaa/img/view.gif"/>
+<br clear="all"/>
+</a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td class="cod"> MAT158 </td>
+<td class="nome"> TEORIA DA COMPUTACAO </td>
+<td> </td>
+<td class="ch"> 	60h </td>
+<td class="ver">
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formComponenteDepartamento'),{'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_109':'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_109','id':'44450','publico':'public'},'');}return false" title="Visualizar Detalhes do Componente Curricular"><img src="/sigaa/img/view.gif"/>
+<br clear="all"/>
+</a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td class="cod"> MATA51 </td>
+<td class="nome"> TEORIA DA COMPUTAÇÃO </td>
+<td> </td>
+<td class="ch"> 	60h </td>
+<td class="ver">
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formComponenteDepartamento'),{'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_110':'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_110','id':'44722','publico':'public'},'');}return false" title="Visualizar Detalhes do Componente Curricular"><img src="/sigaa/img/view.gif"/>
+<br clear="all"/>
+</a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td class="cod"> MAT156 </td>
+<td class="nome"> TEORIA DOS GRAFOS </td>
+<td> </td>
+<td class="ch"> 	60h </td>
+<td class="ver">
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formComponenteDepartamento'),{'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_111':'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_111','id':'44444','publico':'public'},'');}return false" title="Visualizar Detalhes do Componente Curricular"><img src="/sigaa/img/view.gif"/>
+<br clear="all"/>
+</a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td class="cod"> MATC51 </td>
+<td class="nome"> TEORIA DOS GRAFOS </td>
+<td> </td>
+<td class="ch"> 	60h </td>
+<td class="ver">
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formComponenteDepartamento'),{'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_112':'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_112','id':'45077','publico':'public'},'');}return false" title="Visualizar Detalhes do Componente Curricular"><img src="/sigaa/img/view.gif"/>
+<br clear="all"/>
+</a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td class="cod"> MATA53 </td>
+<td class="nome"> TEORIA DOS GRAFOS </td>
+<td> </td>
+<td class="ch"> 	60h </td>
+<td class="ver">
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formComponenteDepartamento'),{'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_113':'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_113','id':'44726','publico':'public'},'');}return false" title="Visualizar Detalhes do Componente Curricular"><img src="/sigaa/img/view.gif"/>
+<br clear="all"/>
+</a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td class="cod"> MATA72 </td>
+<td class="nome"> TÓPICOS EM ARQUITETURA DE COMPUTADORES </td>
+<td> </td>
+<td class="ch"> 	45h </td>
+<td class="ver">
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formComponenteDepartamento'),{'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_114':'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_114','id':'44761','publico':'public'},'');}return false" title="Visualizar Detalhes do Componente Curricular"><img src="/sigaa/img/view.gif"/>
+<br clear="all"/>
+</a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td class="cod"> MATB10 </td>
+<td class="nome"> TÓPICOS EM BANCO DE DADOS </td>
+<td> </td>
+<td class="ch"> 	45h </td>
+<td class="ver">
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formComponenteDepartamento'),{'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_115':'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_115','id':'44821','publico':'public'},'');}return false" title="Visualizar Detalhes do Componente Curricular"><img src="/sigaa/img/view.gif"/>
+<br clear="all"/>
+</a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td class="cod"> MAT167 </td>
+<td class="nome"> TOPICOS EM CIENCIA DA COMPUTACAO </td>
+<td> </td>
+<td class="ch"> 	60h </td>
+<td class="ver">
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formComponenteDepartamento'),{'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_116':'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_116','id':'44477','publico':'public'},'');}return false" title="Visualizar Detalhes do Componente Curricular"><img src="/sigaa/img/view.gif"/>
+<br clear="all"/>
+</a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td class="cod"> MATB12 </td>
+<td class="nome"> TÓPICOS EM COMPILADORES </td>
+<td> </td>
+<td class="ch"> 	45h </td>
+<td class="ver">
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formComponenteDepartamento'),{'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_117':'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_117','id':'44825','publico':'public'},'');}return false" title="Visualizar Detalhes do Componente Curricular"><img src="/sigaa/img/view.gif"/>
+<br clear="all"/>
+</a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td class="cod"> MATA74 </td>
+<td class="nome"> TÓPICOS EM COMPUTAÇÃO E ALGORITMOS </td>
+<td> </td>
+<td class="ch"> 	45h </td>
+<td class="ver">
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formComponenteDepartamento'),{'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_118':'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_118','id':'44765','publico':'public'},'');}return false" title="Visualizar Detalhes do Componente Curricular"><img src="/sigaa/img/view.gif"/>
+<br clear="all"/>
+</a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td class="cod"> MATB04 </td>
+<td class="nome"> TÓPICOS EM COMPUTAÇÃO GRÁFICA E PROCESSAMENTO DE IMAGENS </td>
+<td> </td>
+<td class="ch"> 	45h </td>
+<td class="ver">
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formComponenteDepartamento'),{'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_119':'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_119','id':'44811','publico':'public'},'');}return false" title="Visualizar Detalhes do Componente Curricular"><img src="/sigaa/img/view.gif"/>
+<br clear="all"/>
+</a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td class="cod"> MAT061 </td>
+<td class="nome"> TOPICOS EM ENGENHARIA DE SOFTWARE </td>
+<td> </td>
+<td class="ch"> 	60h </td>
+<td class="ver">
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formComponenteDepartamento'),{'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_120':'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_120','id':'44321','publico':'public'},'');}return false" title="Visualizar Detalhes do Componente Curricular"><img src="/sigaa/img/view.gif"/>
+<br clear="all"/>
+</a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td class="cod"> MATB25 </td>
+<td class="nome"> TÓPICOS EM ENGENHARIA DE SOFTWARE </td>
+<td> </td>
+<td class="ch"> 	45h </td>
+<td class="ver">
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formComponenteDepartamento'),{'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_121':'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_121','id':'44849','publico':'public'},'');}return false" title="Visualizar Detalhes do Componente Curricular"><img src="/sigaa/img/view.gif"/>
+<br clear="all"/>
+</a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td class="cod"> MATB05 </td>
+<td class="nome"> TÓPICOS EM INTELIGÊNCIA ARTIFICIAL </td>
+<td> </td>
+<td class="ch"> 	45h </td>
+<td class="ver">
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formComponenteDepartamento'),{'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_122':'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_122','id':'44813','publico':'public'},'');}return false" title="Visualizar Detalhes do Componente Curricular"><img src="/sigaa/img/view.gif"/>
+<br clear="all"/>
+</a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td class="cod"> MATA79 </td>
+<td class="nome"> TÓPICOS EM PROGRAMAÇÃO </td>
+<td> </td>
+<td class="ch"> 	45h </td>
+<td class="ver">
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formComponenteDepartamento'),{'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_123':'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_123','id':'44773','publico':'public'},'');}return false" title="Visualizar Detalhes do Componente Curricular"><img src="/sigaa/img/view.gif"/>
+<br clear="all"/>
+</a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td class="cod"> MAT060 </td>
+<td class="nome"> TOPICOS EM REDES </td>
+<td> </td>
+<td class="ch"> 	60h </td>
+<td class="ver">
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formComponenteDepartamento'),{'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_124':'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_124','id':'44319','publico':'public'},'');}return false" title="Visualizar Detalhes do Componente Curricular"><img src="/sigaa/img/view.gif"/>
+<br clear="all"/>
+</a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td class="cod"> MATA86 </td>
+<td class="nome"> TÓPICOS EM REDES DE COMPUTADORES </td>
+<td> </td>
+<td class="ch"> 	45h </td>
+<td class="ver">
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formComponenteDepartamento'),{'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_125':'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_125','id':'44787','publico':'public'},'');}return false" title="Visualizar Detalhes do Componente Curricular"><img src="/sigaa/img/view.gif"/>
+<br clear="all"/>
+</a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td class="cod"> MAT168 </td>
+<td class="nome"> TOPICOS EM SISTEMAS DE INFORMACAO </td>
+<td> </td>
+<td class="ch"> 	60h </td>
+<td class="ver">
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formComponenteDepartamento'),{'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_126':'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_126','id':'44480','publico':'public'},'');}return false" title="Visualizar Detalhes do Componente Curricular"><img src="/sigaa/img/view.gif"/>
+<br clear="all"/>
+</a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td class="cod"> MATD02 </td>
+<td class="nome"> TÓPICOS EM SISTEMAS DE INFORMAÇÃO </td>
+<td> </td>
+<td class="ch"> 	45h </td>
+<td class="ver">
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formComponenteDepartamento'),{'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_127':'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_127','id':'45148','publico':'public'},'');}return false" title="Visualizar Detalhes do Componente Curricular"><img src="/sigaa/img/view.gif"/>
+<br clear="all"/>
+</a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td class="cod"> MATB26 </td>
+<td class="nome"> TÓPICOS EM SISTEMAS MULTIMÍDIA </td>
+<td> </td>
+<td class="ch"> 	45h </td>
+<td class="ver">
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formComponenteDepartamento'),{'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_128':'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_128','id':'44851','publico':'public'},'');}return false" title="Visualizar Detalhes do Componente Curricular"><img src="/sigaa/img/view.gif"/>
+<br clear="all"/>
+</a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td class="cod"> MAT062 </td>
+<td class="nome"> TOPICOS EM SISTEMAS OPERACIONAIS </td>
+<td> </td>
+<td class="ch"> 	60h </td>
+<td class="ver">
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formComponenteDepartamento'),{'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_129':'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_129','id':'44323','publico':'public'},'');}return false" title="Visualizar Detalhes do Componente Curricular"><img src="/sigaa/img/view.gif"/>
+<br clear="all"/>
+</a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td class="cod"> MATA83 </td>
+<td class="nome"> TÓPICOS EM SISTEMAS OPERACIONAIS </td>
+<td> </td>
+<td class="ch"> 	45h </td>
+<td class="ver">
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formComponenteDepartamento'),{'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_130':'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_130','id':'44781','publico':'public'},'');}return false" title="Visualizar Detalhes do Componente Curricular"><img src="/sigaa/img/view.gif"/>
+<br clear="all"/>
+</a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td class="cod"> MAT169 </td>
+<td class="nome"> TOPICOS SISTEMAS DE COMPUTACAO </td>
+<td> </td>
+<td class="ch"> 	60h </td>
+<td class="ver">
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formComponenteDepartamento'),{'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_131':'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_131','id':'44482','publico':'public'},'');}return false" title="Visualizar Detalhes do Componente Curricular"><img src="/sigaa/img/view.gif"/>
+<br clear="all"/>
+</a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td class="cod"> MATB15 </td>
+<td class="nome"> VALIDAÇÃO DE SOFTWARE </td>
+<td> </td>
+<td class="ch"> 	45h </td>
+<td class="ver">
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formComponenteDepartamento'),{'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_132':'formComponenteDepartamento:j_id_jsp_1418940761_13j_id_132','id':'44831','publico':'public'},'');}return false" title="Visualizar Detalhes do Componente Curricular"><img src="/sigaa/img/view.gif"/>
+<br clear="all"/>
+</a>
+</td>
+</tr>
+<table class="listagem">
+<tfoot>
+<td colspan="3"><b>133 Componente(s) encontrado(s) </b></td>
+</tfoot>
+</table>
+<!--  FIM CONTEÚDO  -->
+<input id="javax.faces.ViewState" name="javax.faces.ViewState" type="hidden" value="j_id4"/>
+<div class="clear"></div>
+<div id="rodape">
+<p> <!-- Redmine 24523 - Telas e relatórios com rodapés sem a alteração - Portal Público -->
+			SIGAA | STI/SUPAC | -  | Copyright © 2006-2026 - UFBA - sigaapl04.intranet.ufba.br
+			 
+				<a onclick="javascript:versao();">v4.13.8_41_hotfix</a>
+</p>
+</div>
+<!-- Fim dos containers -->
+<!-- MYFACES JAVASCRIPT -->
+</tbody></table></div></div></form></div></div></div></body>
+</html>
+<html><script charset="UTF-8" type="text/javascript">
+		function versao(){
+			var msg='';
+			msg+='SIGAA 4.13.8_41_hotfix,  publicado em: 25/09/2026 16:18\n\n';
+			msg+='Depend\u00eancias:\n';
+			msg+='Arquitetura 4.4.5\n';
+			msg+='Entidades Comuns 2.3.3\n';
+			msg+='Servicos Integrados 2.0.8\n';
+			msg+='SharedResources 2.1.4\n';
+			msg+='Servicos Remoto Biblioteca null\n';
+			msg+='SIGAA Mobile Objects 1.0.0\n\n';
+			msg+='Copyright SINFO/UFRN';
+			alert(msg);
+		}	
+	</script>
+<style>
+a.linkMobile:link {
+	color: #003395;
+	font-weight: bold;
+	font-size: inherit;
+	text-decoration: none;
+}
+
+a.linkMobile:visited {
+	color: #003390;
+	text-decoration: none;
+	font-weight: bold;
+}
+
+a.linkMobile:active {
+	color: #444444;
+	text-decoration: none;
+	font-weight: bold;
+}
+</style>
+</html>

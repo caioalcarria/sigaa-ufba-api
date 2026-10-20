@@ -1,0 +1,549 @@
+<!DOCTYPE HTML>
+<html lang="pt-br" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<link href="/sigaa/faces/myFacesExtensionResource/org.apache.myfaces.renderkit.html.util.MyFacesResourceLoader/17923874/calendar.HtmlCalendarRenderer/WH/theme.css" rel="stylesheet" type="text/css"/>
+<link href="/sigaa/faces/myFacesExtensionResource/org.apache.myfaces.renderkit.html.util.MyFacesResourceLoader/17923874/calendar.HtmlCalendarRenderer/DB/theme.css" rel="stylesheet" type="text/css"/>
+<script src="/sigaa/faces/myFacesExtensionResource/org.apache.myfaces.renderkit.html.util.MyFacesResourceLoader/17923874/prototype.PrototypeResourceLoader/prototype.js" type="text/javascript"><!--
+
+//--></script>
+<script src="/sigaa/faces/myFacesExtensionResource/org.apache.myfaces.renderkit.html.util.MyFacesResourceLoader/17923874/calendar.HtmlCalendarRenderer/date.js" type="text/javascript"><!--
+
+//--></script>
+<script src="/sigaa/faces/myFacesExtensionResource/org.apache.myfaces.renderkit.html.util.MyFacesResourceLoader/17923874/calendar.HtmlCalendarRenderer/popcalendar.js" type="text/javascript"><!--
+
+//--></script>
+<script src="/sigaa/faces/myFacesExtensionResource/org.apache.myfaces.renderkit.html.util.MyFacesResourceLoader/17923874/inputTextHelp.HtmlTextHelpRenderer/inputTextHelp.js" type="text/javascript"><!--
+
+//--></script>
+<meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title> SIGAA- Sistema Integrado de Gestão de Atividades Acadêmicas </title>
+<link class="component" href="/sigaa/a4j/s/3_3_3.Finalorg/richfaces/renderkit/html/css/basic_classes.xcss/DATB/eAF7sqpgb-jyGdIAFrMEaw__.jsf" rel="stylesheet" type="text/css"/><link class="component" href="/sigaa/a4j/s/3_3_3.Finalorg/richfaces/renderkit/html/css/extended_classes.xcss/DATB/eAF7sqpgb-jyGdIAFrMEaw__.jsf" media="rich-extended-skinning" rel="stylesheet" type="text/css"/><script type="text/javascript">window.RICH_FACES_EXTENDED_SKINNING_ON=true;</script><script src="/sigaa/a4j/g/3_3_3.Finalorg/richfaces/renderkit/html/scripts/skinning.js.jsf" type="text/javascript"></script><link href="/sigaa/img/sigaa_UFPB.ico" rel="shortcut icon"/>
+<script>
+		//Indica para algumas fun&#231;&#245;es javascript que o layout utilizado &#233; o do SIGAA beta.
+		const LAYOUT_BETA = true;
+		</script>
+<script src="/sigaa/shared/beta/js/jquery-3.2.1.min.js" type="text/javascript"></script>
+<script src="/sigaa/shared/beta/js/jquery-migrate-3.0.0.min.js" type="text/javascript"></script>
+<script src="/sigaa/shared/beta/js/bootstrap.js" type="text/javascript"></script>
+<script src="/sigaa/shared/beta/js/bootstrap-dialog.js" type="text/javascript"></script>
+<script src="/sigaa/shared/beta/js/sigaa_beta_utils.js" type="text/javascript"></script>
+<script src="/sigaa/shared/javascript/paineis/painel_generico.js" type="text/javascript"></script>
+<script src="/sigaa/shared/javascript/formatador.js" type="text/javascript"></script>
+<script src="/sigaa/jsBundles/jawr_loader.js" type="text/javascript"></script>
+<script type="text/javascript">
+			<!-- jawr_loader.js / jawr.shared.properties -->
+			JAWR.loader.script('/sigaa/bundles/js/sigaa_base.js');
+		</script>
+<link href="/sigaa/shared/beta/css/bootstrap.css" media="screen" rel="stylesheet" type="text/css"/>
+<link href="/sigaa/shared/beta/css/font-awesome.css" media="screen" rel="stylesheet" type="text/css"/>
+<!-- Tema do SIGAA BETA -->
+<link href="/sigaa/shared/beta/css/tema9.css" id="temaLayout" media="screen" rel="stylesheet" type="text/css"/>
+<!-- INICIO MENU -->
+<script src="/sigaa/shared/beta/js/jquery.smartmenus.js" type="text/javascript"></script>
+<script src="/sigaa/shared/beta/js/jquery.smartmenus.keyboard.js" type="text/javascript"></script>
+<link href="/sigaa/shared/beta/css/sm-core-css.css" media="screen" rel="stylesheet" type="text/css"/>
+<style>ul.sm *{z-index: 5;}</style>
+<script type="text/javascript">
+			var itemWithSubMenu = null;
+			jQuery(function($) {
+				<!-- SmartMenus jQuery init - jquery.smartmenus.js -->
+				$menu = $('#main-menu');
+				if ( $menu ){
+					$menu.smartmenus({
+						subMenusSubOffsetX : 1,
+						subMenusSubOffsetY : -8,
+						hideDuration : 0,
+						showDuration : 0,
+						subMenusMaxWidth: '26em',
+					});
+					$menu.smartmenus('keyboardSetHotkey', '123', 'shiftKey');
+				}
+				<!-- FIM MENU -->
+				
+				<!-- Detalhes do usu&#225;rio -->
+				//mostra ou oculta a op&#231;&#227;o de alterar a foto do discente
+				$("#detalhes-usuario .foto-perfil").bind({
+					mouseenter:function(){$(this).find(".acoes").slideDown()},
+					mouseleave:function(){$(this).find(".acoes").slideUp()}
+				})
+				
+				
+				<!-- paleta cores - sigaa_beta_utils.js -->
+				if ( $('#paleta-cores') ){
+					$('#paleta-cores').paletaCores();
+					$('#paleta-cores-horizontal').paletaCores();
+				}
+				<!-- FIM paleta cores -->
+
+				<!-- acessibilidade texto - sigaa_beta_utils.js -->
+				if ($('#menu-acessibilidade')){
+					$('#acessibilidade-contraste').contraste();
+					//inicia o contraste, caso tenha a a&#231;&#227;o sido executada anteriormente
+					$('#menu-acessibilidade').contraste("iniciar");
+					
+				}
+				<!-- FIM acessibilidade texto -->
+			});
+		</script>
+<script type="text/javascript">var useGeneralJS = false;</script>
+<script src="/sigaa/shared/javascript/general.js" type="text/javascript"></script>
+</head>
+<body>
+<div class="wrapper">
+<div id="ufrn-cabecalho">
+<div id="barra-sistema">
+<div class="ufrn-container">
+<div class="ufrn-marca pull-left">
+<p>UFPB</p>
+</div>
+<ul id="menu-acessibilidade">
+<li><a class="sr-only sr-only-focusable" href="#conteudo">Pular para conteúdo</a></li>
+<li class="separador"></li>
+<li><a class="toggleable" href="#" id="acessibilidade-contraste" title="Contraste"><span class="icone-contraste"></span><span class="sr-only">Auto Contraste</span></a></li>
+<li class="separador"></li>
+<li>
+<a href="/sigaa/logon/" style="font-size: 15px; font-weight: bold;" title="Acessar o SIGAA">Entrar</a>
+</li>
+</ul>
+</div>
+</div>
+<!-- INICIO PAINEL -->
+<div id="painel-usuario">
+<div class="ufrn-container">
+<div class="logo pull-left" style="width: 18%;">
+<img alt="SIGAA beta" height="51" src="/sigaa/shared/beta/img/SIGAA-horizontal.png" title="SIGAA"/>
+<span style="left: 32%; top: 80%;"> <a href="/sigaa/public/"> Portal Público</a></span>
+</div>
+<div class="painel-usuario-row pull-right" style="max-width: 75%;">
+<div class="painel-usuario-acoes">
+<ul>
+</ul>
+</div>
+<div class="painel-usuario-identificacao" style="width: 60%;">
+<span style="color: var(--fonte-cor-texto-primaria); font-size: 20px; text-align: right; line-height: 20px;">
+					Universidade Federal da Paraíba
+				</span>
+</div>
+<div class="painel-usuario-foto">
+<img alt="Brasão da UFPB" src="/sigaa/img/brasao_ufpb.png" style="width: 85%;"/>
+</div>
+</div>
+</div>
+</div>
+<!-- FIM PAINEL -->
+</div>
+<div class="ufrn-container" id="conteudo"> <!-- Ser&#225; fechado em rodape.jsp -->
+<script>
+	//#FIX conflito prototype e bootstrap
+	//INICIO
+	jQuery.noConflict();
+	/*if (Prototype.BrowserFeatures.ElementExtensions) {
+	    var disablePrototypeJS = function (method, pluginsToDisable) {
+	            var handler = function (event) {
+	                event.target[method] = undefined;
+	                setTimeout(function () {
+	                    delete event.target[method];
+	                }, 0);
+	            };
+	            pluginsToDisable.each(function (plugin) { 
+	                jQuery(window).on(method + '.bs.' + plugin, handler);
+	            });
+	        },
+	        pluginsToDisable = ['collapse', 'dropdown', 'modal', 'tooltip'];
+	    disablePrototypeJS('show', pluginsToDisable);
+	    disablePrototypeJS('hide', pluginsToDisable);
+	}*/
+	//FIM
+	
+	jQuery(function($) {
+		transformaBreadcumbs();
+		tranformaDescricaoOperacao();
+		selecionarPrimeiraAba();
+		//transformaBotoes();
+		
+		//adicionaCssTabelaListagem();
+		
+		//removeRichFaceCss();
+		
+		function transformaBreadcumbs(){
+			//Transforma o breadcumbs da vers&#227;o antiga para a vers&#227;o nova
+			var breadcumbsAtual = jQuery(".ufrn-container > h2");
+			if ( breadcumbsAtual.length == 0 ) {
+				breadcumbsAtual = jQuery(".ufrn-container form > h2");
+			}
+			
+			if ( breadcumbsAtual.length == 0 ) return;
+
+			var arrPath = breadcumbsAtual.html().split("&gt;");
+			var expressaoLink = /<a href=\"(.+)">(.+)<\/a>/m;
+			var padraoLink = new RegExp( expressaoLink );
+			template = "<ol class='breadcrumb'>";
+			for( i=0; i<arrPath.length-1; i++ ){
+				if ( i == 0 && padraoLink.test( arrPath[i] ) ){
+					link = arrPath[i].match( expressaoLink )[1];
+					nome = arrPath[i].match( expressaoLink )[2];
+					template += "<li><a href="+ link +"><span class='glyphicon glyphicon-home'></span>"+ nome +"</a></li>";	
+				}else{
+					template += "<li>"+ jQuery.trim(arrPath[i]) +"</li>";	
+				}				
+			}
+			template += "</ol>";
+			
+			//ultimo elemento &#233; o t&#237;tulo da p&#225;gina
+			template += "<div class='page-header'>";
+			template += "<h1>"+jQuery.trim(arrPath[arrPath.length-1])+"</h1>";
+			template += "</div>";
+
+			breadcumbsAtual[0].outerHTML = template ;
+		}
+		
+		function tranformaDescricaoOperacao(){
+			//pega apenas a descri&#231;&#227;o da opera&#231;&#227;o da tela.
+			var descricaoOperacao = jQuery(".ufrn-container > .descricaoOperacao");
+			
+			if ( descricaoOperacao.length == 0 ) {
+				descricaoOperacao = jQuery(".ufrn-container form > .descricaoOperacao");
+			}
+			
+			if ( descricaoOperacao.length == 0 ) {
+				descricaoOperacao = jQuery(".bootstrap-dialog-message .descricaoOperacao");
+				descricaoOperacao.find('br').remove();
+			}
+			
+			descricaoOperacao.each( function( index ){
+				obj = jQuery(this);
+				obj.removeClass("descricaoOperacao");
+				
+				if (!obj.hasClass("alert")){//se j&#225; tem a classe alert, assume-se que j&#225; est&#225; no padr&#227;o do sigaa beta
+					obj.addClass("conteudo");
+					obj.wrap("<div class='alert alert-info'></div>");
+					obj.parent().prepend( "<div class='icone'><span class='glyphicon glyphicon-info-sign'></span></div>" );
+				}
+			});
+			
+		}
+		
+		function transformaBotoes(){
+			jQuery("table.formulario tfoot,table.visualizacao tfoot, table.listagem tfoot").find("button,input[type=submit],input[type=button]").each( function( index ){
+				if( !jQuery(this).hasClass("btn") ){
+					jQuery(this).addClass("btn");
+				}
+				
+				if ( !jQuery(this).hasClass("btn-default") && !jQuery(this).hasClass("btn-primary") ){
+					jQuery(this).addClass("btn-default");
+				}
+			});
+		}
+		
+		function removeRichFaceCss(){
+			/** Remove todas as classes do rich-faces **/
+			jQuery("[class*='rich-']").each(function () {
+			    var className = this.className.match(/rich-(\w|-)+/i);
+			    if ( jQuery(this).hasClass( className[0] ) ){
+			       jQuery(this).removeClass( className[0] );
+			    }
+			});
+		}
+		
+		function adicionaCssTabelaListagem(){
+			jQuery("table.listagem").each( function(){
+				var arrClassToAdd = ["table","table-hover"];
+				var table = jQuery(this);
+				for ( i=0; i < arrClassToAdd.length; i++ ){
+					if ( !table.hasClass( arrClassToAdd[i] ) ){
+						table.addClass( arrClassToAdd[i] );
+					}
+				}
+			});
+		}
+		
+		//remove o menu antigo se ele estiver incluido
+		if (jQuery('#menu-dropdown')){
+		  jQuery('#menu-dropdown').remove();
+		}
+		
+	});
+	</script>
+<script src="/sigaa/shared/javascript/prototype.js" type="text/javascript"></script>
+<script type="text/javascript">
+        JAWR.loader.script('/bundles/js/scriptaculous.js');
+		JAWR.loader.style('/shared/javascript/ajaxtags/css/ajaxtags.css');
+     </script>
+<script src="/sigaa/shared/javascript/ajaxtags/ajaxtags.js" type="text/javascript"></script>
+<script src="/sigaa/shared/javascript/ajaxtags/overlibmws.js" type="text/javascript"></script>
+<script type="text/javascript">
+	
+	JAWR.loader.script('/javascript/jquery.tablesorter.min.js');
+	
+	function exibirOpcoes(atividade){
+		var atividade = 'atividade'+ atividade;
+		$(atividade).toggle();
+	}
+
+</script>
+<h2>Lista de Cursos e Eventos de Extensão com Períodos de Inscrição Abertos</h2>
+<form action="/sigaa/public/extensao/paginaListaPeriodosInscricoesAtividadesPublico.jsf" enctype="application/x-www-form-urlencoded" id="formListaCursosEventosExtensao" method="post" name="formListaCursosEventosExtensao">
+<input name="formListaCursosEventosExtensao" type="hidden" value="formListaCursosEventosExtensao"/>
+<table class="formulario" style="width: 60%; margin-bottom: 20px;">
+<caption>Busca por Ações de Extensão</caption>
+<tbody>
+<tr>
+<td align="center" width="3%">
+<input class="noborder" id="formListaCursosEventosExtensao:selectBuscaTitulo" name="formListaCursosEventosExtensao:selectBuscaTitulo" type="checkbox"/>
+</td>
+<td width="17%">
+<label for="formListaCursosEventosExtensao:selectBuscaTitulo">Título da Ação:</label>
+</td>
+<td><input id="formListaCursosEventosExtensao:buscaTitulo" name="formListaCursosEventosExtensao:buscaTitulo" onchange="javascript:$('formListaCursosEventosExtensao:selectBuscaTitulo').checked = true;" size="50" type="text"/></td>
+</tr>
+<tr>
+<td align="center">
+<input class="noborder" id="formListaCursosEventosExtensao:selectBuscaTipoAtividade" name="formListaCursosEventosExtensao:selectBuscaTipoAtividade" type="checkbox"/>
+</td>
+<td><label for="formListaCursosEventosExtensao:selectBuscaTipoAtividade">Tipo de Atividade:</label></td>
+<td>
+<select id="formListaCursosEventosExtensao:buscaTipoAcao" name="formListaCursosEventosExtensao:buscaTipoAcao" onchange="javascript:$('formListaCursosEventosExtensao:selectBuscaTipoAtividade').checked = true;" size="1"> <option selected="selected" value="0">TODOS</option>
+<option value="3">CURSO</option>
+<option value="4">EVENTO</option>
+</select>
+</td>
+</tr>
+<tr>
+<td align="center">
+<input class="noborder" id="formListaCursosEventosExtensao:selectBuscaArea" name="formListaCursosEventosExtensao:selectBuscaArea" type="checkbox"/>
+</td>
+<td><label for="formListaCursosEventosExtensao:selectBuscaArea">Área Temática:</label></td>
+<td>
+<select id="formListaCursosEventosExtensao:buscaArea" name="formListaCursosEventosExtensao:buscaArea" onchange="javascript:$('formListaCursosEventosExtensao:selectBuscaArea').checked = true;" size="1"> <option selected="selected" value="0">-- SELECIONE --</option>
+<option value="1">COMUNICAÇÃO</option>
+<option value="2">CULTURA</option>
+<option value="4">DIREITOS HUMANOS E JUSTIÇA</option>
+<option value="5">EDUCAÇÃO</option>
+
+
+
+
+</select>
+</td>
+</tr>
+<tr>
+<td align="center">
+<input class="noborder" id="formListaCursosEventosExtensao:selectBuscaServidor" name="formListaCursosEventosExtensao:selectBuscaServidor" type="checkbox"/>
+</td>
+<td><label for="formListaCursosEventosExtensao:selectBuscaServidor">Coordenador:</label></td>
+<td>
+<input id="formListaCursosEventosExtensao:buscaServidor" name="formListaCursosEventosExtensao:buscaServidor" type="hidden" value="0"/><input id="formListaCursosEventosExtensao:buscaNome" name="formListaCursosEventosExtensao:buscaNome" onchange="javascript:$('formListaCursosEventosExtensao:selectBuscaServidor').checked = true;" size="50" type="text"/>
+<script type="text/javascript">
+new AjaxJspTag.Autocomplete(
+"/sigaa/ajaxServidor", {
+indicator: "indicator",
+source: "formListaCursosEventosExtensao:buscaNome",
+target: "formListaCursosEventosExtensao:buscaServidor",
+minimumCharacters: "3",
+className: "autocomplete",
+parameters: "tipo=todos,inativos=false,areaPublica=true",
+parser: new ResponseXmlToHtmlListParser()
+});
+</script>
+<span id="indicator" style="display:none;">
+<img src="/sigaa/img/indicator.gif"/>
+</span>
+</td>
+</tr>
+<tr>
+<td align="center">
+<input class="noborder" id="formListaCursosEventosExtensao:selectBuscaPeriodo" name="formListaCursosEventosExtensao:selectBuscaPeriodo" type="checkbox"/>
+</td>
+<td><label for="formListaCursosEventosExtensao:selectBuscaPeriodo">Período:</label></td>
+<td><input id="formListaCursosEventosExtensao:periodoInicio" maxlength="10" name="formListaCursosEventosExtensao:periodoInicio" onchange="javascript:$('formListaCursosEventosExtensao:selectBuscaPeriodo').checked = true;" onclick="selectText('null', 'formListaCursosEventosExtensao:periodoInicio')" onfocus="selectText('null', 'formListaCursosEventosExtensao:periodoInicio')" onkeypress="return(formatarMascara(this,event,'##/##/####'))" size="10" type="text"/><span id="formListaCursosEventosExtensao:periodoInicioSpan"></span><script type="text/javascript">formListaCursosEventosExtensao_3AperiodoInicioCalendarVar=new org_apache_myfaces_PopupCalendar();
+formListaCursosEventosExtensao_3AperiodoInicioCalendarVar.initData.imgDir = "\/sigaa\/faces\/myFacesExtensionResource\/org.apache.myfaces.renderkit.html.util.MyFacesResourceLoader\/17923874\/calendar.HtmlCalendarRenderer\/DB\/";
+formListaCursosEventosExtensao_3AperiodoInicioCalendarVar.initData.monthName = new Array("Janeiro","Fevereiro","Mar\u00E7o","Abril","Maio","Junho","Julho","Agosto","Setembro","Outubro","Novembro","Dezembro");
+formListaCursosEventosExtensao_3AperiodoInicioCalendarVar.initData.dayName = new Array("Dom","Seg","Ter","Qua","Qui","Sex","S\u00E1b");
+formListaCursosEventosExtensao_3AperiodoInicioCalendarVar.initData.startAt = 0;
+formListaCursosEventosExtensao_3AperiodoInicioCalendarVar.dateFormatSymbols.weekdays = new Array("Domingo","Segunda-feira","Ter\u00E7a-feira","Quarta-feira","Quinta-feira","Sexta-feira","S\u00E1bado");
+formListaCursosEventosExtensao_3AperiodoInicioCalendarVar.dateFormatSymbols.shortWeekdays = new Array("Dom","Seg","Ter","Qua","Qui","Sex","S\u00E1b");
+formListaCursosEventosExtensao_3AperiodoInicioCalendarVar.dateFormatSymbols.shortMonths = new Array("Jan","Fev","Mar","Abr","Mai","Jun","Jul","Ago","Set","Out","Nov","Dez");
+formListaCursosEventosExtensao_3AperiodoInicioCalendarVar.dateFormatSymbols.months = new Array("Janeiro","Fevereiro","Mar\u00E7o","Abril","Maio","Junho","Julho","Agosto","Setembro","Outubro","Novembro","Dezembro");
+formListaCursosEventosExtensao_3AperiodoInicioCalendarVar.dateFormatSymbols.eras = new Array("BC","AD");
+formListaCursosEventosExtensao_3AperiodoInicioCalendarVar.dateFormatSymbols.ampms = new Array("AM","PM");
+formListaCursosEventosExtensao_3AperiodoInicioCalendarVar.initData.todayString = "Hoje \u00E9";
+formListaCursosEventosExtensao_3AperiodoInicioCalendarVar.initData.todayDateFormat = "dd\/MM\/yyyy";
+formListaCursosEventosExtensao_3AperiodoInicioCalendarVar.initData.popupLeft = false;
+
+formListaCursosEventosExtensao_3AperiodoInicioCalendarVar.init(document.getElementById('formListaCursosEventosExtensao:periodoInicioSpan'));
+</script><img onclick="formListaCursosEventosExtensao_3AperiodoInicioCalendarVar._popUpCalendar(this,document.getElementById('formListaCursosEventosExtensao:periodoInicio'),'dd/MM/yyyy')" src="/sigaa/faces/myFacesExtensionResource/org.apache.myfaces.renderkit.html.util.MyFacesResourceLoader/17923874/calendar.HtmlCalendarRenderer/images/calendar.gif" style="vertical-align:bottom;"/>
+<i>até</i>
+<input id="formListaCursosEventosExtensao:periodoFim" maxlength="10" name="formListaCursosEventosExtensao:periodoFim" onchange="javascript:$('formListaCursosEventosExtensao:selectBuscaPeriodo').checked = true;" onclick="selectText('null', 'formListaCursosEventosExtensao:periodoFim')" onfocus="selectText('null', 'formListaCursosEventosExtensao:periodoFim')" onkeypress="return(formatarMascara(this,event,'##/##/####'))" size="10" type="text"/><span id="formListaCursosEventosExtensao:periodoFimSpan"></span><script type="text/javascript">formListaCursosEventosExtensao_3AperiodoFimCalendarVar=new org_apache_myfaces_PopupCalendar();
+formListaCursosEventosExtensao_3AperiodoFimCalendarVar.initData.imgDir = "\/sigaa\/faces\/myFacesExtensionResource\/org.apache.myfaces.renderkit.html.util.MyFacesResourceLoader\/17923874\/calendar.HtmlCalendarRenderer\/DB\/";
+formListaCursosEventosExtensao_3AperiodoFimCalendarVar.initData.monthName = new Array("Janeiro","Fevereiro","Mar\u00E7o","Abril","Maio","Junho","Julho","Agosto","Setembro","Outubro","Novembro","Dezembro");
+formListaCursosEventosExtensao_3AperiodoFimCalendarVar.initData.dayName = new Array("Dom","Seg","Ter","Qua","Qui","Sex","S\u00E1b");
+formListaCursosEventosExtensao_3AperiodoFimCalendarVar.initData.startAt = 0;
+formListaCursosEventosExtensao_3AperiodoFimCalendarVar.dateFormatSymbols.weekdays = new Array("Domingo","Segunda-feira","Ter\u00E7a-feira","Quarta-feira","Quinta-feira","Sexta-feira","S\u00E1bado");
+formListaCursosEventosExtensao_3AperiodoFimCalendarVar.dateFormatSymbols.shortWeekdays = new Array("Dom","Seg","Ter","Qua","Qui","Sex","S\u00E1b");
+formListaCursosEventosExtensao_3AperiodoFimCalendarVar.dateFormatSymbols.shortMonths = new Array("Jan","Fev","Mar","Abr","Mai","Jun","Jul","Ago","Set","Out","Nov","Dez");
+formListaCursosEventosExtensao_3AperiodoFimCalendarVar.dateFormatSymbols.months = new Array("Janeiro","Fevereiro","Mar\u00E7o","Abril","Maio","Junho","Julho","Agosto","Setembro","Outubro","Novembro","Dezembro");
+formListaCursosEventosExtensao_3AperiodoFimCalendarVar.dateFormatSymbols.eras = new Array("BC","AD");
+formListaCursosEventosExtensao_3AperiodoFimCalendarVar.dateFormatSymbols.ampms = new Array("AM","PM");
+formListaCursosEventosExtensao_3AperiodoFimCalendarVar.initData.todayString = "Hoje \u00E9";
+formListaCursosEventosExtensao_3AperiodoFimCalendarVar.initData.todayDateFormat = "dd\/MM\/yyyy";
+formListaCursosEventosExtensao_3AperiodoFimCalendarVar.initData.popupLeft = false;
+
+formListaCursosEventosExtensao_3AperiodoFimCalendarVar.init(document.getElementById('formListaCursosEventosExtensao:periodoFimSpan'));
+</script><img onclick="formListaCursosEventosExtensao_3AperiodoFimCalendarVar._popUpCalendar(this,document.getElementById('formListaCursosEventosExtensao:periodoFim'),'dd/MM/yyyy')" src="/sigaa/faces/myFacesExtensionResource/org.apache.myfaces.renderkit.html.util.MyFacesResourceLoader/17923874/calendar.HtmlCalendarRenderer/images/calendar.gif" style="vertical-align:bottom;"/></td>
+</tr>
+</tbody>
+<tfoot>
+<tr>
+<td colspan="3">
+<input id="formListaCursosEventosExtensao:cmdFiltarPeriodosInscricao" name="formListaCursosEventosExtensao:cmdFiltarPeriodosInscricao" type="submit" value="Filtrar"/>
+</td>
+</tr>
+</tfoot>
+</table>
+<div class="infoAltRem">
+<img src="/sigaa/img/view.gif" style="overflow: visible;"/>: Ver Detalhes do Curso ou Evento de Extensão.
+		    			<img src="/sigaa/img/seta.gif" style="overflow: visible;"/>: Inscrever-se
+		    			<img src="/sigaa/img/biblioteca/emprestimos_ativos.png" style="cursor: pointer" title="Visualizar Menu"/>: Mini Atividades.
+					</div>
+<table class="listagem" style="width:100%;">
+<caption class="listagem">Inscrições Abertas ( 4 ) </caption>
+<thead>
+<tr>
+<th rowspan="2" style="width: 50%;">Título</th>
+<th rowspan="2" width="10%">Tipo</th>
+<th rowspan="2" style="text-align:center">Inscrições até</th>
+<th colspan="6" style="text-align:center;">Vagas</th>
+<th rowspan="2" width="1%"></th>
+<th rowspan="2" width="1%"></th>
+</tr>
+<tr>
+<th style="text-align:right">Total</th>
+<th style="text-align:right">Aprovadas</th>
+<th style="text-align:right">Pendentes</th>
+<th style="text-align:right">Restantes</th>
+<th colspan="6"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="linhaPar" onmouseout="javascript:this.style.backgroundColor=''" onmouseover="javascript:this.style.backgroundColor='#C4D2EB'">
+<td>
+<span style="font-weight: bold;">   Saberes Indígenas na Escola - Formação continuada de professores indígenas Potiguara.</span> <br/>
+<font style="font-size: x-small;"> <i>Coordenação: FULANO DE TAL</i> </font><br/>
+</td>
+<td>CURSO</td>
+<td style="text-align:center">
+										19/10/2026
+										
+										
+									</td>
+<td style="text-align:right">140</td>
+<td style="text-align:right">24</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">116</td>
+<td align="center">
+</td>
+<td align="center">
+<script language="Javascript" type="text/javascript">function dpf(f) {var adp = f.adp;if (adp != null) {for (var i = 0;i < adp.length;i++) {f.removeChild(adp[i]);}}};function apf(f, pvp) {var adp = new Array();f.adp = adp;var i = 0;for (k in pvp) {var p = document.createElement("input");p.type = "hidden";p.name = k;p.value = pvp[k];f.appendChild(p);adp[i++] = p;}};function jsfcljs(f, pvp, t) {apf(f, pvp);var ft = f.target;if (t) {f.target = t;}f.submit();f.target = ft;dpf(f);};</script>
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formListaCursosEventosExtensao'),{'formListaCursosEventosExtensao:j_id_jsp_2097446562_22':'formListaCursosEventosExtensao:j_id_jsp_2097446562_22','idAtividadeExtensaoSelecionada':'15852','idQtdSubatividadeExtensao':'0'},'');}return false" title="Ver Detalhes do Curso ou Evento de Extensão. "><img src="/sigaa/img/view.gif"/></a>
+</td>
+<td align="center">
+<a href="/sigaa/link/public/extensao/acessarAreaInscrito" title="Inscrever-se"><img src="/sigaa/img/seta.gif"/></a>
+</td>
+</tr>
+<!-- LISTA  MINI ATIVIDADES -->
+<tr class="linhaPar" id="atividade15852" style="display: none">
+<td colspan="10">
+<table class="listagemSub" style="width:100%;">
+<caption>Mini Atividades</caption>
+<thead>
+<tr>
+<th rowspan="1" style="width: 50%;"> <font style="font-size: x-small;">Título</font></th>
+<th align="left" rowspan="1" width="15%"><font style="font-size: x-small;">Data Realização</font></th>
+<th width="10%"><font style="font-size: x-small;">Hora</font></th>
+<th rowspan="1" style="width: 30%;"><font style="font-size: x-small;">Local</font></th>
+</tr>
+</thead>
+<tbody>
+</tbody>
+</table>
+</td>
+</tr>
+<tr class="linhaImpar" onmouseout="javascript:this.style.backgroundColor=''" onmouseover="javascript:this.style.backgroundColor='#C4D2EB'">
+<td>
+<span style="font-weight: bold;">I Simpósio de Gestão em Saúde da UFPB</span> <br/>
+<font style="font-size: x-small;"> <i>Coordenação: CICLANO DA SILVA</i> </font><br/>
+</td>
+<td>EVENTO</td>
+<td style="text-align:center">
+										26/10/2026
+										
+										
+									</td>
+<td style="text-align:right">70</td>
+<td style="text-align:right">52</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">18</td>
+<td align="center">
+</td>
+<td align="center">
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('formListaCursosEventosExtensao'),{'formListaCursosEventosExtensao:j_id_jsp_2097446562_22j_id_1':'formListaCursosEventosExtensao:j_id_jsp_2097446562_22j_id_1','idAtividadeExtensaoSelecionada':'16182','idQtdSubatividadeExtensao':'0'},'');}return false" title="Ver Detalhes do Curso ou Evento de Extensão. "><img src="/sigaa/img/view.gif"/></a>
+</td>
+<td align="center">
+<a href="/sigaa/link/public/extensao/acessarAreaInscrito" title="Inscrever-se"><img src="/sigaa/img/seta.gif"/></a>
+</td>
+</tr>
+<!-- LISTA  MINI ATIVIDADES -->
+<tr class="linhaImpar" id="atividade16182" style="display: none">
+<td colspan="10">
+<table class="listagemSub" style="width:100%;">
+<caption>Mini Atividades</caption>
+<thead>
+<tr>
+<th rowspan="1" style="width: 50%;"> <font style="font-size: x-small;">Título</font></th>
+<th align="left" rowspan="1" width="15%"><font style="font-size: x-small;">Data Realização</font></th>
+<th width="10%"><font style="font-size: x-small;">Hora</font></th>
+<th rowspan="1" style="width: 30%;"><font style="font-size: x-small;">Local</font></th>
+</tr>
+</thead>
+<tbody>
+</tbody>
+</table>
+</td>
+</tr>
+
+<!-- LISTA  MINI ATIVIDADES -->
+
+
+<!-- LISTA  MINI ATIVIDADES -->
+
+</tbody>
+</table>
+<input id="javax.faces.ViewState" name="javax.faces.ViewState" type="hidden" value="j_id1"/>
+</form>
+<br/>
+<br/>
+<div style="width: 80%; text-align: center; margin: 0 auto;">
+<a href="/sigaa/public/home.jsf" style="color: #404E82;">&lt;&lt; voltar ao menu principal</a>
+</div>
+<br/>
+</div> <!-- fecha ufrn-container -->
+<div class="push"></div>
+</div> <!-- fecha wrapper -->
+<div id="ufrn-rodape">
+<div class="ufrn-container">
+<div class="rodape-sinfo">
+<a href="">
+<img alt="STI - Superintendência de Tecnologia da Informação" src="/sigaa/shared/beta/img/sti_logo_preto_branco.png" title="STI - Superintendência de Tecnologia da Informação" width="60px"/>
+</a>
+</div>
+<div class="rodape-informacao-sistema">
+			SIGAA - 26.10.6 -| STI - Superintendência de Tecnologia da Informação | Copyright © 2006-2026 - UFPB
+		</div>
+<div class="rodape-redes-sociais">
+</div>
+</div>
+</div>
+<!-- MYFACES JAVASCRIPT -->
+</body>
+</html>

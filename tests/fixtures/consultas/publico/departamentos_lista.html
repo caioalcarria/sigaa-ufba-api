@@ -1,0 +1,227 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta content="no-cache" http-equiv="Pragma"/>
+<title>SIGAA - Sistema Integrado de Gestão de Atividades Acadêmicas</title>
+<link class="component" href="/sigaa/a4j/s/3_3_3.Finalorg/richfaces/renderkit/html/css/basic_classes.xcss/DATB/eAF7sqpgb-jyGdIAFrMEaw__.jsf" rel="stylesheet" type="text/css"/><link class="component" href="/sigaa/a4j/s/3_3_3.Finalorg/richfaces/renderkit/html/css/extended_classes.xcss/DATB/eAF7sqpgb-jyGdIAFrMEaw__.jsf" media="rich-extended-skinning" rel="stylesheet" type="text/css"/><script type="text/javascript">window.RICH_FACES_EXTENDED_SKINNING_ON=true;</script><script src="/sigaa/a4j/g/3_3_3.Finalorg/richfaces/renderkit/html/scripts/skinning.js.jsf" type="text/javascript"></script><link href="/sigaa/img/sigaa.ico" rel="shortcut icon"/>
+<script src="/shared/jsBundles/jawr_loader.js" type="text/javascript"></script>
+<script src="/sigaa/javascript/prevenir-duplo-clique.js" type="text/javascript"></script>
+<script type="text/javascript">
+		JAWR.loader.style('/javascript/ext-2.0.a.1/resources/css/ext-all.css', 'all');
+		JAWR.loader.style('/css/public.css','all');
+	 	JAWR.loader.script('/bundles/js/sigaa_base.js');
+	 	JAWR.loader.script('/bundles/js/ext2_all.js');
+
+	 	
+	</script>
+<link href="/sigaa/cssBundles/gzip_787491763/public/css/public.css" media="all" rel="stylesheet" type="text/css"/>
+<link href="/shared/beta/css/font-awesome.css" media="screen" rel="stylesheet" type="text/css"/>
+<script src="/shared/javascript/STICookieConsent.js"></script>
+<script>
+	    document.addEventListener("DOMContentLoaded", () => {
+	    	generateCookieConsentModal("SIGAA", "N&#243;s usamos cookies para melhorar sua experi&#234;ncia de navega&#231;&#227;o no portal. Ao utilizar o %sitename%, voc&#234; concorda com a pol&#237;&#173;tica de monitoramento de cookies. Para ter mais informa&#231;&#245;es sobre como isso &#233; feito e como remover, acesse a <a href=%cookie-policy%>Pol&#237;tica de Privacidade</a>. Para saber como a UFRN trata os dados, acesse a <a href=%privacy-policy%> Pol&#237;&#173;tica de cookies</a>. Se voc&#234; concorda, clique em %button-text%.", "https://ufrn.br/institucional/politica-de-privacidade-e-termos-de-uso", "https://ufrn.br/institucional/politica-de-cookies");
+	    })
+	</script>
+</head>
+<body>
+<div id="container">
+<div id="container-inner">
+<div id="cabecalho">
+<div id="logo">
+<a href="/sigaa/public/"> <img src="https://sipac.ufba.br/shared/img/instituicao/brasao_ufba48x75.jpg"/> </a>
+</div>
+<div id="identificacao">
+<span class="ufrn"> Universidade Federal da Bahia </span>
+<span class="data">
+				 Salvador, 
+				 19 de Outubro de 
+				 2026 
+			</span>
+<a href="/sigaa/public/" id="home" style="width: 450px;" title="Página inicial"> </a>
+<div id="menu_info">
+<ul>
+<li class="login">
+<a alt="Clique aqui para logar-se no SIGAA" href="/sigaa/" title="Clique aqui para logar-se no SIGAA">
+							Login
+						<i class="fa fa-angle-right"></i></a>
+</li>
+</ul>
+</div>
+</div>
+<br clear="all"/>
+</div>
+<div id="corpo">
+<script src="/shared/javascript/prototype.js" type="text/javascript"></script>
+<script type="text/javascript">
+        JAWR.loader.script('/bundles/js/scriptaculous.js');
+		JAWR.loader.script('/javascript/ajaxtags/overlibmws.js');
+		JAWR.loader.script('/javascript/ajaxtags/ajaxtags.js');
+		JAWR.loader.style('/javascript/ajaxtags/css/ajaxtags.css');
+     </script>
+<style>
+	tr.agrupador {background: #C8D5EC;font-weight: bold;padding-left: 20px;}
+	td.foto {padding: 2px 5px;}
+	span.programa {display: block;}
+	span.pagina {display: block;margin-top: 10px;}
+	span.pagina a {padding-left: 20px;background: url(/sigaa/public/images/docente/icones/perfil.png) no-repeat;color: #D59030;}
+</style>
+<h2> Departamentos da UFBA </h2>
+<div class="descricaoOperacao">
+		Nesta página você encontrará  os departamentos da UFBA, organizados pelos seus respectivos centros.
+	</div>
+<form action="/sigaa/public/departamento/lista.jsf" enctype="application/x-www-form-urlencoded" id="form" method="post" name="form">
+<input name="form" type="hidden" value="form"/>
+<table align="center" class="formulario" width="455px">
+<caption class="listagem">Informe os critérios de consulta</caption>
+<tr>
+<td align="right" width="78px"> Centros:</td>
+<td>
+<select id="form:programas" name="form:programas" size="1"> <option value="0"> -- TODOS -- </option>
+<option value="1283">ESCOLA DE ADMINISTRAÇÃO</option>
+<option value="1235">ESCOLA DE BELAS ARTES</option>
+<option value="1354">ESCOLA DE DANÇA</option>
+<option value="1252">ESCOLA DE ENFERMAGEM</option>
+<option value="1336">ESCOLA DE MEDICINA VETERINÁRIA E ZOOTECNIA</option>
+<option value="1292">ESCOLA DE MÚSICA</option>
+<option value="1302">ESCOLA DE NUTRIÇÃO</option>
+<option value="1361">ESCOLA DE TEATRO</option>
+<option value="1200">ESCOLA POLITÉCNICA</option>
+<option value="1274">FACULDADE DE ARQUITETURA</option>
+<option value="1369">FACULDADE DE CIÊNCIAS CONTÁBEIS</option>
+<option value="1348">FACULDADE DE COMUNICAÇÃO</option>
+<option value="1193">FACULDADE DE DIREITO</option>
+<option value="1245">FACULDADE DE ECONOMIA</option>
+<option value="1316">FACULDADE DE EDUCAÇÃO</option>
+<option value="2697">FACULDADE DE EDUCAÇÃO FÍSICA</option>
+<option value="1258">FACULDADE DE FARMÁCIA</option>
+<option value="1218">FACULDADE DE FILOSOFIA E CIÊNCIAS HUMANAS</option>
+<option value="1175">FACULDADE DE MEDICINA DA BAHIA</option>
+<option value="1266">FACULDADE DE ODONTOLOGIA</option>
+<option value="1137">INSTITUTO DE BIOLOGIA</option>
+<option value="1308">INSTITUTO DE CIÊNCIA DA INFORMAÇÃO</option>
+<option value="2291">INSTITUTO DE CIÊNCIA, TECNOLOGIA E INOVAÇÃO</option>
+<option value="1167">INSTITUTO DE CIÊNCIAS DA SAÚDE</option>
+<option selected="selected" value="2435">INSTITUTO DE COMPUTAÇÃO</option>
+<option value="1120">INSTITUTO DE FÍSICA</option>
+<option value="1144">INSTITUTO DE GEOCIÊNCIAS</option>
+<option value="1780">INSTITUTO DE HUMANIDADES, ARTES E CIÊNCIAS PROFESSOR MILTON SANTOS</option>
+<option value="1158">INSTITUTO DE LETRAS</option>
+<option value="1112">INSTITUTO DE MATEMÁTICA E ESTATÍSTICA</option>
+<option value="1779">INSTITUTO DE PSICOLOGIA E SERVIÇO SOCIAL</option>
+<option value="1128">INSTITUTO DE QUÍMICA</option>
+<option value="1105">INSTITUTO DE SAÚDE COLETIVA</option>
+<option value="2439">INSTITUTO MULTIDISCIPLINAR DE REABILITAÇÃO E SAÚDE</option>
+<option value="1791">INSTITUTO MULTIDISCIPLINAR EM SAÚDE</option>
+</select>
+</td>
+</tr>
+<tfoot>
+<tr>
+<td colspan="2">
+<!-- INICIO REDMINE #31317 Bot&#245;es buscar e cancelar est&#227;o colados no public - SIGPROJECT #150421 -->
+<input id="form:buscar" name="form:buscar" type="submit" value="Buscar"/>
+						 
+						<input id="form:cancelar" name="form:cancelar" onclick="return confirm('Deseja cancelar a operação? Todos os dados digitados serão perdidos!');" type="submit" value="Cancelar"/>
+<!-- INICIO REDMINE #31317 Bot&#245;es buscar e cancelar est&#227;o colados no public - SIGPROJECT #150421 -->
+</td>
+</tr>
+</tfoot>
+</table>
+<input id="javax.faces.ViewState" name="javax.faces.ViewState" type="hidden" value="j_id7"/>
+</form>
+<br/>
+<table class="listagem" style="width: 75%;">
+<caption>DEPARTAMENTOS ENCONTRADOS</caption>
+<tbody>
+<tr>
+<td class="subListagem" colspan="2">
+<span class="departamento">INSTITUTO DE COMPUTAÇÃO</span>
+</td>
+</tr>
+<tr class="linhaPar">
+<td>
+<a href="portal.jsf?lc=pt_BR&amp;id=1114" style="link">
+						DEPARTAMENTO DE CIÊNCIA DA COMPUTAÇÃO /IC<br/>
+</a>
+</td>
+<td class="linhaPar" width="18px">
+<a href="/sigaa/public/departamento/portal.jsf?id=1114" title="Clique aqui para acessar a página pública deste departamento">
+<img src="/sigaa/img/view.gif"/>
+</a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td>
+<a href="portal.jsf?lc=pt_BR&amp;id=2440" style="link">
+						DEPARTAMENTO DE COMPUTAÇÃO INTERDISCIPLINAR /IC<br/>
+</a>
+</td>
+<td class="linhaImpar" width="18px">
+<a href="/sigaa/public/departamento/portal.jsf?id=2440" title="Clique aqui para acessar a página pública deste departamento">
+<img src="/sigaa/img/view.gif"/>
+</a>
+</td>
+</tr>
+</tbody>
+<tfoot>
+<tr>
+<td align="center" colspan="3"> <b>2 Departamento(s) encontrado(s) </b></td>
+</tr>
+</tfoot>
+</table>
+<br/>
+<center>
+<a href="javascript: history.go(-1);"> &lt;&lt; Voltar </a>
+</center>
+<br/>
+<div class="clear"></div>
+</div>
+<div id="rodape">
+<p> <!-- Redmine 24523 - Telas e relat&#243;rios com rodap&#233;s sem a altera&#231;&#227;o - Portal P&#250;blico -->
+			SIGAA | STI/SUPAC | -  | Copyright © 2006-2026 - UFBA - sigaapl03.intranet.ufba.br
+			 
+				<a onclick="javascript:versao();">v4.13.8_41_hotfix</a>
+</p>
+</div>
+<!-- Fim dos containers -->
+</div>
+</div>
+<!-- MYFACES JAVASCRIPT -->
+</body>
+</html>
+<html><script charset="UTF-8" type="text/javascript">
+		function versao(){
+			var msg='';
+			msg+='SIGAA 4.13.8_41_hotfix,  publicado em: 25/09/2026 16:18\n\n';
+			msg+='Depend\u00eancias:\n';
+			msg+='Arquitetura 4.4.5\n';
+			msg+='Entidades Comuns 2.3.3\n';
+			msg+='Servicos Integrados 2.0.8\n';
+			msg+='SharedResources 2.1.4\n';
+			msg+='Servicos Remoto Biblioteca null\n';
+			msg+='SIGAA Mobile Objects 1.0.0\n\n';
+			msg+='Copyright SINFO/UFRN';
+			alert(msg);
+		}	
+	</script>
+<style>
+a.linkMobile:link {
+	color: #003395;
+	font-weight: bold;
+	font-size: inherit;
+	text-decoration: none;
+}
+
+a.linkMobile:visited {
+	color: #003390;
+	text-decoration: none;
+	font-weight: bold;
+}
+
+a.linkMobile:active {
+	color: #444444;
+	text-decoration: none;
+	font-weight: bold;
+}
+</style>
+</html>

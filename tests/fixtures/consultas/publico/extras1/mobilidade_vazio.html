@@ -1,0 +1,455 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<link href="/sigaa/faces/myFacesExtensionResource/org.apache.myfaces.renderkit.html.util.MyFacesResourceLoader/17923910/calendar.HtmlCalendarRenderer/WH/theme.css" rel="stylesheet" type="text/css"/>
+<link href="/sigaa/faces/myFacesExtensionResource/org.apache.myfaces.renderkit.html.util.MyFacesResourceLoader/17923910/calendar.HtmlCalendarRenderer/DB/theme.css" rel="stylesheet" type="text/css"/>
+<script src="/sigaa/faces/myFacesExtensionResource/org.apache.myfaces.renderkit.html.util.MyFacesResourceLoader/17923910/prototype.PrototypeResourceLoader/prototype.js" type="text/javascript"></script>
+<script src="/sigaa/faces/myFacesExtensionResource/org.apache.myfaces.renderkit.html.util.MyFacesResourceLoader/17923910/calendar.HtmlCalendarRenderer/date.js" type="text/javascript"></script>
+<script src="/sigaa/faces/myFacesExtensionResource/org.apache.myfaces.renderkit.html.util.MyFacesResourceLoader/17923910/calendar.HtmlCalendarRenderer/popcalendar.js" type="text/javascript"></script>
+<script src="/sigaa/faces/myFacesExtensionResource/org.apache.myfaces.renderkit.html.util.MyFacesResourceLoader/17923910/inputTextHelp.HtmlTextHelpRenderer/inputTextHelp.js" type="text/javascript"></script>
+<meta content="no-cache" http-equiv="Pragma"/>
+<title>SIGAA - Sistema Integrado de Gestão de Atividades Acadêmicas</title>
+<link class="component" href="/sigaa/a4j/s/3_3_3.Finalorg/richfaces/renderkit/html/css/basic_classes.xcss/DATB/eAF7sqpgb-jyGdIAFrMEaw__.jsf" rel="stylesheet" type="text/css"/><link class="component" href="/sigaa/a4j/s/3_3_3.Finalorg/richfaces/renderkit/html/css/extended_classes.xcss/DATB/eAF7sqpgb-jyGdIAFrMEaw__.jsf" media="rich-extended-skinning" rel="stylesheet" type="text/css"/><script type="text/javascript"></script><script src="/sigaa/a4j/g/3_3_3.Finalorg/richfaces/renderkit/html/scripts/skinning.js.jsf" type="text/javascript"></script><link href="/sigaa/img/sigaa.ico" rel="shortcut icon"/>
+<script src="/shared/jsBundles/jawr_loader.js" type="text/javascript"></script>
+<script src="/sigaa/javascript/prevenir-duplo-clique.js" type="text/javascript"></script>
+<script type="text/javascript"></script>
+<link href="/sigaa/cssBundles/gzip_787491763/public/css/public.css" media="all" rel="stylesheet" type="text/css"/>
+<link href="/shared/beta/css/font-awesome.css" media="screen" rel="stylesheet" type="text/css"/>
+<script src="/shared/javascript/STICookieConsent.js"></script>
+<script></script>
+</head>
+<body>
+<div id="container">
+<div id="container-inner">
+<div id="cabecalho">
+<div id="logo">
+<a href="/sigaa/public/"> <img src="https://sipac.ufba.br/shared/img/instituicao/brasao_ufba48x75.jpg"/> </a>
+</div>
+<div id="identificacao">
+<span class="ufrn"> Universidade Federal da Bahia </span>
+<span class="data">
+				 Salvador, 
+				 19 de Outubro de 
+				 2026 
+			</span>
+<a href="/sigaa/public/" id="home" style="width: 450px;" title="Página inicial"> </a>
+<div id="menu_info">
+<ul>
+<li class="login">
+<a alt="Clique aqui para logar-se no SIGAA" href="/sigaa/" title="Clique aqui para logar-se no SIGAA">
+							Login
+						<i class="fa fa-angle-right"></i></a>
+</li>
+</ul>
+</div>
+</div>
+<br clear="all"/>
+</div>
+<div id="corpo">
+<script src="/sigaa/javascript/encoding.js" type="text/javascript"></script>
+<div id="painel-erros" style="position: relative; padding-bottom: 10px;">
+<ul class="erros">
+<li>Não foram encontrados resultados para a busca com estes parâmetros</li>
+</ul>
+<div id="fechar-painel-erros" style="position: absolute; bottom: 2px; right: 2px;">
+<a href="javascript://nop/" onclick="$('painel-erros').remove();" style="color: #AAA; font-size: 0.9em;">
+					(x) fechar mensagens
+				</a>
+</div>
+</div>
+<script src="/shared/javascript/prototype.js" type="text/javascript"></script>
+<script type="text/javascript"></script>
+<h2> Acordos de Cooperação </h2>
+<div class="descricaoOperacao" style="text-align: center;">
+		Nesta página você encontrará os acordos de cooperação de qualquer instituição.
+	</div>
+<form action="/sigaa/public/acordo_mobilidade/acordos_mobilidade.jsf" enctype="application/x-www-form-urlencoded" id="formulario" method="post" name="formulario">
+<input name="formulario" type="hidden" value="formulario"/>
+<input name="paginaInicial" type="hidden" value="0"/>
+<table align="center" class="formulario" width="70%">
+<caption> Informe os critérios de Busca </caption>
+<tbody>
+<tr>
+<td>
+<input id="formulario:filtroPais" name="formulario:filtroPais" style="noborder" type="checkbox"/>
+</td>
+<td onclick="$('form:filtroPais').checked=!$('form:filtroPais').checked=true;" style="text-align: left;" width="20%">País:</td>
+<td>
+<select id="formulario:pais" name="formulario:pais" onfocus="getEl('formulario:filtroPais').dom.checked = true;" size="1"> <option selected="selected" value="0">--SELECIONE--</option>
+<option value="2">Afeganistão</option>
+<option value="5">Albânia</option>
+<option value="187">Alemanha</option>
+<option value="7">Andorra</option>
+<option value="8">Angola</option>
+<option value="14">Antartida</option>
+<option value="6">Antigua</option>
+<option value="4">Antilhas Holandesas</option>
+<option value="10">Argentina</option>
+<option value="11">Argélia</option>
+<option value="12">Armênia</option>
+<option value="9">Arábia Saudita</option>
+<option value="16">Austria</option>
+<option value="15">Austrália</option>
+<option value="17">Azerbaijão</option>
+<option value="24">Bahamas</option>
+<option value="23">Bangladesh</option>
+<option value="32">Barbados</option>
+<option value="18">Barein</option>
+<option value="19">Belarus</option>
+<option value="27">Belize</option>
+<option value="21">Benin</option>
+<option value="22">Bermudas</option>
+<option value="25">Birmânia</option>
+<option value="28">Bolívia</option>
+<option value="30">Botsuana</option>
+<option value="31">Brasil</option>
+<option value="113">Britsh Indian Ocean</option>
+<option value="33">Brunei</option>
+<option value="34">Bulgária</option>
+<option value="26">Burkina Fasso</option>
+<option value="35">Burundi</option>
+<option value="36">Butão</option>
+<option value="20">Bélgica</option>
+<option value="29">Bósnia</option>
+<option value="42">Cabo Verde</option>
+<option value="37">Camarões</option>
+<option value="41">Camboja</option>
+<option value="38">Canadá</option>
+<option value="39">Catar</option>
+<option value="40">Cazaquistão</option>
+<option value="44">Chade</option>
+<option value="45">Chile</option>
+<option value="46">China</option>
+<option value="47">Chipre</option>
+<option value="59">Christmas Island</option>
+<option value="48">Cingapura</option>
+<option value="51">Colômbia</option>
+<option value="52">Comores</option>
+<option value="55">Coréia do Norte</option>
+<option value="57">Coréia do Sul</option>
+<option value="54">Costa Rica</option>
+<option value="49">Costa do Marfim</option>
+<option value="56">Croácia</option>
+<option value="58">Cuba</option>
+<option value="61">Dinamarca</option>
+<option value="62">Djibuti</option>
+<option value="64">Dominica</option>
+<option value="66">Egito</option>
+<option value="67">El Salvador</option>
+<option value="65">Emirados Árabes</option>
+<option value="68">Equador</option>
+<option value="69">Eritréa</option>
+<option value="70">Escócia</option>
+<option value="208">Eslováquia</option>
+<option value="209">Eslovênia</option>
+<option value="72">Espanha</option>
+<option value="6361103">Estado da Palestina</option>
+<option value="75">Estados Unidos</option>
+<option value="73">Estônia</option>
+<option value="74">Etiópia</option>
+<option value="78">Fiji</option>
+<option value="76">Filipinas</option>
+<option value="77">Finlândia</option>
+<option value="80">Formosa</option>
+<option value="81">França</option>
+<option value="83">Gabão</option>
+<option value="86">Gana</option>
+<option value="89">Geórgia</option>
+<option value="91">Gibraltar</option>
+<option value="95">Granada</option>
+<option value="97">Groênlandia</option>
+<option value="87">Grã-Bretanha</option>
+<option value="96">Grécia</option>
+<option value="88">Guadalupe</option>
+<option value="100">Guam</option>
+<option value="98">Guatemala</option>
+<option value="99">Guiana</option>
+<option value="90">Guiana Francesa</option>
+<option value="93">Guiné</option>
+<option value="94">Guiné Equatorial</option>
+<option value="92">Guiné-Bissau</option>
+<option value="85">Gâmbia</option>
+<option value="104">Haiti</option>
+<option value="102">Holanda</option>
+<option value="103">Honduras</option>
+<option value="101">Hong Kong</option>
+<option value="105">Hungria</option>
+<option value="60">Ilhas Cayman</option>
+<option value="43">Ilhas Cocos</option>
+<option value="50">Ilhas Cook</option>
+<option value="79">Ilhas Falkland</option>
+<option value="108">Ilhas Faroe</option>
+<option value="109">Ilhas Marshall</option>
+<option value="149">Ilhas Midway</option>
+<option value="161">Ilhas Norfolk</option>
+<option value="196">Ilhas Salomão</option>
+<option value="194">Ilhas Santa Helena</option>
+<option value="214">Ilhas Turcas Caicos</option>
+<option value="122">Ilhas Vírgens EUA</option>
+<option value="233">Ilhas Vírgens GBR</option>
+<option value="236">Ilhas Wake</option>
+<option value="237">Ilhas Wallis Futuna</option>
+<option value="106">Indonésia</option>
+<option value="112">Inglaterra</option>
+<option value="117">Iraque</option>
+<option value="115">Irlanda</option>
+<option value="116">Irlanda do Norte</option>
+<option value="114">Irã</option>
+<option value="118">Islândia</option>
+<option value="119">Israel</option>
+<option value="120">Itália</option>
+<option value="121">Iugoslávia</option>
+<option value="107">Iêmem</option>
+<option value="110">Iêmen do Sul</option>
+<option value="123">Jamaica</option>
+<option value="124">Japão</option>
+<option value="125">Jordânia</option>
+<option value="126">Kiribati</option>
+<option value="128">Kuweit</option>
+<option value="129">Laos</option>
+<option value="133">Lesoto</option>
+<option value="134">Letônia</option>
+<option value="131">Libéria</option>
+<option value="136">Liechtenstein</option>
+<option value="137">Lituânia</option>
+<option value="138">Luxemburgo</option>
+<option value="130">Líbano</option>
+<option value="135">Líbia</option>
+<option value="139">Macau</option>
+<option value="145">Macedônia</option>
+<option value="140">Madagascar</option>
+<option value="152">Malavi</option>
+<option value="146">Maldivas</option>
+<option value="150">Mali</option>
+<option value="151">Malta</option>
+<option value="141">Malásia</option>
+<option value="142">Marrocos</option>
+<option value="156">Martinica</option>
+<option value="158">Mauritânia</option>
+<option value="143">Maurício</option>
+<option value="153">Mianmar</option>
+<option value="82">Micronésia</option>
+<option value="154">Moldova</option>
+<option value="148">Mongólia</option>
+<option value="157">Montserrat</option>
+<option value="144">Moçambique</option>
+<option value="147">México</option>
+<option value="155">Mônaco</option>
+<option value="159">Namíbia</option>
+<option value="168">Nauru</option>
+<option value="167">Nepal</option>
+<option value="163">Nicarágua</option>
+<option value="164">Niger</option>
+<option value="162">Nigéria</option>
+<option value="165">Niue</option>
+<option value="166">Noruega</option>
+<option value="160">Nova Caledônia</option>
+<option value="169">Nova Zelândia</option>
+<option value="-1">Não Informado</option>
+<option value="170">Omã</option>
+<option value="173">Pacific Islands</option>
+<option value="177">Palau</option>
+<option value="171">Panamá</option>
+<option value="178">Papua Nova Guiné</option>
+<option value="172">Paquistão</option>
+<option value="181">Paraguai</option>
+<option value="84">País de Gales</option>
+<option value="175">Peru</option>
+<option value="174">Pitcairn</option>
+<option value="176">Polinésia Francesa</option>
+<option value="179">Polônia</option>
+<option value="182">Porto Rico</option>
+<option value="180">Portugal</option>
+<option value="184">Quirgistão</option>
+<option value="183">Quênia</option>
+<option value="185">Rep.Centro-Africana</option>
+<option value="53">República Democrática do Congo</option>
+<option value="63">República Dominicana</option>
+<option value="215">República Tcheca</option>
+<option value="190">República Tcheca</option>
+<option value="5988284">República do Congo</option>
+<option value="186">Reunião</option>
+<option value="188">Romênia</option>
+<option value="191">Ruanda</option>
+<option value="189">Rússia</option>
+<option value="13">Samoa Americana</option>
+<option value="192">Samoa Ocidental</option>
+<option value="197">San Marino</option>
+<option value="132">Santa Lúcia</option>
+<option value="193">Senegal</option>
+<option value="201">Serra Leoa</option>
+<option value="210">Seychelles</option>
+<option value="198">Somália</option>
+<option value="200">Sri Lanka</option>
+<option value="203">Suazilândia</option>
+<option value="204">Sudão</option>
+<option value="206">Suiça</option>
+<option value="207">Suriname</option>
+<option value="205">Suécia</option>
+<option value="127">São Cristóvão Nevis</option>
+<option value="199">São Pedro Miquelon</option>
+<option value="202">São Tomé e Príncipe</option>
+<option value="231">São Vicente Granadi</option>
+<option value="195">Síria</option>
+<option value="211">Tadjaquistão</option>
+<option value="212">Tailândia</option>
+<option value="213">Tanzânia</option>
+<option value="218">Timor-Leste</option>
+<option value="216">Togo</option>
+<option value="217">Tokelau</option>
+<option value="219">Tonga</option>
+<option value="220">Trinidad e Tobago</option>
+<option value="222">Tunísia</option>
+<option value="221">Turcomenistão</option>
+<option value="223">Turquia</option>
+<option value="224">Tuvalu</option>
+<option value="225">Ucrânia</option>
+<option value="226">Uganda</option>
+<option value="227">União Soviética</option>
+<option value="228">Uruguai</option>
+<option value="229">Uzbekistan</option>
+<option value="235">Vanuatu</option>
+<option value="230">Vaticano</option>
+<option value="232">Venezuela</option>
+<option value="234">Vietnã</option>
+<option value="71">Western Sahara</option>
+<option value="239">Zaire</option>
+<option value="240">Zimbabue</option>
+<option value="238">Zâmbia</option>
+<option value="3">África do Sul</option>
+<option value="111">Índia</option>
+</select>
+</td>
+</tr>
+<tr>
+<td>
+<input id="formulario:filtroInstituicao" name="formulario:filtroInstituicao" style="noborder" type="checkbox"/>
+</td>
+<td onclick="$('form:filtroInstituicao').checked=!$('form:filtroInstituicao').checked=true;" style="text-align: left;">Instituição:</td>
+<td colspan="2">
+<input name="formulario:j_id_jsp_1997965821_7" onfocus="getEl('formulario:filtroInstituicao').dom.checked = true;" size="60" type="text" value=""/>
+</td>
+</tr>
+<tr>
+<td>
+<input id="formulario:filtroSigla" name="formulario:filtroSigla" style="noborder" type="checkbox"/>
+</td>
+<td onclick="$('form:filtroSigla').checked=!$('form:filtroSigla').checked=true;" style="text-align: left;">Sigla:</td>
+<td colspan="2">
+<input maxlength="40" name="formulario:j_id_jsp_1997965821_9" onfocus="getEl('formulario:filtroSigla').dom.checked = true;" size="15" type="text" value=""/>
+</td>
+</tr>
+<tr>
+<td>
+<input id="formulario:filtroAnoAssinatura" name="formulario:filtroAnoAssinatura" style="noborder" type="checkbox"/>
+</td>
+<td onclick="$('form:filtroAnoAssinatura').checked=!$('form:filtroAnoAssinatura').checked=true;" style="text-align: left;">Ano de Assinatura do Acordo:</td>
+<td colspan="2">
+<input maxlength="4" name="formulario:j_id_jsp_1997965821_11" onfocus="getEl('formulario:filtroAnoAssinatura').dom.checked = true;" size="4" type="text"/>
+</td>
+</tr>
+<tr>
+<td>
+<input id="formulario:filtroStatus" name="formulario:filtroStatus" style="noborder" type="checkbox"/>
+</td>
+<td onclick="$('form:filtroStatus').checked=!$('form:filtroStatus').checked=true;" style="text-align: left;">Status:</td>
+<td>
+<select id="formulario:status" name="formulario:status" onfocus="getEl('formulario:filtroStatus').dom.checked = true;" size="1"> <option selected="selected" value="0">--SELECIONE--</option>
+<option selected="selected" value="0">Tramitação</option>
+<option value="1">Ativo</option>
+<option value="2">Aguardando Renovação</option>
+<option value="3">Encerrado</option>
+<option value="4">Negado</option>
+<option value="5">Nova Solicitação</option>
+</select>
+</td>
+</tr>
+<tr>
+<td>
+<input id="formulario:filtroPeriodoVigencia" name="formulario:filtroPeriodoVigencia" style="noborder" type="checkbox"/>
+</td>
+<td onclick="$('form:filtroPeriodoVigencia').checked=!$('form:filtroPeriodoVigencia').checked=true;" style="text-align: left;">Período para o fim da Vigência:</td>
+<td colspan="2">
+<input id="formulario:dataInicio" maxlength="10" name="formulario:dataInicio" onchange="('formulario:filtroPeriodoVigencia').checked = true;" onclick="selectText('null', 'formulario:dataInicio')" onfocus="selectText('null', 'formulario:dataInicio')" onkeypress="return formataData(this,event)" size="10" title="Fim da vigência Inicio" type="text"/><span id="formulario:dataInicioSpan"></span><script type="text/javascript"></script><img onclick="formulario_3AdataInicioCalendarVar._popUpCalendar(this,document.getElementById('formulario:dataInicio'),'dd/MM/yyyy')" src="/sigaa/faces/myFacesExtensionResource/org.apache.myfaces.renderkit.html.util.MyFacesResourceLoader/17923910/calendar.HtmlCalendarRenderer/images/calendar.gif" style="vertical-align:bottom;"/>
+						  a  
+						<input id="formulario:dataFim" maxlength="10" name="formulario:dataFim" onchange="('formulario:filtroPeriodoVigencia').checked = true;" onclick="selectText('null', 'formulario:dataFim')" onfocus="selectText('null', 'formulario:dataFim')" onkeypress="return formataData(this,event)" size="10" title="Fim da Vigência Final" type="text"/><span id="formulario:dataFimSpan"></span><script type="text/javascript"></script><img onclick="formulario_3AdataFimCalendarVar._popUpCalendar(this,document.getElementById('formulario:dataFim'),'dd/MM/yyyy')" src="/sigaa/faces/myFacesExtensionResource/org.apache.myfaces.renderkit.html.util.MyFacesResourceLoader/17923910/calendar.HtmlCalendarRenderer/images/calendar.gif" style="vertical-align:bottom;"/>
+</td>
+</tr>
+</tbody>
+<tfoot>
+<tr>
+<td colspan="3">
+<input id="formulario:btnBusca" name="formulario:btnBusca" onclick="return prevenirDuploClique();" type="submit" value="Buscar"/>  
+						<input id="formulario:btnCancelar" name="formulario:btnCancelar" type="submit" value="Cancelar"/>
+</td>
+</tr>
+</tfoot>
+</table>
+<input id="javax.faces.ViewState" name="javax.faces.ViewState" type="hidden" value="j_id2"/>
+</form>
+<br/>
+<div class="infoAltRem">
+<img src="/sigaa/img/view.gif" style="overflow: visible;"/> : Visualizar Acordo de Cooperação
+	</div>
+<br/>
+<form action="/sigaa/public/acordo_mobilidade/acordos_mobilidade.jsf" enctype="application/x-www-form-urlencoded" id="form" method="post" name="form">
+<input name="form" type="hidden" value="form"/>
+<table class="listagem">
+<caption>Lista de Acordos (0)</caption>
+<tbody>
+<tr>
+<td colspan="5" style="align:center">
+<table width="100%">
+<thead>
+<tr>
+<th class="" scope="col">
+<p align="left">País</p>
+</th>
+<th class="" scope="col">
+<p align="left">Instituição</p>
+</th>
+<th class="" scope="col">
+<p align="left">Sigla</p>
+</th>
+<th class="" scope="col">
+<p align="left">Status</p>
+</th>
+<th class="" scope="col">
+<p align="left">Fim de Vigência</p>
+</th>
+<th class="" scope="col"></th>
+</tr>
+</thead>
+<tbody>
+</tbody>
+</table>
+</td>
+</tr>
+<tr>
+<td align="center" colspan="12">
+							Não há acordos disponíveis
+						</td>
+</tr>
+</tbody>
+</table>
+<input id="javax.faces.ViewState" name="javax.faces.ViewState" type="hidden" value="j_id2"/>
+</form>
+<script type="text/javascript"></script>
+<div class="clear"></div>
+</div>
+<div id="rodape">
+<p> 
+			SIGAA | STI/SUPAC | -  | Copyright © 2006-2026 - UFBA - sigaapl07.intranet.ufba.br
+			 
+				<a onclick="javascript:versao();">v4.13.8_41_hotfix</a>
+</p>
+</div>
+
+</div>
+</div>
+
+</body>
+</html>
+<html><script charset="UTF-8" type="text/javascript"></script>
+<style></style>
+</html>

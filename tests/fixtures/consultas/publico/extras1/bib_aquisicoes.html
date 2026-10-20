@@ -1,0 +1,525 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta content="no-cache" http-equiv="Pragma"/>
+<title>SIGAA - Sistema Integrado de Gestão de Atividades Acadêmicas</title>
+<link class="component" href="/sigaa/a4j/s/3_3_3.Finalorg/richfaces/renderkit/html/css/basic_classes.xcss/DATB/eAF7sqpgb-jyGdIAFrMEaw__.jsf" rel="stylesheet" type="text/css"/><link class="component" href="/sigaa/a4j/s/3_3_3.Finalorg/richfaces/renderkit/html/css/extended_classes.xcss/DATB/eAF7sqpgb-jyGdIAFrMEaw__.jsf" media="rich-extended-skinning" rel="stylesheet" type="text/css"/><script type="text/javascript"></script><script src="/sigaa/a4j/g/3_3_3.Finalorg/richfaces/renderkit/html/scripts/skinning.js.jsf" type="text/javascript"></script><link href="/sigaa/img/sigaa.ico" rel="shortcut icon"/>
+<script src="/shared/jsBundles/jawr_loader.js" type="text/javascript"></script>
+<script src="/sigaa/javascript/prevenir-duplo-clique.js" type="text/javascript"></script>
+<script type="text/javascript"></script>
+<link href="/sigaa/cssBundles/gzip_787491763/public/css/public.css" media="all" rel="stylesheet" type="text/css"/>
+<link href="/shared/beta/css/font-awesome.css" media="screen" rel="stylesheet" type="text/css"/>
+<script src="/shared/javascript/STICookieConsent.js"></script>
+<script></script>
+</head>
+<body>
+<div id="container">
+<div id="container-inner">
+<div id="cabecalho">
+<div id="logo">
+<a href="/sigaa/public/"> <img src="https://sigaa.ufrn.br/shared/img/instituicao/brasao.png"/> </a>
+</div>
+<div id="identificacao">
+<span class="ufrn"> Universidade Federal do Rio Grande do Norte </span>
+<span class="data">
+				 Natal, 
+				 19 de Outubro de 
+				 2026 
+			</span>
+<a href="/sigaa/public/" id="home" style="width: 450px;" title="Página inicial"> </a>
+<div id="menu_info">
+<ul>
+<li class="acessibilidade">
+<a alt="Acessível para pessoas com deficiência visual" href="https://autenticacao.ufrn.br/sso-server/login?service=https://sigaa.ufrn.br/sigaa/login/cas?acessibilidade=true" title="Acessível para pessoas com deficiência visual">
+							Acessível para pessoas com deficiência visual
+						</a>
+</li>
+<li class="cronus">
+<a alt="Registrar frequência" href="https://cronus.ufrn.br/cronus/" title="Registrar frequência">Registrar frequência</a>
+</li>
+<li class="login">
+<a alt="Clique aqui para logar-se no SIGAA" href="/sigaa/" title="Clique aqui para logar-se no SIGAA">
+							Login
+						<i class="fa fa-angle-right"></i></a>
+</li>
+</ul>
+</div>
+</div>
+<br clear="all"/>
+</div>
+<div id="corpo">
+<script src="/sigaa/javascript/encoding.js" type="text/javascript"></script>
+<div id="painel-erros" style="position: relative; padding-bottom: 10px;">
+<ul class="warning">
+<li>Sua busca trouxe mais de 200 resultados e somente os 200 primeiros  estão sendo mostrados, por favor restrinja-a</li>
+</ul>
+<div id="fechar-painel-erros" style="position: absolute; bottom: 2px; right: 2px;">
+<a href="javascript://nop/" onclick="$('painel-erros').remove();" style="color: #AAA; font-size: 0.9em;">
+					(x) fechar mensagens
+				</a>
+</div>
+</div>
+<script src="/sigaa/javascript/biblioteca/mostraInformacoesCompletaTitulo.js" type="text/javascript"></script>
+<script src="/sigaa/javascript/biblioteca/mostraPaginaDetalhesTodosItens.js" type="text/javascript"></script>
+<script src="/sigaa/javascript/biblioteca/functions.js" type="text/javascript"></script>
+<style></style>
+<h2>
+		 Novas Aquisições
+	</h2>
+<div class="descricaoOperacao">
+<p>Essa página lista os livros adquiridos por compra e recebidos pelo <b>Sistema de Bibliotecas da UFRN</b>.</p>
+<p>Para saber se o livro já se encontra disponível no acervo das bibliotecas, 
+		<a href="/sigaa/public/biblioteca/buscaPublicaAcervo.jsf?aba=p-biblioteca">clique aqui</a>
+</p>
+</div>
+<form action="/sigaa/public/biblioteca/buscaPublicaAquisicoes.jsf" enctype="application/x-www-form-urlencoded" id="j_id_jsp_1871278047_1" method="post" name="j_id_jsp_1871278047_1">
+<input name="j_id_jsp_1871278047_1" type="hidden" value="j_id_jsp_1871278047_1"/>
+<table class="formulario" id="tableDadosPesquisa" style="margin-bottom: 20px" width="55%">
+<caption>Selecione os campos para a busca</caption>
+<tbody>
+<tr>
+<th width="25%">
+						Título:
+					</th>
+<td colspan="6" width="75%">
+<input name="j_id_jsp_1871278047_1:j_id_jsp_1871278047_2" size="60" type="text" value="calculo"/>
+</td>
+</tr>
+<tr>
+<th width="25%">
+						Autor:
+					</th>
+<td colspan="6" width="75%">
+<input name="j_id_jsp_1871278047_1:j_id_jsp_1871278047_3" size="60" type="text" value=""/>
+</td>
+</tr>
+<tr>
+<th colspan="1" width="25%">
+						Ano da Aquisição:
+					</th>
+<td colspan="1" width="75%">
+<input maxlength="4" name="j_id_jsp_1871278047_1:j_id_jsp_1871278047_4" onkeypress="mascara(this, soNumeros);" size="7" type="text"/>
+</td>
+</tr>
+</tbody>
+<tfoot>
+<tr>
+			    	<td colspan="7">
+<input name="j_id_jsp_1871278047_1:j_id_jsp_1871278047_5" type="submit" value="Pesquisar"/><input name="j_id_jsp_1871278047_1:j_id_jsp_1871278047_6" type="submit" value="Limpar"/>
+</td>
+			    </tr>
+</tfoot>
+</table>
+<table class="listagem" style="margin-bottom: 20px;width: 90%;">
+<caption>  Títulos Encontrados ( 200 )</caption>
+<thead>
+<tr>
+<th> Detalhes do Livro	</th>
+<th width="30%"> Autor </th>
+<th style="width: 2%; text-align: center"> Quant. </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th class="ano" colspan="3">Ano da Aquisição: 2024</th>
+</tr>
+<tr>
+<th class="centro" colspan="3">CENTRO DE TECNOLOGIA</th>
+</tr>
+<tr>
+<th class="depto" colspan="3">COORDENAÇÃO DO CURSO ENGENHARIA ELÉTRICA</th>
+</tr>
+<tr>
+<td class="titulo">
+									CÁLCULO NUMÉRICO COM APLICAÇÕES 
+									- Vol. 
+									2
+									, 1987
+								</td>
+<td>BELTRANO SOUZA</td>
+<td align="center">4  </td>
+</tr>
+<tr>
+<th height="10px"></th>
+</tr>
+<tr>
+<th class="ano" colspan="3">Ano da Aquisição: 2023</th>
+</tr>
+<tr>
+<th class="centro" colspan="3">CENTRO DE CIÊNCIAS EXATAS E DA TERRA</th>
+</tr>
+<tr>
+<th class="depto" colspan="3">COORDENAÇÃO DO CURSO DE LICENCIATURA EM FÍSICA</th>
+</tr>
+<tr>
+<td class="titulo">
+									Cálculo - v1 
+									- Vol. 
+									0
+									, 2014
+								</td>
+<td>MARIA DE TAL</td>
+<td align="center">2  </td>
+</tr>
+<tr>
+<th class="centro" colspan="3">CENTRO DE TECNOLOGIA</th>
+</tr>
+<tr>
+<th class="depto" colspan="3">COORDENAÇÃO DO CURSO ENGENHARIA MECÂNICA</th>
+</tr>
+<tr>
+<td class="titulo">
+									UM CURSO DE CALCULO, VOLUME 1 
+									- Vol. 
+									5
+									, 2011
+								</td>
+<td>JOAO NINGUEM</td>
+<td align="center">33  </td>
+</tr>
+<tr>
+<th height="10px"></th>
+</tr>
+<tr>
+<th class="ano" colspan="3">Ano da Aquisição: 2022</th>
+</tr>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</tbody>
+<tfoot>
+<tr>
+<td colspan="10" style="text-align: center; font-weight: bold;">
+						200 título(s) encontrado(s).
+						</td>
+</tr>
+</tfoot>
+</table>
+<br/>
+<div style="width: 80%; text-align: center; margin: 0 auto;">
+<a href="/sigaa/public/home.jsf" style="color: #404E82;">&lt;&lt; Voltar ao menu principal</a>
+</div>
+<br/>
+<input id="javax.faces.ViewState" name="javax.faces.ViewState" type="hidden" value="j_id4"/>
+</form>
+<div class="clear"></div>
+</div>
+<div id="rodape">
+<p>	
+			SIGAA | Superintendência de Tecnologia da Informação - (84) 3342 2210 | Copyright © 2006-2026 - UFRN - sigaa11-producao.info.ufrn.br.sigaa11-producao
+			 
+				<a onclick="javascript:versao();">v4.20.11_1</a>
+</p>
+</div>
+
+</div>
+</div>
+<script></script>
+
+</body>
+</html>
+<html><script charset="UTF-8" type="text/javascript"></script>
+<style></style>
+</html>

@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>SIGAA - Sistema Integrado de Gestão de Atividades Acadêmicas</title><meta content="text/html; charset=utf-8" http-equiv="Content-Type"/><link class="component" href="/sigaa/a4j/s/3_3_3.Finalorg/richfaces/renderkit/html/css/basic_classes.xcss/DATB/eAF7sqpgb-jyGdIAFrMEaw__.jsf" rel="stylesheet" type="text/css"/><link class="component" href="/sigaa/a4j/s/3_3_3.Finalorg/richfaces/renderkit/html/css/extended_classes.xcss/DATB/eAF7sqpgb-jyGdIAFrMEaw__.jsf" media="rich-extended-skinning" rel="stylesheet" type="text/css"/><script src="/sigaa/a4j/g/3_3_3.Finalorg/richfaces/renderkit/html/scripts/jquery/jquery.js.jsf" type="text/javascript">
+</script><script src="/sigaa/a4j/g/3_3_3.Finalorg.ajax4jsf.javascript.AjaxScript.jsf" type="text/javascript">
+</script><script src="/sigaa/a4j/g/3_3_3.Finalorg/richfaces/renderkit/html/scripts/skinning.js.jsf" type="text/javascript">
+</script><script src="/shared/jsBundles/jawr_loader.js" type="text/javascript">
+</script><script type="text/javascript">//<![CDATA[
+                        JAWR.loader.style('/javascript/ext-2.0.a.1/resources/css/ext-all.css', 'all');
+                        JAWR.loader.style('/css/public.css','all');
+                        JAWR.loader.script('/bundles/js/sigaa_base.js');
+                        JAWR.loader.script('/bundles/js/ext2_all.js');
+                //]]>
+</script><link href="/sigaa/cssBundles/gzip_787491763/public/css/public.css" media="all" rel="stylesheet" type="text/css"/><link href="/sigaa/cssBundles/gzip_N1466281142/public/css/curso_aberto.css" media="all" rel="stylesheet" type="text/css"/><script src="/shared/javascript/STICookieConsent.js" type="text/javascript">
+</script></head><body><div id="container"><div id="container-inner"><div id="cabecalho"><div id="identificacao"><span class="ufrn">UFBA › <a href="/sigaa/" title="Página Inicial do SIGAA">SIGAA - Sistema Integrado de Gestão de Atividades Acadêmicas</a></span> <span class="data">Salvador, 19 de Outubro de 2026</span></div><br clear="all"/> <a href="./cursosabertos.jsf" id="logoCursoAberto"></a> <span id="tituloCursoAberto"></span></div><style type="text/css">/*<![CDATA[*/
+        table.listagem td{border:0px;padding:10px;}
+        table.listagem td.turma{padding:5px 10px 5px;}
+        table.listagem td.topico{padding:0px 10px 10px;border-bottom:1px solid #EEEEEE; }
+        table.listagem td.turma a{text-decoration: underline;vertical-align: middle;}
+/*]]>*/
+</style><form action="/sigaa/public/cursosabertos.jsf?aba=p-ensino" enctype="application/x-www-form-urlencoded" id="formPrincipal" method="post" name="formPrincipal"><input name="formPrincipal" type="hidden" value="formPrincipal"/> <table class="formulario" width="90%"><caption>Informe os critérios de consulta</caption><tbody><tr><th>Buscar por:</th><td align="left" colspan="2"><table id="formPrincipal:tipoBusca" style="border-style:none"><tbody><tr><td><input checked="checked" id="formPrincipal:tipoBusca:0" name="formPrincipal:tipoBusca" onclick="A4J.AJAX.Submit('formPrincipal',event,{'similarityGroupingId':'formPrincipal:j_id_jsp_955622233_14','parameters':{'formPrincipal:j_id_jsp_955622233_14':'formPrincipal:j_id_jsp_955622233_14'} ,'containerId':'j_id_jsp_955622233_0'} )" type="radio" value="true"/> <label for="formPrincipal:tipoBusca:0">Turmas</label></td><td><input id="formPrincipal:tipoBusca:1" name="formPrincipal:tipoBusca" onclick="A4J.AJAX.Submit('formPrincipal',event,{'similarityGroupingId':'formPrincipal:j_id_jsp_955622233_14','parameters':{'formPrincipal:j_id_jsp_955622233_14':'formPrincipal:j_id_jsp_955622233_14'} ,'containerId':'j_id_jsp_955622233_0'} )" type="radio" value="false"/> <label for="formPrincipal:tipoBusca:1">Comunidades Virtuais</label></td></tr></tbody></table></td></tr><tr><th>Palavra-chave:</th><td align="left" colspan="2"><input class="filtroBusca" id="formPrincipal:palavraChave" maxlength="200" name="formPrincipal:palavraChave" type="text" value=""/></td></tr><tr><th>Centros:</th><td align="left" colspan="2"><select class="filtroBusca" id="formPrincipal:idCentro" name="formPrincipal:idCentro" onchange="A4J.AJAX.Submit('formPrincipal',event,{'similarityGroupingId':'formPrincipal:j_id_jsp_955622233_19','parameters':{'formPrincipal:j_id_jsp_955622233_19':'formPrincipal:j_id_jsp_955622233_19'} ,'containerId':'j_id_jsp_955622233_0'} )" size="1"><option value="0">-- TODOS --</option><option value="1283">ESCOLA DE ADMINISTRAÇÃO</option><option value="1235">ESCOLA DE BELAS ARTES</option><option value="1354">ESCOLA DE DANÇA</option><option value="1252">ESCOLA DE ENFERMAGEM</option></select></td></tr><tr><th>Departamentos:</th><td align="left"><select class="filtroBusca" id="formPrincipal:idDepartamento" name="formPrincipal:idDepartamento" size="1"><option selected="selected" value="0">-- TODOS --</option><option value="1322">COLEGIADO DO CURSO DE GRADUAÇÃO DE LICENCIATURA EM EDUCAÇÃO FÍSICA/FACED</option><option value="2677">COLEGIADO DO CURSO DE LICENCIATURA EM EDUCAÇÃO DO CAMPO</option><option value="2640">COLEGIADO DO CURSO DE LICENCIATURA EM PEDAGOGIA - EAD /FACED</option><option value="1899">COLEGIADO DO CURSO DE LICENCIATURA EM PEDAGOGIA-NOTURNO/FACED</option><option value="1321">COLEGIADO DO CURSO DE LICENCIATURA EM PEDAGOGIA/FACED</option><option value="1317">DEPARTAMENTO DE EDUCACAO I/FACED</option><option value="1318">DEPARTAMENTO DE EDUCACAO II/FACED</option><option value="1319">DEPARTAMENTO DE EDUCAÇÃO III/FACED</option></select></td><td><span id="j_id_jsp_955622233_0:status"><span id="j_id_jsp_955622233_0:status.start" style="display: none"><img src="/sigaa/img/indicator.gif"/></span><span id="j_id_jsp_955622233_0:status.stop"></span></span></td></tr></tbody><tfoot><tr><td colspan="3"><input id="formPrincipal:buscarTurmas" name="formPrincipal:buscarTurmas" type="submit" value="Buscar"/>  <input id="formPrincipal:cancelar" name="formPrincipal:cancelar" onclick="return confirm('Deseja cancelar a operação? Todos os dados digitados serão perdidos!');" type="submit" value="Cancelar"/></td></tr></tfoot></table><input id="javax.faces.ViewState" name="javax.faces.ViewState" type="hidden" value="j_id3"/></form><meta content="formPrincipal" name="Ajax-Update-Ids"/><span id="ajax-view-state"><input id="javax.faces.ViewState" name="javax.faces.ViewState" type="hidden" value="j_id3"/></span><meta content="true" id="Ajax-Response" name="Ajax-Response"/><meta content="formPrincipal" name="Ajax-Update-Ids"/><span id="ajax-view-state"><input id="javax.faces.ViewState" name="javax.faces.ViewState" type="hidden" value="j_id3"/></span><meta content="true" id="Ajax-Response" name="Ajax-Response"/> <div class="clear"></div></div><div id="rodape"><p><!-- Redmine 24523 - Telas e relatórios com rodapés sem a alteração - Portal Público -->
+ SIGAA | STI/SUPAC | - | Copyright © 2006-2026 - UFBA - saomiguel.intranet.ufba.br <a onclick="javascript:versao();">v4.13.8_41_hotfix</a></p></div><!-- Fim dos containers -->
+</div><style type="text/css">/*<![CDATA[*/
+a.linkMobile:link {
+        color: #003395;
+        font-weight: bold;
+        font-size: inherit;
+        text-decoration: none;
+}
+
+a.linkMobile:visited {
+        color: #003390;
+        text-decoration: none;
+        font-weight: bold;
+}
+
+a.linkMobile:active {
+        color: #444444;
+        text-decoration: none;
+        font-weight: bold;
+}
+/*]]>*/
+</style><!-- MYFACES JAVASCRIPT -->
+</body></html>

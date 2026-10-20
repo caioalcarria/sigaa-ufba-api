@@ -1,0 +1,583 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html class="background" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta content="no-cache, no-store, must-revalidate" http-equiv="Cache-Control"/>
+<meta content="no-cache" http-equiv="Pragma"/>
+<meta content="0" http-equiv="Expires"/>
+<title>SIGAA - Sistema Integrado de Gestão de Atividades Acadêmicas</title>
+<link class="component" href="/sigaa/a4j/s/3_3_3.Finalorg/richfaces/renderkit/html/css/basic_classes.xcss/DATB/eAF7sqpgb-jyGdIAFrMEaw__.jsf" rel="stylesheet" type="text/css"/><link class="component" href="/sigaa/a4j/s/3_3_3.Finalorg/richfaces/renderkit/html/css/extended_classes.xcss/DATB/eAF7sqpgb-jyGdIAFrMEaw__.jsf" media="rich-extended-skinning" rel="stylesheet" type="text/css"/><script type="text/javascript">window.RICH_FACES_EXTENDED_SKINNING_ON=true;</script><script src="/sigaa/a4j/g/3_3_3.Finalorg/richfaces/renderkit/html/scripts/skinning.js.jsf" type="text/javascript"></script><link href="/sigaa/img/sigaa.ico" rel="shortcut icon"/>
+<script src="/shared/jsBundles/jawr_loader.js" type="text/javascript"></script>
+<script type="text/javascript">
+                JAWR.loader.style('/bundles/css/sigaa_base.css', 'all');
+        		JAWR.loader.style('/css/ufrn_print.css', 'print');
+        		JAWR.loader.script('/bundles/js/sigaa_base.js');
+</script>
+<link href="/sigaa/cssBundles/gzip_N91553634/bundles/css/sigaa.css" media="all" rel="stylesheet" type="text/css"/>
+<link href="/sigaa/css/mono.css" media="screen" rel="alternate stylesheet" title="mono" type="text/css"/>
+<link href="/sigaa/css/contraste.css" media="screen" rel="alternate stylesheet" title="contraste" type="text/css"/>
+<!-- FontAwesome -->
+<link href="/shared/beta/css/font-awesome.css" media="screen" rel="stylesheet" type="text/css"/>
+<!-- Painel Gen&#233;rico para telas Modal -->
+<script src="/shared/javascript/paineis/painel_generico.js" type="text/javascript"></script>
+<script src="/sigaa/javascript/styleswitch.js" type="text/javascript"></script>
+<script src="/sigaa/javascript/prevenir-duplo-clique.js" type="text/javascript"></script>
+<!-- Bot&#227;o de informar um problema -->
+<link href="/shared/informar-problema/css/informar-problema.css?ver=1.1" media="screen" rel="stylesheet" type="text/css"/>
+<script src="/shared/informar-problema/js/webcomponents.min.js?ver=1.1" type="text/javascript"></script>
+<script src="/shared/informar-problema/js/html2canvas.js?ver=1.1" type="text/javascript"></script>
+<script src="/shared/informar-problema/js/informar-problema.js?ver=1.1" type="text/javascript"></script>
+<!-- FIM bot&#227;o de informar um problema -->
+<script type="text/javascript">
+		var mensagem;
+		var initMensagem = function() {
+			mensagem = new Mensagem();
+		}
+		YAHOO.util.Event.addListener(window,'load', initMensagem);
+		
+		function isIE(){
+		
+					return false;
+			
+		}
+</script>
+<script src="/sigaa/javascript/jsCookMenuHack.js" type="text/javascript"></script>
+<!-- Fim dos imports para abrir chamado -->
+<script src="/shared/javascript/STICookieConsent.js"></script>
+<script>
+	    document.addEventListener("DOMContentLoaded", () => {
+	    	generateCookieConsentModal("SIGAA", "N&#243;s usamos cookies para melhorar sua experi&#234;ncia de navega&#231;&#227;o no portal. Ao utilizar o %sitename%, voc&#234; concorda com a pol&#237;&#173;tica de monitoramento de cookies. Para ter mais informa&#231;&#245;es sobre como isso &#233; feito e como remover, acesse a <a href=%cookie-policy%>Pol&#237;tica de Privacidade</a>. Para saber como a UFRN trata os dados, acesse a <a href=%privacy-policy%> Pol&#237;&#173;tica de cookies</a>. Se voc&#234; concorda, clique em %button-text%.", "https://ufrn.br/institucional/politica-de-privacidade-e-termos-de-uso", "https://ufrn.br/institucional/politica-de-cookies");
+	    })
+	</script>
+</head>
+<body>
+<div id="container">
+<div id="cabecalho">
+<div id="info-sistema">
+<h1><span>UFBA - SIGAA -</span></h1>
+<h3>Sistema Integrado de Gestão de Atividades Acadêmicas</h3>
+<div class="dir">
+<style>
+#info-sistema span.sair-sistema,
+	#info-sistema #tempoSessao{
+	display: inline;
+	right: inherit;
+	position: relative;
+	top: 0;
+	padding-right: inherit;
+}
+
+#info-sistema div.dir{
+	top:0;
+	right:0;
+	text-align: right;
+	width: auto;
+	position: absolute;
+	margin:0;
+	padding: 0;
+	height:16px;
+	display: inline;
+	padding-right:5px;
+	color: #FFF;
+}
+#info-sistema span.acessibilidade{
+	padding: 0 5px;
+	border: solid #D99C44;
+	border-width: 0 1px 0 0;
+	margin: 0 5px;
+	padding: 0 5px;
+}
+	#info-sistema span.acessibilidade a{
+		font-size: 1.1em;
+		font-weight: bolder;
+		color: #FFF;
+		margin-left: 2px;
+		letter-spacing: 0.1px;
+		word-spacing: 0.1px;
+	}
+	#info-sistema span.acessibilidade a.fonteMenor strong{
+		font-size: 0.9em;
+	}
+	.rich-tabpanel-content {
+		font-size: inherit;
+	}	
+</style>
+<span class="acessibilidade">
+<a alt="Aumentar a texto" class="fonteMaior" href="#" title="Aumentar a texto">
+<strong>A</strong>+
+	</a>
+<a alt="Diminuir o texto" class="fonteMenor" href="#" title="Diminuir o texto">
+<strong>A</strong>-
+	</a>
+</span>
+<span class="acessibilidade">
+<a alt="Ajuda" href="http://www.info.ufrn.br/wikisistemas/doku.php?id=suporte:sigaa:visao_geral" target="_blank" title="Ajuda">
+			Ajuda?
+		</a>
+</span>
+<script src="/shared/javascript/jquery/jquery-1.4.4.min.js" type="text/javascript"></script>
+<script src="/sigaa/javascript/jquery.fontsize.js" type="text/javascript"></script>
+<script type="text/javascript">
+	redimensionarFonte('.acessibilidade', '#conteudo', 11, 11, 14);
+</script>
+<script>var $jq = jQuery.noConflict();</script>
+<span id="tempoSessao"></span>
+<span class="sair-sistema"> <a href="/sigaa/logar.do?dispatch=logOff">SAIR</a> </span>
+</div>
+</div>
+<div id="painel-usuario">
+<div id="menu-usuario">
+<ul>
+<li class="modulos">
+<!-- IN&#205;CIO - Redmine #33855 - An&#225;lise do menu M&#243;dulos - SIGAA  -->
+<span id="modulos"> <a href="#" id="show-modulos"> Módulos </a> </span>
+<!-- FIM - Redmine #33855 - An&#225;lise do menu M&#243;dulos - SIGAA  -->
+</li>
+<li class="caixa-postal">
+<a href="/sigaa/abrirCaixaPostal.jsf?sistema=2">
+							
+							Caixa Postal
+							
+							
+						</a>
+</li>
+<li class="chamado">
+<a href="javascript://nop/" onclick="alert('Acesse o portal UFBASIM para vídeos, manuais e perguntas mais frequentes ( https://ufbasim.ufba.br/faq-page ).\n\nCaso sua dúvida não seja respondida:\n\t- se for um servidor da UFBA abra um chamado no helpdesk.ufba.br ou ligando no 6100;\n\t- se não for servidor entre em contato com o colegiado do seu curso.')">Abrir Chamado</a>
+</li>
+<li class="menus">
+<a href="/sigaa/verPortalDiscente.do">Menu Discente</a>
+</li>
+<li class="dados-pessoais">
+<a href="#" onclick="window.open('/sigaa/alterar_dados.jsf','','width=670,height=430, top=100, left=100, scrollbars' )">Alterar senha</a>
+</li>
+<!-- INICIO bot&#227;o Informar problema -->
+<!-- FIM bot&#227;o Informar problema -->
+</ul>
+</div>
+<div id="info-usuario">
+<p class="periodo-atual">
+			
+				Semestre atual: <strong>2026.2</strong>
+</p>
+<p class="usuario">
+<span title="PEDRO DE TAL 48">
+				PEDRO DE TAL 48
+			</span>
+</p>
+<p class="unidade">
+			INSTITUTO DE COMPUTAÇÃO
+			 (12.28)
+			
+		</p>
+</div>
+<div id="menu-principal"></div>
+</div>
+</div>
+<div id="conteudo">
+<script type="text/javascript">
+//Fun&#231;&#227;o adicionada no cabe&#231;alho para evitar a reescrita em cada JSP.
+function contarCaracteres(field, idMostraQuantidadeUsuario, maxlimit) {
+	
+	if (field.value.length > maxlimit){
+		field.value = field.value.substring(0, maxlimit);
+	}else{ 
+		document.getElementById(idMostraQuantidadeUsuario).innerHTML = maxlimit - field.value.length ;
+	} 
+}
+</script>
+<h2 class="title"><a href="/sigaa/verPortalDiscente.do">Portal do Discente</a> &gt; Visualização do Calendário Acadêmico</h2>
+<form action="/sigaa/administracao/calendario_academico/view.jsf" enctype="application/x-www-form-urlencoded" id="form" method="post" name="form">
+<input name="form" type="hidden" value="form"/>
+<table class="visualizacao" width="80%">
+<caption>Dados do Calendário Acadêmico</caption>
+<tr>
+<th>Unidade Responsável:</th>
+<td>
+					UNIVERSIDADE FEDERAL DA BAHIA
+				</td>
+</tr>
+<tr>
+<th>Nível de Ensino:</th>
+<td>
+					GRADUAÇÃO
+				</td>
+</tr>
+<tr>
+<th>Ano/Semestre:</th>
+<td>
+					2026/2
+				</td>
+</tr>
+<tr>
+<th>
+					Vigente:
+				</th>
+<td>Sim</td>
+</tr>
+<tr>
+<th>Ano - Período de Férias Vigente:</th>
+<td>
+						
+							2026-4	
+						
+						
+					</td>
+</tr>
+<tr>
+<th>Ano - Período das Turmas na Solicitação:</th>
+<td>
+						
+					    2027-1
+					    
+					    
+					</td>
+</tr>
+<tr>
+<th width="50%">Período Letivo:</th>
+<td>
+					  
+					    De 19/08/2026 
+					    até 19/12/2026
+				      
+				      
+				</td>
+</tr>
+<tr>
+<th>Período de Férias:</th>
+<td>
+						 
+					    	De 20/12/2026 
+					    	até 28/02/2027
+					    
+					    
+					</td>
+</tr>
+<tr>
+<td class="subFormulario" colspan="2">
+					Datas para Turmas Regulares
+				</td>
+</tr>
+<tr>
+<th>Consolidação de Turmas:</th>
+<td>  
+					
+				    	De 19/11/2026 
+				    	até 06/01/2027
+				    
+				    
+				</td>
+</tr>
+<tr>
+<th>Solicitação de Cadastro de Turmas do Próximo Período:</th>
+<td>
+						
+					    
+					    	Não Definido
+					    					
+					</td>
+</tr>
+<tr>
+<th>Cadastro de Turmas:</th>
+<td> 
+						
+							De 09/10/2026
+					    	até 09/10/2026
+						 
+							   					
+					</td>
+</tr>
+<tr>
+<th>Trancamento de Turmas:</th>
+<td> 
+					 
+				    	De 18/09/2026 
+				    	até 17/10/2026
+				    
+				    					
+				</td>
+</tr>
+<tr>
+<th>Trancamento de Programa</th>
+<td>
+						 
+					    	De 18/09/2026 
+					    	até 17/10/2026
+					    
+					    
+					</td>
+</tr>
+<tr>
+<th>Trancamento de Programa a Posteriori</th>
+<td>
+						
+					    
+					    	Não Definido
+					    
+					</td>
+</tr>
+<tr>
+<td class="subFormulario" colspan="2">
+						Datas para Turmas de Férias
+					</td>
+</tr>
+<tr>
+<th>Requerimento de Turmas de Férias:</th>
+<td>  
+							
+							
+								Não Definido
+							
+						    
+						</td>
+</tr><tr>
+<th>Solicitação de Cadastro de Turmas de Férias:</th>
+<td>  
+								
+							    
+							    	Não Definido
+							    					    					
+							</td>
+</tr>
+<tr>
+<th>Cadastro de Turmas de Férias:</th>
+<td> 
+								 
+								
+									Não Definido
+								
+							    
+							    					
+							</td>
+</tr>
+<tr>
+<th>Matrícula em Turmas de Férias:</th>
+<td> 
+								 
+								
+									Não Definido
+										
+							</td>
+</tr>
+<tr>
+<td class="subFormulario" colspan="2">
+						Datas para Turmas de Ensino Individualizado
+					</td>
+</tr>
+<tr>
+<th>Requerimento de Ensino Individualizado:</th>
+<td>
+							
+							
+								Não Definido
+									
+						</td>
+</tr>
+<tr>
+<th>Cadastro de turma de ensino individualizado:</th>
+<td>
+							
+							
+								Não Definido
+									
+						</td>
+</tr>
+<tr>
+<td class="subFormulario" colspan="2">
+					Datas para Períodos de Matrículas, Rematrícula e Processamentos
+				</td>
+</tr>
+<tr>
+<th>Matrícula OnLine:</th>
+<td>
+					
+						De 03/08/2026 
+				    	até 05/08/2026
+					
+					  
+				</td>
+</tr>
+<tr>
+<th>Matrícula de Alunos Ingressantes:</th>
+<td>  
+						
+							De 27/07/2026 
+					    	até 01/08/2026
+						
+									
+					</td>
+</tr>
+<tr>
+<th>Matrícula de Aluno Especial:</th>
+<td>
+						  
+					    
+					    	Não Definido
+					    		
+					</td>
+</tr>
+<tr>
+<th>Matrícula Extraordinária:</th>
+<td> 
+						
+							De 24/08/2026 
+					    	até 26/08/2026
+						 
+					    
+					</td>
+</tr>
+<tr>
+<th>Análise dos Coordenadores/Orientadores da Matrícula:</th>
+<td>  
+						
+						
+							Não Definido
+						
+					    
+					</td>
+</tr>
+<tr>
+<th>Análise dos Discentes:</th>
+<td>
+						  
+					    
+					    	Não Definido
+					    		
+					</td>
+</tr>
+<tr>
+<th>Processamento de Matrícula:</th>
+<td>
+						
+							De 10/08/2026 
+					    	até 10/08/2026
+						 
+						 
+					</td>
+</tr>
+<tr>
+<th>Ajustes das Matrículas/Turmas:</th>
+<td>
+						
+							De 06/08/2026 
+					    	até 08/08/2026
+						
+						  
+					    
+					</td>
+</tr>
+<tr>
+<th>Rematrícula:</th>
+<td>  
+					
+						De 13/08/2026 
+				    	até 15/08/2026
+					
+							
+				</td>
+</tr>
+<tr>
+<th>Análise dos Coordenadores/Orientadores para Rematrícula:</th>
+<td>  
+						
+						
+							Não Definido
+									
+					</td>
+</tr>
+<tr>
+<th>Análise dos Discentes para Rematrícula:</th>
+<td>
+						
+						
+							Não Definido
+						  
+					    						
+					</td>
+</tr>
+<tr>
+<th>Processamento de Rematrícula:</th>
+<td>
+						
+							De 20/08/2026 
+					    	até 20/08/2026
+						
+						  
+					</td>
+</tr>
+<tr>
+<th>Ajustes das Rematrículas/Turmas:</th>
+<td>
+						
+							De 17/08/2026 
+					    	até 19/08/2026					
+						
+						
+					</td>
+</tr>
+<tr>
+<td class="subFormulario" colspan="2">
+						Datas para Períodos de Submissão dos Planos de Docência Assistida
+					</td>
+</tr>
+<tr>
+<th>Submissão dos Planos de Docência Assistida:</th>
+<td>
+						
+						
+							Não Definido
+						  
+					</td>
+</tr>
+<tr>
+<th>Submissão dos Relatórios Finais dos Planos de Docência Assistida:</th>
+<td>
+						 
+						
+							Não Definido
+						 
+					</td>
+</tr>
+</table>
+<input id="javax.faces.ViewState" name="javax.faces.ViewState" type="hidden" value="j_id5"/>
+</form>
+<br/>
+<center>
+<a href="javascript: history.go(-1);"> &lt;&lt; Voltar </a>
+</center>
+<div class="clear"> </div>
+</div>
+<br/>
+<div style="width: 80%; text-align: center; margin: 0 auto;">
+<a href="/sigaa/verPortalDiscente.do">Portal do Discente</a>
+</div>
+<div id="rodape">
+<!-- Redmine 24425 - Substitui&#231;&#227;o de dados dos Rodap&#233;s -->
+<p>	SIGAA | STI/SUPAC | - | Copyright © 2006-2026 - UFBA - sigaapl07.intranet.ufba.br
+		
+		 
+			 - <a onclick="javascript:versao();">v4.13.8_41_hotfix</a>
+</p>
+</div>
+</div>
+<div id="painel-mensagem-envio"> </div>
+<!-- MYFACES JAVASCRIPT -->
+</body>
+</html>
+<html><script charset="UTF-8" type="text/javascript">
+		function versao(){
+			var msg='';
+			msg+='SIGAA 4.13.8_41_hotfix,  publicado em: 25/09/2026 16:18\n\n';
+			msg+='Depend\u00eancias:\n';
+			msg+='Arquitetura 4.4.5\n';
+			msg+='Entidades Comuns 2.3.3\n';
+			msg+='Servicos Integrados 2.0.8\n';
+			msg+='SharedResources 2.1.4\n';
+			msg+='Servicos Remoto Biblioteca 1.0.3\n';
+			msg+='SIGAA Mobile Objects 1.0.0\n\n';
+			msg+='Copyright SINFO/UFRN';
+			alert(msg);
+		}	
+	</script>
+<script language="javascript">
+Relogio.init(25);
+</script>
+</html>

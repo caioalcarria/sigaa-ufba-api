@@ -1,0 +1,369 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta content="no-cache" http-equiv="Pragma"/>
+<title>SIGAA - Sistema Integrado de Gestão de Atividades Acadêmicas</title>
+<link class="component" href="/sigaa/a4j/s/3_3_3.Finalorg/richfaces/renderkit/html/css/basic_classes.xcss/DATB/eAF7sqpgb-jyGdIAFrMEaw__.jsf" rel="stylesheet" type="text/css"/><link class="component" href="/sigaa/a4j/s/3_3_3.Finalorg/richfaces/renderkit/html/css/extended_classes.xcss/DATB/eAF7sqpgb-jyGdIAFrMEaw__.jsf" media="rich-extended-skinning" rel="stylesheet" type="text/css"/><script type="text/javascript">window.RICH_FACES_EXTENDED_SKINNING_ON=true;</script><script src="/sigaa/a4j/g/3_3_3.Finalorg/richfaces/renderkit/html/scripts/skinning.js.jsf" type="text/javascript"></script><link href="/sigaa/img/sigaa.ico" rel="shortcut icon"/>
+<script src="/shared/jsBundles/jawr_loader.js" type="text/javascript"></script>
+<script src="/sigaa/javascript/prevenir-duplo-clique.js" type="text/javascript"></script>
+<script type="text/javascript">
+		JAWR.loader.style('/javascript/ext-2.0.a.1/resources/css/ext-all.css', 'all');
+		JAWR.loader.style('/css/public.css','all');
+	 	JAWR.loader.script('/bundles/js/sigaa_base.js');
+	 	JAWR.loader.script('/bundles/js/ext2_all.js');
+
+	 	
+	</script>
+<link href="/sigaa/cssBundles/gzip_787491763/public/css/public.css" media="all" rel="stylesheet" type="text/css"/>
+<link href="/shared/beta/css/font-awesome.css" media="screen" rel="stylesheet" type="text/css"/>
+<script src="/shared/javascript/STICookieConsent.js"></script>
+<script>
+	    document.addEventListener("DOMContentLoaded", () => {
+	    	generateCookieConsentModal("SIGAA", "N&#243;s usamos cookies para melhorar sua experi&#234;ncia de navega&#231;&#227;o no portal. Ao utilizar o %sitename%, voc&#234; concorda com a pol&#237;&#173;tica de monitoramento de cookies. Para ter mais informa&#231;&#245;es sobre como isso &#233; feito e como remover, acesse a <a href=%cookie-policy%>Pol&#237;tica de Privacidade</a>. Para saber como a UFRN trata os dados, acesse a <a href=%privacy-policy%> Pol&#237;&#173;tica de cookies</a>. Se voc&#234; concorda, clique em %button-text%.", "https://ufrn.br/institucional/politica-de-privacidade-e-termos-de-uso", "https://ufrn.br/institucional/politica-de-cookies");
+	    })
+	</script>
+</head>
+<body>
+<div id="container">
+<div id="container-inner">
+<div id="cabecalho">
+<div id="logo">
+<a href="/sigaa/public/"> <img src="https://sipac.ufba.br/shared/img/instituicao/brasao_ufba48x75.jpg"/> </a>
+</div>
+<div id="identificacao">
+<span class="ufrn"> Universidade Federal da Bahia </span>
+<span class="data">
+				 Salvador, 
+				 19 de Outubro de 
+				 2026 
+			</span>
+<a href="/sigaa/public/" id="home" style="width: 450px;" title="Página inicial"> </a>
+<div id="menu_info">
+<ul>
+<li class="login">
+<a alt="Clique aqui para logar-se no SIGAA" href="/sigaa/" title="Clique aqui para logar-se no SIGAA">
+							Login
+						<i class="fa fa-angle-right"></i></a>
+</li>
+</ul>
+</div>
+</div>
+<br clear="all"/>
+</div>
+<div id="corpo">
+<style>
+	.colCargo{text-transform: uppercase;}
+</style>
+<h2>Chefes, Coordenações e Diretores </h2>
+<form action="/sigaa/public/academico/busca_responsavel.jsf" enctype="application/x-www-form-urlencoded" id="form" method="post" name="form">
+<input name="form" type="hidden" value="form"/>
+<div class="descricaoOperacao">
+<p>
+				Esta página permite ao usuário consultar os chefes dos departamentos, 
+				as coordenações dos cursos de graduação e pós-graduação,
+				 e os diretores das unidades acadêmicas especializadas/centros em exercício.
+			</p>
+</div>
+<table class="formulario" width="55%">
+<caption>Informe qual consulta que deseja realizar</caption>
+<tbody>
+<tr>
+<th width="18%">Buscar por:</th>
+<td>
+<select id="form:tipoConsulta" name="form:tipoConsulta" size="1"> <option value="1">Chefes de Departamento</option>
+<option value="2">Coordenadores e Vice-Coordenadores dos Cursos de Graduação</option>
+<option value="3">Coordenadores e Vice-Coordenadores dos Cursos de Pós-Graduação</option>
+<option selected="selected" value="4">Diretores de Centros/Unidades Acadêmicas Especializadas</option>
+</select>
+</td>
+</tr>
+</tbody>
+<tfoot>
+<tr>
+<td colspan="2">
+<input id="form:btnBuscar" name="form:btnBuscar" type="submit" value="Buscar"/>  
+							<input id="form:btnCancelar" name="form:btnCancelar" onclick="return confirm('Deseja cancelar a operação? Todos os dados digitados serão perdidos!');" type="submit" value="Cancelar"/>
+</td>
+</tr>
+</tfoot>
+</table>
+<br/>
+<table class="listagem">
+<caption>Resultados Encontrados (34)</caption>
+<thead>
+<tr>
+<th>
+						Unidade
+						
+						
+					</th>
+<th>Nome</th>
+<th>Telefone</th>
+<th>E-mail</th>
+</tr>
+<thead>
+</thead></thead><tbody>
+<tr class="linhaPar">
+<td> ESCOLA DE ADMINISTRAÇÃO </td>
+<td> LUCIA SANTOS 037 </td>
+<td> 0000 </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaImpar">
+<td> ESCOLA DE BELAS ARTES </td>
+<td> ANA ROCHA 395 </td>
+<td> </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaPar">
+<td> ESCOLA DE DANÇA </td>
+<td> ANA PEREIRA 055 </td>
+<td> 0000 </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaImpar">
+<td> ESCOLA DE ENFERMAGEM </td>
+<td> CARLOS COSTA 168 </td>
+<td> NAO INFORMADO </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaPar">
+<td> ESCOLA DE MEDICINA VETERINÁRIA E ZOOTECNIA </td>
+<td> PEDRO SANTOS 436 </td>
+<td> 0000 </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaImpar">
+<td> ESCOLA DE MÚSICA </td>
+<td> CICLANO PEREIRA 351 </td>
+<td> 0000 </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaPar">
+<td> ESCOLA DE NUTRIÇÃO </td>
+<td> CICLANO DE TAL 001 </td>
+<td> 0000 </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaImpar">
+<td> ESCOLA DE TEATRO </td>
+<td> ANA DE TAL 305 </td>
+<td> 0000 </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaPar">
+<td> ESCOLA POLITÉCNICA </td>
+<td> CICLANO SOUZA 321 </td>
+<td> 0000 </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaImpar">
+<td> FACULDADE DE ARQUITETURA </td>
+<td> CICLANO COSTA 161 </td>
+<td> 0000 </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaPar">
+<td> FACULDADE DE CIÊNCIAS CONTÁBEIS </td>
+<td> CICLANO OLIVEIRA 441 </td>
+<td> 0000 </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaImpar">
+<td> FACULDADE DE COMUNICAÇÃO </td>
+<td> FULANO ROCHA 490 </td>
+<td> 0000 </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaPar">
+<td> FACULDADE DE DIREITO </td>
+<td> MARIA LIMA 373 </td>
+<td> NAO INFORMADO </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaImpar">
+<td> FACULDADE DE ECONOMIA </td>
+<td> MARIA DA SILVA 213 </td>
+<td> </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaPar">
+<td> FACULDADE DE EDUCAÇÃO </td>
+<td> LUCIA LIMA 377 </td>
+<td> 0000 </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaImpar">
+<td> FACULDADE DE FARMÁCIA </td>
+<td> JOAO SANTOS 134 </td>
+<td> 0000 </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaPar">
+<td> FACULDADE DE FILOSOFIA E CIÊNCIAS HUMANAS </td>
+<td> MARIA SOUZA 323 </td>
+<td> 0000 </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaImpar">
+<td> FACULDADE DE MEDICINA DA BAHIA </td>
+<td> JULIA OLIVEIRA 049 </td>
+<td> 0000 </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaPar">
+<td> FACULDADE DE ODONTOLOGIA </td>
+<td> CARLOS DA SILVA 318 </td>
+<td> 0000 </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaImpar">
+<td> INSTITUTO DE BIOLOGIA </td>
+<td> PEDRO DA SILVA 416 </td>
+<td> 6540/6541 </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaPar">
+<td> INSTITUTO DE CIÊNCIA DA INFORMAÇÃO </td>
+<td> JULIA ROCHA 199 </td>
+<td> </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaImpar">
+<td> INSTITUTO DE CIÊNCIA, TECNOLOGIA E INOVAÇÃO </td>
+<td> CICLANO DA SILVA 311 </td>
+<td> 0000 </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaPar">
+<td> INSTITUTO DE CIÊNCIAS DA SAÚDE </td>
+<td> CICLANO SANTOS 431 </td>
+<td> 0000 </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaImpar">
+<td> INSTITUTO DE COMPUTAÇÃO </td>
+<td> LUCIA SOUZA 227 </td>
+<td> 0000 </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaPar">
+<td> INSTITUTO DE FÍSICA </td>
+<td> LUCIA ALVES 187 </td>
+<td> 0000 </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaImpar">
+<td> INSTITUTO DE GEOCIÊNCIAS </td>
+<td> PEDRO DA SILVA 116 </td>
+<td> NAO INFORMADO </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaPar">
+<td> INSTITUTO DE HUMANIDADES, ARTES E CIÊNCIAS PROFESSOR MILTON SANTOS </td>
+<td> CICLANO DE TAL 301 </td>
+<td> 0000 </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaImpar">
+<td> INSTITUTO DE LETRAS </td>
+<td> MARIA SOUZA 023 </td>
+<td> 0000 </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaPar">
+<td> INSTITUTO DE MATEMÁTICA E ESTATÍSTICA </td>
+<td> JOAO LIMA 274 </td>
+<td> 0000 </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaImpar">
+<td> INSTITUTO DE PSICOLOGIA E SERVIÇO SOCIAL </td>
+<td> FULANO DA SILVA 110 </td>
+<td> 8101/8108 </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaPar">
+<td> INSTITUTO DE QUÍMICA </td>
+<td> FULANO COSTA 360 </td>
+<td> 0000 </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaImpar">
+<td> INSTITUTO DE SAÚDE COLETIVA </td>
+<td> ANA OLIVEIRA 245 </td>
+<td> 0000 </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaPar">
+<td> INSTITUTO MULTIDISCIPLINAR DE REABILITAÇÃO E SAÚDE </td>
+<td> CICLANO DA SILVA 211 </td>
+<td> 0000 </td>
+<td> fulano@exemplo.br </td>
+</tr>
+<tr class="linhaImpar">
+<td> INSTITUTO MULTIDISCIPLINAR EM SAÚDE </td>
+<td> FULANO SANTOS 330 </td>
+<td> 0000 </td>
+<td> fulano@exemplo.br </td>
+</tr>
+</tbody>
+<tfoot>
+<tr>
+<td colspan="5"> </td>
+</tr>
+</tfoot>
+</table>
+<input id="javax.faces.ViewState" name="javax.faces.ViewState" type="hidden" value="j_id8"/>
+</form>
+<div class="clear"></div>
+</div>
+<div id="rodape">
+<p> <!-- Redmine 24523 - Telas e relat&#243;rios com rodap&#233;s sem a altera&#231;&#227;o - Portal P&#250;blico -->
+			SIGAA | STI/SUPAC | -  | Copyright © 2006-2026 - UFBA - saomiguel.intranet.ufba.br
+			 
+				<a onclick="javascript:versao();">v4.13.8_41_hotfix</a>
+</p>
+</div>
+<!-- Fim dos containers -->
+</div>
+</div>
+<!-- MYFACES JAVASCRIPT -->
+</body>
+</html>
+<html><script charset="UTF-8" type="text/javascript">
+		function versao(){
+			var msg='';
+			msg+='SIGAA 4.13.8_41_hotfix,  publicado em: 25/09/2026 16:18\n\n';
+			msg+='Depend\u00eancias:\n';
+			msg+='Arquitetura 4.4.5\n';
+			msg+='Entidades Comuns 2.3.3\n';
+			msg+='Servicos Integrados 2.0.8\n';
+			msg+='SharedResources 2.1.4\n';
+			msg+='Servicos Remoto Biblioteca null\n';
+			msg+='SIGAA Mobile Objects 1.0.0\n\n';
+			msg+='Copyright SINFO/UFRN';
+			alert(msg);
+		}	
+	</script>
+<style>
+a.linkMobile:link {
+	color: #003395;
+	font-weight: bold;
+	font-size: inherit;
+	text-decoration: none;
+}
+
+a.linkMobile:visited {
+	color: #003390;
+	text-decoration: none;
+	font-weight: bold;
+}
+
+a.linkMobile:active {
+	color: #444444;
+	text-decoration: none;
+	font-weight: bold;
+}
+</style>
+</html>

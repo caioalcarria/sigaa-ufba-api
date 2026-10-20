@@ -1,0 +1,1329 @@
+
+
+
+
+
+
+
+
+	
+	
+		<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+   "http://www.w3.org/TR/html4/loose.dtd">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<html class="background" xmlns="http://www.w3.org/1999/xhtml">
+
+
+<head>
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+<meta http-equiv="Pragma" content="no-cache" />
+<meta http-equiv="Expires" content="0" />
+
+
+
+<title>SIGAA - Sistema Integrado de Gest&#227;o de Atividades Acad&#234;micas</title>
+<link class="component" href="/sigaa/a4j/s/3_3_3.Finalorg/richfaces/renderkit/html/css/basic_classes.xcss/DATB/eAF7sqpgb-jyGdIAFrMEaw__.jsf" rel="stylesheet" type="text/css" /><link class="component" href="/sigaa/a4j/s/3_3_3.Finalorg/richfaces/renderkit/html/css/extended_classes.xcss/DATB/eAF7sqpgb-jyGdIAFrMEaw__.jsf" media="rich-extended-skinning" rel="stylesheet" type="text/css" /><script type="text/javascript">window.RICH_FACES_EXTENDED_SKINNING_ON=true;</script><script src="/sigaa/a4j/g/3_3_3.Finalorg/richfaces/renderkit/html/scripts/skinning.js.jsf" type="text/javascript"></script><link rel="shortcut icon" href="/sigaa/img/sigaa.ico" />
+
+<script type="text/javascript" src="/shared/jsBundles/jawr_loader.js"></script>
+<script type="text/javascript">
+                JAWR.loader.style('/bundles/css/sigaa_base.css', 'all');
+        		JAWR.loader.style('/css/ufrn_print.css', 'print');
+        		JAWR.loader.script('/bundles/js/sigaa_base.js');
+</script>
+<link rel="stylesheet" type="text/css" media="all" href="/sigaa/cssBundles/gzip_N91553634/bundles/css/sigaa.css" />
+
+
+<link rel="alternate stylesheet" type="text/css" media="screen" title="mono" href="/sigaa/css/mono.css" />
+<link rel="alternate stylesheet" type="text/css" media="screen" title="contraste" href="/sigaa/css/contraste.css" />
+
+<!-- FontAwesome -->
+<link rel="stylesheet" type="text/css" href="/shared/beta/css/font-awesome.css" media="screen" />
+
+<!-- Painel Gen&#233;rico para telas Modal -->
+<script type="text/javascript" src="/shared/javascript/paineis/painel_generico.js"></script>
+
+<script src="/sigaa/javascript/styleswitch.js" type="text/javascript" ></script>
+
+<script src="/sigaa/javascript/prevenir-duplo-clique.js" type="text/javascript"></script>
+
+
+	
+	
+		<!-- Bot&#227;o de informar um problema -->
+		<link rel="stylesheet" type="text/css" href="/shared/informar-problema/css/informar-problema.css?ver=1.1" media="screen" />
+		<script type="text/javascript" src="/shared/informar-problema/js/webcomponents.min.js?ver=1.1"></script>
+		<script type="text/javascript" src="/shared/informar-problema/js/html2canvas.js?ver=1.1"></script>
+		<script type="text/javascript" src="/shared/informar-problema/js/informar-problema.js?ver=1.1"></script>
+		<!-- FIM bot&#227;o de informar um problema -->
+	
+
+
+
+
+<script type="text/javascript">
+		var mensagem;
+		var initMensagem = function() {
+			mensagem = new Mensagem();
+		}
+		YAHOO.util.Event.addListener(window,'load', initMensagem);
+		
+		function isIE(){
+		
+					return false;
+			
+		}
+</script>
+
+<script type="text/javascript" src="/sigaa/javascript/jsCookMenuHack.js"></script>
+<!-- Fim dos imports para abrir chamado -->
+
+	<script src="/shared/javascript/STICookieConsent.js"></script>
+	<script>
+	    document.addEventListener("DOMContentLoaded", () => {
+	    	generateCookieConsentModal("SIGAA", "N&#243;s usamos cookies para melhorar sua experi&#234;ncia de navega&#231;&#227;o no portal. Ao utilizar o %sitename%, voc&#234; concorda com a pol&#237;&#173;tica de monitoramento de cookies. Para ter mais informa&#231;&#245;es sobre como isso &#233; feito e como remover, acesse a <a href=%cookie-policy%>Pol&#237;tica de Privacidade</a>. Para saber como a UFRN trata os dados, acesse a <a href=%privacy-policy%> Pol&#237;&#173;tica de cookies</a>. Se voc&#234; concorda, clique em %button-text%.", "https://ufrn.br/institucional/politica-de-privacidade-e-termos-de-uso", "https://ufrn.br/institucional/politica-de-cookies");
+	    })
+	</script>
+	
+</head>
+
+<body>
+
+
+
+
+
+
+
+	<div id="container">
+	<div id="cabecalho">
+		<div id="info-sistema">
+			<h1><span>UFBA - SIGAA -</span></h1>
+			<h3>Sistema Integrado de Gest&#227;o de Atividades Acad&#234;micas</h3>
+			<div class="dir">
+				
+					
+					<style>
+#info-sistema span.sair-sistema,
+	#info-sistema #tempoSessao{
+	display: inline;
+	right: inherit;
+	position: relative;
+	top: 0;
+	padding-right: inherit;
+}
+
+#info-sistema div.dir{
+	top:0;
+	right:0;
+	text-align: right;
+	width: auto;
+	position: absolute;
+	margin:0;
+	padding: 0;
+	height:16px;
+	display: inline;
+	padding-right:5px;
+	color: #FFF;
+}
+#info-sistema span.acessibilidade{
+	padding: 0 5px;
+	border: solid #D99C44;
+	border-width: 0 1px 0 0;
+	margin: 0 5px;
+	padding: 0 5px;
+}
+	#info-sistema span.acessibilidade a{
+		font-size: 1.1em;
+		font-weight: bolder;
+		color: #FFF;
+		margin-left: 2px;
+		letter-spacing: 0.1px;
+		word-spacing: 0.1px;
+	}
+	#info-sistema span.acessibilidade a.fonteMenor strong{
+		font-size: 0.9em;
+	}
+	.rich-tabpanel-content {
+		font-size: inherit;
+	}	
+</style>
+<span class="acessibilidade">
+	<a class="fonteMaior" title="Aumentar a texto" alt="Aumentar a texto" href="#">
+		<strong>A</strong>+
+	</a>
+	<a class="fonteMenor" title="Diminuir o texto" alt="Diminuir o texto" href="#">
+		<strong>A</strong>-
+	</a>
+</span>
+
+	<span class="acessibilidade">
+		<a title="Ajuda" alt="Ajuda" href="http://www.info.ufrn.br/wikisistemas/doku.php?id=suporte:sigaa:visao_geral" target="_blank">
+			Ajuda?
+		</a>
+	</span>
+
+<script type="text/javascript" src="/shared/javascript/jquery/jquery-1.4.4.min.js"></script>
+<script src="/sigaa/javascript/jquery.fontsize.js" type="text/javascript" ></script>
+<script type="text/javascript" >
+	redimensionarFonte('.acessibilidade', '#conteudo', 11, 11, 14);
+</script>
+<script>var $jq = jQuery.noConflict();</script>
+					<span id="tempoSessao"></span>
+					<span class="sair-sistema"> <a href="/sigaa/logar.do?dispatch=logOff">SAIR</a> </span>
+				
+			</div>
+		</div>
+	 
+
+	<div id="painel-usuario"  >
+	
+		<div id="menu-usuario">
+		<ul>
+			<li class="modulos">
+			<!-- IN&#205;CIO - Redmine #33855 - An&#225;lise do menu M&#243;dulos - SIGAA  -->
+			
+				<span id="modulos"> <a href="#" id="show-modulos"> M&#243;dulos </a> </span>
+			
+			<!-- FIM - Redmine #33855 - An&#225;lise do menu M&#243;dulos - SIGAA  -->
+			</li>
+			
+
+				<li class="caixa-postal">
+				
+					
+					
+						<a href=/sigaa/abrirCaixaPostal.jsf?sistema=2>
+							
+							Caixa Postal
+							
+							
+						</a>
+					
+				
+				</li>
+
+			
+
+			
+				<li class="chamado">
+				
+					
+						
+						<a href="javascript://nop/" onclick="alert('Acesse o portal UFBASIM para v&#237;deos, manuais e perguntas mais frequentes ( https://ufbasim.ufba.br/faq-page ).\n\nCaso sua d&#250;vida n&#227;o seja respondida:\n\t- se for um servidor da UFBA abra um chamado no helpdesk.ufba.br ou ligando no 6100;\n\t- se n&#227;o for servidor entre em contato com o colegiado do seu curso.')">Abrir Chamado</a>
+					
+					
+				
+				</li>
+			 
+			
+			
+			
+				 
+					<li class="menus">
+						<a href="/sigaa/verPortalDiscente.do">Menu Discente</a>
+					</li>
+				 
+			
+			
+			
+				
+
+<li class="dados-pessoais">
+	
+		<a href="#" onclick="window.open('/sigaa/alterar_dados.jsf','','width=670,height=430, top=100, left=100, scrollbars' )">Alterar senha</a>
+	
+</li>
+			
+			
+			
+			
+			
+			
+
+			
+				<!-- INICIO bot&#227;o Informar problema -->
+				
+				<!-- FIM bot&#227;o Informar problema -->
+			
+
+		</ul>
+
+		
+
+		</div>
+
+		<div id="info-usuario">
+
+		<p class="periodo-atual">
+			
+				Semestre atual: <strong>2026.2</strong>			
+			
+			</br>
+			
+		</p>		
+		<p class="usuario">
+		
+			<span title="FULANO DE T. DA SILVA">
+				FULANO DE T. DA SILVA
+			</span>
+			
+			
+		
+		</p>
+
+		<p class="unidade">
+			INSTITUTO DE COMPUTA&#199;&#195;O
+			 (12.28)
+			
+		</p>
+
+		</div>
+	
+	<div id="menu-principal"></div>
+	</div>
+	</div>
+	
+
+	<div id="conteudo">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+
+<script type="text/javascript">
+//Fun&#231;&#227;o adicionada no cabe&#231;alho para evitar a reescrita em cada JSP.
+function contarCaracteres(field, idMostraQuantidadeUsuario, maxlimit) {
+	
+	if (field.value.length > maxlimit){
+		field.value = field.value.substring(0, maxlimit);
+	}else{ 
+		document.getElementById(idMostraQuantidadeUsuario).innerHTML = maxlimit - field.value.length ;
+	} 
+}
+</script>
+
+<style>
+	table.listagem tr td.periodo {
+		background: #C4D2EB;
+		padding: 3px;
+		font-weight: bold;
+	}
+</style>
+
+
+
+	<h2><a href='/sigaa/verPortalDiscente.do'>Portal do Discente</a> &gt; Todas as Turmas</h2>
+
+	<div class="infoAltRem" style="font-variant: small-caps;">
+			<img src="/sigaa/img/avancar.gif" style="overflow: visible;" />: Acessar Turma Virtual
+	</div>
+
+
+<form id="j_id_jsp_1412859755_2" name="j_id_jsp_1412859755_2" method="post" action="/sigaa/portais/discente/turmas.jsf" enctype="application/x-www-form-urlencoded">
+<input type="hidden" name="j_id_jsp_1412859755_2" value="j_id_jsp_1412859755_2" />
+
+	
+	<table class="listagem" width="80%">
+		<caption> Todas as Turmas Virtuais (37)</caption>
+		<tbody>
+		<thead>
+			<tr>
+				<th width="60%">Disciplina</th>
+				<th style="text-align:center;">Turma</th>
+				<th style="text-align:right;">CH Total</th>
+				<th style="text-align:center;">Hor&#225;rio</th>
+				<th> </th>
+			</tr>
+		</thead>
+		
+		
+
+			
+	
+			
+				
+				
+					
+				
+			
+			
+			
+				
+				<tr class="destaque no-hover">
+					<td class="periodo" colspan="6">2026.2</td>
+				</tr>
+			
+
+			<tr class="linhaPar">
+				<td>MATC89 - APLICA&#199;&#213;ES PARA DISPOSITIVOS M&#211;VEIS</td>
+				<td align="center">01</td>
+				<td align="right">60h</td>
+				<td align="center">46N12 (19/08/2026 - 19/12/2026)</td>
+				<td>
+					
+<script type="text/javascript" language="Javascript">function dpf(f) {var adp = f.adp;if (adp != null) {for (var i = 0;i < adp.length;i++) {f.removeChild(adp[i]);}}};function apf(f, pvp) {var adp = new Array();f.adp = adp;var i = 0;for (k in pvp) {var p = document.createElement("input");p.type = "hidden";p.name = k;p.value = pvp[k];f.appendChild(p);adp[i++] = p;}};function jsfcljs(f, pvp, t) {apf(f, pvp);var ft = f.target;if (t) {f.target = t;}f.submit();f.target = ft;dpf(f);};</script>
+<a href="#" title="Acessar Turma Virtual" onclick="var a=function(){return prevenirDuploClique();};var b=function(){if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('j_id_jsp_1412859755_2'),{'j_id_jsp_1412859755_2:j_id_jsp_1412859755_4':'j_id_jsp_1412859755_2:j_id_jsp_1412859755_4','frontEndIdTurma':'379D8F1134E70BFEFBDEC0EF37FE66C2436EB469','inciadoPelaBusca':'true','paginaListaTurmasOrigem':'/portais/discente/turmas.jsp'},'');}return false};return (a()==false) ? false : b();"><img src="/sigaa/img/avancar.gif" /></a>
+				</td>
+			</tr>
+		
+
+			
+	
+			
+				
+				
+					
+				
+			
+			
+			
+
+			<tr class="linhaImpar">
+				<td>MATC72 - INTERA&#199;&#195;O HUMANO-COMPUTADOR</td>
+				<td align="center">01</td>
+				<td align="right">60h</td>
+				<td align="center">35N12 (19/08/2026 - 19/12/2026)</td>
+				<td>
+					<a href="#" title="Acessar Turma Virtual" onclick="var a=function(){return prevenirDuploClique();};var b=function(){if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('j_id_jsp_1412859755_2'),{'j_id_jsp_1412859755_2:j_id_jsp_1412859755_4j_id_1':'j_id_jsp_1412859755_2:j_id_jsp_1412859755_4j_id_1','frontEndIdTurma':'669CF47BD09D2710DB469C233E52A6A2F6B92155','inciadoPelaBusca':'true','paginaListaTurmasOrigem':'/portais/discente/turmas.jsp'},'');}return false};return (a()==false) ? false : b();"><img src="/sigaa/img/avancar.gif" /></a>
+				</td>
+			</tr>
+		
+
+			
+	
+			
+				
+				
+					
+				
+			
+			
+			
+
+			<tr class="linhaPar">
+				<td>ADMF01 - SISTEMAS DE APOIO &#192; DECIS&#195;O</td>
+				<td align="center">01</td>
+				<td align="right">75h</td>
+				<td align="center">2N1234 4N4 (19/08/2026 - 19/12/2026)</td>
+				<td>
+					<a href="#" title="Acessar Turma Virtual" onclick="var a=function(){return prevenirDuploClique();};var b=function(){if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('j_id_jsp_1412859755_2'),{'j_id_jsp_1412859755_2:j_id_jsp_1412859755_4j_id_2':'j_id_jsp_1412859755_2:j_id_jsp_1412859755_4j_id_2','frontEndIdTurma':'97EB44A4FBC155419E305382DDDD200077EB4F61','inciadoPelaBusca':'true','paginaListaTurmasOrigem':'/portais/discente/turmas.jsp'},'');}return false};return (a()==false) ? false : b();"><img src="/sigaa/img/avancar.gif" /></a>
+				</td>
+			</tr>
+		
+
+			
+	
+			
+				
+				
+					
+				
+			
+			
+			
+				
+				<tr class="destaque no-hover">
+					<td class="periodo" colspan="6">2026.1</td>
+				</tr>
+			
+
+			<tr class="linhaImpar">
+				<td>MAT220 - EMPREENDEDORES EM INFORMATICA</td>
+				<td align="center">01</td>
+				<td align="right">60h</td>
+				<td align="center">35N12 (09/03/2026 - 11/07/2026)</td>
+				<td>
+					<a href="#" title="Acessar Turma Virtual" onclick="var a=function(){return prevenirDuploClique();};var b=function(){if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('j_id_jsp_1412859755_2'),{'j_id_jsp_1412859755_2:j_id_jsp_1412859755_4j_id_3':'j_id_jsp_1412859755_2:j_id_jsp_1412859755_4j_id_3','frontEndIdTurma':'F5FF696321CAC12FEA7804D8EECF96B011EC4969','inciadoPelaBusca':'true','paginaListaTurmasOrigem':'/portais/discente/turmas.jsp'},'');}return false};return (a()==false) ? false : b();"><img src="/sigaa/img/avancar.gif" /></a>
+				</td>
+			</tr>
+		
+
+			
+	
+			
+				
+				
+					
+				
+			
+			
+			
+
+			<tr class="linhaPar">
+				<td>MATA62 - ENGENHARIA DE SOFTWARE I</td>
+				<td align="center">02</td>
+				<td align="right">60h</td>
+				<td align="center">24N34 (09/03/2026 - 11/07/2026)</td>
+				<td>
+					<a href="#" title="Acessar Turma Virtual" onclick="var a=function(){return prevenirDuploClique();};var b=function(){if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('j_id_jsp_1412859755_2'),{'j_id_jsp_1412859755_2:j_id_jsp_1412859755_4j_id_4':'j_id_jsp_1412859755_2:j_id_jsp_1412859755_4j_id_4','frontEndIdTurma':'4A8E4B0B843C9DC361B83A8781AF828E826D09C3','inciadoPelaBusca':'true','paginaListaTurmasOrigem':'/portais/discente/turmas.jsp'},'');}return false};return (a()==false) ? false : b();"><img src="/sigaa/img/avancar.gif" /></a>
+				</td>
+			</tr>
+		
+
+			
+	
+			
+				
+				
+					
+				
+			
+			
+			
+
+			<tr class="linhaImpar">
+				<td>ADM211 - M&#201;TODOS QUANTITATIVOS APLICADOS &#192; ADMINISTRA&#199;&#195;O</td>
+				<td align="center">03</td>
+				<td align="right">45h</td>
+				<td align="center">6N123 (09/03/2026 - 11/07/2026)</td>
+				<td>
+					<a href="#" title="Acessar Turma Virtual" onclick="var a=function(){return prevenirDuploClique();};var b=function(){if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('j_id_jsp_1412859755_2'),{'j_id_jsp_1412859755_2:j_id_jsp_1412859755_4j_id_5':'j_id_jsp_1412859755_2:j_id_jsp_1412859755_4j_id_5','frontEndIdTurma':'915B201D7EF6E8DFF2F2A96BD358F15646509B58','inciadoPelaBusca':'true','paginaListaTurmasOrigem':'/portais/discente/turmas.jsp'},'');}return false};return (a()==false) ? false : b();"><img src="/sigaa/img/avancar.gif" /></a>
+				</td>
+			</tr>
+		
+
+			
+	
+			
+				
+				
+					
+				
+			
+			
+			
+
+			<tr class="linhaPar">
+				<td>MATA56 - PARADIGMAS DE LINGUAGENS DE PROGRAMA&#199;&#195;O</td>
+				<td align="center">02</td>
+				<td align="right">60h</td>
+				<td align="center">24N12 (09/03/2026 - 11/07/2026)</td>
+				<td>
+					<a href="#" title="Acessar Turma Virtual" onclick="var a=function(){return prevenirDuploClique();};var b=function(){if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('j_id_jsp_1412859755_2'),{'j_id_jsp_1412859755_2:j_id_jsp_1412859755_4j_id_6':'j_id_jsp_1412859755_2:j_id_jsp_1412859755_4j_id_6','frontEndIdTurma':'686B2CE4241403CE177A16CD50A5EF4B4AC4A857','inciadoPelaBusca':'true','paginaListaTurmasOrigem':'/portais/discente/turmas.jsp'},'');}return false};return (a()==false) ? false : b();"><img src="/sigaa/img/avancar.gif" /></a>
+				</td>
+			</tr>
+		
+
+			
+	
+			
+				
+				
+					
+				
+			
+			
+			
+
+			<tr class="linhaImpar">
+				<td>MATB19 - SISTEMAS MULTIM&#205;DIA</td>
+				<td align="center">01</td>
+				<td align="right">60h</td>
+				<td align="center">35N34 (09/03/2026 - 11/07/2026)</td>
+				<td>
+					<a href="#" title="Acessar Turma Virtual" onclick="var a=function(){return prevenirDuploClique();};var b=function(){if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('j_id_jsp_1412859755_2'),{'j_id_jsp_1412859755_2:j_id_jsp_1412859755_4j_id_7':'j_id_jsp_1412859755_2:j_id_jsp_1412859755_4j_id_7','frontEndIdTurma':'E603946632BE4852190575624977F82E5C8874B9','inciadoPelaBusca':'true','paginaListaTurmasOrigem':'/portais/discente/turmas.jsp'},'');}return false};return (a()==false) ? false : b();"><img src="/sigaa/img/avancar.gif" /></a>
+				</td>
+			</tr>
+		
+
+			
+	
+			
+				
+				
+					
+				
+			
+			
+			
+				
+				<tr class="destaque no-hover">
+					<td class="periodo" colspan="6">2025.2</td>
+				</tr>
+			
+
+			<tr class="linhaPar">
+				<td>MATA60 - BANCO DE DADOS</td>
+				<td align="center">02</td>
+				<td align="right">60h</td>
+				<td align="center">35N12 (01/09/2025 - 10/01/2026)</td>
+				<td>
+					<a href="#" title="Acessar Turma Virtual" onclick="var a=function(){return prevenirDuploClique();};var b=function(){if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('j_id_jsp_1412859755_2'),{'j_id_jsp_1412859755_2:j_id_jsp_1412859755_4j_id_8':'j_id_jsp_1412859755_2:j_id_jsp_1412859755_4j_id_8','frontEndIdTurma':'690426B5EB275E489EE50F424D342585C325DDF0','inciadoPelaBusca':'true','paginaListaTurmasOrigem':'/portais/discente/turmas.jsp'},'');}return false};return (a()==false) ? false : b();"><img src="/sigaa/img/avancar.gif" /></a>
+				</td>
+			</tr>
+		
+
+			
+	
+			
+				
+				
+					
+				
+			
+			
+			
+
+			<tr class="linhaImpar">
+				<td>MATA55 - PROGRAMA&#199;&#195;O ORIENTADA A OBJETOS</td>
+				<td align="center">02</td>
+				<td align="right">60h</td>
+				<td align="center">46N12 (01/09/2025 - 10/01/2026)</td>
+				<td>
+					<a href="#" title="Acessar Turma Virtual" onclick="var a=function(){return prevenirDuploClique();};var b=function(){if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('j_id_jsp_1412859755_2'),{'j_id_jsp_1412859755_2:j_id_jsp_1412859755_4j_id_9':'j_id_jsp_1412859755_2:j_id_jsp_1412859755_4j_id_9','frontEndIdTurma':'4B3905B6DE12A9DE9AB3349969F3CC21BA2B95CD','inciadoPelaBusca':'true','paginaListaTurmasOrigem':'/portais/discente/turmas.jsp'},'');}return false};return (a()==false) ? false : b();"><img src="/sigaa/img/avancar.gif" /></a>
+				</td>
+			</tr>
+		
+
+			
+	
+			
+				
+				
+					
+				
+			
+			
+			
+
+			<tr class="linhaPar">
+				<td>MATA07 - &#193;LGEBRA LINEAR A</td>
+				<td align="center">07</td>
+				<td align="right">60h</td>
+				<td align="center">24N34 (01/09/2025 - 10/01/2026)</td>
+				<td>
+					<a href="#" title="Acessar Turma Virtual" onclick="var a=function(){return prevenirDuploClique();};var b=function(){if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('j_id_jsp_1412859755_2'),{'j_id_jsp_1412859755_2:j_id_jsp_1412859755_4j_id_10':'j_id_jsp_1412859755_2:j_id_jsp_1412859755_4j_id_10','frontEndIdTurma':'024E6E7CE2371B8B82A8BBB0792C735780B173DC','inciadoPelaBusca':'true','paginaListaTurmasOrigem':'/portais/discente/turmas.jsp'},'');}return false};return (a()==false) ? false : b();"><img src="/sigaa/img/avancar.gif" /></a>
+				</td>
+			</tr>
+		
+
+			
+	
+			
+				
+				
+					
+				
+			
+			
+			
+				
+				<tr class="destaque no-hover">
+					<td class="periodo" colspan="6">2025.1</td>
+				</tr>
+			
+
+			<tr class="linhaImpar">
+				<td>MATD04 - ESTRUTURAS DE DADOS</td>
+				<td align="center">01</td>
+				<td align="right">60h</td>
+				<td align="center">3N12  5N12 (24/03/2025 - 26/07/2025)</td>
+				<td>
+					<a href="#" title="Acessar Turma Virtual" onclick="var a=function(){return prevenirDuploClique();};var b=function(){if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('j_id_jsp_1412859755_2'),{'j_id_jsp_1412859755_2:j_id_jsp_1412859755_4j_id_11':'j_id_jsp_1412859755_2:j_id_jsp_1412859755_4j_id_11','frontEndIdTurma':'455BD0152B97D4B71DE5B2148CF9E153342D57C3','inciadoPelaBusca':'true','paginaListaTurmasOrigem':'/portais/discente/turmas.jsp'},'');}return false};return (a()==false) ? false : b();"><img src="/sigaa/img/avancar.gif" /></a>
+				</td>
+			</tr>
+		
+
+			
+	
+			
+				
+				
+					
+				
+			
+			
+			
+
+			<tr class="linhaPar">
+				<td>MATC82 - SISTEMAS WEB</td>
+				<td align="center">01</td>
+				<td align="right">60h</td>
+				<td align="center">4N34  6N34 (24/03/2025 - 26/07/2025)</td>
+				<td>
+					<a href="#" title="Acessar Turma Virtual" onclick="var a=function(){return prevenirDuploClique();};var b=function(){if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('j_id_jsp_1412859755_2'),{'j_id_jsp_1412859755_2:j_id_jsp_1412859755_4j_id_12':'j_id_jsp_1412859755_2:j_id_jsp_1412859755_4j_id_12','frontEndIdTurma':'23BE8EE54734CABD881F25E564286FDB0360B50E','inciadoPelaBusca':'true','paginaListaTurmasOrigem':'/portais/discente/turmas.jsp'},'');}return false};return (a()==false) ? false : b();"><img src="/sigaa/img/avancar.gif" /></a>
+				</td>
+			</tr>
+		
+
+			
+	
+			
+				
+				
+					
+				
+			
+			
+			
+
+			<tr class="linhaImpar">
+				<td>MATE85 - T&#211;PICOS EM SISTEMAS DE INFORMA&#199;&#195;O E WEB I</td>
+				<td align="center">01</td>
+				<td align="right">45h</td>
+				<td align="center">2N12  3N3 (24/03/2025 - 26/07/2025)</td>
+				<td>
+					<a href="#" title="Acessar Turma Virtual" onclick="var a=function(){return prevenirDuploClique();};var b=function(){if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('j_id_jsp_1412859755_2'),{'j_id_jsp_1412859755_2:j_id_jsp_1412859755_4j_id_13':'j_id_jsp_1412859755_2:j_id_jsp_1412859755_4j_id_13','frontEndIdTurma':'D40F3791B891AEF8632DA193CA2CB39D5F34B7D5','inciadoPelaBusca':'true','paginaListaTurmasOrigem':'/portais/discente/turmas.jsp'},'');}return false};return (a()==false) ? false : b();"><img src="/sigaa/img/avancar.gif" /></a>
+				</td>
+			</tr>
+		
+
+			
+	
+			
+				
+				
+					
+				
+			
+			
+			
+				
+				<tr class="destaque no-hover">
+					<td class="periodo" colspan="6">2024.2</td>
+				</tr>
+			
+
+			<tr class="linhaPar">
+				<td>MATA76 - LINGUAGENS PARA APLICA&#199;&#195;O COMERCIAL</td>
+				<td align="center">01</td>
+				<td align="right">45h</td>
+				<td align="center">5N34 (30/09/2024 - 14/02/2025)</td>
+				<td>
+					<a href="#" title="Acessar Turma Virtual" onclick="var a=function(){return prevenirDuploClique();};var b=function(){if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('j_id_jsp_1412859755_2'),{'j_id_jsp_1412859755_2:j_id_jsp_1412859755_4j_id_14':'j_id_jsp_1412859755_2:j_id_jsp_1412859755_4j_id_14','frontEndIdTurma':'24E567E8FA15A272566E777F8E4B2BDB23A42DB4','inciadoPelaBusca':'true','paginaListaTurmasOrigem':'/portais/discente/turmas.jsp'},'');}return false};return (a()==false) ? false : b();"><img src="/sigaa/img/avancar.gif" /></a>
+				</td>
+			</tr>
+		
+
+			
+	
+			
+				
+				
+					
+				
+			
+			
+			
+
+			<tr class="linhaImpar">
+				<td>LETF01 - L&#205;NGUA PORTUGUESA - LEITURA E PRODU&#199;&#195;O DE TEXTO PARA FINS ES</td>
+				<td align="center">07</td>
+				<td align="right">60h</td>
+				<td align="center">2N1234 (30/09/2024 - 14/02/2025)</td>
+				<td>
+					<a href="#" title="Acessar Turma Virtual" onclick="var a=function(){return prevenirDuploClique();};var b=function(){if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('j_id_jsp_1412859755_2'),{'j_id_jsp_1412859755_2:j_id_jsp_1412859755_4j_id_15':'j_id_jsp_1412859755_2:j_id_jsp_1412859755_4j_id_15','frontEndIdTurma':'C878991DB1896AC9C03CE61561474EDA0E1AC53D','inciadoPelaBusca':'true','paginaListaTurmasOrigem':'/portais/discente/turmas.jsp'},'');}return false};return (a()==false) ? false : b();"><img src="/sigaa/img/avancar.gif" /></a>
+				</td>
+			</tr>
+		
+
+			
+	
+			
+				
+				
+					
+				
+			
+			
+			
+
+			<tr class="linhaPar">
+				<td>MATA59 - REDES DE COMPUTADORES I</td>
+				<td align="center">01</td>
+				<td align="right">60h</td>
+				<td align="center">2T56  4T56 (30/09/2024 - 14/02/2025)</td>
+				<td>
+					<a href="#" title="Acessar Turma Virtual" onclick="var a=function(){return prevenirDuploClique();};var b=function(){if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('j_id_jsp_1412859755_2'),{'j_id_jsp_1412859755_2:j_id_jsp_1412859755_4j_id_16':'j_id_jsp_1412859755_2:j_id_jsp_1412859755_4j_id_16','frontEndIdTurma':'FEA9CFBF50466B40FB37E6FAAE0699BD924CA10E','inciadoPelaBusca':'true','paginaListaTurmasOrigem':'/portais/discente/turmas.jsp'},'');}return false};return (a()==false) ? false : b();"><img src="/sigaa/img/avancar.gif" /></a>
+				</td>
+			</tr>
+		
+
+			
+	
+			
+				
+				
+					
+				
+			
+			
+			
+
+			<tr class="linhaImpar">
+				<td>MATA58 - SISTEMAS OPERACIONAIS</td>
+				<td align="center">02</td>
+				<td align="right">60h</td>
+				<td align="center">3N12  5N12 (30/09/2024 - 14/02/2025)</td>
+				<td>
+					<a href="#" title="Acessar Turma Virtual" onclick="var a=function(){return prevenirDuploClique();};var b=function(){if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('j_id_jsp_1412859755_2'),{'j_id_jsp_1412859755_2:j_id_jsp_1412859755_4j_id_17':'j_id_jsp_1412859755_2:j_id_jsp_1412859755_4j_id_17','frontEndIdTurma':'E5567D233AEA3A9A09EAD85F35A7D9C93CDFF0E0','inciadoPelaBusca':'true','paginaListaTurmasOrigem':'/portais/discente/turmas.jsp'},'');}return false};return (a()==false) ? false : b();"><img src="/sigaa/img/avancar.gif" /></a>
+				</td>
+			</tr>
+		
+
+			
+	
+			
+				
+				
+					
+				
+			
+			
+			
+				
+				<tr class="destaque no-hover">
+					<td class="periodo" colspan="6">2023.2</td>
+				</tr>
+			
+
+			<tr class="linhaPar">
+				<td>MATC90 - CIRCUITOS DIGITAIS E ARQUITETURA DE COMPUTADORES</td>
+				<td align="center">01</td>
+				<td align="right">60h</td>
+				<td align="center">4N34  6N34 (14/08/2023 - 16/12/2023)</td>
+				<td>
+					<a href="#" title="Acessar Turma Virtual" onclick="var a=function(){return prevenirDuploClique();};var b=function(){if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('j_id_jsp_1412859755_2'),{'j_id_jsp_1412859755_2:j_id_jsp_1412859755_4j_id_18':'j_id_jsp_1412859755_2:j_id_jsp_1412859755_4j_id_18','frontEndIdTurma':'B117794583B07A6796A8A7DF7272779087B4F38D','inciadoPelaBusca':'true','paginaListaTurmasOrigem':'/portais/discente/turmas.jsp'},'');}return false};return (a()==false) ? false : b();"><img src="/sigaa/img/avancar.gif" /></a>
+				</td>
+			</tr>
+		
+
+			
+	
+			
+				
+				
+					
+				
+			
+			
+			
+
+			<tr class="linhaImpar">
+				<td>MATD04 - ESTRUTURAS DE DADOS</td>
+				<td align="center">01</td>
+				<td align="right">60h</td>
+				<td align="center">3N12  5N12 (14/08/2023 - 16/12/2023)</td>
+				<td>
+					<a href="#" title="Acessar Turma Virtual" onclick="var a=function(){return prevenirDuploClique();};var b=function(){if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('j_id_jsp_1412859755_2'),{'j_id_jsp_1412859755_2:j_id_jsp_1412859755_4j_id_19':'j_id_jsp_1412859755_2:j_id_jsp_1412859755_4j_id_19','frontEndIdTurma':'DD5AF061F416FCA6E4967E875784A67FE011A760','inciadoPelaBusca':'true','paginaListaTurmasOrigem':'/portais/discente/turmas.jsp'},'');}return false};return (a()==false) ? false : b();"><img src="/sigaa/img/avancar.gif" /></a>
+				</td>
+			</tr>
+		
+
+			
+	
+			
+				
+				
+					
+				
+			
+			
+			
+
+			<tr class="linhaPar">
+				<td>LETE48 - LIBRAS I- L&#205;NGUA BRASILEIRA DE SINAIS NIVEL I</td>
+				<td align="center">05</td>
+				<td align="right">60h</td>
+				<td align="center">4N12  6N12 (14/08/2023 - 16/12/2023)</td>
+				<td>
+					<a href="#" title="Acessar Turma Virtual" onclick="var a=function(){return prevenirDuploClique();};var b=function(){if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('j_id_jsp_1412859755_2'),{'j_id_jsp_1412859755_2:j_id_jsp_1412859755_4j_id_20':'j_id_jsp_1412859755_2:j_id_jsp_1412859755_4j_id_20','frontEndIdTurma':'6C208BBF2B9EC72AF11E28E309A49F9B53D0A9AB','inciadoPelaBusca':'true','paginaListaTurmasOrigem':'/portais/discente/turmas.jsp'},'');}return false};return (a()==false) ? false : b();"><img src="/sigaa/img/avancar.gif" /></a>
+				</td>
+			</tr>
+		
+
+			
+	
+			
+				
+				
+					
+				
+			
+			
+			
+				
+				<tr class="destaque no-hover">
+					<td class="periodo" colspan="6">2023.1</td>
+				</tr>
+			
+
+			<tr class="linhaImpar">
+				<td>MATF34 - ACCS:PROGRAMA&#199;&#195;O COMPETITIVA-COMPUTA&#199;&#195;O PARA ALUNOS</td>
+				<td align="center">01</td>
+				<td align="right">60h</td>
+				<td align="center">7T2  7T3  7T4  7T5 (14/03/2023 - 15/07/2023)</td>
+				<td>
+					<a href="#" title="Acessar Turma Virtual" onclick="var a=function(){return prevenirDuploClique();};var b=function(){if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('j_id_jsp_1412859755_2'),{'j_id_jsp_1412859755_2:j_id_jsp_1412859755_4j_id_21':'j_id_jsp_1412859755_2:j_id_jsp_1412859755_4j_id_21','frontEndIdTurma':'6DE0DA0EFF8E07694A7DC6F0A2DEF041BF58AB7F','inciadoPelaBusca':'true','paginaListaTurmasOrigem':'/portais/discente/turmas.jsp'},'');}return false};return (a()==false) ? false : b();"><img src="/sigaa/img/avancar.gif" /></a>
+				</td>
+			</tr>
+		
+
+			
+	
+			
+				
+				
+					
+				
+			
+			
+			
+
+			<tr class="linhaPar">
+				<td>MAT220 - EMPREENDEDORES EM INFORMATICA</td>
+				<td align="center">01</td>
+				<td align="right">60h</td>
+				<td align="center">3T12  5T12 (14/03/2023 - 15/07/2023)</td>
+				<td>
+					<a href="#" title="Acessar Turma Virtual" onclick="var a=function(){return prevenirDuploClique();};var b=function(){if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('j_id_jsp_1412859755_2'),{'j_id_jsp_1412859755_2:j_id_jsp_1412859755_4j_id_22':'j_id_jsp_1412859755_2:j_id_jsp_1412859755_4j_id_22','frontEndIdTurma':'2F368ED44D13F2DA3883296AFD2E14F32200B3C9','inciadoPelaBusca':'true','paginaListaTurmasOrigem':'/portais/discente/turmas.jsp'},'');}return false};return (a()==false) ? false : b();"><img src="/sigaa/img/avancar.gif" /></a>
+				</td>
+			</tr>
+		
+
+			
+	
+			
+				
+				
+					
+				
+			
+			
+			
+
+			<tr class="linhaImpar">
+				<td>MATD04 - ESTRUTURAS DE DADOS</td>
+				<td align="center">01</td>
+				<td align="right">60h</td>
+				<td align="center">3N12  5N12 (14/03/2023 - 15/07/2023)</td>
+				<td>
+					<a href="#" title="Acessar Turma Virtual" onclick="var a=function(){return prevenirDuploClique();};var b=function(){if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('j_id_jsp_1412859755_2'),{'j_id_jsp_1412859755_2:j_id_jsp_1412859755_4j_id_23':'j_id_jsp_1412859755_2:j_id_jsp_1412859755_4j_id_23','frontEndIdTurma':'FE972F953B0F45167073A145EB7FA39ACF81010F','inciadoPelaBusca':'true','paginaListaTurmasOrigem':'/portais/discente/turmas.jsp'},'');}return false};return (a()==false) ? false : b();"><img src="/sigaa/img/avancar.gif" /></a>
+				</td>
+			</tr>
+		
+
+			
+	
+			
+				
+				
+					
+				
+			
+			
+			
+
+			<tr class="linhaPar">
+				<td>ADM001 - INTRODUC&#195;O &#192; ADMINISTRACAO</td>
+				<td align="center">08</td>
+				<td align="right">60h</td>
+				<td align="center">6N1234 (14/03/2023 - 15/07/2023)</td>
+				<td>
+					<a href="#" title="Acessar Turma Virtual" onclick="var a=function(){return prevenirDuploClique();};var b=function(){if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('j_id_jsp_1412859755_2'),{'j_id_jsp_1412859755_2:j_id_jsp_1412859755_4j_id_24':'j_id_jsp_1412859755_2:j_id_jsp_1412859755_4j_id_24','frontEndIdTurma':'C527E3EC8B22E74E373990FAB41D8EF1C61CA0E2','inciadoPelaBusca':'true','paginaListaTurmasOrigem':'/portais/discente/turmas.jsp'},'');}return false};return (a()==false) ? false : b();"><img src="/sigaa/img/avancar.gif" /></a>
+				</td>
+			</tr>
+		
+
+			
+	
+			
+				
+				
+					
+				
+			
+			
+			
+
+			<tr class="linhaImpar">
+				<td>ENGC75 - INTRODU&#199;AO &#192; ROBOTICA</td>
+				<td align="center">01</td>
+				<td align="right">60h</td>
+				<td align="center">2N12  4N12 (14/03/2023 - 15/07/2023)</td>
+				<td>
+					<a href="#" title="Acessar Turma Virtual" onclick="var a=function(){return prevenirDuploClique();};var b=function(){if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('j_id_jsp_1412859755_2'),{'j_id_jsp_1412859755_2:j_id_jsp_1412859755_4j_id_25':'j_id_jsp_1412859755_2:j_id_jsp_1412859755_4j_id_25','frontEndIdTurma':'7D4C6B29D62BC2F584D19C6F5389FB4836D33E4A','inciadoPelaBusca':'true','paginaListaTurmasOrigem':'/portais/discente/turmas.jsp'},'');}return false};return (a()==false) ? false : b();"><img src="/sigaa/img/avancar.gif" /></a>
+				</td>
+			</tr>
+		
+
+			
+	
+			
+				
+				
+					
+				
+			
+			
+			
+
+			<tr class="linhaPar">
+				<td>MATC73 - INTRODU&#199;&#195;O &#192; L&#211;GICA MATEM&#193;TICA</td>
+				<td align="center">01</td>
+				<td align="right">60h</td>
+				<td align="center">3N34  5N34 (14/03/2023 - 15/07/2023)</td>
+				<td>
+					<a href="#" title="Acessar Turma Virtual" onclick="var a=function(){return prevenirDuploClique();};var b=function(){if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('j_id_jsp_1412859755_2'),{'j_id_jsp_1412859755_2:j_id_jsp_1412859755_4j_id_26':'j_id_jsp_1412859755_2:j_id_jsp_1412859755_4j_id_26','frontEndIdTurma':'A5DECC5060EC3B7FD2786526824174D63D1538D3','inciadoPelaBusca':'true','paginaListaTurmasOrigem':'/portais/discente/turmas.jsp'},'');}return false};return (a()==false) ? false : b();"><img src="/sigaa/img/avancar.gif" /></a>
+				</td>
+			</tr>
+		
+
+			
+	
+			
+				
+				
+					
+				
+			
+			
+			
+
+			<tr class="linhaImpar">
+				<td>LETA15 - LEITURA DE TEXTOS EM LINGUA INGLESA</td>
+				<td align="center">03</td>
+				<td align="right">60h</td>
+				<td align="center">2N34  4N34 (14/03/2023 - 15/07/2023)</td>
+				<td>
+					<a href="#" title="Acessar Turma Virtual" onclick="var a=function(){return prevenirDuploClique();};var b=function(){if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('j_id_jsp_1412859755_2'),{'j_id_jsp_1412859755_2:j_id_jsp_1412859755_4j_id_27':'j_id_jsp_1412859755_2:j_id_jsp_1412859755_4j_id_27','frontEndIdTurma':'4F9E2319912F40D3DA8810C93B583CF605A91D02','inciadoPelaBusca':'true','paginaListaTurmasOrigem':'/portais/discente/turmas.jsp'},'');}return false};return (a()==false) ? false : b();"><img src="/sigaa/img/avancar.gif" /></a>
+				</td>
+			</tr>
+		
+
+			
+	
+			
+				
+				
+					
+				
+			
+			
+			
+				
+				<tr class="destaque no-hover">
+					<td class="periodo" colspan="6">2022.2</td>
+				</tr>
+			
+
+			<tr class="linhaPar">
+				<td>MATC90A - CIRCUITOS DIGITAIS E ARQUITETURA DE COMPUTADORES</td>
+				<td align="center">01</td>
+				<td align="right">68h</td>
+				<td align="center">4N34  6N34 (15/08/2022 - 14/12/2022)</td>
+				<td>
+					<a href="#" title="Acessar Turma Virtual" onclick="var a=function(){return prevenirDuploClique();};var b=function(){if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('j_id_jsp_1412859755_2'),{'j_id_jsp_1412859755_2:j_id_jsp_1412859755_4j_id_28':'j_id_jsp_1412859755_2:j_id_jsp_1412859755_4j_id_28','frontEndIdTurma':'BDE38A7B5C74D4BDAA5FBD32C8E4AE02E0968AA5','inciadoPelaBusca':'true','paginaListaTurmasOrigem':'/portais/discente/turmas.jsp'},'');}return false};return (a()==false) ? false : b();"><img src="/sigaa/img/avancar.gif" /></a>
+				</td>
+			</tr>
+		
+
+			
+	
+			
+				
+				
+					
+				
+			
+			
+			
+
+			<tr class="linhaImpar">
+				<td>ADME99A - ECONOMIA DA INOVA&#199;&#195;O</td>
+				<td align="center">01</td>
+				<td align="right">68h</td>
+				<td align="center">2N1234 (15/08/2022 - 14/12/2022)</td>
+				<td>
+					<a href="#" title="Acessar Turma Virtual" onclick="var a=function(){return prevenirDuploClique();};var b=function(){if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('j_id_jsp_1412859755_2'),{'j_id_jsp_1412859755_2:j_id_jsp_1412859755_4j_id_29':'j_id_jsp_1412859755_2:j_id_jsp_1412859755_4j_id_29','frontEndIdTurma':'AE3730B26431B892C1F5DE0426A1911E92FE18A6','inciadoPelaBusca':'true','paginaListaTurmasOrigem':'/portais/discente/turmas.jsp'},'');}return false};return (a()==false) ? false : b();"><img src="/sigaa/img/avancar.gif" /></a>
+				</td>
+			</tr>
+		
+
+			
+	
+			
+				
+				
+					
+				
+			
+			
+			
+
+			<tr class="linhaPar">
+				<td>MATD04A - ESTRUTURAS DE DADOS</td>
+				<td align="center">01</td>
+				<td align="right">68h</td>
+				<td align="center">3N12  5N12 (15/08/2022 - 14/12/2022)</td>
+				<td>
+					<a href="#" title="Acessar Turma Virtual" onclick="var a=function(){return prevenirDuploClique();};var b=function(){if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('j_id_jsp_1412859755_2'),{'j_id_jsp_1412859755_2:j_id_jsp_1412859755_4j_id_30':'j_id_jsp_1412859755_2:j_id_jsp_1412859755_4j_id_30','frontEndIdTurma':'B16F986B25C5E5E546906A8D0B7651AD238C557C','inciadoPelaBusca':'true','paginaListaTurmasOrigem':'/portais/discente/turmas.jsp'},'');}return false};return (a()==false) ? false : b();"><img src="/sigaa/img/avancar.gif" /></a>
+				</td>
+			</tr>
+		
+
+			
+	
+			
+				
+				
+					
+				
+			
+			
+			
+
+			<tr class="linhaImpar">
+				<td>MATC92A - FUNDAMENTOS DE SISTEMAS DE INFORMA&#199;&#195;O</td>
+				<td align="center">01</td>
+				<td align="right">68h</td>
+				<td align="center">4N12  6N12 (15/08/2022 - 14/12/2022)</td>
+				<td>
+					<a href="#" title="Acessar Turma Virtual" onclick="var a=function(){return prevenirDuploClique();};var b=function(){if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('j_id_jsp_1412859755_2'),{'j_id_jsp_1412859755_2:j_id_jsp_1412859755_4j_id_31':'j_id_jsp_1412859755_2:j_id_jsp_1412859755_4j_id_31','frontEndIdTurma':'7A520988182EAB8571912A3EFCFF2D63C0B0FAE5','inciadoPelaBusca':'true','paginaListaTurmasOrigem':'/portais/discente/turmas.jsp'},'');}return false};return (a()==false) ? false : b();"><img src="/sigaa/img/avancar.gif" /></a>
+				</td>
+			</tr>
+		
+
+			
+	
+			
+				
+				
+					
+				
+			
+			
+			
+				
+				<tr class="destaque no-hover">
+					<td class="periodo" colspan="6">2022.1</td>
+				</tr>
+			
+
+			<tr class="linhaPar">
+				<td>MATA68A - COMPUTADOR, &#201;TICA E SOCIEDADE</td>
+				<td align="center">01</td>
+				<td align="right">51h</td>
+				<td align="center">4N12 (07/03/2022 - 09/07/2022)</td>
+				<td>
+					<a href="#" title="Acessar Turma Virtual" onclick="var a=function(){return prevenirDuploClique();};var b=function(){if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('j_id_jsp_1412859755_2'),{'j_id_jsp_1412859755_2:j_id_jsp_1412859755_4j_id_32':'j_id_jsp_1412859755_2:j_id_jsp_1412859755_4j_id_32','frontEndIdTurma':'0D23833A8198E18F6A0D16172B4BB12FF62E2EF9','inciadoPelaBusca':'true','paginaListaTurmasOrigem':'/portais/discente/turmas.jsp'},'');}return false};return (a()==false) ? false : b();"><img src="/sigaa/img/avancar.gif" /></a>
+				</td>
+			</tr>
+		
+
+			
+	
+			
+				
+				
+					
+				
+			
+			
+			
+
+			<tr class="linhaImpar">
+				<td>MATA02A - C&#193;LCULO A</td>
+				<td align="center">17</td>
+				<td align="right">102h</td>
+				<td align="center">2N34  4N34  6N34 (07/03/2022 - 09/07/2022)</td>
+				<td>
+					<a href="#" title="Acessar Turma Virtual" onclick="var a=function(){return prevenirDuploClique();};var b=function(){if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('j_id_jsp_1412859755_2'),{'j_id_jsp_1412859755_2:j_id_jsp_1412859755_4j_id_33':'j_id_jsp_1412859755_2:j_id_jsp_1412859755_4j_id_33','frontEndIdTurma':'AAF6D740E18B5E186B6352251930BDF54227A901','inciadoPelaBusca':'true','paginaListaTurmasOrigem':'/portais/discente/turmas.jsp'},'');}return false};return (a()==false) ? false : b();"><img src="/sigaa/img/avancar.gif" /></a>
+				</td>
+			</tr>
+		
+
+			
+	
+			
+				
+				
+					
+				
+			
+			
+			
+
+			<tr class="linhaPar">
+				<td>MATA37A - INTRODU&#199;&#195;O &#192; L&#211;GICA DE PROGRAMA&#199;&#195;O</td>
+				<td align="center">04</td>
+				<td align="right">68h</td>
+				<td align="center">3N34  5N34 (07/03/2022 - 09/07/2022)</td>
+				<td>
+					<a href="#" title="Acessar Turma Virtual" onclick="var a=function(){return prevenirDuploClique();};var b=function(){if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('j_id_jsp_1412859755_2'),{'j_id_jsp_1412859755_2:j_id_jsp_1412859755_4j_id_34':'j_id_jsp_1412859755_2:j_id_jsp_1412859755_4j_id_34','frontEndIdTurma':'26E76711600C3DD5101479C08E5D1DD5F8B464CB','inciadoPelaBusca':'true','paginaListaTurmasOrigem':'/portais/discente/turmas.jsp'},'');}return false};return (a()==false) ? false : b();"><img src="/sigaa/img/avancar.gif" /></a>
+				</td>
+			</tr>
+		
+
+			
+	
+			
+				
+				
+					
+				
+			
+			
+			
+
+			<tr class="linhaImpar">
+				<td>MATA42A - MATEM&#193;TICA DISCRETA I</td>
+				<td align="center">02</td>
+				<td align="right">68h</td>
+				<td align="center">3N12  5N12 (07/03/2022 - 09/07/2022)</td>
+				<td>
+					<a href="#" title="Acessar Turma Virtual" onclick="var a=function(){return prevenirDuploClique();};var b=function(){if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('j_id_jsp_1412859755_2'),{'j_id_jsp_1412859755_2:j_id_jsp_1412859755_4j_id_35':'j_id_jsp_1412859755_2:j_id_jsp_1412859755_4j_id_35','frontEndIdTurma':'A3DD3F76DB8150BA6A206DA0A088473A41AACFC9','inciadoPelaBusca':'true','paginaListaTurmasOrigem':'/portais/discente/turmas.jsp'},'');}return false};return (a()==false) ? false : b();"><img src="/sigaa/img/avancar.gif" /></a>
+				</td>
+			</tr>
+		
+
+			
+	
+			
+				
+				
+					
+				
+			
+			
+			
+
+			<tr class="linhaPar">
+				<td>MATA39A - SEMIN&#193;RIOS DE INTRODU&#199;&#195;O AO CURSO</td>
+				<td align="center">02</td>
+				<td align="right">51h</td>
+				<td align="center">2N12 (07/03/2022 - 09/07/2022)</td>
+				<td>
+					<a href="#" title="Acessar Turma Virtual" onclick="var a=function(){return prevenirDuploClique();};var b=function(){if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('j_id_jsp_1412859755_2'),{'j_id_jsp_1412859755_2:j_id_jsp_1412859755_4j_id_36':'j_id_jsp_1412859755_2:j_id_jsp_1412859755_4j_id_36','frontEndIdTurma':'4A240DFBC549380200257ECB757F5477B1239085','inciadoPelaBusca':'true','paginaListaTurmasOrigem':'/portais/discente/turmas.jsp'},'');}return false};return (a()==false) ? false : b();"><img src="/sigaa/img/avancar.gif" /></a>
+				</td>
+			</tr>
+		
+		</tbody>
+		<tfoot>
+			<tr>
+				<td colspan="5" align="center">
+					
+				</td>
+			</tr>
+		</tfoot>
+	</table>
+<input type="hidden" name="javax.faces.ViewState" id="javax.faces.ViewState" value="j_id3" />
+</form>
+
+
+
+	
+	
+		
+
+
+
+<div class="clear"> </div>
+
+</div> 
+	<br />
+
+	
+	
+	<div style="width: 80%; text-align: center; margin: 0 auto;">
+		<a href='/sigaa/verPortalDiscente.do'>Portal do Discente</a>
+	</div>
+	
+	
+
+	<div id="rodape">
+	<!-- Redmine 24425 - Substitui&#231;&#227;o de dados dos Rodap&#233;s -->
+		<p>	SIGAA | STI/SUPAC | - | Copyright &copy; 2006-2026 - UFBA - sigaapl04.intranet.ufba.br
+		
+		 
+			 - <a onclick="javascript:versao();">v4.13.8_41_hotfix</a>
+				
+		</p>
+	</div>
+
+
+</div>  
+
+<div id="painel-mensagem-envio"> </div>
+
+
+
+
+
+
+
+
+
+
+<!-- MYFACES JAVASCRIPT -->
+
+</body>
+
+</html>
+ 
+	<script type="text/javascript" charset="UTF-8">
+		function versao(){
+			var msg='';
+			msg+='SIGAA 4.13.8_41_hotfix,  publicado em: 25/09/2026 16:18\n\n';
+			msg+='Depend\u00eancias:\n';
+			msg+='Arquitetura 4.4.5\n';
+			msg+='Entidades Comuns 2.3.3\n';
+			msg+='Servicos Integrados 2.0.8\n';
+			msg+='SharedResources 2.1.4\n';
+			msg+='Servicos Remoto Biblioteca 1.0.3\n';
+			msg+='SIGAA Mobile Objects 1.0.0\n\n';
+			msg+='Copyright SINFO/UFRN';
+			alert(msg);
+		}	
+	</script>
+
+
+<script language="javascript">
+Relogio.init(25);
+</script>
+
+	
+

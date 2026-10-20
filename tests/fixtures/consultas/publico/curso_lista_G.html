@@ -1,0 +1,2220 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta content="no-cache" http-equiv="Pragma"/>
+<title>SIGAA - Sistema Integrado de Gestão de Atividades Acadêmicas</title>
+<link class="component" href="/sigaa/a4j/s/3_3_3.Finalorg/richfaces/renderkit/html/css/basic_classes.xcss/DATB/eAF7sqpgb-jyGdIAFrMEaw__.jsf;jsessionid=0" rel="stylesheet" type="text/css"/><link class="component" href="/sigaa/a4j/s/3_3_3.Finalorg/richfaces/renderkit/html/css/extended_classes.xcss/DATB/eAF7sqpgb-jyGdIAFrMEaw__.jsf;jsessionid=0" media="rich-extended-skinning" rel="stylesheet" type="text/css"/><script type="text/javascript">window.RICH_FACES_EXTENDED_SKINNING_ON=true;</script><script src="/sigaa/a4j/g/3_3_3.Finalorg/richfaces/renderkit/html/scripts/skinning.js.jsf" type="text/javascript"></script><link href="/sigaa/img/sigaa.ico" rel="shortcut icon"/>
+<script src="/shared/jsBundles/jawr_loader.js" type="text/javascript"></script>
+<script src="/sigaa/javascript/prevenir-duplo-clique.js" type="text/javascript"></script>
+<script type="text/javascript">
+		JAWR.loader.style('/javascript/ext-2.0.a.1/resources/css/ext-all.css', 'all');
+		JAWR.loader.style('/css/public.css','all');
+	 	JAWR.loader.script('/bundles/js/sigaa_base.js');
+	 	JAWR.loader.script('/bundles/js/ext2_all.js');
+
+	 	
+	</script>
+<link href="/sigaa/cssBundles/gzip_787491763/public/css/public.css" media="all" rel="stylesheet" type="text/css"/>
+<link href="/shared/beta/css/font-awesome.css" media="screen" rel="stylesheet" type="text/css"/>
+<script src="/shared/javascript/STICookieConsent.js"></script>
+<script>
+	    document.addEventListener("DOMContentLoaded", () => {
+	    	generateCookieConsentModal("SIGAA", "N&#243;s usamos cookies para melhorar sua experi&#234;ncia de navega&#231;&#227;o no portal. Ao utilizar o %sitename%, voc&#234; concorda com a pol&#237;&#173;tica de monitoramento de cookies. Para ter mais informa&#231;&#245;es sobre como isso &#233; feito e como remover, acesse a <a href=%cookie-policy%>Pol&#237;tica de Privacidade</a>. Para saber como a UFRN trata os dados, acesse a <a href=%privacy-policy%> Pol&#237;&#173;tica de cookies</a>. Se voc&#234; concorda, clique em %button-text%.", "https://ufrn.br/institucional/politica-de-privacidade-e-termos-de-uso", "https://ufrn.br/institucional/politica-de-cookies");
+	    })
+	</script>
+</head>
+<body>
+<div id="container">
+<div id="container-inner">
+<div id="cabecalho">
+<div id="logo">
+<a href="/sigaa/public/"> <img src="https://sipac.ufba.br/shared/img/instituicao/brasao_ufba48x75.jpg"/> </a>
+</div>
+<div id="identificacao">
+<span class="ufrn"> Universidade Federal da Bahia </span>
+<span class="data">
+				 Salvador, 
+				 19 de Outubro de 
+				 2026 
+			</span>
+<a href="/sigaa/public/" id="home" style="width: 450px;" title="Página inicial"> </a>
+<div id="menu_info">
+<ul>
+<li class="login">
+<a alt="Clique aqui para logar-se no SIGAA" href="/sigaa/" title="Clique aqui para logar-se no SIGAA">
+							Login
+						<i class="fa fa-angle-right"></i></a>
+</li>
+</ul>
+</div>
+</div>
+<br clear="all"/>
+</div>
+<div id="corpo">
+<script>
+	var marcar = function(idCheck) {
+		$(idCheck).checked = true;
+	}
+</script>
+<h2 class="title">Consulta de Cursos -
+	GRADUAÇÃO</h2>
+<div class="descricaoOperacao">
+<p>Através desta página você pode consultar os cursos de
+	GRADUAÇÃO ofereridos pela UFBA. </p>
+<p>Para cada curso listado é possível consultar mais detalhes sobre ele,
+	incluindo as estruturas curriculares ou as disciplinas por módulos
+	disponíveis.</p>
+<p>Utilize o formulário abaixo para filtrar os cursos de acordo com
+	os critérios desejados.</p>
+</div>
+<form action="/sigaa/public/curso/lista.jsf;jsessionid=0" enctype="application/x-www-form-urlencoded" id="form" method="post" name="form">
+<input name="form" type="hidden" value="form"/>
+<input name="nivel" type="hidden" value="G"/>
+<table class="formulario" style="width: 60%;">
+<caption>Informe os critérios de filtragem</caption>
+<tr>
+<td width="3%"><input class="noborder" id="form:checkNome" name="form:checkNome" type="checkbox"/></td>
+<td width="25%">Nome do Curso:</td>
+<td><input id="form:nomeDoCurso" name="form:nomeDoCurso" onchange="marcar('form:checkNome');" onkeydown="marcar('form:checkNome')" style="width:95%;" type="text"/></td>
+</tr>
+<tr>
+<td><input class="noborder" id="form:checkModalidade" name="form:checkModalidade" type="checkbox"/></td>
+<td>Modalidade de Ensino:</td>
+<td><select id="form:modalidadeDeEnsino" name="form:modalidadeDeEnsino" onchange="marcar('form:checkModalidade');" size="1" style="width: 60%"> <option selected="selected" value="0">-- SELECIONE UMA MODALIDADE --</option>
+<option value="2">A Distância</option>
+<option value="1">Presencial</option>
+<option value="4">Remoto</option>
+<option value="3">Semi-Presencial</option>
+</select></td>
+</tr>
+<tfoot>
+<tr>
+<td colspan="3"><input id="form:consultarCursos" name="form:consultarCursos" type="submit" value="Consultar"/>
+</td>
+</tr>
+</tfoot>
+</table>
+<input id="javax.faces.ViewState" name="javax.faces.ViewState" type="hidden" value="j_id1"/>
+</form>
+<br/>
+<div class="legenda" style="width: 90%;">
+<img src="/sigaa/img/view.gif;jsessionid=0"/>:
+			
+				
+				
+				 Visualizar Página do Curso
+				
+			
+		</div>
+<form action="/sigaa/public/curso/lista.jsf;jsessionid=0" enctype="application/x-www-form-urlencoded" id="formListagemCursos" method="post" name="formListagemCursos">
+<input name="formListagemCursos" type="hidden" value="formListagemCursos"/>
+<input name="nivel" type="hidden" value="G"/>
+<table class="listagem" style="width: 90%;">
+<caption>Cursos (116) </caption>
+<thead>
+<tr>
+<th>Nome</th>
+<th>Sede</th>
+<th>Modalidade</th>
+<th>Coordenador</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="subFormulario" colspan="5">
+										EADM - ESCOLA DE ADMINISTRAÇÃO
+										</td>
+</tr>
+<tr class="linhaPar">
+<td>
+							ADMINISTRAÇÃO								
+							</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>Presencial</td>
+<td>CARLOS PEREIRA 458</td>
+<td>
+<a href="portal.jsf?id=1876959&amp;lc=pt_BR&amp;nivel=G" title="Visualizar Página do Curso">
+<img src="/sigaa/img/view.gif;jsessionid=0"/>
+</a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td>
+							ADMINISTRAÇÃO PÚBLICA								
+							</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>A Distância</td>
+<td>CARLOS OLIVEIRA 148</td>
+<td>
+<a href="portal.jsf?id=1877035&amp;lc=pt_BR&amp;nivel=G" title="Visualizar Página do Curso">
+<img src="/sigaa/img/view.gif;jsessionid=0"/>
+</a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td>
+							ADMINISTRAÇÃO PÚBLICA E GESTÃO SOCIAL								
+							</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>Presencial</td>
+<td>BELTRANO LIMA 172</td>
+<td>
+<a href="portal.jsf?id=1877038&amp;lc=pt_BR&amp;nivel=G" title="Visualizar Página do Curso">
+<img src="/sigaa/img/view.gif;jsessionid=0"/>
+</a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td>
+							GESTÃO DO TURISMO E DESENVOLVIMENTO SUSTENTÁVEL								
+							</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>A Distância</td>
+<td>FULANO ALVES 180</td>
+<td>
+<a href="portal.jsf?id=1877039&amp;lc=pt_BR&amp;nivel=G" title="Visualizar Página do Curso">
+<img src="/sigaa/img/view.gif;jsessionid=0"/>
+</a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td>
+							SECRETARIADO EXECUTIVO								
+							</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>Presencial</td>
+<td>PEDRO LIMA 376</td>
+<td>
+<a href="portal.jsf?id=1876956&amp;lc=pt_BR&amp;nivel=G" title="Visualizar Página do Curso">
+<img src="/sigaa/img/view.gif;jsessionid=0"/>
+</a>
+</td>
+</tr>
+<tr>
+<td class="subFormulario" colspan="5">
+										EBA - ESCOLA DE BELAS ARTES
+										</td>
+</tr>
+<tr class="linhaImpar">
+<td>
+							ARTES PLÁSTICAS								
+							</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>Presencial</td>
+<td>MARIA COSTA 263</td>
+<td>
+<a href="portal.jsf?id=1877002&amp;lc=pt_BR&amp;nivel=G" title="Visualizar Página do Curso">
+<img src="/sigaa/img/view.gif;jsessionid=0"/>
+</a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td>
+							ARTES VISUAIS								
+							</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>Presencial</td>
+<td>MARIA COSTA 263</td>
+<td>
+<a href="portal.jsf?id=1877001&amp;lc=pt_BR&amp;nivel=G" title="Visualizar Página do Curso">
+<img src="/sigaa/img/view.gif;jsessionid=0"/>
+</a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td>
+							DECORAÇÃO								
+							</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>Presencial</td>
+<td></td>
+<td>
+<a href="portal.jsf?id=1877022&amp;lc=pt_BR&amp;nivel=G" title="Visualizar Página do Curso">
+<img src="/sigaa/img/view.gif;jsessionid=0"/>
+</a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td>
+							DESENHO E PLÁSTICA								
+							</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>Presencial</td>
+<td>JOAO OLIVEIRA 344</td>
+<td>
+<a href="portal.jsf?id=1877010&amp;lc=pt_BR&amp;nivel=G" title="Visualizar Página do Curso">
+<img src="/sigaa/img/view.gif;jsessionid=0"/>
+</a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td>
+							DESIGN								
+							</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>Presencial</td>
+<td>JULIA COSTA 469</td>
+<td>
+<a href="portal.jsf?id=1877020&amp;lc=pt_BR&amp;nivel=G" title="Visualizar Página do Curso">
+<img src="/sigaa/img/view.gif;jsessionid=0"/>
+</a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td>
+							DESIGN DE INTERIORES								
+							</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>Presencial</td>
+<td></td>
+<td>
+<a href="portal.jsf?id=1877024&amp;lc=pt_BR&amp;nivel=G" title="Visualizar Página do Curso">
+<img src="/sigaa/img/view.gif;jsessionid=0"/>
+</a>
+</td>
+</tr>
+<tr>
+<td class="subFormulario" colspan="5">
+										EDAN - ESCOLA DE DANÇA
+										</td>
+</tr>
+<tr class="linhaImpar">
+<td>
+							DANÇA								
+							</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>A Distância</td>
+<td>BELTRANO LIMA 472</td>
+<td>
+<a href="portal.jsf?id=1877032&amp;lc=pt_BR&amp;nivel=G" title="Visualizar Página do Curso">
+<img src="/sigaa/img/view.gif;jsessionid=0"/>
+</a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td>
+							DANÇA								
+							</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>Presencial</td>
+<td>BELTRANO COSTA 362</td>
+<td>
+<a href="portal.jsf?id=1877008&amp;lc=pt_BR&amp;nivel=G" title="Visualizar Página do Curso">
+<img src="/sigaa/img/view.gif;jsessionid=0"/>
+</a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td>
+							DANÇA								
+							</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>Presencial</td>
+<td>PEDRO ROCHA 096</td>
+<td>
+<a href="portal.jsf?id=1877006&amp;lc=pt_BR&amp;nivel=G" title="Visualizar Página do Curso">
+<img src="/sigaa/img/view.gif;jsessionid=0"/>
+</a>
+</td>
+</tr>
+<tr>
+<td class="subFormulario" colspan="5">
+										EENF - ESCOLA DE ENFERMAGEM
+										</td>
+</tr>
+<tr class="linhaPar">
+<td>
+							ENFERMAGEM								
+							</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>Presencial</td>
+<td>BELTRANO PEREIRA 352</td>
+<td>
+<a href="portal.jsf?id=1876898&amp;lc=pt_BR&amp;nivel=G" title="Visualizar Página do Curso">
+<img src="/sigaa/img/view.gif;jsessionid=0"/>
+</a>
+</td>
+</tr>
+<tr>
+<td class="subFormulario" colspan="5">
+										EMEVZ - ESCOLA DE MEDICINA VETERINÁRIA E ZOOTECNIA
+										</td>
+</tr>
+<tr class="linhaImpar">
+<td>
+							MEDICINA VETERINÁRIA								
+							</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>Presencial</td>
+<td>JOAO PEREIRA 154</td>
+<td>
+<a href="portal.jsf?id=1876903&amp;lc=pt_BR&amp;nivel=G" title="Visualizar Página do Curso">
+<img src="/sigaa/img/view.gif;jsessionid=0"/>
+</a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td>
+							ZOOTECNIA								
+							</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>Presencial</td>
+<td>MARIA SANTOS 433</td>
+<td>
+<a href="portal.jsf?id=1876919&amp;lc=pt_BR&amp;nivel=G" title="Visualizar Página do Curso">
+<img src="/sigaa/img/view.gif;jsessionid=0"/>
+</a>
+</td>
+</tr>
+<tr>
+<td class="subFormulario" colspan="5">
+										EMUS - ESCOLA DE MÚSICA
+										</td>
+</tr>
+<tr class="linhaImpar">
+<td>
+							CANTO LÍRICO								
+							</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>Presencial</td>
+<td>LUCIA OLIVEIRA 147</td>
+<td>
+<a href="portal.jsf?id=1877014&amp;lc=pt_BR&amp;nivel=G" title="Visualizar Página do Curso">
+<img src="/sigaa/img/view.gif;jsessionid=0"/>
+</a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td>
+							COMPOSIÇÃO E REGÊNCIA								
+							</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>Presencial</td>
+<td>PEDRO SANTOS 336</td>
+<td>
+<a href="portal.jsf?id=1877003&amp;lc=pt_BR&amp;nivel=G" title="Visualizar Página do Curso">
+<img src="/sigaa/img/view.gif;jsessionid=0"/>
+</a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td>
+							COMPOSIÇÃO E REGÊNCIA								
+							</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>Presencial</td>
+<td>PEDRO SANTOS 336</td>
+<td>
+<a href="portal.jsf?id=1877005&amp;lc=pt_BR&amp;nivel=G" title="Visualizar Página do Curso">
+<img src="/sigaa/img/view.gif;jsessionid=0"/>
+</a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td>
+							INSTRUMENTO								
+							</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>Presencial</td>
+<td>PEDRO PEREIRA 056</td>
+<td>
+<a href="portal.jsf?id=1877016&amp;lc=pt_BR&amp;nivel=G" title="Visualizar Página do Curso">
+<img src="/sigaa/img/view.gif;jsessionid=0"/>
+</a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td>
+							MÚSICA								
+							</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>A Distância</td>
+<td>MARIA ALVES 383</td>
+<td>
+<a href="portal.jsf?id=1877037&amp;lc=pt_BR&amp;nivel=G" title="Visualizar Página do Curso">
+<img src="/sigaa/img/view.gif;jsessionid=0"/>
+</a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td>
+							MÚSICA								
+							</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>Presencial</td>
+<td>LUCIA DA SILVA 317</td>
+<td>
+<a href="portal.jsf?id=1877012&amp;lc=pt_BR&amp;nivel=G" title="Visualizar Página do Curso">
+<img src="/sigaa/img/view.gif;jsessionid=0"/>
+</a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td>
+							MÚSICA POPULAR								
+							</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>Presencial</td>
+<td>JOAO LIMA 474</td>
+<td>
+<a href="portal.jsf?id=1877025&amp;lc=pt_BR&amp;nivel=G" title="Visualizar Página do Curso">
+<img src="/sigaa/img/view.gif;jsessionid=0"/>
+</a>
+</td>
+</tr>
+<tr>
+<td class="subFormulario" colspan="5">
+										ENUT - ESCOLA DE NUTRIÇÃO
+										</td>
+</tr>
+<tr class="linhaPar">
+<td>
+							GASTRONOMIA								
+							</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>Presencial</td>
+<td>CARLOS COSTA 068</td>
+<td>
+<a href="portal.jsf?id=1876925&amp;lc=pt_BR&amp;nivel=G" title="Visualizar Página do Curso">
+<img src="/sigaa/img/view.gif;jsessionid=0"/>
+</a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td>
+							NUTRIÇÃO								
+							</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>Presencial</td>
+<td>CICLANO SOUZA 221</td>
+<td>
+<a href="portal.jsf?id=1876904&amp;lc=pt_BR&amp;nivel=G" title="Visualizar Página do Curso">
+<img src="/sigaa/img/view.gif;jsessionid=0"/>
+</a>
+</td>
+</tr>
+<tr>
+<td class="subFormulario" colspan="5">
+										EPOLI - ESCOLA POLITÉCNICA
+										</td>
+</tr>
+<tr class="linhaPar">
+<td>
+							ENGENHARIA CIVIL								
+							</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>Presencial</td>
+<td>MARIA ROCHA 493</td>
+<td>
+<a href="portal.jsf?id=1876833&amp;lc=pt_BR&amp;nivel=G" title="Visualizar Página do Curso">
+<img src="/sigaa/img/view.gif;jsessionid=0"/>
+</a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td>
+							ENGENHARIA DA COMPUTAÇÃO								
+							</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>Presencial</td>
+<td>CICLANO OLIVEIRA 141</td>
+<td>
+<a href="portal.jsf?id=1876880&amp;lc=pt_BR&amp;nivel=G" title="Visualizar Página do Curso">
+<img src="/sigaa/img/view.gif;jsessionid=0"/>
+</a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td>
+							ENGENHARIA DE AGRIMENSURA E CARTOGRÁFICA								
+							</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>Presencial</td>
+<td>BELTRANO COSTA 162</td>
+<td>
+<a href="portal.jsf?id=1876884&amp;lc=pt_BR&amp;nivel=G" title="Visualizar Página do Curso">
+<img src="/sigaa/img/view.gif;jsessionid=0"/>
+</a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td>
+							ENGENHARIA DE CONTROLE E AUTOMAÇÃO DE PROCESSOS								
+							</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>Presencial</td>
+<td>ANA ROCHA 495</td>
+<td>
+<a href="portal.jsf?id=1876882&amp;lc=pt_BR&amp;nivel=G" title="Visualizar Página do Curso">
+<img src="/sigaa/img/view.gif;jsessionid=0"/>
+</a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td>
+							ENGENHARIA DE MINAS								
+							</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>Presencial</td>
+<td>ANA DE TAL 405</td>
+<td>
+<a href="portal.jsf?id=1876834&amp;lc=pt_BR&amp;nivel=G" title="Visualizar Página do Curso">
+<img src="/sigaa/img/view.gif;jsessionid=0"/>
+</a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td>
+							ENGENHARIA DE PETRÓLEO								
+							</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>Presencial</td>
+<td>ANA ROCHA 195</td>
+<td>
+<a href="portal.jsf?id=1876874&amp;lc=pt_BR&amp;nivel=G" title="Visualizar Página do Curso">
+<img src="/sigaa/img/view.gif;jsessionid=0"/>
+</a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td>
+							ENGENHARIA DE PRODUÇÃO								
+							</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>Presencial</td>
+<td>FULANO DE TAL 300</td>
+<td>
+<a href="portal.jsf?id=1876879&amp;lc=pt_BR&amp;nivel=G" title="Visualizar Página do Curso">
+<img src="/sigaa/img/view.gif;jsessionid=0"/>
+</a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td>
+							ENGENHARIA DE TRANSPORTES								
+							</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>Presencial</td>
+<td>ANA PEREIRA 255</td>
+<td>
+<a href="portal.jsf?id=1876889&amp;lc=pt_BR&amp;nivel=G" title="Visualizar Página do Curso">
+<img src="/sigaa/img/view.gif;jsessionid=0"/>
+</a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td>
+							ENGENHARIA ELÉTRICA								
+							</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>Presencial</td>
+<td>MARIA LIMA 273</td>
+<td>
+<a href="portal.jsf?id=1876835&amp;lc=pt_BR&amp;nivel=G" title="Visualizar Página do Curso">
+<img src="/sigaa/img/view.gif;jsessionid=0"/>
+</a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td>
+							ENGENHARIA MECÂNICA								
+							</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>Presencial</td>
+<td>JULIA DA SILVA 319</td>
+<td>
+<a href="portal.jsf?id=1876836&amp;lc=pt_BR&amp;nivel=G" title="Visualizar Página do Curso">
+<img src="/sigaa/img/view.gif;jsessionid=0"/>
+</a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td>
+							ENGENHARIA QUÍMICA								
+							</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>Presencial</td>
+<td>MARIA SANTOS 133</td>
+<td>
+<a href="portal.jsf?id=1876838&amp;lc=pt_BR&amp;nivel=G" title="Visualizar Página do Curso">
+<img src="/sigaa/img/view.gif;jsessionid=0"/>
+</a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td>
+							ENGENHARIA SANITÁRIA E AMBIENTAL								
+							</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>Presencial</td>
+<td>MARIA DE TAL 003</td>
+<td>
+<a href="portal.jsf?id=1876841&amp;lc=pt_BR&amp;nivel=G" title="Visualizar Página do Curso">
+<img src="/sigaa/img/view.gif;jsessionid=0"/>
+</a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td>
+							TRANSPORTE TERRESTRE								
+							</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>Presencial</td>
+<td>ANA PEREIRA 255</td>
+<td>
+<a href="portal.jsf?id=1876887&amp;lc=pt_BR&amp;nivel=G" title="Visualizar Página do Curso">
+<img src="/sigaa/img/view.gif;jsessionid=0"/>
+</a>
+</td>
+</tr>
+<tr>
+<td class="subFormulario" colspan="5">
+										ETE - ESCOLA DE TEATRO
+										</td>
+</tr>
+<tr class="linhaImpar">
+<td>
+							ARTES CÊNICAS								
+							</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>Presencial</td>
+<td>LUCIA ROCHA 197</td>
+<td>
+<a href="portal.jsf?id=1877011&amp;lc=pt_BR&amp;nivel=G" title="Visualizar Página do Curso">
+<img src="/sigaa/img/view.gif;jsessionid=0"/>
+</a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td>
+							TEATRO								
+							</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>A Distância</td>
+<td>CICLANO COSTA 361</td>
+<td>
+<a href="portal.jsf?id=1877027&amp;lc=pt_BR&amp;nivel=G" title="Visualizar Página do Curso">
+<img src="/sigaa/img/view.gif;jsessionid=0"/>
+</a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td>
+							TEATRO								
+							</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>Presencial</td>
+<td>LUCIA LIMA 277</td>
+<td>
+<a href="portal.jsf?id=1877019&amp;lc=pt_BR&amp;nivel=G" title="Visualizar Página do Curso">
+<img src="/sigaa/img/view.gif;jsessionid=0"/>
+</a>
+</td>
+</tr>
+<tr>
+<td class="subFormulario" colspan="5">
+										FACED - FACULDADE DE EDUCAÇÃO
+										</td>
+</tr>
+<tr class="linhaPar">
+<td>
+							CIÊNCIAS NATURAIS								
+							</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>Presencial</td>
+<td>JULIA DE TAL 309</td>
+<td>
+<a href="portal.jsf?id=1876907&amp;lc=pt_BR&amp;nivel=G" title="Visualizar Página do Curso">
+<img src="/sigaa/img/view.gif;jsessionid=0"/>
+</a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td>
+							EDUCAÇÃO DO CAMPO								
+							</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>Presencial</td>
+<td>CARLOS PEREIRA 358</td>
+<td>
+<a href="portal.jsf?id=1877000&amp;lc=pt_BR&amp;nivel=G" title="Visualizar Página do Curso">
+<img src="/sigaa/img/view.gif;jsessionid=0"/>
+</a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td>
+							EDUCAÇÃO FÍSICA								
+							</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>Presencial</td>
+<td>JULIA SANTOS 439</td>
+<td>
+<a href="portal.jsf?id=1876958&amp;lc=pt_BR&amp;nivel=G" title="Visualizar Página do Curso">
+<img src="/sigaa/img/view.gif;jsessionid=0"/>
+</a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td>
+							PEDAGOGIA								
+							</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>A Distância</td>
+<td></td>
+<td>
+<a href="portal.jsf?id=1877033&amp;lc=pt_BR&amp;nivel=G" title="Visualizar Página do Curso">
+<img src="/sigaa/img/view.gif;jsessionid=0"/>
+</a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td>
+							PEDAGOGIA								
+							</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>Presencial</td>
+<td>BELTRANO ALVES 382</td>
+<td>
+<a href="portal.jsf?id=1876949&amp;lc=pt_BR&amp;nivel=G" title="Visualizar Página do Curso">
+<img src="/sigaa/img/view.gif;jsessionid=0"/>
+</a>
+</td>
+</tr>
+<tr>
+<td class="subFormulario" colspan="5">
+										FACOM - FACULDADE DE COMUNICAÇÃO
+										</td>
+</tr>
+<tr class="linhaImpar">
+<td>
+							CINEMA E AUDIOVISUAL								
+							</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>Presencial</td>
+<td></td>
+<td>
+<a href="portal.jsf?id=5649059&amp;lc=pt_BR&amp;nivel=G" title="Visualizar Página do Curso">
+<img src="/sigaa/img/view.gif;jsessionid=0"/>
+</a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td>
+							COMUNICAÇÃO								
+							</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>Presencial</td>
+<td>CARLOS LIMA 378</td>
+<td>
+<a href="portal.jsf?id=1876941&amp;lc=pt_BR&amp;nivel=G" title="Visualizar Página do Curso">
+<img src="/sigaa/img/view.gif;jsessionid=0"/>
+</a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td>
+							COMUNICAÇÃO								
+							</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>Presencial</td>
+<td>CARLOS LIMA 378</td>
+<td>
+<a href="portal.jsf?id=1876939&amp;lc=pt_BR&amp;nivel=G" title="Visualizar Página do Curso">
+<img src="/sigaa/img/view.gif;jsessionid=0"/>
+</a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td>
+							JORNALISMO								
+							</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>Presencial</td>
+<td>CARLOS LIMA 378</td>
+<td>
+<a href="portal.jsf?id=1876940&amp;lc=pt_BR&amp;nivel=G" title="Visualizar Página do Curso">
+<img src="/sigaa/img/view.gif;jsessionid=0"/>
+</a>
+</td>
+</tr>
+<tr>
+<td class="subFormulario" colspan="5">
+										FADIR - FACULDADE DE DIREITO
+										</td>
+</tr>
+<tr class="linhaImpar">
+<td>
+							DIREITO								
+							</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>Presencial</td>
+<td>PEDRO ROCHA 196</td>
+<td>
+<a href="portal.jsf?id=1876942&amp;lc=pt_BR&amp;nivel=G" title="Visualizar Página do Curso">
+<img src="/sigaa/img/view.gif;jsessionid=0"/>
+</a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td>
+							SEGURANÇA PÚBLICA								
+							</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>A Distância</td>
+<td>BELTRANO ROCHA 092</td>
+<td>
+<a href="portal.jsf?id=1877029&amp;lc=pt_BR&amp;nivel=G" title="Visualizar Página do Curso">
+<img src="/sigaa/img/view.gif;jsessionid=0"/>
+</a>
+</td>
+</tr>
+<tr>
+<td class="subFormulario" colspan="5">
+										FAUFBA - FACULDADE DE ARQUITETURA
+										</td>
+</tr>
+<tr class="linhaImpar">
+<td>
+							ARQUITETURA E URBANISMO								
+							</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>Presencial</td>
+<td>JOAO PEREIRA 254</td>
+<td>
+<a href="portal.jsf?id=1876832&amp;lc=pt_BR&amp;nivel=G" title="Visualizar Página do Curso">
+<img src="/sigaa/img/view.gif;jsessionid=0"/>
+</a>
+</td>
+</tr>
+<tr>
+<td class="subFormulario" colspan="5">
+										FCC - FACULDADE DE CIÊNCIAS CONTÁBEIS
+										</td>
+</tr>
+<tr class="linhaPar">
+<td>
+							CIÊNCIAS CONTÁBEIS								
+							</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>Presencial</td>
+<td>FULANO DA SILVA 410</td>
+<td>
+<a href="portal.jsf?id=1876932&amp;lc=pt_BR&amp;nivel=G" title="Visualizar Página do Curso">
+<img src="/sigaa/img/view.gif;jsessionid=0"/>
+</a>
+</td>
+</tr>
+<tr>
+<td class="subFormulario" colspan="5">
+										FCE - FACULDADE DE ECONOMIA
+										</td>
+</tr>
+<tr class="linhaImpar">
+<td>
+							CIÊNCIAS ECONÔMICAS								
+							</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>Presencial</td>
+<td>PEDRO ROCHA 296</td>
+<td>
+<a href="portal.jsf?id=1876933&amp;lc=pt_BR&amp;nivel=G" title="Visualizar Página do Curso">
+<img src="/sigaa/img/view.gif;jsessionid=0"/>
+</a>
+</td>
+</tr>
+<tr>
+<td class="subFormulario" colspan="5">
+										FFAR - FACULDADE DE FARMÁCIA
+										</td>
+</tr>
+<tr class="linhaPar">
+<td>
+							FARMÁCIA								
+							</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>Presencial</td>
+<td>PEDRO SANTOS 136</td>
+<td>
+<a href="portal.jsf?id=1876899&amp;lc=pt_BR&amp;nivel=G" title="Visualizar Página do Curso">
+<img src="/sigaa/img/view.gif;jsessionid=0"/>
+</a>
+</td>
+</tr>
+<tr>
+<td class="subFormulario" colspan="5">
+										FFCH - FACULDADE DE FILOSOFIA E CIÊNCIAS HUMANAS
+										</td>
+</tr>
+<tr class="linhaImpar">
+<td>
+							CIÊNCIAS SOCIAIS								
+							</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>Presencial</td>
+<td>CARLOS DE TAL 108</td>
+<td>
+<a href="portal.jsf?id=1876937&amp;lc=pt_BR&amp;nivel=G" title="Visualizar Página do Curso">
+<img src="/sigaa/img/view.gif;jsessionid=0"/>
+</a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td>
+							CIÊNCIAS SOCIAIS								
+							</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>Presencial</td>
+<td>CARLOS DE TAL 108</td>
+<td>
+<a href="portal.jsf?id=1876934&amp;lc=pt_BR&amp;nivel=G" title="Visualizar Página do Curso">
+<img src="/sigaa/img/view.gif;jsessionid=0"/>
+</a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td>
+							EDUCAÇÃO INTERCULTURAL INDÍGENA								
+							</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>Presencial</td>
+<td>JOAO COSTA 164</td>
+<td>
+<a href="portal.jsf?id=1876999&amp;lc=pt_BR&amp;nivel=G" title="Visualizar Página do Curso">
+<img src="/sigaa/img/view.gif;jsessionid=0"/>
+</a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td>
+							ESTUDOS DE GÊNERO E DIVERSIDADE								
+							</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>Presencial</td>
+<td>MARIA SANTOS 033</td>
+<td>
+<a href="portal.jsf?id=1876970&amp;lc=pt_BR&amp;nivel=G" title="Visualizar Página do Curso">
+<img src="/sigaa/img/view.gif;jsessionid=0"/>
+</a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td>
+							FILOSOFIA								
+							</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>Presencial</td>
+<td>BELTRANO DA SILVA 212</td>
+<td>
+<a href="portal.jsf?id=1876944&amp;lc=pt_BR&amp;nivel=G" title="Visualizar Página do Curso">
+<img src="/sigaa/img/view.gif;jsessionid=0"/>
+</a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td>
+							FILOSOFIA								
+							</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>Presencial</td>
+<td>BELTRANO DA SILVA 212</td>
+<td>
+<a href="portal.jsf?id=1876943&amp;lc=pt_BR&amp;nivel=G" title="Visualizar Página do Curso">
+<img src="/sigaa/img/view.gif;jsessionid=0"/>
+</a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td>
+							HISTÓRIA								
+							</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>Presencial</td>
+<td></td>
+<td>
+<a href="portal.jsf?id=1876946&amp;lc=pt_BR&amp;nivel=G" title="Visualizar Página do Curso">
+<img src="/sigaa/img/view.gif;jsessionid=0"/>
+</a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td>
+							HISTÓRIA								
+							</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>Presencial</td>
+<td>FULANO PEREIRA 450</td>
+<td>
+<a href="portal.jsf?id=1876945&amp;lc=pt_BR&amp;nivel=G" title="Visualizar Página do Curso">
+<img src="/sigaa/img/view.gif;jsessionid=0"/>
+</a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td>
+							MUSEOLOGIA								
+							</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>Presencial</td>
+<td>LUCIA PEREIRA 457</td>
+<td>
+<a href="portal.jsf?id=1876947&amp;lc=pt_BR&amp;nivel=G" title="Visualizar Página do Curso">
+<img src="/sigaa/img/view.gif;jsessionid=0"/>
+</a>
+</td>
+</tr>
+<tr>
+<td class="subFormulario" colspan="5">
+										FMB - FACULDADE DE MEDICINA DA BAHIA
+										</td>
+</tr>
+<tr class="linhaPar">
+<td>
+							MEDICINA								
+							</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>Presencial</td>
+<td>BELTRANO DE TAL 402</td>
+<td>
+<a href="portal.jsf?id=1876902&amp;lc=pt_BR&amp;nivel=G" title="Visualizar Página do Curso">
+<img src="/sigaa/img/view.gif;jsessionid=0"/>
+</a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td>
+							TERAPIA OCUPACIONAL								
+							</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>Presencial</td>
+<td>PEDRO DE TAL 406</td>
+<td>
+<a href="portal.jsf?id=1877036&amp;lc=pt_BR&amp;nivel=G" title="Visualizar Página do Curso">
+<img src="/sigaa/img/view.gif;jsessionid=0"/>
+</a>
+</td>
+</tr>
+<tr>
+<td class="subFormulario" colspan="5">
+										FOUFBA - FACULDADE DE ODONTOLOGIA
+										</td>
+</tr>
+<tr class="linhaPar">
+<td>
+							ODONTOLOGIA								
+							</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>Presencial</td>
+<td>PEDRO ALVES 186</td>
+<td>
+<a href="portal.jsf?id=1876905&amp;lc=pt_BR&amp;nivel=G" title="Visualizar Página do Curso">
+<img src="/sigaa/img/view.gif;jsessionid=0"/>
+</a>
+</td>
+</tr>
+<tr>
+<td class="subFormulario" colspan="5">
+										IBIO - INSTITUTO DE BIOLOGIA
+										</td>
+</tr>
+<tr class="linhaImpar">
+<td>
+							CIÊNCIAS BIOLÓGICAS								
+							</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>Presencial</td>
+<td>ANA COSTA 065</td>
+<td>
+<a href="portal.jsf?id=1876893&amp;lc=pt_BR&amp;nivel=G" title="Visualizar Página do Curso">
+<img src="/sigaa/img/view.gif;jsessionid=0"/>
+</a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td>
+							CIÊNCIAS BIOLÓGICAS								
+							</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>Presencial</td>
+<td>FULANO LIMA 370</td>
+<td>
+<a href="portal.jsf?id=1876896&amp;lc=pt_BR&amp;nivel=G" title="Visualizar Página do Curso">
+<img src="/sigaa/img/view.gif;jsessionid=0"/>
+</a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td>
+							GESTÃO SOCIOAMBIENTAL EM TERRITÓRIOS E MARETÓRIOS TRADICIONAIS								
+							</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>A Distância</td>
+<td></td>
+<td>
+<a href="portal.jsf?id=6573780&amp;lc=pt_BR&amp;nivel=G" title="Visualizar Página do Curso">
+<img src="/sigaa/img/view.gif;jsessionid=0"/>
+</a>
+</td>
+</tr>
+<tr>
+<td class="subFormulario" colspan="5">
+										ICI - INSTITUTO DE CIÊNCIA DA INFORMAÇÃO
+										</td>
+</tr>
+<tr class="linhaPar">
+<td>
+							ARQUIVOLOGIA								
+							</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>Presencial</td>
+<td>JOAO PEREIRA 454</td>
+<td>
+<a href="portal.jsf?id=1876960&amp;lc=pt_BR&amp;nivel=G" title="Visualizar Página do Curso">
+<img src="/sigaa/img/view.gif;jsessionid=0"/>
+</a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td>
+							BIBLIOTECONOMIA								
+							</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>A Distância</td>
+<td></td>
+<td>
+<a href="portal.jsf?id=1877028&amp;lc=pt_BR&amp;nivel=G" title="Visualizar Página do Curso">
+<img src="/sigaa/img/view.gif;jsessionid=0"/>
+</a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td>
+							BIBLIOTECONOMIA E DOCUMENTAÇÃO								
+							</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>Presencial</td>
+<td></td>
+<td>
+<a href="portal.jsf?id=1876931&amp;lc=pt_BR&amp;nivel=G" title="Visualizar Página do Curso">
+<img src="/sigaa/img/view.gif;jsessionid=0"/>
+</a>
+</td>
+</tr>
+<tr>
+<td class="subFormulario" colspan="5">
+										ICS - INSTITUTO DE CIÊNCIAS DA SAÚDE
+										</td>
+</tr>
+<tr class="linhaImpar">
+<td>
+							BIOTECNOLOGIA								
+							</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>Presencial</td>
+<td>MARIA ROCHA 093</td>
+<td>
+<a href="portal.jsf?id=1876927&amp;lc=pt_BR&amp;nivel=G" title="Visualizar Página do Curso">
+<img src="/sigaa/img/view.gif;jsessionid=0"/>
+</a>
+</td>
+</tr>
+<tr>
+<td class="subFormulario" colspan="5">
+										ICTI - INSTITUTO DE CIÊNCIA, TECNOLOGIA E INOVAÇÃO
+										</td>
+</tr>
+<tr class="linhaPar">
+<td>
+							CIÊNCIA, TECNOLOGIA E INOVAÇÃO								
+							</td>
+<td>
+								CAMAÇARI
+								
+								</td>
+<td>Presencial</td>
+<td>MARIA PEREIRA 353</td>
+<td>
+<a href="portal.jsf?id=1877034&amp;lc=pt_BR&amp;nivel=G" title="Visualizar Página do Curso">
+<img src="/sigaa/img/view.gif;jsessionid=0"/>
+</a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td>
+							ENGENHARIA DE PRODUÇÃO								
+							</td>
+<td>
+								CAMAÇARI
+								
+								</td>
+<td>Presencial</td>
+<td></td>
+<td>
+<a href="portal.jsf?id=1877040&amp;lc=pt_BR&amp;nivel=G" title="Visualizar Página do Curso">
+<img src="/sigaa/img/view.gif;jsessionid=0"/>
+</a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td>
+							ENGENHARIA ELÉTRICA								
+							</td>
+<td>
+								CAMAÇARI
+								
+								</td>
+<td>Presencial</td>
+<td>CARLOS SANTOS 038</td>
+<td>
+<a href="portal.jsf?id=1877041&amp;lc=pt_BR&amp;nivel=G" title="Visualizar Página do Curso">
+<img src="/sigaa/img/view.gif;jsessionid=0"/>
+</a>
+</td>
+</tr>
+<tr>
+<td class="subFormulario" colspan="5">
+										IC/UFBA - INSTITUTO DE COMPUTAÇÃO
+										</td>
+</tr>
+<tr class="linhaImpar">
+<td>
+							CIÊNCIA DA COMPUTAÇÃO								
+							</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>Presencial</td>
+<td>FULANO SANTOS 430</td>
+<td>
+<a href="portal.jsf?id=1876851&amp;lc=pt_BR&amp;nivel=G" title="Visualizar Página do Curso">
+<img src="/sigaa/img/view.gif;jsessionid=0"/>
+</a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td>
+							COMPUTAÇÃO								
+							</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>Presencial</td>
+<td>LUCIA DE TAL 307</td>
+<td>
+<a href="portal.jsf?id=1876886&amp;lc=pt_BR&amp;nivel=G" title="Visualizar Página do Curso">
+<img src="/sigaa/img/view.gif;jsessionid=0"/>
+</a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td>
+							SISTEMAS DE INFORMAÇÃO								
+							</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>Presencial</td>
+<td>ANA SOUZA 225</td>
+<td>
+<a href="portal.jsf?id=1876885&amp;lc=pt_BR&amp;nivel=G" title="Visualizar Página do Curso">
+<img src="/sigaa/img/view.gif;jsessionid=0"/>
+</a>
+</td>
+</tr>
+<tr>
+<td class="subFormulario" colspan="5">
+										IF - INSTITUTO DE FÍSICA
+										</td>
+</tr>
+<tr class="linhaPar">
+<td>
+							FÍSICA								
+							</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>Presencial</td>
+<td>ANA DA SILVA 015</td>
+<td>
+<a href="portal.jsf?id=1876843&amp;lc=pt_BR&amp;nivel=G" title="Visualizar Página do Curso">
+<img src="/sigaa/img/view.gif;jsessionid=0"/>
+</a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td>
+							FÍSICA								
+							</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>Presencial</td>
+<td>ANA DA SILVA 015</td>
+<td>
+<a href="portal.jsf?id=1876842&amp;lc=pt_BR&amp;nivel=G" title="Visualizar Página do Curso">
+<img src="/sigaa/img/view.gif;jsessionid=0"/>
+</a>
+</td>
+</tr>
+<tr>
+<td class="subFormulario" colspan="5">
+										IGEO - INSTITUTO DE GEOCIÊNCIAS
+										</td>
+</tr>
+<tr class="linhaPar">
+<td>
+							GEOFÍSICA								
+							</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>Presencial</td>
+<td>LUCIA DA SILVA 017</td>
+<td>
+<a href="portal.jsf?id=1876859&amp;lc=pt_BR&amp;nivel=G" title="Visualizar Página do Curso">
+<img src="/sigaa/img/view.gif;jsessionid=0"/>
+</a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td>
+							GEOGRAFIA								
+							</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>Presencial</td>
+<td>CICLANO ROCHA 491</td>
+<td>
+<a href="portal.jsf?id=1876844&amp;lc=pt_BR&amp;nivel=G" title="Visualizar Página do Curso">
+<img src="/sigaa/img/view.gif;jsessionid=0"/>
+</a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td>
+							GEOGRAFIA								
+							</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>Presencial</td>
+<td>CICLANO ROCHA 491</td>
+<td>
+<a href="portal.jsf?id=1876845&amp;lc=pt_BR&amp;nivel=G" title="Visualizar Página do Curso">
+<img src="/sigaa/img/view.gif;jsessionid=0"/>
+</a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td>
+							GEOLOGIA								
+							</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>Presencial</td>
+<td>FULANO SANTOS 230</td>
+<td>
+<a href="portal.jsf?id=1876846&amp;lc=pt_BR&amp;nivel=G" title="Visualizar Página do Curso">
+<img src="/sigaa/img/view.gif;jsessionid=0"/>
+</a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td>
+							OCEANOGRAFIA								
+							</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>Presencial</td>
+<td>JOAO LIMA 074</td>
+<td>
+<a href="portal.jsf?id=1876860&amp;lc=pt_BR&amp;nivel=G" title="Visualizar Página do Curso">
+<img src="/sigaa/img/view.gif;jsessionid=0"/>
+</a>
+</td>
+</tr>
+<tr>
+<td class="subFormulario" colspan="5">
+										IHAC - INSTITUTO DE HUMANIDADES, ARTES E CIÊNCIAS PROFESSOR MILTON SANTOS
+										</td>
+</tr>
+<tr class="linhaImpar">
+<td>
+							ARTES								
+							</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>Presencial</td>
+<td>BELTRANO SANTOS 332</td>
+<td>
+<a href="portal.jsf?id=1877026&amp;lc=pt_BR&amp;nivel=G" title="Visualizar Página do Curso">
+<img src="/sigaa/img/view.gif;jsessionid=0"/>
+</a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td>
+							CIÊNCIA E TECNOLOGIA								
+							</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>Presencial</td>
+<td>BELTRANO OLIVEIRA 142</td>
+<td>
+<a href="portal.jsf?id=1876883&amp;lc=pt_BR&amp;nivel=G" title="Visualizar Página do Curso">
+<img src="/sigaa/img/view.gif;jsessionid=0"/>
+</a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td>
+							HUMANIDADES								
+							</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>Presencial</td>
+<td>LUCIA LIMA 077</td>
+<td>
+<a href="portal.jsf?id=1876966&amp;lc=pt_BR&amp;nivel=G" title="Visualizar Página do Curso">
+<img src="/sigaa/img/view.gif;jsessionid=0"/>
+</a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td>
+							SAÚDE								
+							</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>Presencial</td>
+<td></td>
+<td>
+<a href="portal.jsf?id=1876924&amp;lc=pt_BR&amp;nivel=G" title="Visualizar Página do Curso">
+<img src="/sigaa/img/view.gif;jsessionid=0"/>
+</a>
+</td>
+</tr>
+<tr>
+<td class="subFormulario" colspan="5">
+										IL - INSTITUTO DE LETRAS
+										</td>
+</tr>
+<tr class="linhaImpar">
+<td>
+							LETRAS LÍNGUA ESTRANGEIRA MODERNA OU CLÁSSICA								
+							</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>Presencial</td>
+<td>CICLANO ALVES 081</td>
+<td>
+<a href="portal.jsf?id=1876992&amp;lc=pt_BR&amp;nivel=G" title="Visualizar Página do Curso">
+<img src="/sigaa/img/view.gif;jsessionid=0"/>
+</a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td>
+							LETRAS LÍNGUA ESTRANGEIRA MODERNA OU CLÁSSICA								
+							</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>Presencial</td>
+<td>ANA LIMA 175</td>
+<td>
+<a href="portal.jsf?id=1876995&amp;lc=pt_BR&amp;nivel=G" title="Visualizar Página do Curso">
+<img src="/sigaa/img/view.gif;jsessionid=0"/>
+</a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td>
+							LETRAS VERNÁCULAS								
+							</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>Presencial</td>
+<td>JOAO SANTOS 234</td>
+<td>
+<a href="portal.jsf?id=1876982&amp;lc=pt_BR&amp;nivel=G" title="Visualizar Página do Curso">
+<img src="/sigaa/img/view.gif;jsessionid=0"/>
+</a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td>
+							LETRAS VERNÁCULAS								
+							</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>Presencial</td>
+<td>BELTRANO OLIVEIRA 242</td>
+<td>
+<a href="portal.jsf?id=1876983&amp;lc=pt_BR&amp;nivel=G" title="Visualizar Página do Curso">
+<img src="/sigaa/img/view.gif;jsessionid=0"/>
+</a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td>
+							LETRAS VERNÁCULAS COM LÍNGUA ESTRANGEIRA MODERNA								
+							</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>Presencial</td>
+<td>ANA COSTA 265</td>
+<td>
+<a href="portal.jsf?id=1876984&amp;lc=pt_BR&amp;nivel=G" title="Visualizar Página do Curso">
+<img src="/sigaa/img/view.gif;jsessionid=0"/>
+</a>
+</td>
+</tr>
+<tr>
+<td class="subFormulario" colspan="5">
+										IME - INSTITUTO DE MATEMÁTICA E ESTATÍSTICA
+										</td>
+</tr>
+<tr class="linhaPar">
+<td>
+							ESTATÍSTICA								
+							</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>Presencial</td>
+<td>LUCIA PEREIRA 357</td>
+<td>
+<a href="portal.jsf?id=1876857&amp;lc=pt_BR&amp;nivel=G" title="Visualizar Página do Curso">
+<img src="/sigaa/img/view.gif;jsessionid=0"/>
+</a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td>
+							MATEMÁTICA								
+							</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>A Distância</td>
+<td>CICLANO SANTOS 331</td>
+<td>
+<a href="portal.jsf?id=1876871&amp;lc=pt_BR&amp;nivel=G" title="Visualizar Página do Curso">
+<img src="/sigaa/img/view.gif;jsessionid=0"/>
+</a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td>
+							MATEMÁTICA								
+							</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>Presencial</td>
+<td>BELTRANO DA SILVA 312</td>
+<td>
+<a href="portal.jsf?id=1876848&amp;lc=pt_BR&amp;nivel=G" title="Visualizar Página do Curso">
+<img src="/sigaa/img/view.gif;jsessionid=0"/>
+</a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td>
+							MATEMÁTICA								
+							</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>Presencial</td>
+<td>BELTRANO DA SILVA 312</td>
+<td>
+<a href="portal.jsf?id=1876847&amp;lc=pt_BR&amp;nivel=G" title="Visualizar Página do Curso">
+<img src="/sigaa/img/view.gif;jsessionid=0"/>
+</a>
+</td>
+</tr>
+<tr>
+<td class="subFormulario" colspan="5">
+										IMRS/UFBA - INSTITUTO MULTIDISCIPLINAR DE REABILITAÇÃO E SAÚDE
+										</td>
+</tr>
+<tr class="linhaPar">
+<td>
+							FISIOTERAPIA								
+							</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>Presencial</td>
+<td>PEDRO DA SILVA 316</td>
+<td>
+<a href="portal.jsf?id=1876922&amp;lc=pt_BR&amp;nivel=G" title="Visualizar Página do Curso">
+<img src="/sigaa/img/view.gif;jsessionid=0"/>
+</a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td>
+							FONOAUDIOLOGIA								
+							</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>Presencial</td>
+<td>CARLOS DE TAL 308</td>
+<td>
+<a href="portal.jsf?id=1876908&amp;lc=pt_BR&amp;nivel=G" title="Visualizar Página do Curso">
+<img src="/sigaa/img/view.gif;jsessionid=0"/>
+</a>
+</td>
+</tr>
+<tr>
+<td class="subFormulario" colspan="5">
+										IMS - INSTITUTO MULTIDISCIPLINAR EM SAÚDE
+										</td>
+</tr>
+<tr class="linhaPar">
+<td>
+							BIOTECNOLOGIA								
+							</td>
+<td>
+								VITÓRIA DA CONQUISTA
+								
+								</td>
+<td>Presencial</td>
+<td>FULANO PEREIRA 050</td>
+<td>
+<a href="portal.jsf?id=1876921&amp;lc=pt_BR&amp;nivel=G" title="Visualizar Página do Curso">
+<img src="/sigaa/img/view.gif;jsessionid=0"/>
+</a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td>
+							CIÊNCIAS BIOLÓGICAS								
+							</td>
+<td>
+								VITÓRIA DA CONQUISTA
+								
+								</td>
+<td>Presencial</td>
+<td>BELTRANO SOUZA 022</td>
+<td>
+<a href="portal.jsf?id=1876920&amp;lc=pt_BR&amp;nivel=G" title="Visualizar Página do Curso">
+<img src="/sigaa/img/view.gif;jsessionid=0"/>
+</a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td>
+							ENFERMAGEM								
+							</td>
+<td>
+								VITÓRIA DA CONQUISTA
+								
+								</td>
+<td>Presencial</td>
+<td>CICLANO PEREIRA 251</td>
+<td>
+<a href="portal.jsf?id=1876915&amp;lc=pt_BR&amp;nivel=G" title="Visualizar Página do Curso">
+<img src="/sigaa/img/view.gif;jsessionid=0"/>
+</a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td>
+							FARMÁCIA								
+							</td>
+<td>
+								VITÓRIA DA CONQUISTA
+								
+								</td>
+<td>Presencial</td>
+<td>LUCIA COSTA 267</td>
+<td>
+<a href="portal.jsf?id=1876916&amp;lc=pt_BR&amp;nivel=G" title="Visualizar Página do Curso">
+<img src="/sigaa/img/view.gif;jsessionid=0"/>
+</a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td>
+							MEDICINA								
+							</td>
+<td>
+								VITÓRIA DA CONQUISTA
+								
+								</td>
+<td>Presencial</td>
+<td>BELTRANO ROCHA 492</td>
+<td>
+<a href="portal.jsf?id=1877031&amp;lc=pt_BR&amp;nivel=G" title="Visualizar Página do Curso">
+<img src="/sigaa/img/view.gif;jsessionid=0"/>
+</a>
+</td>
+</tr>
+<tr class="linhaImpar">
+<td>
+							NUTRIÇÃO								
+							</td>
+<td>
+								VITÓRIA DA CONQUISTA
+								
+								</td>
+<td>Presencial</td>
+<td>LUCIA COSTA 067</td>
+<td>
+<a href="portal.jsf?id=1876918&amp;lc=pt_BR&amp;nivel=G" title="Visualizar Página do Curso">
+<img src="/sigaa/img/view.gif;jsessionid=0"/>
+</a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td>
+							PSICOLOGIA								
+							</td>
+<td>
+								VITÓRIA DA CONQUISTA
+								
+								</td>
+<td>Presencial</td>
+<td>ANA LIMA 275</td>
+<td>
+<a href="portal.jsf?id=1876967&amp;lc=pt_BR&amp;nivel=G" title="Visualizar Página do Curso">
+<img src="/sigaa/img/view.gif;jsessionid=0"/>
+</a>
+</td>
+</tr>
+<tr>
+<td class="subFormulario" colspan="5">
+										IPSS - INSTITUTO DE PSICOLOGIA E SERVIÇO SOCIAL
+										</td>
+</tr>
+<tr class="linhaImpar">
+<td>
+							PSICOLOGIA								
+							</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>Presencial</td>
+<td>JULIA COSTA 169</td>
+<td>
+<a href="portal.jsf?id=1876953&amp;lc=pt_BR&amp;nivel=G" title="Visualizar Página do Curso">
+<img src="/sigaa/img/view.gif;jsessionid=0"/>
+</a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td>
+							SERVIÇO SOCIAL								
+							</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>Presencial</td>
+<td>FULANO SANTOS 030</td>
+<td>
+<a href="portal.jsf?id=1876964&amp;lc=pt_BR&amp;nivel=G" title="Visualizar Página do Curso">
+<img src="/sigaa/img/view.gif;jsessionid=0"/>
+</a>
+</td>
+</tr>
+<tr>
+<td class="subFormulario" colspan="5">
+										IQUI - INSTITUTO DE QUÍMICA
+										</td>
+</tr>
+<tr class="linhaImpar">
+<td>
+							QUÍMICA								
+							</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>Presencial</td>
+<td>LUCIA DA SILVA 217</td>
+<td>
+<a href="portal.jsf?id=1876853&amp;lc=pt_BR&amp;nivel=G" title="Visualizar Página do Curso">
+<img src="/sigaa/img/view.gif;jsessionid=0"/>
+</a>
+</td>
+</tr>
+<tr class="linhaPar">
+<td>
+							QUÍMICA								
+							</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>Presencial</td>
+<td>LUCIA DA SILVA 217</td>
+<td>
+<a href="portal.jsf?id=1876852&amp;lc=pt_BR&amp;nivel=G" title="Visualizar Página do Curso">
+<img src="/sigaa/img/view.gif;jsessionid=0"/>
+</a>
+</td>
+</tr>
+<tr>
+<td class="subFormulario" colspan="5">
+										ISC - INSTITUTO DE SAÚDE COLETIVA
+										</td>
+</tr>
+<tr class="linhaImpar">
+<td>
+							SAÚDE COLETIVA								
+							</td>
+<td>
+								SALVADOR
+								
+								</td>
+<td>Presencial</td>
+<td>PEDRO SOUZA 226</td>
+<td>
+<a href="portal.jsf?id=1876926&amp;lc=pt_BR&amp;nivel=G" title="Visualizar Página do Curso">
+<img src="/sigaa/img/view.gif;jsessionid=0"/>
+</a>
+</td>
+</tr>
+</tbody>
+</table>
+<input id="javax.faces.ViewState" name="javax.faces.ViewState" type="hidden" value="j_id1"/>
+</form>
+<br/>
+<div style="width: 80%; text-align: center; margin: 0 auto;">
+<a href="/sigaa/public/home.jsf" style="color: #404E82;">&lt;&lt; Voltar ao menu principal</a>
+</div>
+<br/>
+<div class="clear"></div>
+</div>
+<div id="rodape">
+<p> <!-- Redmine 24523 - Telas e relat&#243;rios com rodap&#233;s sem a altera&#231;&#227;o - Portal P&#250;blico -->
+			SIGAA | STI/SUPAC | -  | Copyright © 2006-2026 - UFBA - sigaapl04.intranet.ufba.br
+			 
+				<a onclick="javascript:versao();">v4.13.8_41_hotfix</a>
+</p>
+</div>
+<!-- Fim dos containers -->
+</div>
+</div>
+<!-- MYFACES JAVASCRIPT -->
+</body>
+</html>
+<html><script charset="UTF-8" type="text/javascript">
+		function versao(){
+			var msg='';
+			msg+='SIGAA 4.13.8_41_hotfix,  publicado em: 25/09/2026 16:18\n\n';
+			msg+='Depend\u00eancias:\n';
+			msg+='Arquitetura 4.4.5\n';
+			msg+='Entidades Comuns 2.3.3\n';
+			msg+='Servicos Integrados 2.0.8\n';
+			msg+='SharedResources 2.1.4\n';
+			msg+='Servicos Remoto Biblioteca null\n';
+			msg+='SIGAA Mobile Objects 1.0.0\n\n';
+			msg+='Copyright SINFO/UFRN';
+			alert(msg);
+		}	
+	</script>
+<style>
+a.linkMobile:link {
+	color: #003395;
+	font-weight: bold;
+	font-size: inherit;
+	text-decoration: none;
+}
+
+a.linkMobile:visited {
+	color: #003390;
+	text-decoration: none;
+	font-weight: bold;
+}
+
+a.linkMobile:active {
+	color: #444444;
+	text-decoration: none;
+	font-weight: bold;
+}
+</style>
+<style type="text/css">
+a:link, a:visited {
+	text-decoration: none;
+	color: #333; 
+	}
+a:hover {
+	text-decoration: none;
+	}
+a:active {
+	text-decoration: none;
+	}
+</style></html>

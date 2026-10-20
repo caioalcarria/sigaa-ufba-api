@@ -1,0 +1,10 @@
+services:
+  sigaa-api:
+    build: .
+    ports: ["8000:8000"]
+    environment:
+      SIGAA_URL: https://sigaa.ufba.br
+      SIGAA_API_TOKEN_TTL_HORAS: "12"
+      SIGAA_API_KEEPALIVE: "true"
+      SIGAA_API_CORS: "*"
+    restart: unless-stopped

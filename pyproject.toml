@@ -1,0 +1,28 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "sigaa-ufba-api"
+version = "0.1.0"
+description = "API REST não oficial (somente leitura) e cliente Python para o SIGAA da UFBA"
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+dependencies = [
+  "httpx>=0.27",
+  "beautifulsoup4>=4.12",
+  "lxml>=5",
+  "pydantic>=2.6",
+  "pdfplumber>=0.11",
+]
+
+[project.optional-dependencies]
+api = ["fastapi>=0.110", "uvicorn[standard]>=0.29", "cryptography>=42"]
+dev = ["pytest>=8", "pytest-asyncio>=0.23"]
+
+[tool.setuptools.packages.find]
+include = ["sigaa*", "api*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

@@ -1,0 +1,3267 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!-- %@page contentType="text/html; charset=utf-8" %--><!-- Trata do redirecionamento a ser dado conforme o n&#237;vel do curso repassado. 
+Cursos de P&#243;s Gradua&#231;&#227;o ser&#227;o redirecionados para a p&#225;gina do programa. --><!-- J&#225; os cursos dos demais n&#237;vel permacem redirecionando para a p&#225;gina normal do curso. --><html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>SIGAA - Sistema Integrado de Gestão de Atividades Acadêmicas</title>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+<meta content="Andressa Kroeff Pires - SINFO" name="author"/>
+<link class="component" href="/sigaa/a4j/s/3_3_3.Finalorg/richfaces/renderkit/html/css/basic_classes.xcss/DATB/eAF7sqpgb-jyGdIAFrMEaw__.jsf" rel="stylesheet" type="text/css"/><link class="component" href="/sigaa/a4j/s/3_3_3.Finalorg/richfaces/renderkit/html/css/extended_classes.xcss/DATB/eAF7sqpgb-jyGdIAFrMEaw__.jsf" media="rich-extended-skinning" rel="stylesheet" type="text/css"/><script src="/sigaa/a4j/g/3_3_3.Finalorg.ajax4jsf.javascript.AjaxScript.jsf" type="text/javascript"></script><script type="text/javascript">window.RICH_FACES_EXTENDED_SKINNING_ON=true;</script><script src="/sigaa/a4j/g/3_3_3.Finalorg/richfaces/renderkit/html/scripts/skinning.js.jsf" type="text/javascript"></script><link href="mailto:fulano@exemplo.br" rev="made"/>
+<script src="/shared/jsBundles/jawr_loader.js" type="text/javascript"></script>
+<script type="text/javascript">
+	     		JAWR.loader.script('/bundles/js/sigaa_base.js');
+	</script>
+<script src="/sigaa/javascript/prevenir-duplo-clique.js" type="text/javascript"></script>
+<link href="/sigaa/public/curso/css/template.css" rel="stylesheet"/>
+<style type="text/css">
+/* topo do site */
+#corpo #topo_site {
+	display: block;
+	width: 100%;
+	height: 142px;
+}
+
+	#topo_site #logo {
+		display: inline-block;
+		*float: left;
+		width: 190px;
+		height: 122px;
+		text-align:center;
+		vertical-align: top;
+		padding: 10px;
+	}
+
+		#logo img {
+			max-width: 190px;
+			_width: 188px;
+			max-height: 122px;
+			_height: 120px;
+		}
+
+	#topo_site #nomes {
+		display: inline-block;
+		*float: left;
+		width: 682px;
+		height: 100%;
+		margin: 0 0 0 10px;
+		vertical-align: top;
+	}
+
+		#nomes .sigla {
+			display: block;
+			width: 100%;
+			font-family: "Verdana", Arial, Helvetica, sans-serif;
+			font-size: 20px;
+			color: #4D5D9C;
+			font-weight: bold;
+			text-transform: uppercase;
+			margin: 13px 0 10px;
+		}
+
+		#nomes .nome_curso {
+			display: block;
+			width: 100%;
+			font-family: "Verdana", Arial, Helvetica, sans-serif;
+			font-size: 16px;
+			color: #4D5D9C;
+			text-transform: uppercase;
+			line-height: 16px;
+			margin: 24px 0 26px;
+		}
+
+			.nome_curso a {
+				color: #4D5D9C;
+			}
+
+			.nome_curso a:hover {
+				text-decoration: underline;
+			}
+
+		#nomes .nome_centro {
+			display: block;
+			width: 100%;
+			font-family: "Verdana", Arial, Helvetica, sans-serif;
+			font-size: 13px;
+			color: #000000 !important;
+			text-transform: uppercase;
+			font-style: italic;
+			margin-bottom: 5px;
+		}
+
+		#nomes .url_programa {
+			display: block;
+			width: 65%;
+			float:left;
+			font-family: "Verdana", Arial, Helvetica, sans-serif;
+			font-size: 11px;
+			color: #7d97fe;
+		}
+
+			.url_programa a {
+				font-family: "Verdana", Arial, Helvetica, sans-serif;
+				font-size: 11px;
+				color: #7D97FE;
+			}
+
+			.url_programa a:hover {
+				text-decoration: #7D97FE;
+			}
+			
+		#nomes .telefone {
+			float: right;
+			width: auto;
+			height: auto;
+			font-family: "Verdana", Arial, Helvetica, sans-serif;
+			font-size: 13px;
+			color: #7D97FE;
+			font-style: italic;
+			margin: -33px 0 0;
+		}
+
+			.telefone label {
+				color: #000;
+			}
+
+		 
+/* menu */
+#corpo .menu {
+	display: block;
+	width: 100%;
+	height: 26px;
+	background-color: #2F3A60;
+	border-bottom: #3B4878 solid 1px;
+}
+
+	.menu .li-menu {
+		float: left;
+		padding: 0 10px 0 0;
+		position: relative;
+		border-left: #3B4878 solid 1px;
+		z-index: 10;
+		height:27px;
+	}
+
+	.menu .primeiro {
+		border-left: none;
+	}
+
+	.menu .item-menu {
+		float: left;
+		padding: 7px 0 0 10px;
+		height: 20px;
+		*height: 21px;
+		color: #FFFFFF;
+		font-weight: bold;
+	}
+
+	.menu span.item-menu {
+		cursor: default;
+	}
+
+	.menu a:hover {
+		text-decoration: underline;
+	}
+
+	.menu .sub-menu {
+		display: none;
+		padding: 10px 10px 5px 10px;
+		position: absolute;
+		top: 26px;
+		left: 0;
+		z-index: 11;
+		background: #3B4878;
+	}
+
+	.menu .sub-menu li {
+		border-top: 1px solid #2F3A60;
+		padding: 10px 0 5px 0;
+	}
+
+	.menu .sub-menu .primeiro {
+		border: 0;
+		padding: 0 0 5px 0;
+	}
+
+	.menu .sub-menu a {
+		display: block;
+		width: auto;
+		color: #FFFFFF;
+		white-space: nowrap;
+	}
+
+		.sub-menu a:hover {
+			text-decoration: none;
+		}
+
+/* conteudo */
+#corpo #conteudo {
+	display: block;
+	width:98%;
+	min-height: 480px;
+	_height: 480px;
+	margin:20px 10px 0;
+}
+
+	.titulo {
+		font-family: "Verdana", Arial, Helvetica, sans-serif;
+		font-size: 16px;
+		font-weight: bold;
+		text-decoration: underline;
+		color: #4D5D9C;
+	}
+
+	h1, h2, h3, h4, h5, h6 {
+		display: block;
+		width: auto;
+		height: auto;
+		font-size: 100%;
+		font-weight: bold;
+		margin: 0 0 10px 0;
+		color: #000000;
+	}
+
+	.titulo_menor {
+		font-family: "Verdana", Arial, Helvetica, sans-serif;
+		font-size: 12px;
+		font-weight: bold;
+		text-decoration: underline;
+		color: #4D5D9C;
+	}
+
+	.leia_mais a {
+		float: right;
+		text-align: right;
+		font-family: "Verdana", Arial, Helvetica, sans-serif;
+		font-size: 10px;
+		color: #7D97FE;
+	}
+
+	.saiba_mais a {
+		float: left;
+		text-align: left;
+		font-family: "Verdana", Arial, Helvetica, sans-serif;
+		font-size: 10px;
+		color: #7D97FE;
+	}
+	
+	.destaqueProcessoeletivo{
+		font-weight: bold !important;
+	}
+
+	/* conteudo da coluna menu lateral */
+	#conteudo #menu_lateral {
+		display: inline-block;
+		*float: left;
+		width: 208px;
+		height: auto;
+		border: 1px solid #E1E1E1;
+		vertical-align: top;
+		margin: 3px 0 0;
+	}
+
+		#menu_lateral #titulo {
+			display: block;
+			padding: 20px 20px 0;
+			color: #4D5D9C;
+			font-size: 14px;
+			font-weight: bold;
+			text-align: center;
+		}
+
+		#menu_lateral #links {
+			display: block;
+			padding: 20px 20px 15px;
+		}
+
+		#menu_lateral #links li {
+			border-top: 1px solid #E1E1E1;
+			padding: 10px 0 5px 0;
+		}
+
+		#menu_lateral #links .primeiro {
+			border: 0;
+			padding: 0 0 5px 0;
+		}
+
+		#menu_lateral #links a {
+			display: block;
+			width: auto;
+			/*white-space: nowrap;*/
+			color: #7D97FE;
+		}
+
+		#menu_lateral #links a:hover {
+			color: #222222;
+			text-decoration: none;
+		}
+
+	/* conteudo da coluna esquerda */
+	#conteudo #esquerda {
+		display: inline-block;
+		*float: left;
+		width: 72%;
+		min-height: 513px;
+		_height: 513px;
+		margin: 0 22px 0 0;
+		*margin: 0 24px 0 0;
+	}
+
+	#conteudo #esquerda.com_menu_lateral {
+		width: 476px;
+		*width: 480px;
+		margin: 0 18px 0 20px;
+		*margin: 0 20px 0;
+	}
+		#esquerda .informacoes {
+			display: block;
+			width: 96%;
+			height: auto;
+			margin: 10px 0 0 30px;
+		}
+
+			.informacoes p {
+				line-height: 15px;
+			}
+			
+			.informacoes .cor {
+				color: #4D5D9C;
+			}
+		
+		#esquerda .topico {
+			display: block;
+			width: 100%;
+			height: auto;
+			font-weight: bold;
+			color: #4D5D9C;
+			margin: 20px 0 0;
+		}
+
+			.topico strong {
+				color: #000000;
+			}
+
+		/* noticia em destaque */
+		#esquerda #destaque {
+			display: block;
+			width: 100%;
+			height: 203px;
+			padding:20px 0 0;
+		}
+
+			#destaque .d_titulo {
+				display: block;
+				width: 100%;
+				height: 34px;
+				font-weight: bold;
+				font-size: 13px;
+				margin: 0 0 10px 0;
+			}
+
+			#destaque .d_texto {
+				display: block;
+				width: 100%;
+				height: 139px;
+				line-height: 17px;
+				text-align: justify;
+				margin: 0 0 10px 0;
+			}
+
+				.d_texto .foto {
+					float: left;
+					margin: 0 10px 0 0;
+					border: 1px solid #e9eef2;
+				}
+
+				.d_texto .data {
+					float: left;
+					width: auto;
+					margin:5px 0 0;
+					font-size: 9px;
+					font-weight: bold;
+				}
+				
+				.texto .topico2 {
+					display: block;
+					width: 100%;
+					height: auto;
+					color: #000000;
+					margin: 20px 0 0;
+				}
+		
+					.topico2 label {
+						font-weight: bold;
+						color: #4D5D9C;
+					}
+
+		/* separador das noticias */
+		#esquerda #linha {
+			display: block;
+			width: 100%;
+			height: 1px;
+			margin: 15px 0;
+			_margin: 0px 0 10px;
+			background: transparent url(../img/pontilhado.png) repeat-x left center;
+		}
+
+		/* ultimas noticias */
+		#esquerda #listagem ul {
+			display: block;
+			width: 100%;
+			height: auto;
+			padding:20px 0 0;
+			_padding:20px 0 4px;
+		}
+
+			#listagem ul li {
+				display: block;
+				width: 100%;
+				margin: 0 0 8px 0;
+			}
+
+			#listagem ul li a:hover {
+				text-decoration: underline;
+			}
+
+			#listagem ul li .data {
+				font-size: 9px;
+				font-weight: bold;
+			}
+
+	/* conteudo da coluna direita */
+	#conteudo #direita {
+		display: inline-block;
+		*float: left;
+		width: 249px;
+		min-height: 513px;
+		_height: 513px;
+		vertical-align: top;
+	}
+
+		/* chamada */
+		#direita #chamada {
+			display: block;
+			width: 100%;
+			height: 227px;
+			_height: 230px;
+			margin: 18px 0 0;
+		}
+
+			#chamada #icone {
+				float: right;
+				width: 54px;
+				height: 47px;
+				position: relative;
+				margin: -14px 0 0 0;
+				_margin: -15px 0 0 0;
+				z-index: 10px;
+			}
+
+			#chamada #caixa {
+				float: left;
+				width: 90%;
+				height: 213px;
+				_height: 216px;
+				margin: -37px 0 0 0;
+				_margin: -38px 0 0 0;
+				padding: 8px;
+				border: 1px solid #e1e1e1;
+			}
+
+				#caixa #titulo {
+					display: block;
+					width: 180px;
+					height: auto;
+					padding: 4px 0 13px;
+					text-align: center;
+				}
+
+				#caixa .introducao {
+					display: block;
+					width: 100%;
+					height: 35px;
+					line-height: 18px;
+					text-align: justify;
+				}
+
+				/* listagem referente ao processo seletivo */
+				#caixa #listagem2 ul {
+					display: block;
+					width: 100%;
+					height: 110px;
+					padding: 15px 0 10px;
+				}
+
+					#listagem2 ul li {
+						display: block;
+						width: 100%;
+						margin: 0 0 8px 0;
+						font-style: italic;
+						text-transform: uppercase;
+					}
+
+					#listagem2 ul li a:hover {
+						text-decoration: underline;
+					}
+
+					#listagem2 ul li .data {
+						text-transform: none;
+					}
+
+				/* listagem referente ao calendario */
+				#caixa #listagem3 ul {
+					display: block;
+					width: 100%;
+					height: 110px;
+					padding: 15px 0 10px;
+				}
+
+					#listagem3 ul li {
+						display: block;
+						width: 100%;
+						margin: 0 0 10px 0;
+						font-size: 10px;
+						font-weight: bold;
+					}
+
+					#listagem3 ul li .evento {
+						display: block;
+						width: 93%;
+						height: auto;
+						margin: 0 0 0 15px;
+						font-size: 11px;
+						font-style: italic;
+						font-weight: normal;
+					}
+
+					#listagem3 ul li .evento a:hover  {
+						text-decoration: underline;
+					}
+
+		/* separador das chamadas */
+		#direita #espaco {
+			display: block;
+			width: 100%;
+			height: 1px;
+			margin: 20px 0;
+			_margin: 15px 0;
+		}
+
+
+	/* ------------------------------ Conteudo das internas ------------------------------ */
+	.texto {
+		display: block;
+		width: 100%;
+		height: auto;
+		margin: 20px 0;
+		text-align: justify;
+		line-height: 15px;
+		color: #222222
+	}
+
+		.texto .foto {
+			float: left;
+			margin: 2px 10px 5px 0;
+			border: 1px solid #e9eef2;
+		}
+	
+	.subtitulo {
+		display: block;
+		width: auto;
+		height: auto;
+		font-weight: bold;
+		margin: 0 0 10px 0;
+		color: #000000;
+	}
+
+	.texto_afastado {
+		display: block;
+		width: 99%;
+		height: auto;
+		margin: 5px 0 0 10px;
+	}
+
+		.texto_afastado ul#listagem {
+			display: block;
+			width: 100%;
+		}
+
+			.texto_afastado ul#listagem li {
+				display: block;
+				width: 100%;
+				margin: 15px 0 0 0;
+				font-weight: bold;
+				text-transform: uppercase;
+			}
+
+			.texto_afastado ul#listagem li.primeiro {
+				margin: 0;
+			}
+
+			.texto_afastado ul#listagem li .dados {
+				display: block;
+				width: 98%;
+				height: auto;
+				margin: 6px 0 0 20px;
+				font-weight: normal;
+				text-transform: none;
+			}
+
+			.texto_afastado ul#listagem li .dados p {
+				display: block;
+				width: 100%;
+			}
+
+			.texto_afastado ul#listagem li .dados .cor {
+				color: #7d97fe;
+			}
+
+			.texto_afastado ul#listagem li .data {
+				color: #7d97fe;
+			}
+
+			.texto_afastado ul#listagem li a.cor {
+				text-transform: none;
+				color: #000;
+			}
+
+			.texto_afastado ul#listagem li a.cor:hover {
+				text-decoration: underline;
+			}
+			
+			
+			/* legenda */
+			.legenda {
+				display: block;
+				width: 98%;
+				height: auto;
+				border: 1px solid #e7e7e7;
+				background: #F6F6F1;
+				padding: 1%;
+				margin: 20px auto;
+				text-align: center;
+			}
+	
+				.legenda img {
+					margin: 0 2px;
+					vertical-align: middle;
+				}
+		
+				.legenda label {
+					margin: 0 10px 0 1px;
+					vertical-align: middle;
+				}
+
+	/* Detalhes da not&#237;cia */
+	.data_cadastrada {
+		display: block;
+		width: 100%;
+		height: auto;
+		text-align: right;
+		color: #7d97fe;
+	}
+
+		.data_cadastrada b {
+			color: #000000;
+		}
+
+	.arquivo_baixar {
+		display: block;
+		width: 100%;
+		height: auto;
+	}
+
+		.arquivo_baixar a {
+			color: #4D5D9C;
+		}
+
+		.arquivo_baixar a:hover {
+			color: #222222;
+		}
+
+	/* listagem geral (tabela) */
+	#listagem_tabela {
+		display: block;
+		width: 100%;
+		height: auto;
+		border: 1px solid #e7e7e7;
+		padding: 0;
+		margin: 20px 0 0;
+	}
+
+		#listagem_tabela #head_lt {
+			display: block;
+			width: 100%;
+			padding: 15px 0;
+			background:#4D5D9C url(./img/pontilhado.png) repeat-x scroll left bottom;
+			color: #FFFFFF;
+			font-size: 12px;
+			font-weight: bold;
+			text-align: center;
+			text-transform: uppercase;
+		}
+
+		#listagem_tabela #group_lt {
+			display: block;
+			width: 99%;
+			height: auto;
+			padding: 5px;
+			background: #4D5D9C;
+			color: #FFFFFF;
+			font-size: 11px;
+			font-weight: bold;
+			text-transform: uppercase;
+		}
+
+			#listagem_tabela #group_lt a {
+				color: #FFF;
+			}
+
+			#listagem_tabela #group_lt a:hover {
+				color: #FFF;
+			}
+
+		#listagem_tabela #table_lt, #table_lt tbody {
+			display: block;
+			width: 100%;
+			height: auto;
+		}
+
+			#table_lt tbody tr td {
+				padding: 5px;
+				text-align: left;
+				vertical-align: middle;
+			}
+
+			#table_lt tbody tr td.centro {
+				text-align: center;
+			}
+
+			#table_lt tbody tr td.direita {
+				text-align: right;
+			}
+
+			#table_lt tbody tr.campos {
+				display: block;
+				width: 100%;
+				height: auto;
+				*height: 18px;
+				padding: 2px 0;
+				background: #EDF1F8;
+				font-weight: bold;
+			}
+			#table_lt tbody tr.campos td {
+				color: #222222;
+			}
+
+			#table_lt tbody tr.linha_par {
+				display: block;
+				width: 100%;
+				height: auto;
+				*height: 18px;
+				padding: 2px 0;
+				background: #F9FBFD;
+			}
+
+			#table_lt tbody tr.linha_impar {
+				display: block;
+				width: 100%;
+				height: auto;
+				*height: 18px;
+				padding: 2px 0;
+				background: #F9FBFD;
+			}
+
+			#table_lt tbody tr td a.cor, #table_lt tbody tr td a.cor_ss {
+				color: #4D5D9C;
+			}
+
+			#table_lt tbody tr td a.cor:hover {
+				text-decoration: underline;
+			}
+
+			#table_lt tbody tr td a.cor_ss:hover {
+				color: #222222;
+			}
+
+			#table_lt tbody tr td a.negrito:hover {
+				font-weight: bold;
+			}
+
+			#table_lt tbody tr td a.italico:hover {
+				font-style: italic;
+			}
+
+			#table_lt tbody tr td .topicos {
+				display: block;
+				width: auto;
+				margin-left: 20px;
+			}
+
+				#table_lt tbody tr td .topicos span {
+					display: block;
+					width: auto;
+					margin: 8px 0 0 0;
+				}
+
+				#table_lt tbody tr td .topicos a {
+					display: block;
+					width: auto;
+					margin: 8px 0 0 0;
+				}
+
+			#table_lt tbody tr td #descricao {
+				display: block;
+				width: auto;
+				margin-left: 20px;
+				margin-right: 20px;
+			}
+
+				#table_lt tbody tr td #descricao span {
+					display: block;
+					width: auto;
+					margin: 0 0 5px 0;
+				}
+
+				#table_lt tbody tr td #descricao span.negrito {
+					font-weight: bold;
+				}
+
+				#table_lt tbody tr td #descricao span.links {
+					margin: 10px 0 0 0;
+					*margin: 10px 0 -5px 0;
+				}
+
+					#table_lt tbody tr td #descricao span.links a {
+						float: left;
+						width: auto;
+						height: auto;
+						margin: 0 15px 0 0;
+					}
+
+		#listagem_tabela #foot_lt {
+			display: block;
+			width: 100%;
+			height: auto;
+			padding: 5px 0;
+			background: #4d5d9c;
+			color: #FFFFFF;
+			font-size: 11px;
+			font-weight: bold;
+			text-align: center;
+		}
+
+	#listagem_tabela.espaco_menor {
+		margin: 10px 0 0;
+	}
+
+	/* formulario para busca */
+	#caixa_formulario {
+		display: block;
+		width: 516px;
+		height: 165px;
+		_height: 165px;
+		margin: 20px auto;
+	}
+
+		#caixa_formulario #icon_cf {
+			float: right;
+			width: 85px;
+			height: 74px;
+			position: relative;
+			margin: -16px 0 0 0;
+			z-index: 10px;
+		}
+
+		#caixa_formulario #formulario {
+			float: left;
+			width: 97%;
+			height: auto;
+			margin: -58px 0 0 0;
+			border: 1px solid #e7e7e7;
+		}
+			#formulario #head_f {
+				display: block;
+				width: 100%;
+				height: auto;
+				padding: 15px 0;
+				background: #4D5D9C;
+				color: #FFFFFF;
+				font-size: 12px;
+				font-weight: bold;
+				text-align: center;
+				text-transform: uppercase;
+			}
+
+			#formulario #body_f {
+				display: block;
+				width: 450px;
+				*width: 451px;
+				height: auto;
+				padding: 25px;
+				text-align: center;
+			}
+
+				#formulario #body_f .campo {
+					display: block;
+					width: 196px;
+					*width: 190px;
+					_width: 175px;
+					_height: auto;
+					margin: 0px auto 10px;
+				}
+
+					#formulario #body_f .campo label  {
+						float: left;
+						font-weight: bold;
+						color: #000000;
+						padding: 3px;
+						display:block;
+					}
+					
+					#formulario #body_f .campo_maior label  {
+						float: left;
+						
+						color: #000000;
+						padding: 3px;
+						display:block;
+						min-width: 60px; 
+					}
+					
+					#formulario #body_f .campo_maior label input {
+						margin-right: 10px;
+					}
+
+				#formulario #body_f input {
+					border: 1px #c8c8c6 solid;
+					font-size: 11px;
+					color: #222222;
+					font-family: arial, Verdana, sans-serif !important;
+					padding: 2px 4px;
+					height: 14px;
+					margin: 0px;
+					vertical-align: top;
+				}
+				
+				#formulario #body_f .campo_maior {
+					display: block;
+					width: 360px;
+					_height: auto;
+					margin: 0px auto 10px;
+					text-align:left;
+					font-family: arial, Verdana, sans-serif !important;
+				}
+				
+
+				#formulario #body_f select {
+					border: 1px #c8c8c6 solid;
+					font-size: 11px;
+					color: #222222;
+					font-family: "Tahoma";
+					padding: 2px;
+					width: 37px;
+					height: 20px;
+					margin: 0px;
+					vertical-align: top;
+				}
+				
+				#formulario #body_f .botoes {
+					display: block;
+					width: auto;
+					height: auto;
+					margin: 0px auto;
+				}
+
+				#formulario #body_f .bt_buscar {
+						margin: 0px 3px 0 0;
+						background-color: #4D5D9C;
+						color: white;
+						border: none;
+						cursor:pointer;
+						border-radius: 5px;
+						height:25px;
+						width: 65px;
+						vertical-align: top;
+						font-weight: bold;
+					}
+
+					#formulario #body_f .bt_cancelar {
+						margin: 0px;
+						background-color: #4D5D9C;
+						color: white;
+						border: none;
+						border-radius: 5px;
+						cursor:pointer;
+						height:25px;
+						width:56px;
+						vertical-align: top;
+						font-weight: bold;
+					}
+
+	/* ------------------------------ Conteudo das internas ------------------------------ */
+	
+	
+
+	/* Erros */
+	
+	#painel-erros {
+		background: #F9FBFD;
+		padding: 3px 28px;
+		border-bottom: 1px solid #C8D5EC;
+	}
+	
+	#painel-erros ul{
+		margin: 0;
+		padding: 0;
+		padding: 10px 0 10px 55px;
+	}
+	
+	#painel-erros li{
+		font-weight: bold;
+		list-style-type: disc;
+		margin-top: 5px;
+	}
+	
+	#painel-erros ul.info {background: url(/shared/img/mensagens/info.gif) no-repeat left center;}
+	#painel-erros ul.warning {background: url(/shared/img/mensagens/warning.gif) no-repeat left center;}
+	#painel-erros ul.erros {background: url(/shared/img/mensagens/error.gif) no-repeat left center;}
+	
+	#painel-erros ul.info li {color: #0CA700;}
+	#painel-erros ul.warning li {color: #333;}
+	#painel-erros ul.erros li {color: #F11;}
+	
+	
+ </style>
+<script src="/shared/javascript/STICookieConsent.js"></script>
+<script>
+	    document.addEventListener("DOMContentLoaded", () => {
+	    	generateCookieConsentModal("SIGAA", "N&#243;s usamos cookies para melhorar sua experi&#234;ncia de navega&#231;&#227;o no portal. Ao utilizar o %sitename%, voc&#234; concorda com a pol&#237;&#173;tica de monitoramento de cookies. Para ter mais informa&#231;&#245;es sobre como isso &#233; feito e como remover, acesse a <a href=%cookie-policy%>Pol&#237;tica de Privacidade</a>. Para saber como a UFRN trata os dados, acesse a <a href=%privacy-policy%> Pol&#237;&#173;tica de cookies</a>. Se voc&#234; concorda, clique em %button-text%.", "https://ufrn.br/institucional/politica-de-privacidade-e-termos-de-uso", "https://ufrn.br/institucional/politica-de-cookies");
+	    })
+	</script>
+</head>
+<body>
+<div id="bg">
+<div id="bg_rodape">
+<div id="estrutura">
+<script>
+		var marcar = function(idCheck) {
+			checkBox = getEl(idCheck);
+			checkBox.dom.checked = true;
+		}
+</script>
+<script type="text/javascript">
+window.onload = function() {
+	document.getElementById('fechar-painel-erros').onclick = function(){
+		document.getElementById('painel-erros').parentNode.removeChild(document.getElementById('painel-erros'));
+	}	
+};
+</script>
+<div id="topo">
+<div id="sigaa">
+<a href="https://sigaa.ufba.br" target="_blank" title="SIGAA">SIGAA - Sistema Integrado de Gestão de Atividades Acadêmicas</a>
+</div>
+<div id="instituicao">
+<a href="http://www.ufba.br" target="_blank" title="Acessar Página UFBA">
+<img src="/sigaa/public/programa/img/instituicao_programa.png"/>
+</a>
+</div>
+<div id="idiomas">
+<a href="?lc=en_US&amp;id=1876885&amp;nivel=G"><img src="/sigaa/public/curso/img/idioma_ingles.png" title="Versão em Inglês"/></a>
+<a href="?lc=es_ES&amp;id=1876885&amp;nivel=G"><img src="/sigaa/public/curso/img/idioma_espanhol.png" title="Versão em Espanhol"/></a>
+<a href="?lc=fr_FR&amp;id=1876885&amp;nivel=G"><img src="/sigaa/public/programa/img/idioma_frances.png" title="Versão em Francês"/></a>
+</div>
+</div>
+<div id="site">
+<div id="margem">
+<div id="corpo">
+<div id="topo_site">
+<div id="logo">
+<a href="/sigaa/public/curso/portal.jsf?lc=pt_BR&amp;id=1876885">
+<img src="https://sipac.ufba.br/shared/img/instituicao/brasao_ufba48x75.jpg"/>
+</a>
+</div>
+<div id="nomes">
+<span class="nome_curso">
+<a href="/sigaa/public/centro/portal.jsf?lc=pt_BR
+								&amp;id=78" title="Clique para acessar o portal do centro.">
+								CURSO DE SISTEMAS DE INFORMAÇÃO / IC/UFBA
+								</a>
+</span>
+<span class="nome_centro">
+<a href="/sigaa/public/centro/portal.jsf?lc=pt_BR
+								&amp;id=78" title="Clique para acessar o portal do centro.">
+								INSTITUTO DE COMPUTAÇÃO - IC/UFBA
+								</a>
+</span>
+<span class="telefone">
+<span class="telefoneRamal">Telefone/Ramal: </span>
+<label>
+							
+							
+							
+							
+								Não informado
+							
+							</label>
+</span>
+</div>
+</div>
+<div class="menu" id="menu">
+<ul>
+<li class="li-menu primeiro">
+<a class="item-menu" href="/sigaa/public/curso/portal.jsf?lc=pt_BR&amp;id=1876885" title="Apresentação">
+           			Apresentação
+           	</a>
+</li>
+<li class="li-menu">
+<span class="item-menu" title="Ensino">Ensino</span>
+<div class="sub-menu">
+<ul>
+<li><a href="curriculo.jsf?lc=pt_BR&amp;id=1876885">· Currículos</a></li>
+<li><a "="" href="monografias.jsf?lc=pt_BR&amp;id=1876885">· Monografias</a></li>
+<li><a "="" href="artigos.jsf?lc=pt_BR&amp;id=1876885">· Artigos</a></li>
+<li><a "="" href="memoriais.jsf?lc=pt_BR&amp;id=1876885">· Memoriais</a></li>
+<li><a "="" href="outros.jsf?lc=pt_BR&amp;id=1876885">· Outros</a></li>
+<li><a href="turmas.jsf?lc=pt_BR&amp;id=1876885" title="Turmas">· Turmas</a></li>
+</ul>
+</div>
+</li>
+<li class="li-menu"><a class="item-menu" href="calendario.jsf?lc=pt_BR&amp;id=1876885" title="Calendário">Calendário</a></li>
+<li class="li-menu"><a class="item-menu" href="ppp.jsf?lc=pt_BR&amp;id=1876885">Projeto Pedagógico do Curso</a></li>
+<li class="li-menu"><a class="item-menu" href="noticias.jsf?lc=pt_BR&amp;id=1876885" title="Notícias">Notícias</a></li>
+</ul>
+</div>
+<div id="conteudo">
+<div class="titulo">
+			Turmas
+		</div>
+<form action="/sigaa/public/curso/turmas.jsf" enctype="application/x-www-form-urlencoded" id="form" method="post" name="form">
+<input name="form" type="hidden" value="form"/>
+<!-- IN&#205;CIO DO FORMUL&#193;RIO DE BUSCA -->
+<div id="caixa_formulario">
+<div id="icon_cf"><img src="img/icone_bus.png"/></div>
+<div id="formulario">
+<div id="head_f">
+		                          Buscar
+		                     </div>
+<div id="body_f">
+<span class="campo_grande">
+<label>
+<span id="form:outAno">Ano</span>
+												 . <span id="form:outPeriodo">Período</span>
+										 	:
+										</label>
+</span>
+<input id="form:inputAno" maxlength="4" name="form:inputAno" onkeyup="return formatarInteiro(this,event);" size="4" type="text" value="2026"/>
+									
+		 								 . <select id="form:inputPeriodo" name="form:inputPeriodo" size="1"> <option value="1">1</option>
+<option selected="selected" value="2">2</option>
+<option value="3">3</option>
+<option value="4">4</option>
+</select> 	
+										
+									<br/>
+<br/>
+<span class="campo_grande">
+<label>
+<span id="form:outCodigo">Código</span>:
+										</label>
+<input maxlength="8" name="form:j_id_jsp_159980968_32" size="8" type="text" value=""/>
+</span>
+<br/>
+<br/>
+<input id="form:id" name="form:id" type="hidden" value="1876885"/><input id="form:lc" name="form:lc" type="hidden" value="pt_BR"/><input class="bt_buscar" id="form:buscar" name="form:buscar" type="submit" value="Buscar"/>
+</div>
+</div>
+</div>
+<!-- FIM DO FORMUL&#193;RIO DE BUSCA -->
+<!-- IN&#205;CIO DA LISTAGEM -->
+<br clear="all"/>
+<div class="espaco_menor" id="listagem_tabela">
+<div id="group_lt">
+<script language="Javascript" type="text/javascript">function dpf(f) {var adp = f.adp;if (adp != null) {for (var i = 0;i < adp.length;i++) {f.removeChild(adp[i]);}}};function apf(f, pvp) {var adp = new Array();f.adp = adp;var i = 0;for (k in pvp) {var p = document.createElement("input");p.type = "hidden";p.name = k;p.value = pvp[k];f.appendChild(p);adp[i++] = p;}};function jsfcljs(f, pvp, t) {apf(f, pvp);var ft = f.target;if (t) {f.target = t;}f.submit();f.target = ft;dpf(f);};</script>
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('form'),{'form:j_id_jsp_159980968_36':'form:j_id_jsp_159980968_36','id':'45080','publico':'public'},'');}return false" title="Visualizar Detalhes do Componente Curricular"><span id="form:outDescricaoResumida">MATC53 - ACC:ONDA SOLIDÁRIA DE INCLUSÃO DIGITAL-TECNOLOGIA A SERVIÇO</span></a>
+</div>
+<table id="table_lt">
+<tr class="campos">
+<td class="anoPeriodo" width="90px">
+												Período/
+												Ano
+											</td>
+<td class="anoPeriodo" width="90px">Turma</td>
+<td width="340px">Docente</td>
+<td class="colVagas" width="110px">Vgs Reservadas</td>
+<td width="65px">Horários</td>
+</tr>
+<tbody>
+<tr class="linha_par">
+<td class="anoPeriodo" width="90px"> 2026.2</td>
+<td align="center" width="90px">01</td>
+<td class="nome" width="340px">
+<a href="/sigaa/public/docente/portal.jsf?siape=9000001" target="_blank" title="Clique aqui para acessar a página pública deste docente">
+												CICLANO SANTOS 131
+											</a>
+											
+											
+										
+									
+										
+										, 
+										
+											
+											<a href="/sigaa/public/docente/portal.jsf?siape=9000002" target="_blank" title="Clique aqui para acessar a página pública deste docente">
+												ANA SANTOS 135
+											</a>
+											
+											
+										
+									
+										
+										, 
+										
+											
+											<a href="/sigaa/public/docente/portal.jsf?siape=9000003" target="_blank" title="Clique aqui para acessar a página pública deste docente">
+												CARLOS ROCHA 398
+											</a>
+</td>
+<td class="colVagas" width="110px">
+<span id="form:totalVagas">2</span>
+</td>
+<td class="horario"> 7M2345  2T56 (19/08/2026 - 19/12/2026)</td>
+</tr>
+</tbody>
+</table>
+</div>
+<br/>
+<div class="espaco_menor" id="listagem_tabela">
+<div id="group_lt">
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('form'),{'form:j_id_jsp_159980968_36j_id_1':'form:j_id_jsp_159980968_36j_id_1','id':'45354','publico':'public'},'');}return false" title="Visualizar Detalhes do Componente Curricular"><span id="form:outDescricaoResumidaj_id_1">MATG12 - ACCS: CULTURA E JOGOS AFRICANOS NO ENSINO DA MATEMÁTICA</span></a>
+</div>
+<table id="table_lt">
+<tr class="campos">
+<td class="anoPeriodo" width="90px">
+												Período/
+												Ano
+											</td>
+<td class="anoPeriodo" width="90px">Turma</td>
+<td width="340px">Docente</td>
+<td class="colVagas" width="110px">Vgs Reservadas</td>
+<td width="65px">Horários</td>
+</tr>
+<tbody>
+<tr class="linha_impar">
+<td class="anoPeriodo" width="90px"> 2026.2</td>
+<td align="center" width="90px">01</td>
+<td class="nome" width="340px">
+<a href="/sigaa/public/docente/portal.jsf?siape=9000004" target="_blank" title="Clique aqui para acessar a página pública deste docente">
+												FULANO COSTA 460
+											</a>
+</td>
+<td class="colVagas" width="110px">
+<span id="form:totalVagasj_id_1">2</span>
+</td>
+<td class="horario"> 24N12 (19/08/2026 - 19/12/2026)</td>
+</tr>
+</tbody>
+</table>
+</div>
+<br/>
+<div class="espaco_menor" id="listagem_tabela">
+<div id="group_lt">
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('form'),{'form:j_id_jsp_159980968_36j_id_2':'form:j_id_jsp_159980968_36j_id_2','id':'54931','publico':'public'},'');}return false" title="Visualizar Detalhes do Componente Curricular"><span id="form:outDescricaoResumidaj_id_2">GICC0009 - ACCS: JOGOS NA EDUCAÇÃO BÁSICA</span></a>
+</div>
+<table id="table_lt">
+<tr class="campos">
+<td class="anoPeriodo" width="90px">
+												Período/
+												Ano
+											</td>
+<td class="anoPeriodo" width="90px">Turma</td>
+<td width="340px">Docente</td>
+<td class="colVagas" width="110px">Vgs Reservadas</td>
+<td width="65px">Horários</td>
+</tr>
+<tbody>
+<tr class="linha_par">
+<td class="anoPeriodo" width="90px"> 2026.2</td>
+<td align="center" width="90px">01</td>
+<td class="nome" width="340px">
+<a href="/sigaa/public/docente/portal.jsf?siape=9000002" target="_blank" title="Clique aqui para acessar a página pública deste docente">
+												ANA SANTOS 135
+											</a>
+											
+											
+										
+									
+										
+										, 
+										
+											
+											<a href="/sigaa/public/docente/portal.jsf?siape=9000005" target="_blank" title="Clique aqui para acessar a página pública deste docente">
+												JULIA ROCHA 099
+											</a>
+											
+											
+										
+									
+										
+										, 
+										
+											
+											<a href="/sigaa/public/docente/portal.jsf?siape=9000006" target="_blank" title="Clique aqui para acessar a página pública deste docente">
+												LUCIA SANTOS 437
+											</a>
+</td>
+<td class="colVagas" width="110px">
+<span id="form:totalVagasj_id_2">3</span>
+</td>
+<td class="horario"> 7M3456 (19/08/2026 - 19/12/2026)</td>
+</tr>
+</tbody>
+</table>
+</div>
+<br/>
+<div class="espaco_menor" id="listagem_tabela">
+<div id="group_lt">
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('form'),{'form:j_id_jsp_159980968_36j_id_3':'form:j_id_jsp_159980968_36j_id_3','id':'45332','publico':'public'},'');}return false" title="Visualizar Detalhes do Componente Curricular"><span id="form:outDescricaoResumidaj_id_3">MATF54 - ACCS:ONDA EDUCATIVA, DIGITAL, ECOLOGISTA E PAN-AFRO-INDÍGENA</span></a>
+</div>
+<table id="table_lt">
+<tr class="campos">
+<td class="anoPeriodo" width="90px">
+												Período/
+												Ano
+											</td>
+<td class="anoPeriodo" width="90px">Turma</td>
+<td width="340px">Docente</td>
+<td class="colVagas" width="110px">Vgs Reservadas</td>
+<td width="65px">Horários</td>
+</tr>
+<tbody>
+<tr class="linha_impar">
+<td class="anoPeriodo" width="90px"> 2026.2</td>
+<td align="center" width="90px">01</td>
+<td class="nome" width="340px">
+<a href="/sigaa/public/docente/portal.jsf?siape=9000007" target="_blank" title="Clique aqui para acessar a página pública deste docente">
+												CARLOS ALVES 388
+											</a>
+</td>
+<td class="colVagas" width="110px">
+<span id="form:totalVagasj_id_3">1</span>
+</td>
+<td class="horario"> 24T56 (19/08/2026 - 19/12/2026)</td>
+</tr>
+</tbody>
+</table>
+</div>
+<br/>
+<div class="espaco_menor" id="listagem_tabela">
+<div id="group_lt">
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('form'),{'form:j_id_jsp_159980968_36j_id_4':'form:j_id_jsp_159980968_36j_id_4','id':'45325','publico':'public'},'');}return false" title="Visualizar Detalhes do Componente Curricular"><span id="form:outDescricaoResumidaj_id_4">MATF34 - ACCS:PROGRAMAÇÃO COMPETITIVA-COMPUTAÇÃO PARA ALUNOS</span></a>
+</div>
+<table id="table_lt">
+<tr class="campos">
+<td class="anoPeriodo" width="90px">
+												Período/
+												Ano
+											</td>
+<td class="anoPeriodo" width="90px">Turma</td>
+<td width="340px">Docente</td>
+<td class="colVagas" width="110px">Vgs Reservadas</td>
+<td width="65px">Horários</td>
+</tr>
+<tbody>
+<tr class="linha_par">
+<td class="anoPeriodo" width="90px"> 2026.2</td>
+<td align="center" width="90px">01</td>
+<td class="nome" width="340px">
+<a href="/sigaa/public/docente/portal.jsf?siape=9000008" target="_blank" title="Clique aqui para acessar a página pública deste docente">
+												ANA OLIVEIRA 445
+											</a>
+</td>
+<td class="colVagas" width="110px">
+<span id="form:totalVagasj_id_4">15</span>
+</td>
+<td class="horario"> 7T2345 (19/08/2026 - 19/12/2026)</td>
+</tr>
+</tbody>
+</table>
+</div>
+<br/>
+<div class="espaco_menor" id="listagem_tabela">
+<div id="group_lt">
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('form'),{'form:j_id_jsp_159980968_36j_id_5':'form:j_id_jsp_159980968_36j_id_5','id':'44686','publico':'public'},'');}return false" title="Visualizar Detalhes do Componente Curricular"><span id="form:outDescricaoResumidaj_id_5">MATA07 - ÁLGEBRA LINEAR A</span></a>
+</div>
+<table id="table_lt">
+<tr class="campos">
+<td class="anoPeriodo" width="90px">
+												Período/
+												Ano
+											</td>
+<td class="anoPeriodo" width="90px">Turma</td>
+<td width="340px">Docente</td>
+<td class="colVagas" width="110px">Vgs Reservadas</td>
+<td width="65px">Horários</td>
+</tr>
+<tbody>
+<tr class="linha_impar">
+<td class="anoPeriodo" width="90px"> 2026.2</td>
+<td align="center" width="90px">07</td>
+<td class="nome" width="340px">
+<a href="/sigaa/public/docente/portal.jsf?siape=9000009" target="_blank" title="Clique aqui para acessar a página pública deste docente">
+												CARLOS ALVES 488
+											</a>
+</td>
+<td class="colVagas" width="110px">
+<span id="form:totalVagasj_id_5">18</span>
+</td>
+<td class="horario"> 24N34 (19/08/2026 - 19/12/2026)</td>
+</tr>
+</tbody>
+</table>
+</div>
+<br/>
+<div class="espaco_menor" id="listagem_tabela">
+<div id="group_lt">
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('form'),{'form:j_id_jsp_159980968_36j_id_6':'form:j_id_jsp_159980968_36j_id_6','id':'44686','publico':'public'},'');}return false" title="Visualizar Detalhes do Componente Curricular"><span id="form:outDescricaoResumidaj_id_6">MATA07 - ÁLGEBRA LINEAR A</span></a>
+</div>
+<table id="table_lt">
+<tr class="campos">
+<td class="anoPeriodo" width="90px">
+												Período/
+												Ano
+											</td>
+<td class="anoPeriodo" width="90px">Turma</td>
+<td width="340px">Docente</td>
+<td class="colVagas" width="110px">Vgs Reservadas</td>
+<td width="65px">Horários</td>
+</tr>
+<tbody>
+<tr class="linha_par">
+<td class="anoPeriodo" width="90px"> 2026.2</td>
+<td align="center" width="90px">16</td>
+<td class="nome" width="340px">
+<a href="/sigaa/public/docente/portal.jsf?siape=9000010" target="_blank" title="Clique aqui para acessar a página pública deste docente">
+												LUCIA DE TAL 207
+											</a>
+</td>
+<td class="colVagas" width="110px">
+<span id="form:totalVagasj_id_6">10</span>
+</td>
+<td class="horario"> 35N34 (19/08/2026 - 19/12/2026)</td>
+</tr>
+</tbody>
+</table>
+</div>
+<br/>
+<div class="espaco_menor" id="listagem_tabela">
+<div id="group_lt">
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('form'),{'form:j_id_jsp_159980968_36j_id_7':'form:j_id_jsp_159980968_36j_id_7','id':'45124','publico':'public'},'');}return false" title="Visualizar Detalhes do Componente Curricular"><span id="form:outDescricaoResumidaj_id_7">MATC89 - APLICAÇÕES PARA DISPOSITIVOS MÓVEIS</span></a>
+</div>
+<table id="table_lt">
+<tr class="campos">
+<td class="anoPeriodo" width="90px">
+												Período/
+												Ano
+											</td>
+<td class="anoPeriodo" width="90px">Turma</td>
+<td width="340px">Docente</td>
+<td class="colVagas" width="110px">Vgs Reservadas</td>
+<td width="65px">Horários</td>
+</tr>
+<tbody>
+<tr class="linha_impar">
+<td class="anoPeriodo" width="90px"> 2026.2</td>
+<td align="center" width="90px">01</td>
+<td class="nome" width="340px">
+<a href="/sigaa/public/docente/portal.jsf?siape=9000006" target="_blank" title="Clique aqui para acessar a página pública deste docente">
+												LUCIA SANTOS 437
+											</a>
+</td>
+<td class="colVagas" width="110px">
+<span id="form:totalVagasj_id_7">40</span>
+</td>
+<td class="horario"> 46N12 (19/08/2026 - 19/12/2026)</td>
+</tr>
+</tbody>
+</table>
+</div>
+<br/>
+<div class="espaco_menor" id="listagem_tabela">
+<div id="group_lt">
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('form'),{'form:j_id_jsp_159980968_36j_id_8':'form:j_id_jsp_159980968_36j_id_8','id':'44740','publico':'public'},'');}return false" title="Visualizar Detalhes do Componente Curricular"><span id="form:outDescricaoResumidaj_id_8">MATA60 - BANCO DE DADOS</span></a>
+</div>
+<table id="table_lt">
+<tr class="campos">
+<td class="anoPeriodo" width="90px">
+												Período/
+												Ano
+											</td>
+<td class="anoPeriodo" width="90px">Turma</td>
+<td width="340px">Docente</td>
+<td class="colVagas" width="110px">Vgs Reservadas</td>
+<td width="65px">Horários</td>
+</tr>
+<tbody>
+<tr class="linha_par">
+<td class="anoPeriodo" width="90px"> 2026.2</td>
+<td align="center" width="90px">02</td>
+<td class="nome" width="340px">
+<a href="/sigaa/public/docente/portal.jsf?siape=9000011" target="_blank" title="Clique aqui para acessar a página pública deste docente">
+												BELTRANO SANTOS 432
+											</a>
+</td>
+<td class="colVagas" width="110px">
+<span id="form:totalVagasj_id_8">20</span>
+</td>
+<td class="horario"> 35N12 (19/08/2026 - 19/12/2026)</td>
+</tr>
+</tbody>
+</table>
+</div>
+<br/>
+<div class="espaco_menor" id="listagem_tabela">
+<div id="group_lt">
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('form'),{'form:j_id_jsp_159980968_36j_id_9':'form:j_id_jsp_159980968_36j_id_9','id':'44676','publico':'public'},'');}return false" title="Visualizar Detalhes do Componente Curricular"><span id="form:outDescricaoResumidaj_id_9">MATA02 - CÁLCULO A</span></a>
+</div>
+<table id="table_lt">
+<tr class="campos">
+<td class="anoPeriodo" width="90px">
+												Período/
+												Ano
+											</td>
+<td class="anoPeriodo" width="90px">Turma</td>
+<td width="340px">Docente</td>
+<td class="colVagas" width="110px">Vgs Reservadas</td>
+<td width="65px">Horários</td>
+</tr>
+<tbody>
+<tr class="linha_impar">
+<td class="anoPeriodo" width="90px"> 2026.2</td>
+<td align="center" width="90px">15</td>
+<td class="nome" width="340px">
+<a href="/sigaa/public/docente/portal.jsf?siape=9000012" target="_blank" title="Clique aqui para acessar a página pública deste docente">
+												JOAO COSTA 364
+											</a>
+</td>
+<td class="colVagas" width="110px">
+<span id="form:totalVagasj_id_9">5</span>
+</td>
+<td class="horario"> 246N34 (19/08/2026 - 19/12/2026)</td>
+</tr>
+</tbody>
+</table>
+</div>
+<br/>
+<div class="espaco_menor" id="listagem_tabela">
+<div id="group_lt">
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('form'),{'form:j_id_jsp_159980968_36j_id_10':'form:j_id_jsp_159980968_36j_id_10','id':'44676','publico':'public'},'');}return false" title="Visualizar Detalhes do Componente Curricular"><span id="form:outDescricaoResumidaj_id_10">MATA02 - CÁLCULO A</span></a>
+</div>
+<table id="table_lt">
+<tr class="campos">
+<td class="anoPeriodo" width="90px">
+												Período/
+												Ano
+											</td>
+<td class="anoPeriodo" width="90px">Turma</td>
+<td width="340px">Docente</td>
+<td class="colVagas" width="110px">Vgs Reservadas</td>
+<td width="65px">Horários</td>
+</tr>
+<tbody>
+<tr class="linha_par">
+<td class="anoPeriodo" width="90px"> 2026.2</td>
+<td align="center" width="90px">16</td>
+<td class="nome" width="340px">
+<a href="/sigaa/public/docente/portal.jsf?siape=9000010" target="_blank" title="Clique aqui para acessar a página pública deste docente">
+												LUCIA DE TAL 207
+											</a>
+</td>
+<td class="colVagas" width="110px">
+<span id="form:totalVagasj_id_10">29</span>
+</td>
+<td class="horario"> 246N34 (19/08/2026 - 19/12/2026)</td>
+</tr>
+</tbody>
+</table>
+</div>
+<br/>
+<div class="espaco_menor" id="listagem_tabela">
+<div id="group_lt">
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('form'),{'form:j_id_jsp_159980968_36j_id_11':'form:j_id_jsp_159980968_36j_id_11','id':'44678','publico':'public'},'');}return false" title="Visualizar Detalhes do Componente Curricular"><span id="form:outDescricaoResumidaj_id_11">MATA03 - CÁLCULO B</span></a>
+</div>
+<table id="table_lt">
+<tr class="campos">
+<td class="anoPeriodo" width="90px">
+												Período/
+												Ano
+											</td>
+<td class="anoPeriodo" width="90px">Turma</td>
+<td width="340px">Docente</td>
+<td class="colVagas" width="110px">Vgs Reservadas</td>
+<td width="65px">Horários</td>
+</tr>
+<tbody>
+<tr class="linha_impar">
+<td class="anoPeriodo" width="90px"> 2026.2</td>
+<td align="center" width="90px">13</td>
+<td class="nome" width="340px">
+<a href="/sigaa/public/docente/portal.jsf?siape=9000013" target="_blank" title="Clique aqui para acessar a página pública deste docente">
+												JULIA SOUZA 129
+											</a>
+</td>
+<td class="colVagas" width="110px">
+<span id="form:totalVagasj_id_11">10</span>
+</td>
+<td class="horario"> 246N34 (19/08/2026 - 19/12/2026)</td>
+</tr>
+</tbody>
+</table>
+</div>
+<br/>
+<div class="espaco_menor" id="listagem_tabela">
+<div id="group_lt">
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('form'),{'form:j_id_jsp_159980968_36j_id_12':'form:j_id_jsp_159980968_36j_id_12','id':'44680','publico':'public'},'');}return false" title="Visualizar Detalhes do Componente Curricular"><span id="form:outDescricaoResumidaj_id_12">MATA04 - CÁLCULO C</span></a>
+</div>
+<table id="table_lt">
+<tr class="campos">
+<td class="anoPeriodo" width="90px">
+												Período/
+												Ano
+											</td>
+<td class="anoPeriodo" width="90px">Turma</td>
+<td width="340px">Docente</td>
+<td class="colVagas" width="110px">Vgs Reservadas</td>
+<td width="65px">Horários</td>
+</tr>
+<tbody>
+<tr class="linha_par">
+<td class="anoPeriodo" width="90px"> 2026.2</td>
+<td align="center" width="90px">08</td>
+<td class="nome" width="340px">
+<a href="/sigaa/public/docente/portal.jsf?siape=9000014" target="_blank" title="Clique aqui para acessar a página pública deste docente">
+												ANA OLIVEIRA 045
+											</a>
+</td>
+<td class="colVagas" width="110px">
+<span id="form:totalVagasj_id_12">8</span>
+</td>
+<td class="horario"> 246N34 (19/08/2026 - 19/12/2026)</td>
+</tr>
+</tbody>
+</table>
+</div>
+<br/>
+<div class="espaco_menor" id="listagem_tabela">
+<div id="group_lt">
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('form'),{'form:j_id_jsp_159980968_36j_id_13':'form:j_id_jsp_159980968_36j_id_13','id':'44491','publico':'public'},'');}return false" title="Visualizar Detalhes do Componente Curricular"><span id="form:outDescricaoResumidaj_id_13">MAT174 - CÁLCULO NUMÉRICO I</span></a>
+</div>
+<table id="table_lt">
+<tr class="campos">
+<td class="anoPeriodo" width="90px">
+												Período/
+												Ano
+											</td>
+<td class="anoPeriodo" width="90px">Turma</td>
+<td width="340px">Docente</td>
+<td class="colVagas" width="110px">Vgs Reservadas</td>
+<td width="65px">Horários</td>
+</tr>
+<tbody>
+<tr class="linha_impar">
+<td class="anoPeriodo" width="90px"> 2026.2</td>
+<td align="center" width="90px">05</td>
+<td class="nome" width="340px">
+<a href="/sigaa/public/docente/portal.jsf?siape=9000007" target="_blank" title="Clique aqui para acessar a página pública deste docente">
+												CARLOS ALVES 388
+											</a>
+</td>
+<td class="colVagas" width="110px">
+<span id="form:totalVagasj_id_13">15</span>
+</td>
+<td class="horario"> 35N12 (19/08/2026 - 19/12/2026)</td>
+</tr>
+</tbody>
+</table>
+</div>
+<br/>
+<div class="espaco_menor" id="listagem_tabela">
+<div id="group_lt">
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('form'),{'form:j_id_jsp_159980968_36j_id_14':'form:j_id_jsp_159980968_36j_id_14','id':'36599','publico':'public'},'');}return false" title="Visualizar Detalhes do Componente Curricular"><span id="form:outDescricaoResumidaj_id_14">HACA09 - CIÊNCIA E TECNOLOGIA I</span></a>
+</div>
+<table id="table_lt">
+<tr class="campos">
+<td class="anoPeriodo" width="90px">
+												Período/
+												Ano
+											</td>
+<td class="anoPeriodo" width="90px">Turma</td>
+<td width="340px">Docente</td>
+<td class="colVagas" width="110px">Vgs Reservadas</td>
+<td width="65px">Horários</td>
+</tr>
+<tbody>
+<tr class="linha_par">
+<td class="anoPeriodo" width="90px"> 2026.2</td>
+<td align="center" width="90px">01</td>
+<td class="nome" width="340px">
+<a href="/sigaa/public/docente/portal.jsf?siape=9000015" target="_blank" title="Clique aqui para acessar a página pública deste docente">
+												CICLANO ROCHA 191
+											</a>
+</td>
+<td class="colVagas" width="110px">
+<span id="form:totalVagasj_id_14">2</span>
+</td>
+<td class="horario"> 35N12 (19/08/2026 - 19/12/2026)</td>
+</tr>
+</tbody>
+</table>
+</div>
+<br/>
+<div class="espaco_menor" id="listagem_tabela">
+<div id="group_lt">
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('form'),{'form:j_id_jsp_159980968_36j_id_15':'form:j_id_jsp_159980968_36j_id_15','id':'45126','publico':'public'},'');}return false" title="Visualizar Detalhes do Componente Curricular"><span id="form:outDescricaoResumidaj_id_15">MATC90 - CIRCUITOS DIGITAIS E ARQUITETURA DE COMPUTADORES</span></a>
+</div>
+<table id="table_lt">
+<tr class="campos">
+<td class="anoPeriodo" width="90px">
+												Período/
+												Ano
+											</td>
+<td class="anoPeriodo" width="90px">Turma</td>
+<td width="340px">Docente</td>
+<td class="colVagas" width="110px">Vgs Reservadas</td>
+<td width="65px">Horários</td>
+</tr>
+<tbody>
+<tr class="linha_impar">
+<td class="anoPeriodo" width="90px"> 2026.2</td>
+<td align="center" width="90px">01</td>
+<td class="nome" width="340px">
+<a href="/sigaa/public/docente/portal.jsf?siape=9000016" target="_blank" title="Clique aqui para acessar a página pública deste docente">
+												CARLOS LIMA 278
+											</a>
+</td>
+<td class="colVagas" width="110px">
+<span id="form:totalVagasj_id_15">45</span>
+</td>
+<td class="horario"> 46N34 (19/08/2026 - 19/12/2026)</td>
+</tr>
+</tbody>
+</table>
+</div>
+<br/>
+<div class="espaco_menor" id="listagem_tabela">
+<div id="group_lt">
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('form'),{'form:j_id_jsp_159980968_36j_id_16':'form:j_id_jsp_159980968_36j_id_16','id':'44756','publico':'public'},'');}return false" title="Visualizar Detalhes do Componente Curricular"><span id="form:outDescricaoResumidaj_id_16">MATA68 - COMPUTADOR, ÉTICA E SOCIEDADE</span></a>
+</div>
+<table id="table_lt">
+<tr class="campos">
+<td class="anoPeriodo" width="90px">
+												Período/
+												Ano
+											</td>
+<td class="anoPeriodo" width="90px">Turma</td>
+<td width="340px">Docente</td>
+<td class="colVagas" width="110px">Vgs Reservadas</td>
+<td width="65px">Horários</td>
+</tr>
+<tbody>
+<tr class="linha_par">
+<td class="anoPeriodo" width="90px"> 2026.2</td>
+<td align="center" width="90px">01</td>
+<td class="nome" width="340px">
+<a href="/sigaa/public/docente/portal.jsf?siape=9000005" target="_blank" title="Clique aqui para acessar a página pública deste docente">
+												JULIA ROCHA 099
+											</a>
+</td>
+<td class="colVagas" width="110px">
+<span id="form:totalVagasj_id_16">19</span>
+</td>
+<td class="horario"> 7T1  4N12 (19/08/2026 - 19/12/2026)</td>
+</tr>
+</tbody>
+</table>
+</div>
+<br/>
+<div class="espaco_menor" id="listagem_tabela">
+<div id="group_lt">
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('form'),{'form:j_id_jsp_159980968_36j_id_17':'form:j_id_jsp_159980968_36j_id_17','id':'32463','publico':'public'},'');}return false" title="Visualizar Detalhes do Componente Curricular"><span id="form:outDescricaoResumidaj_id_17">FCC024 - CONTABILIDADE DE CUSTOS</span></a>
+</div>
+<table id="table_lt">
+<tr class="campos">
+<td class="anoPeriodo" width="90px">
+												Período/
+												Ano
+											</td>
+<td class="anoPeriodo" width="90px">Turma</td>
+<td width="340px">Docente</td>
+<td class="colVagas" width="110px">Vgs Reservadas</td>
+<td width="65px">Horários</td>
+</tr>
+<tbody>
+<tr class="linha_impar">
+<td class="anoPeriodo" width="90px"> 2026.2</td>
+<td align="center" width="90px">02</td>
+<td class="nome" width="340px">
+<a href="/sigaa/public/docente/portal.jsf?siape=9000017" target="_blank" title="Clique aqui para acessar a página pública deste docente">
+												PEDRO PEREIRA 356
+											</a>
+</td>
+<td class="colVagas" width="110px">
+<span id="form:totalVagasj_id_17">20</span>
+</td>
+<td class="horario"> 24N12 (19/08/2026 - 19/12/2026)</td>
+</tr>
+</tbody>
+</table>
+</div>
+<br/>
+<div class="espaco_menor" id="listagem_tabela">
+<div id="group_lt">
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('form'),{'form:j_id_jsp_159980968_36j_id_18':'form:j_id_jsp_159980968_36j_id_18','id':'27404','publico':'public'},'');}return false" title="Visualizar Detalhes do Componente Curricular"><span id="form:outDescricaoResumidaj_id_18">ECO173 - ECONOMIA BRASILEIRA CONTEMPORANEA</span></a>
+</div>
+<table id="table_lt">
+<tr class="campos">
+<td class="anoPeriodo" width="90px">
+												Período/
+												Ano
+											</td>
+<td class="anoPeriodo" width="90px">Turma</td>
+<td width="340px">Docente</td>
+<td class="colVagas" width="110px">Vgs Reservadas</td>
+<td width="65px">Horários</td>
+</tr>
+<tbody>
+<tr class="linha_par">
+<td class="anoPeriodo" width="90px"> 2026.2</td>
+<td align="center" width="90px">05</td>
+<td class="nome" width="340px">
+<a href="/sigaa/public/docente/portal.jsf?siape=9000018" target="_blank" title="Clique aqui para acessar a página pública deste docente">
+												MARIA ROCHA 293
+											</a>
+</td>
+<td class="colVagas" width="110px">
+<span id="form:totalVagasj_id_18">10</span>
+</td>
+<td class="horario"> 35N34 (19/08/2026 - 19/12/2026)</td>
+</tr>
+</tbody>
+</table>
+</div>
+<br/>
+<div class="espaco_menor" id="listagem_tabela">
+<div id="group_lt">
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('form'),{'form:j_id_jsp_159980968_36j_id_19':'form:j_id_jsp_159980968_36j_id_19','id':'22369','publico':'public'},'');}return false" title="Visualizar Detalhes do Componente Curricular"><span id="form:outDescricaoResumidaj_id_19">ADME99 - ECONOMIA DA INOVAÇÃO</span></a>
+</div>
+<table id="table_lt">
+<tr class="campos">
+<td class="anoPeriodo" width="90px">
+												Período/
+												Ano
+											</td>
+<td class="anoPeriodo" width="90px">Turma</td>
+<td width="340px">Docente</td>
+<td class="colVagas" width="110px">Vgs Reservadas</td>
+<td width="65px">Horários</td>
+</tr>
+<tbody>
+<tr class="linha_impar">
+<td class="anoPeriodo" width="90px"> 2026.2</td>
+<td align="center" width="90px">01</td>
+<td class="nome" width="340px">
+<a href="/sigaa/public/docente/portal.jsf?siape=9000019" target="_blank" title="Clique aqui para acessar a página pública deste docente">
+												ANA DA SILVA 215
+											</a>
+</td>
+<td class="colVagas" width="110px">
+<span id="form:totalVagasj_id_19">45</span>
+</td>
+<td class="horario"> 2N1234 (19/08/2026 - 19/12/2026)</td>
+</tr>
+</tbody>
+</table>
+</div>
+<br/>
+<div class="espaco_menor" id="listagem_tabela">
+<div id="group_lt">
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('form'),{'form:j_id_jsp_159980968_36j_id_20':'form:j_id_jsp_159980968_36j_id_20','id':'44579','publico':'public'},'');}return false" title="Visualizar Detalhes do Componente Curricular"><span id="form:outDescricaoResumidaj_id_20">MAT220 - EMPREENDEDORES EM INFORMATICA</span></a>
+</div>
+<table id="table_lt">
+<tr class="campos">
+<td class="anoPeriodo" width="90px">
+												Período/
+												Ano
+											</td>
+<td class="anoPeriodo" width="90px">Turma</td>
+<td width="340px">Docente</td>
+<td class="colVagas" width="110px">Vgs Reservadas</td>
+<td width="65px">Horários</td>
+</tr>
+<tbody>
+<tr class="linha_par">
+<td class="anoPeriodo" width="90px"> 2026.2</td>
+<td align="center" width="90px">01</td>
+<td class="nome" width="340px">
+<a href="/sigaa/public/docente/portal.jsf?siape=9000020" target="_blank" title="Clique aqui para acessar a página pública deste docente">
+												FULANO COSTA 260
+											</a>
+</td>
+<td class="colVagas" width="110px">
+<span id="form:totalVagasj_id_20">40</span>
+</td>
+<td class="horario"> 35N12 (19/08/2026 - 19/12/2026)</td>
+</tr>
+</tbody>
+</table>
+</div>
+<br/>
+<div class="espaco_menor" id="listagem_tabela">
+<div id="group_lt">
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('form'),{'form:j_id_jsp_159980968_36j_id_21':'form:j_id_jsp_159980968_36j_id_21','id':'44744','publico':'public'},'');}return false" title="Visualizar Detalhes do Componente Curricular"><span id="form:outDescricaoResumidaj_id_21">MATA62 - ENGENHARIA DE SOFTWARE I</span></a>
+</div>
+<table id="table_lt">
+<tr class="campos">
+<td class="anoPeriodo" width="90px">
+												Período/
+												Ano
+											</td>
+<td class="anoPeriodo" width="90px">Turma</td>
+<td width="340px">Docente</td>
+<td class="colVagas" width="110px">Vgs Reservadas</td>
+<td width="65px">Horários</td>
+</tr>
+<tbody>
+<tr class="linha_impar">
+<td class="anoPeriodo" width="90px"> 2026.2</td>
+<td align="center" width="90px">01</td>
+<td class="nome" width="340px">
+<a href="/sigaa/public/docente/portal.jsf?siape=9000021" target="_blank" title="Clique aqui para acessar a página pública deste docente">
+												ANA OLIVEIRA 145
+											</a>
+</td>
+<td class="colVagas" width="110px">
+<span id="form:totalVagasj_id_21">5</span>
+</td>
+<td class="horario"> 35T56 (19/08/2026 - 19/12/2026)</td>
+</tr>
+</tbody>
+</table>
+</div>
+<br/>
+<div class="espaco_menor" id="listagem_tabela">
+<div id="group_lt">
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('form'),{'form:j_id_jsp_159980968_36j_id_22':'form:j_id_jsp_159980968_36j_id_22','id':'44744','publico':'public'},'');}return false" title="Visualizar Detalhes do Componente Curricular"><span id="form:outDescricaoResumidaj_id_22">MATA62 - ENGENHARIA DE SOFTWARE I</span></a>
+</div>
+<table id="table_lt">
+<tr class="campos">
+<td class="anoPeriodo" width="90px">
+												Período/
+												Ano
+											</td>
+<td class="anoPeriodo" width="90px">Turma</td>
+<td width="340px">Docente</td>
+<td class="colVagas" width="110px">Vgs Reservadas</td>
+<td width="65px">Horários</td>
+</tr>
+<tbody>
+<tr class="linha_par">
+<td class="anoPeriodo" width="90px"> 2026.2</td>
+<td align="center" width="90px">02</td>
+<td class="nome" width="340px">
+<a href="/sigaa/public/docente/portal.jsf?siape=9000016" target="_blank" title="Clique aqui para acessar a página pública deste docente">
+												CARLOS LIMA 278
+											</a>
+</td>
+<td class="colVagas" width="110px">
+<span id="form:totalVagasj_id_22">30</span>
+</td>
+<td class="horario"> 35N34 (19/08/2026 - 19/12/2026)</td>
+</tr>
+</tbody>
+</table>
+</div>
+<br/>
+<div class="espaco_menor" id="listagem_tabela">
+<div id="group_lt">
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('form'),{'form:j_id_jsp_159980968_36j_id_23':'form:j_id_jsp_159980968_36j_id_23','id':'44746','publico':'public'},'');}return false" title="Visualizar Detalhes do Componente Curricular"><span id="form:outDescricaoResumidaj_id_23">MATA63 - ENGENHARIA DE SOFTWARE II</span></a>
+</div>
+<table id="table_lt">
+<tr class="campos">
+<td class="anoPeriodo" width="90px">
+												Período/
+												Ano
+											</td>
+<td class="anoPeriodo" width="90px">Turma</td>
+<td width="340px">Docente</td>
+<td class="colVagas" width="110px">Vgs Reservadas</td>
+<td width="65px">Horários</td>
+</tr>
+<tbody>
+<tr class="linha_impar">
+<td class="anoPeriodo" width="90px"> 2026.2</td>
+<td align="center" width="90px">01</td>
+<td class="nome" width="340px">
+<a href="/sigaa/public/docente/portal.jsf?siape=9000006" target="_blank" title="Clique aqui para acessar a página pública deste docente">
+												LUCIA SANTOS 437
+											</a>
+</td>
+<td class="colVagas" width="110px">
+<span id="form:totalVagasj_id_23">5</span>
+</td>
+<td class="horario"> 24T56 (19/08/2026 - 19/12/2026)</td>
+</tr>
+</tbody>
+</table>
+</div>
+<br/>
+<div class="espaco_menor" id="listagem_tabela">
+<div id="group_lt">
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('form'),{'form:j_id_jsp_159980968_36j_id_24':'form:j_id_jsp_159980968_36j_id_24','id':'45152','publico':'public'},'');}return false" title="Visualizar Detalhes do Componente Curricular"><span id="form:outDescricaoResumidaj_id_24">MATD04 - ESTRUTURAS DE DADOS</span></a>
+</div>
+<table id="table_lt">
+<tr class="campos">
+<td class="anoPeriodo" width="90px">
+												Período/
+												Ano
+											</td>
+<td class="anoPeriodo" width="90px">Turma</td>
+<td width="340px">Docente</td>
+<td class="colVagas" width="110px">Vgs Reservadas</td>
+<td width="65px">Horários</td>
+</tr>
+<tbody>
+<tr class="linha_par">
+<td class="anoPeriodo" width="90px"> 2026.2</td>
+<td align="center" width="90px">02</td>
+<td class="nome" width="340px">
+<a href="/sigaa/public/docente/portal.jsf?siape=9000022" target="_blank" title="Clique aqui para acessar a página pública deste docente">
+												PEDRO OLIVEIRA 146
+											</a>
+</td>
+<td class="colVagas" width="110px">
+<span id="form:totalVagasj_id_24">45</span>
+</td>
+<td class="horario"> 35N12 (19/08/2026 - 19/12/2026)</td>
+</tr>
+</tbody>
+</table>
+</div>
+<br/>
+<div class="espaco_menor" id="listagem_tabela">
+<div id="group_lt">
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('form'),{'form:j_id_jsp_159980968_36j_id_25':'form:j_id_jsp_159980968_36j_id_25','id':'36585','publico':'public'},'');}return false" title="Visualizar Detalhes do Componente Curricular"><span id="form:outDescricaoResumidaj_id_25">HACA01 - ESTUDOS SOBRE A CONTEMPORANEIDADE I</span></a>
+</div>
+<table id="table_lt">
+<tr class="campos">
+<td class="anoPeriodo" width="90px">
+												Período/
+												Ano
+											</td>
+<td class="anoPeriodo" width="90px">Turma</td>
+<td width="340px">Docente</td>
+<td class="colVagas" width="110px">Vgs Reservadas</td>
+<td width="65px">Horários</td>
+</tr>
+<tbody>
+<tr class="linha_impar">
+<td class="anoPeriodo" width="90px"> 2026.2</td>
+<td align="center" width="90px">01</td>
+<td class="nome" width="340px">
+<a href="/sigaa/public/docente/portal.jsf?siape=9000023" target="_blank" title="Clique aqui para acessar a página pública deste docente">
+												JULIA COSTA 369
+											</a>
+</td>
+<td class="colVagas" width="110px">
+<span id="form:totalVagasj_id_25">1</span>
+</td>
+<td class="horario"> 6N1234 (19/08/2026 - 19/12/2026)</td>
+</tr>
+</tbody>
+</table>
+</div>
+<br/>
+<div class="espaco_menor" id="listagem_tabela">
+<div id="group_lt">
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('form'),{'form:j_id_jsp_159980968_36j_id_26':'form:j_id_jsp_159980968_36j_id_26','id':'45130','publico':'public'},'');}return false" title="Visualizar Detalhes do Componente Curricular"><span id="form:outDescricaoResumidaj_id_26">MATC92 - FUNDAMENTOS DE SISTEMAS DE INFORMAÇÃO</span></a>
+</div>
+<table id="table_lt">
+<tr class="campos">
+<td class="anoPeriodo" width="90px">
+												Período/
+												Ano
+											</td>
+<td class="anoPeriodo" width="90px">Turma</td>
+<td width="340px">Docente</td>
+<td class="colVagas" width="110px">Vgs Reservadas</td>
+<td width="65px">Horários</td>
+</tr>
+<tbody>
+<tr class="linha_par">
+<td class="anoPeriodo" width="90px"> 2026.2</td>
+<td align="center" width="90px">01</td>
+<td class="nome" width="340px">
+<a href="/sigaa/public/docente/portal.jsf?siape=9000016" target="_blank" title="Clique aqui para acessar a página pública deste docente">
+												CARLOS LIMA 278
+											</a>
+</td>
+<td class="colVagas" width="110px">
+<span id="form:totalVagasj_id_26">40</span>
+</td>
+<td class="horario"> 46N12 (19/08/2026 - 19/12/2026)</td>
+</tr>
+</tbody>
+</table>
+</div>
+<br/>
+<div class="espaco_menor" id="listagem_tabela">
+<div id="group_lt">
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('form'),{'form:j_id_jsp_159980968_36j_id_27':'form:j_id_jsp_159980968_36j_id_27','id':'44674','publico':'public'},'');}return false" title="Visualizar Detalhes do Componente Curricular"><span id="form:outDescricaoResumidaj_id_27">MATA01 - GEOMETRIA ANALÍTICA</span></a>
+</div>
+<table id="table_lt">
+<tr class="campos">
+<td class="anoPeriodo" width="90px">
+												Período/
+												Ano
+											</td>
+<td class="anoPeriodo" width="90px">Turma</td>
+<td width="340px">Docente</td>
+<td class="colVagas" width="110px">Vgs Reservadas</td>
+<td width="65px">Horários</td>
+</tr>
+<tbody>
+<tr class="linha_impar">
+<td class="anoPeriodo" width="90px"> 2026.2</td>
+<td align="center" width="90px">04</td>
+<td class="nome" width="340px">
+<a href="/sigaa/public/docente/portal.jsf?siape=9000024" target="_blank" title="Clique aqui para acessar a página pública deste docente">
+												CARLOS SOUZA 428
+											</a>
+</td>
+<td class="colVagas" width="110px">
+<span id="form:totalVagasj_id_27">10</span>
+</td>
+<td class="horario"> 35N34 (19/08/2026 - 19/12/2026)</td>
+</tr>
+</tbody>
+</table>
+</div>
+<br/>
+<div class="espaco_menor" id="listagem_tabela">
+<div id="group_lt">
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('form'),{'form:j_id_jsp_159980968_36j_id_28':'form:j_id_jsp_159980968_36j_id_28','id':'44705','publico':'public'},'');}return false" title="Visualizar Detalhes do Componente Curricular"><span id="form:outDescricaoResumidaj_id_28">MATA41 - INFORMÁTICA NA EDUCAÇÃO</span></a>
+</div>
+<table id="table_lt">
+<tr class="campos">
+<td class="anoPeriodo" width="90px">
+												Período/
+												Ano
+											</td>
+<td class="anoPeriodo" width="90px">Turma</td>
+<td width="340px">Docente</td>
+<td class="colVagas" width="110px">Vgs Reservadas</td>
+<td width="65px">Horários</td>
+</tr>
+<tbody>
+<tr class="linha_par">
+<td class="anoPeriodo" width="90px"> 2026.2</td>
+<td align="center" width="90px">01</td>
+<td class="nome" width="340px">
+<a href="/sigaa/public/docente/portal.jsf?siape=9000025" target="_blank" title="Clique aqui para acessar a página pública deste docente">
+												LUCIA DE TAL 307
+											</a>
+</td>
+<td class="colVagas" width="110px">
+<span id="form:totalVagasj_id_28">7</span>
+</td>
+<td class="horario"> 46N12 (19/08/2026 - 19/12/2026)</td>
+</tr>
+</tbody>
+</table>
+</div>
+<br/>
+<div class="espaco_menor" id="listagem_tabela">
+<div id="group_lt">
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('form'),{'form:j_id_jsp_159980968_36j_id_29':'form:j_id_jsp_159980968_36j_id_29','id':'44748','publico':'public'},'');}return false" title="Visualizar Detalhes do Componente Curricular"><span id="form:outDescricaoResumidaj_id_29">MATA64 - INTELIGÊNCIA ARTIFICIAL</span></a>
+</div>
+<table id="table_lt">
+<tr class="campos">
+<td class="anoPeriodo" width="90px">
+												Período/
+												Ano
+											</td>
+<td class="anoPeriodo" width="90px">Turma</td>
+<td width="340px">Docente</td>
+<td class="colVagas" width="110px">Vgs Reservadas</td>
+<td width="65px">Horários</td>
+</tr>
+<tbody>
+<tr class="linha_impar">
+<td class="anoPeriodo" width="90px"> 2026.2</td>
+<td align="center" width="90px">01</td>
+<td class="nome" width="340px">
+<a href="/sigaa/public/docente/portal.jsf?siape=9000026" target="_blank" title="Clique aqui para acessar a página pública deste docente">
+												JULIA ROCHA 299
+											</a>
+</td>
+<td class="colVagas" width="110px">
+<span id="form:totalVagasj_id_29">5</span>
+</td>
+<td class="horario"> 35T34 (19/08/2026 - 19/12/2026)</td>
+</tr>
+</tbody>
+</table>
+</div>
+<br/>
+<div class="espaco_menor" id="listagem_tabela">
+<div id="group_lt">
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('form'),{'form:j_id_jsp_159980968_36j_id_30':'form:j_id_jsp_159980968_36j_id_30','id':'44748','publico':'public'},'');}return false" title="Visualizar Detalhes do Componente Curricular"><span id="form:outDescricaoResumidaj_id_30">MATA64 - INTELIGÊNCIA ARTIFICIAL</span></a>
+</div>
+<table id="table_lt">
+<tr class="campos">
+<td class="anoPeriodo" width="90px">
+												Período/
+												Ano
+											</td>
+<td class="anoPeriodo" width="90px">Turma</td>
+<td width="340px">Docente</td>
+<td class="colVagas" width="110px">Vgs Reservadas</td>
+<td width="65px">Horários</td>
+</tr>
+<tbody>
+<tr class="linha_par">
+<td class="anoPeriodo" width="90px"> 2026.2</td>
+<td align="center" width="90px">02</td>
+<td class="nome" width="340px">
+<a href="/sigaa/public/docente/portal.jsf?siape=9000027" target="_blank" title="Clique aqui para acessar a página pública deste docente">
+												FULANO ALVES 480
+											</a>
+</td>
+<td class="colVagas" width="110px">
+<span id="form:totalVagasj_id_30">25</span>
+</td>
+<td class="horario"> 24N12 (19/08/2026 - 19/12/2026)</td>
+</tr>
+</tbody>
+</table>
+</div>
+<br/>
+<div class="espaco_menor" id="listagem_tabela">
+<div id="group_lt">
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('form'),{'form:j_id_jsp_159980968_36j_id_31':'form:j_id_jsp_159980968_36j_id_31','id':'45094','publico':'public'},'');}return false" title="Visualizar Detalhes do Componente Curricular"><span id="form:outDescricaoResumidaj_id_31">MATC72 - INTERAÇÃO HUMANO-COMPUTADOR</span></a>
+</div>
+<table id="table_lt">
+<tr class="campos">
+<td class="anoPeriodo" width="90px">
+												Período/
+												Ano
+											</td>
+<td class="anoPeriodo" width="90px">Turma</td>
+<td width="340px">Docente</td>
+<td class="colVagas" width="110px">Vgs Reservadas</td>
+<td width="65px">Horários</td>
+</tr>
+<tbody>
+<tr class="linha_impar">
+<td class="anoPeriodo" width="90px"> 2026.2</td>
+<td align="center" width="90px">01</td>
+<td class="nome" width="340px">
+<a href="/sigaa/public/docente/portal.jsf?siape=9000002" target="_blank" title="Clique aqui para acessar a página pública deste docente">
+												ANA SANTOS 135
+											</a>
+</td>
+<td class="colVagas" width="110px">
+<span id="form:totalVagasj_id_31">10</span>
+</td>
+<td class="horario"> 35N12 (19/08/2026 - 19/12/2026)</td>
+</tr>
+</tbody>
+</table>
+</div>
+<br/>
+<div class="espaco_menor" id="listagem_tabela">
+<div id="group_lt">
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('form'),{'form:j_id_jsp_159980968_36j_id_32':'form:j_id_jsp_159980968_36j_id_32','id':'21989','publico':'public'},'');}return false" title="Visualizar Detalhes do Componente Curricular"><span id="form:outDescricaoResumidaj_id_32">ADM001 - INTRODUCÃO À ADMINISTRACAO</span></a>
+</div>
+<table id="table_lt">
+<tr class="campos">
+<td class="anoPeriodo" width="90px">
+												Período/
+												Ano
+											</td>
+<td class="anoPeriodo" width="90px">Turma</td>
+<td width="340px">Docente</td>
+<td class="colVagas" width="110px">Vgs Reservadas</td>
+<td width="65px">Horários</td>
+</tr>
+<tbody>
+<tr class="linha_par">
+<td class="anoPeriodo" width="90px"> 2026.2</td>
+<td align="center" width="90px">08</td>
+<td class="nome" width="340px">
+<a href="/sigaa/public/docente/portal.jsf?siape=9000028" target="_blank" title="Clique aqui para acessar a página pública deste docente">
+												JOAO OLIVEIRA 144
+											</a>
+</td>
+<td class="colVagas" width="110px">
+<span id="form:totalVagasj_id_32">20</span>
+</td>
+<td class="horario"> 6N1234 (19/08/2026 - 19/12/2026)</td>
+</tr>
+</tbody>
+</table>
+</div>
+<br/>
+<div class="espaco_menor" id="listagem_tabela">
+<div id="group_lt">
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('form'),{'form:j_id_jsp_159980968_36j_id_33':'form:j_id_jsp_159980968_36j_id_33','id':'27489','publico':'public'},'');}return false" title="Visualizar Detalhes do Componente Curricular"><span id="form:outDescricaoResumidaj_id_33">ECOB40 - INTRODUÇÃO À ECONOMIA I</span></a>
+</div>
+<table id="table_lt">
+<tr class="campos">
+<td class="anoPeriodo" width="90px">
+												Período/
+												Ano
+											</td>
+<td class="anoPeriodo" width="90px">Turma</td>
+<td width="340px">Docente</td>
+<td class="colVagas" width="110px">Vgs Reservadas</td>
+<td width="65px">Horários</td>
+</tr>
+<tbody>
+<tr class="linha_impar">
+<td class="anoPeriodo" width="90px"> 2026.2</td>
+<td align="center" width="90px">06</td>
+<td class="nome" width="340px">
+<a href="/sigaa/public/docente/portal.jsf?siape=9000018" target="_blank" title="Clique aqui para acessar a página pública deste docente">
+												MARIA ROCHA 293
+											</a>
+</td>
+<td class="colVagas" width="110px">
+<span id="form:totalVagasj_id_33">10</span>
+</td>
+<td class="horario"> 24N34 (19/08/2026 - 19/12/2026)</td>
+</tr>
+</tbody>
+</table>
+</div>
+<br/>
+<div class="espaco_menor" id="listagem_tabela">
+<div id="group_lt">
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('form'),{'form:j_id_jsp_159980968_36j_id_34':'form:j_id_jsp_159980968_36j_id_34','id':'44697','publico':'public'},'');}return false" title="Visualizar Detalhes do Componente Curricular"><span id="form:outDescricaoResumidaj_id_34">MATA37 - INTRODUÇÃO À LÓGICA DE PROGRAMAÇÃO</span></a>
+</div>
+<table id="table_lt">
+<tr class="campos">
+<td class="anoPeriodo" width="90px">
+												Período/
+												Ano
+											</td>
+<td class="anoPeriodo" width="90px">Turma</td>
+<td width="340px">Docente</td>
+<td class="colVagas" width="110px">Vgs Reservadas</td>
+<td width="65px">Horários</td>
+</tr>
+<tbody>
+<tr class="linha_par">
+<td class="anoPeriodo" width="90px"> 2026.2</td>
+<td align="center" width="90px">04</td>
+<td class="nome" width="340px">
+<a href="/sigaa/public/docente/portal.jsf?siape=9000029" target="_blank" title="Clique aqui para acessar a página pública deste docente">
+												CICLANO LIMA 271
+											</a>
+</td>
+<td class="colVagas" width="110px">
+<span id="form:totalVagasj_id_34">5</span>
+</td>
+<td class="horario"> 46N12 (19/08/2026 - 19/12/2026)</td>
+</tr>
+</tbody>
+</table>
+</div>
+<br/>
+<div class="espaco_menor" id="listagem_tabela">
+<div id="group_lt">
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('form'),{'form:j_id_jsp_159980968_36j_id_35':'form:j_id_jsp_159980968_36j_id_35','id':'45096','publico':'public'},'');}return false" title="Visualizar Detalhes do Componente Curricular"><span id="form:outDescricaoResumidaj_id_35">MATC73 - INTRODUÇÃO À LÓGICA MATEMÁTICA</span></a>
+</div>
+<table id="table_lt">
+<tr class="campos">
+<td class="anoPeriodo" width="90px">
+												Período/
+												Ano
+											</td>
+<td class="anoPeriodo" width="90px">Turma</td>
+<td width="340px">Docente</td>
+<td class="colVagas" width="110px">Vgs Reservadas</td>
+<td width="65px">Horários</td>
+</tr>
+<tbody>
+<tr class="linha_impar">
+<td class="anoPeriodo" width="90px"> 2026.2</td>
+<td align="center" width="90px">01</td>
+<td class="nome" width="340px">
+<a href="/sigaa/public/docente/portal.jsf?siape=9000030" target="_blank" title="Clique aqui para acessar a página pública deste docente">
+												JOAO COSTA 464
+											</a>
+</td>
+<td class="colVagas" width="110px">
+<span id="form:totalVagasj_id_35">35</span>
+</td>
+<td class="horario"> 35N34 (19/08/2026 - 19/12/2026)</td>
+</tr>
+</tbody>
+</table>
+</div>
+<br/>
+<div class="espaco_menor" id="listagem_tabela">
+<div id="group_lt">
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('form'),{'form:j_id_jsp_159980968_36j_id_36':'form:j_id_jsp_159980968_36j_id_36','id':'44819','publico':'public'},'');}return false" title="Visualizar Detalhes do Componente Curricular"><span id="form:outDescricaoResumidaj_id_36">MATB09 - LABORATÓRIO DE BANCO DE DADOS</span></a>
+</div>
+<table id="table_lt">
+<tr class="campos">
+<td class="anoPeriodo" width="90px">
+												Período/
+												Ano
+											</td>
+<td class="anoPeriodo" width="90px">Turma</td>
+<td width="340px">Docente</td>
+<td class="colVagas" width="110px">Vgs Reservadas</td>
+<td width="65px">Horários</td>
+</tr>
+<tbody>
+<tr class="linha_par">
+<td class="anoPeriodo" width="90px"> 2026.2</td>
+<td align="center" width="90px">01</td>
+<td class="nome" width="340px">
+<a href="/sigaa/public/docente/portal.jsf?siape=9000020" target="_blank" title="Clique aqui para acessar a página pública deste docente">
+												FULANO COSTA 260
+											</a>
+</td>
+<td class="colVagas" width="110px">
+<span id="form:totalVagasj_id_36">40</span>
+</td>
+<td class="horario"> 3N34 6N3 (19/08/2026 - 19/12/2026)</td>
+</tr>
+</tbody>
+</table>
+</div>
+<br/>
+<div class="espaco_menor" id="listagem_tabela">
+<div id="group_lt">
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('form'),{'form:j_id_jsp_159980968_36j_id_37':'form:j_id_jsp_159980968_36j_id_37','id':'44843','publico':'public'},'');}return false" title="Visualizar Detalhes do Componente Curricular"><span id="form:outDescricaoResumidaj_id_37">MATB22 - LABORATÓRIO DE INFORMÁTICA NA EDUCAÇÃO</span></a>
+</div>
+<table id="table_lt">
+<tr class="campos">
+<td class="anoPeriodo" width="90px">
+												Período/
+												Ano
+											</td>
+<td class="anoPeriodo" width="90px">Turma</td>
+<td width="340px">Docente</td>
+<td class="colVagas" width="110px">Vgs Reservadas</td>
+<td width="65px">Horários</td>
+</tr>
+<tbody>
+<tr class="linha_impar">
+<td class="anoPeriodo" width="90px"> 2026.2</td>
+<td align="center" width="90px">01</td>
+<td class="nome" width="340px">
+<a href="/sigaa/public/docente/portal.jsf?siape=9000003" target="_blank" title="Clique aqui para acessar a página pública deste docente">
+												CARLOS ROCHA 398
+											</a>
+</td>
+<td class="colVagas" width="110px">
+<span id="form:totalVagasj_id_37">10</span>
+</td>
+<td class="horario"> 2N12 4N1 (19/08/2026 - 19/12/2026)</td>
+</tr>
+</tbody>
+</table>
+</div>
+<br/>
+<div class="espaco_menor" id="listagem_tabela">
+<div id="group_lt">
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('form'),{'form:j_id_jsp_159980968_36j_id_38':'form:j_id_jsp_159980968_36j_id_38','id':'44734','publico':'public'},'');}return false" title="Visualizar Detalhes do Componente Curricular"><span id="form:outDescricaoResumidaj_id_38">MATA57 - LABORATÓRIO DE PROGRAMAÇÃO I</span></a>
+</div>
+<table id="table_lt">
+<tr class="campos">
+<td class="anoPeriodo" width="90px">
+												Período/
+												Ano
+											</td>
+<td class="anoPeriodo" width="90px">Turma</td>
+<td width="340px">Docente</td>
+<td class="colVagas" width="110px">Vgs Reservadas</td>
+<td width="65px">Horários</td>
+</tr>
+<tbody>
+<tr class="linha_par">
+<td class="anoPeriodo" width="90px"> 2026.2</td>
+<td align="center" width="90px">01</td>
+<td class="nome" width="340px">
+<a href="/sigaa/public/docente/portal.jsf?siape=9000029" target="_blank" title="Clique aqui para acessar a página pública deste docente">
+												CICLANO LIMA 271
+											</a>
+</td>
+<td class="colVagas" width="110px">
+<span id="form:totalVagasj_id_38">3</span>
+</td>
+<td class="horario"> 6T345 (19/08/2026 - 19/12/2026)</td>
+</tr>
+</tbody>
+</table>
+</div>
+<br/>
+<div class="espaco_menor" id="listagem_tabela">
+<div id="group_lt">
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('form'),{'form:j_id_jsp_159980968_36j_id_39':'form:j_id_jsp_159980968_36j_id_39','id':'45037','publico':'public'},'');}return false" title="Visualizar Detalhes do Componente Curricular"><span id="form:outDescricaoResumidaj_id_39">MATC30 - LABORATÓRIO DE PROGRAMAÇÃO I</span></a>
+</div>
+<table id="table_lt">
+<tr class="campos">
+<td class="anoPeriodo" width="90px">
+												Período/
+												Ano
+											</td>
+<td class="anoPeriodo" width="90px">Turma</td>
+<td width="340px">Docente</td>
+<td class="colVagas" width="110px">Vgs Reservadas</td>
+<td width="65px">Horários</td>
+</tr>
+<tbody>
+<tr class="linha_impar">
+<td class="anoPeriodo" width="90px"> 2026.2</td>
+<td align="center" width="90px">01</td>
+<td class="nome" width="340px">
+<a href="/sigaa/public/docente/portal.jsf?siape=9000020" target="_blank" title="Clique aqui para acessar a página pública deste docente">
+												FULANO COSTA 260
+											</a>
+</td>
+<td class="colVagas" width="110px">
+<span id="form:totalVagasj_id_39">10</span>
+</td>
+<td class="horario"> 6N12 (19/08/2026 - 19/12/2026)</td>
+</tr>
+</tbody>
+</table>
+</div>
+<br/>
+<div class="espaco_menor" id="listagem_tabela">
+<div id="group_lt">
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('form'),{'form:j_id_jsp_159980968_36j_id_40':'form:j_id_jsp_159980968_36j_id_40','id':'44775','publico':'public'},'');}return false" title="Visualizar Detalhes do Componente Curricular"><span id="form:outDescricaoResumidaj_id_40">MATA80 - LABORATÓRIO DE PROGRAMAÇÃO II</span></a>
+</div>
+<table id="table_lt">
+<tr class="campos">
+<td class="anoPeriodo" width="90px">
+												Período/
+												Ano
+											</td>
+<td class="anoPeriodo" width="90px">Turma</td>
+<td width="340px">Docente</td>
+<td class="colVagas" width="110px">Vgs Reservadas</td>
+<td width="65px">Horários</td>
+</tr>
+<tbody>
+<tr class="linha_par">
+<td class="anoPeriodo" width="90px"> 2026.2</td>
+<td align="center" width="90px">01</td>
+<td class="nome" width="340px">
+<a href="/sigaa/public/docente/portal.jsf?siape=9000008" target="_blank" title="Clique aqui para acessar a página pública deste docente">
+												ANA OLIVEIRA 445
+											</a>
+</td>
+<td class="colVagas" width="110px">
+<span id="form:totalVagasj_id_40">8</span>
+</td>
+<td class="horario"> 7M345 (19/08/2026 - 19/12/2026)</td>
+</tr>
+</tbody>
+</table>
+</div>
+<br/>
+<div class="espaco_menor" id="listagem_tabela">
+<div id="group_lt">
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('form'),{'form:j_id_jsp_159980968_36j_id_41':'form:j_id_jsp_159980968_36j_id_41','id':'44160','publico':'public'},'');}return false" title="Visualizar Detalhes do Componente Curricular"><span id="form:outDescricaoResumidaj_id_41">LETF01 - LÍNGUA PORTUGUESA - LEITURA E PRODUÇÃO DE TEXTO PARA FINS ES</span></a>
+</div>
+<table id="table_lt">
+<tr class="campos">
+<td class="anoPeriodo" width="90px">
+												Período/
+												Ano
+											</td>
+<td class="anoPeriodo" width="90px">Turma</td>
+<td width="340px">Docente</td>
+<td class="colVagas" width="110px">Vgs Reservadas</td>
+<td width="65px">Horários</td>
+</tr>
+<tbody>
+<tr class="linha_impar">
+<td class="anoPeriodo" width="90px"> 2026.2</td>
+<td align="center" width="90px">03</td>
+<td class="nome" width="340px">
+<a href="/sigaa/public/docente/portal.jsf?siape=9000031" target="_blank" title="Clique aqui para acessar a página pública deste docente">
+												PEDRO DE TAL 006
+											</a>
+</td>
+<td class="colVagas" width="110px">
+<span id="form:totalVagasj_id_41">30</span>
+</td>
+<td class="horario"> 2N1234 (19/08/2026 - 19/12/2026)</td>
+</tr>
+</tbody>
+</table>
+</div>
+<br/>
+<div class="espaco_menor" id="listagem_tabela">
+<div id="group_lt">
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('form'),{'form:j_id_jsp_159980968_36j_id_42':'form:j_id_jsp_159980968_36j_id_42','id':'44769','publico':'public'},'');}return false" title="Visualizar Detalhes do Componente Curricular"><span id="form:outDescricaoResumidaj_id_42">MATA76 - LINGUAGENS PARA APLICAÇÃO COMERCIAL</span></a>
+</div>
+<table id="table_lt">
+<tr class="campos">
+<td class="anoPeriodo" width="90px">
+												Período/
+												Ano
+											</td>
+<td class="anoPeriodo" width="90px">Turma</td>
+<td width="340px">Docente</td>
+<td class="colVagas" width="110px">Vgs Reservadas</td>
+<td width="65px">Horários</td>
+</tr>
+<tbody>
+<tr class="linha_par">
+<td class="anoPeriodo" width="90px"> 2026.2</td>
+<td align="center" width="90px">01</td>
+<td class="nome" width="340px">
+<a href="/sigaa/public/docente/portal.jsf?siape=9000020" target="_blank" title="Clique aqui para acessar a página pública deste docente">
+												FULANO COSTA 260
+											</a>
+</td>
+<td class="colVagas" width="110px">
+<span id="form:totalVagasj_id_42">40</span>
+</td>
+<td class="horario"> 5N34 6N4 (19/08/2026 - 19/12/2026)</td>
+</tr>
+</tbody>
+</table>
+</div>
+<br/>
+<div class="espaco_menor" id="listagem_tabela">
+<div id="group_lt">
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('form'),{'form:j_id_jsp_159980968_36j_id_43':'form:j_id_jsp_159980968_36j_id_43','id':'44707','publico':'public'},'');}return false" title="Visualizar Detalhes do Componente Curricular"><span id="form:outDescricaoResumidaj_id_43">MATA42 - MATEMÁTICA DISCRETA I</span></a>
+</div>
+<table id="table_lt">
+<tr class="campos">
+<td class="anoPeriodo" width="90px">
+												Período/
+												Ano
+											</td>
+<td class="anoPeriodo" width="90px">Turma</td>
+<td width="340px">Docente</td>
+<td class="colVagas" width="110px">Vgs Reservadas</td>
+<td width="65px">Horários</td>
+</tr>
+<tbody>
+<tr class="linha_impar">
+<td class="anoPeriodo" width="90px"> 2026.2</td>
+<td align="center" width="90px">03</td>
+<td class="nome" width="340px">
+<a href="/sigaa/public/docente/portal.jsf?siape=9000032" target="_blank" title="Clique aqui para acessar a página pública deste docente">
+												JULIA LIMA 479
+											</a>
+</td>
+<td class="colVagas" width="110px">
+<span id="form:totalVagasj_id_43">25</span>
+</td>
+<td class="horario"> 35N34 (19/08/2026 - 19/12/2026)</td>
+</tr>
+</tbody>
+</table>
+</div>
+<br/>
+<div class="espaco_menor" id="listagem_tabela">
+<div id="group_lt">
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('form'),{'form:j_id_jsp_159980968_36j_id_44':'form:j_id_jsp_159980968_36j_id_44','id':'44803','publico':'public'},'');}return false" title="Visualizar Detalhes do Componente Curricular"><span id="form:outDescricaoResumidaj_id_44">MATA97 - MATEMÁTICA DISCRETA II</span></a>
+</div>
+<table id="table_lt">
+<tr class="campos">
+<td class="anoPeriodo" width="90px">
+												Período/
+												Ano
+											</td>
+<td class="anoPeriodo" width="90px">Turma</td>
+<td width="340px">Docente</td>
+<td class="colVagas" width="110px">Vgs Reservadas</td>
+<td width="65px">Horários</td>
+</tr>
+<tbody>
+<tr class="linha_par">
+<td class="anoPeriodo" width="90px"> 2026.2</td>
+<td align="center" width="90px">02</td>
+<td class="nome" width="340px">
+<a href="/sigaa/public/docente/portal.jsf?siape=9000033" target="_blank" title="Clique aqui para acessar a página pública deste docente">
+												JOAO OLIVEIRA 044
+											</a>
+</td>
+<td class="colVagas" width="110px">
+<span id="form:totalVagasj_id_44">15</span>
+</td>
+<td class="horario"> 35N34 (19/08/2026 - 19/12/2026)</td>
+</tr>
+</tbody>
+</table>
+</div>
+<br/>
+<div class="espaco_menor" id="listagem_tabela">
+<div id="group_lt">
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('form'),{'form:j_id_jsp_159980968_36j_id_45':'form:j_id_jsp_159980968_36j_id_45','id':'44521','publico':'public'},'');}return false" title="Visualizar Detalhes do Componente Curricular"><span id="form:outDescricaoResumidaj_id_45">MAT191 - MATEMATICA FINANCEIRA</span></a>
+</div>
+<table id="table_lt">
+<tr class="campos">
+<td class="anoPeriodo" width="90px">
+												Período/
+												Ano
+											</td>
+<td class="anoPeriodo" width="90px">Turma</td>
+<td width="340px">Docente</td>
+<td class="colVagas" width="110px">Vgs Reservadas</td>
+<td width="65px">Horários</td>
+</tr>
+<tbody>
+<tr class="linha_impar">
+<td class="anoPeriodo" width="90px"> 2026.2</td>
+<td align="center" width="90px">07</td>
+<td class="nome" width="340px">
+<a href="/sigaa/public/docente/portal.jsf?siape=9000034" target="_blank" title="Clique aqui para acessar a página pública deste docente">
+												CICLANO COSTA 461
+											</a>
+</td>
+<td class="colVagas" width="110px">
+<span id="form:totalVagasj_id_45">20</span>
+</td>
+<td class="horario"> 35N12 (19/08/2026 - 19/12/2026)</td>
+</tr>
+</tbody>
+</table>
+</div>
+<br/>
+<div class="espaco_menor" id="listagem_tabela">
+<div id="group_lt">
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('form'),{'form:j_id_jsp_159980968_36j_id_46':'form:j_id_jsp_159980968_36j_id_46','id':'44610','publico':'public'},'');}return false" title="Visualizar Detalhes do Componente Curricular"><span id="form:outDescricaoResumidaj_id_46">MAT236 - MÉTODOS ESTATÍSTICOS</span></a>
+</div>
+<table id="table_lt">
+<tr class="campos">
+<td class="anoPeriodo" width="90px">
+												Período/
+												Ano
+											</td>
+<td class="anoPeriodo" width="90px">Turma</td>
+<td width="340px">Docente</td>
+<td class="colVagas" width="110px">Vgs Reservadas</td>
+<td width="65px">Horários</td>
+</tr>
+<tbody>
+<tr class="linha_par">
+<td class="anoPeriodo" width="90px"> 2026.2</td>
+<td align="center" width="90px">07</td>
+<td class="nome" width="340px">
+<a href="/sigaa/public/docente/portal.jsf?siape=9000035" target="_blank" title="Clique aqui para acessar a página pública deste docente">
+												PEDRO DA SILVA 216
+											</a>
+</td>
+<td class="colVagas" width="110px">
+<span id="form:totalVagasj_id_46">30</span>
+</td>
+<td class="horario"> 46N12 (19/08/2026 - 19/12/2026)</td>
+</tr>
+</tbody>
+</table>
+</div>
+<br/>
+<div class="espaco_menor" id="listagem_tabela">
+<div id="group_lt">
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('form'),{'form:j_id_jsp_159980968_36j_id_47':'form:j_id_jsp_159980968_36j_id_47','id':'22201','publico':'public'},'');}return false" title="Visualizar Detalhes do Componente Curricular"><span id="form:outDescricaoResumidaj_id_47">ADM211 - MÉTODOS QUANTITATIVOS APLICADOS À ADMINISTRAÇÃO</span></a>
+</div>
+<table id="table_lt">
+<tr class="campos">
+<td class="anoPeriodo" width="90px">
+												Período/
+												Ano
+											</td>
+<td class="anoPeriodo" width="90px">Turma</td>
+<td width="340px">Docente</td>
+<td class="colVagas" width="110px">Vgs Reservadas</td>
+<td width="65px">Horários</td>
+</tr>
+<tbody>
+<tr class="linha_impar">
+<td class="anoPeriodo" width="90px"> 2026.2</td>
+<td align="center" width="90px">01</td>
+<td class="nome" width="340px">
+<a href="/sigaa/public/docente/portal.jsf?siape=9000036" target="_blank" title="Clique aqui para acessar a página pública deste docente">
+												CICLANO SANTOS 231
+											</a>
+</td>
+<td class="colVagas" width="110px">
+<span id="form:totalVagasj_id_47">25</span>
+</td>
+<td class="horario"> 6N123 (19/08/2026 - 19/12/2026)</td>
+</tr>
+</tbody>
+</table>
+</div>
+<br/>
+<div class="espaco_menor" id="listagem_tabela">
+<div id="group_lt">
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('form'),{'form:j_id_jsp_159980968_36j_id_48':'form:j_id_jsp_159980968_36j_id_48','id':'44732','publico':'public'},'');}return false" title="Visualizar Detalhes do Componente Curricular"><span id="form:outDescricaoResumidaj_id_48">MATA56 - PARADIGMAS DE LINGUAGENS DE PROGRAMAÇÃO</span></a>
+</div>
+<table id="table_lt">
+<tr class="campos">
+<td class="anoPeriodo" width="90px">
+												Período/
+												Ano
+											</td>
+<td class="anoPeriodo" width="90px">Turma</td>
+<td width="340px">Docente</td>
+<td class="colVagas" width="110px">Vgs Reservadas</td>
+<td width="65px">Horários</td>
+</tr>
+<tbody>
+<tr class="linha_par">
+<td class="anoPeriodo" width="90px"> 2026.2</td>
+<td align="center" width="90px">01</td>
+<td class="nome" width="340px">
+<a href="/sigaa/public/docente/portal.jsf?siape=9000037" target="_blank" title="Clique aqui para acessar a página pública deste docente">
+												ANA DA SILVA 315
+											</a>
+</td>
+<td class="colVagas" width="110px">
+<span id="form:totalVagasj_id_48">2</span>
+</td>
+<td class="horario"> 24T56 (19/08/2026 - 19/12/2026)</td>
+</tr>
+</tbody>
+</table>
+</div>
+<br/>
+<div class="espaco_menor" id="listagem_tabela">
+<div id="group_lt">
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('form'),{'form:j_id_jsp_159980968_36j_id_49':'form:j_id_jsp_159980968_36j_id_49','id':'45100','publico':'public'},'');}return false" title="Visualizar Detalhes do Componente Curricular"><span id="form:outDescricaoResumidaj_id_49">MATC76 - PRÁTICA DE ENSINO DE COMPUTAÇÃO I</span></a>
+</div>
+<table id="table_lt">
+<tr class="campos">
+<td class="anoPeriodo" width="90px">
+												Período/
+												Ano
+											</td>
+<td class="anoPeriodo" width="90px">Turma</td>
+<td width="340px">Docente</td>
+<td class="colVagas" width="110px">Vgs Reservadas</td>
+<td width="65px">Horários</td>
+</tr>
+<tbody>
+<tr class="linha_impar">
+<td class="anoPeriodo" width="90px"> 2026.2</td>
+<td align="center" width="90px">01</td>
+<td class="nome" width="340px">
+<a href="/sigaa/public/docente/portal.jsf?siape=9000003" target="_blank" title="Clique aqui para acessar a página pública deste docente">
+												CARLOS ROCHA 398
+											</a>
+</td>
+<td class="colVagas" width="110px">
+<span id="form:totalVagasj_id_49">10</span>
+</td>
+<td class="horario"> 35N34 (19/08/2026 - 19/12/2026)</td>
+</tr>
+</tbody>
+</table>
+</div>
+<br/>
+<div class="espaco_menor" id="listagem_tabela">
+<div id="group_lt">
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('form'),{'form:j_id_jsp_159980968_36j_id_50':'form:j_id_jsp_159980968_36j_id_50','id':'44738','publico':'public'},'');}return false" title="Visualizar Detalhes do Componente Curricular"><span id="form:outDescricaoResumidaj_id_50">MATA59 - REDES DE COMPUTADORES I</span></a>
+</div>
+<table id="table_lt">
+<tr class="campos">
+<td class="anoPeriodo" width="90px">
+												Período/
+												Ano
+											</td>
+<td class="anoPeriodo" width="90px">Turma</td>
+<td width="340px">Docente</td>
+<td class="colVagas" width="110px">Vgs Reservadas</td>
+<td width="65px">Horários</td>
+</tr>
+<tbody>
+<tr class="linha_par">
+<td class="anoPeriodo" width="90px"> 2026.2</td>
+<td align="center" width="90px">01</td>
+<td class="nome" width="340px">
+<a href="/sigaa/public/docente/portal.jsf?siape=9000038" target="_blank" title="Clique aqui para acessar a página pública deste docente">
+												MARIA ALVES 283
+											</a>
+</td>
+<td class="colVagas" width="110px">
+<span id="form:totalVagasj_id_50">5</span>
+</td>
+<td class="horario"> 35T12 (19/08/2026 - 19/12/2026)</td>
+</tr>
+</tbody>
+</table>
+</div>
+<br/>
+<div class="espaco_menor" id="listagem_tabela">
+<div id="group_lt">
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('form'),{'form:j_id_jsp_159980968_36j_id_51':'form:j_id_jsp_159980968_36j_id_51','id':'44738','publico':'public'},'');}return false" title="Visualizar Detalhes do Componente Curricular"><span id="form:outDescricaoResumidaj_id_51">MATA59 - REDES DE COMPUTADORES I</span></a>
+</div>
+<table id="table_lt">
+<tr class="campos">
+<td class="anoPeriodo" width="90px">
+												Período/
+												Ano
+											</td>
+<td class="anoPeriodo" width="90px">Turma</td>
+<td width="340px">Docente</td>
+<td class="colVagas" width="110px">Vgs Reservadas</td>
+<td width="65px">Horários</td>
+</tr>
+<tbody>
+<tr class="linha_impar">
+<td class="anoPeriodo" width="90px"> 2026.2</td>
+<td align="center" width="90px">02</td>
+<td class="nome" width="340px">
+<a href="/sigaa/public/docente/portal.jsf?siape=9000039" target="_blank" title="Clique aqui para acessar a página pública deste docente">
+												MARIA OLIVEIRA 243
+											</a>
+</td>
+<td class="colVagas" width="110px">
+<span id="form:totalVagasj_id_51">10</span>
+</td>
+<td class="horario"> 35N34 (19/08/2026 - 19/12/2026)</td>
+</tr>
+</tbody>
+</table>
+</div>
+<br/>
+<div class="espaco_menor" id="listagem_tabela">
+<div id="group_lt">
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('form'),{'form:j_id_jsp_159980968_36j_id_52':'form:j_id_jsp_159980968_36j_id_52','id':'44738','publico':'public'},'');}return false" title="Visualizar Detalhes do Componente Curricular"><span id="form:outDescricaoResumidaj_id_52">MATA59 - REDES DE COMPUTADORES I</span></a>
+</div>
+<table id="table_lt">
+<tr class="campos">
+<td class="anoPeriodo" width="90px">
+												Período/
+												Ano
+											</td>
+<td class="anoPeriodo" width="90px">Turma</td>
+<td width="340px">Docente</td>
+<td class="colVagas" width="110px">Vgs Reservadas</td>
+<td width="65px">Horários</td>
+</tr>
+<tbody>
+<tr class="linha_par">
+<td class="anoPeriodo" width="90px"> 2026.2</td>
+<td align="center" width="90px">03</td>
+<td class="nome" width="340px">
+<a href="/sigaa/public/docente/portal.jsf?siape=9000038" target="_blank" title="Clique aqui para acessar a página pública deste docente">
+												MARIA ALVES 283
+											</a>
+</td>
+<td class="colVagas" width="110px">
+<span id="form:totalVagasj_id_52">30</span>
+</td>
+<td class="horario"> 35N12 (19/08/2026 - 19/12/2026)</td>
+</tr>
+</tbody>
+</table>
+</div>
+<br/>
+<div class="espaco_menor" id="listagem_tabela">
+<div id="group_lt">
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('form'),{'form:j_id_jsp_159980968_36j_id_53':'form:j_id_jsp_159980968_36j_id_53','id':'45144','publico':'public'},'');}return false" title="Visualizar Detalhes do Componente Curricular"><span id="form:outDescricaoResumidaj_id_53">MATC99 - SEGURANÇA E AUDITORIA DE SISTEMAS DE INFORMAÇÃO</span></a>
+</div>
+<table id="table_lt">
+<tr class="campos">
+<td class="anoPeriodo" width="90px">
+												Período/
+												Ano
+											</td>
+<td class="anoPeriodo" width="90px">Turma</td>
+<td width="340px">Docente</td>
+<td class="colVagas" width="110px">Vgs Reservadas</td>
+<td width="65px">Horários</td>
+</tr>
+<tbody>
+<tr class="linha_impar">
+<td class="anoPeriodo" width="90px"> 2026.2</td>
+<td align="center" width="90px">01</td>
+<td class="nome" width="340px">
+<a href="/sigaa/public/docente/portal.jsf?siape=9000020" target="_blank" title="Clique aqui para acessar a página pública deste docente">
+												FULANO COSTA 260
+											</a>
+</td>
+<td class="colVagas" width="110px">
+<span id="form:totalVagasj_id_53">15</span>
+</td>
+<td class="horario"> 24N12 (19/08/2026 - 19/12/2026)</td>
+</tr>
+</tbody>
+</table>
+</div>
+<br/>
+<div class="espaco_menor" id="listagem_tabela">
+<div id="group_lt">
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('form'),{'form:j_id_jsp_159980968_36j_id_54':'form:j_id_jsp_159980968_36j_id_54','id':'44701','publico':'public'},'');}return false" title="Visualizar Detalhes do Componente Curricular"><span id="form:outDescricaoResumidaj_id_54">MATA39 - SEMINÁRIOS DE INTRODUÇÃO AO CURSO</span></a>
+</div>
+<table id="table_lt">
+<tr class="campos">
+<td class="anoPeriodo" width="90px">
+												Período/
+												Ano
+											</td>
+<td class="anoPeriodo" width="90px">Turma</td>
+<td width="340px">Docente</td>
+<td class="colVagas" width="110px">Vgs Reservadas</td>
+<td width="65px">Horários</td>
+</tr>
+<tbody>
+<tr class="linha_par">
+<td class="anoPeriodo" width="90px"> 2026.2</td>
+<td align="center" width="90px">02</td>
+<td class="nome" width="340px">
+<a href="/sigaa/public/docente/portal.jsf?siape=9000005" target="_blank" title="Clique aqui para acessar a página pública deste docente">
+												JULIA ROCHA 099
+											</a>
+</td>
+<td class="colVagas" width="110px">
+<span id="form:totalVagasj_id_54">14</span>
+</td>
+<td class="horario"> 7M6  2N12 (19/08/2026 - 19/12/2026)</td>
+</tr>
+</tbody>
+</table>
+</div>
+<br/>
+<div class="espaco_menor" id="listagem_tabela">
+<div id="group_lt">
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('form'),{'form:j_id_jsp_159980968_36j_id_55':'form:j_id_jsp_159980968_36j_id_55','id':'22371','publico':'public'},'');}return false" title="Visualizar Detalhes do Componente Curricular"><span id="form:outDescricaoResumidaj_id_55">ADMF01 - SISTEMAS DE APOIO À DECISÃO</span></a>
+</div>
+<table id="table_lt">
+<tr class="campos">
+<td class="anoPeriodo" width="90px">
+												Período/
+												Ano
+											</td>
+<td class="anoPeriodo" width="90px">Turma</td>
+<td width="340px">Docente</td>
+<td class="colVagas" width="110px">Vgs Reservadas</td>
+<td width="65px">Horários</td>
+</tr>
+<tbody>
+<tr class="linha_impar">
+<td class="anoPeriodo" width="90px"> 2026.2</td>
+<td align="center" width="90px">01</td>
+<td class="nome" width="340px">
+<a href="/sigaa/public/docente/portal.jsf?siape=9000036" target="_blank" title="Clique aqui para acessar a página pública deste docente">
+												CICLANO SANTOS 231
+											</a>
+</td>
+<td class="colVagas" width="110px">
+<span id="form:totalVagasj_id_55">35</span>
+</td>
+<td class="horario"> 2N1234 4N4 (19/08/2026 - 19/12/2026)</td>
+</tr>
+</tbody>
+</table>
+</div>
+<br/>
+<div class="espaco_menor" id="listagem_tabela">
+<div id="group_lt">
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('form'),{'form:j_id_jsp_159980968_36j_id_56':'form:j_id_jsp_159980968_36j_id_56','id':'44779','publico':'public'},'');}return false" title="Visualizar Detalhes do Componente Curricular"><span id="form:outDescricaoResumidaj_id_56">MATA82 - SISTEMAS DE TEMPO REAL</span></a>
+</div>
+<table id="table_lt">
+<tr class="campos">
+<td class="anoPeriodo" width="90px">
+												Período/
+												Ano
+											</td>
+<td class="anoPeriodo" width="90px">Turma</td>
+<td width="340px">Docente</td>
+<td class="colVagas" width="110px">Vgs Reservadas</td>
+<td width="65px">Horários</td>
+</tr>
+<tbody>
+<tr class="linha_par">
+<td class="anoPeriodo" width="90px"> 2026.2</td>
+<td align="center" width="90px">01</td>
+<td class="nome" width="340px">
+<a href="/sigaa/public/docente/portal.jsf?siape=9000007" target="_blank" title="Clique aqui para acessar a página pública deste docente">
+												CARLOS ALVES 388
+											</a>
+</td>
+<td class="colVagas" width="110px">
+<span id="form:totalVagasj_id_56">25</span>
+</td>
+<td class="horario"> 6N1234 (19/08/2026 - 19/12/2026)</td>
+</tr>
+</tbody>
+</table>
+</div>
+<br/>
+<div class="espaco_menor" id="listagem_tabela">
+<div id="group_lt">
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('form'),{'form:j_id_jsp_159980968_36j_id_57':'form:j_id_jsp_159980968_36j_id_57','id':'44837','publico':'public'},'');}return false" title="Visualizar Detalhes do Componente Curricular"><span id="form:outDescricaoResumidaj_id_57">MATB19 - SISTEMAS MULTIMÍDIA</span></a>
+</div>
+<table id="table_lt">
+<tr class="campos">
+<td class="anoPeriodo" width="90px">
+												Período/
+												Ano
+											</td>
+<td class="anoPeriodo" width="90px">Turma</td>
+<td width="340px">Docente</td>
+<td class="colVagas" width="110px">Vgs Reservadas</td>
+<td width="65px">Horários</td>
+</tr>
+<tbody>
+<tr class="linha_impar">
+<td class="anoPeriodo" width="90px"> 2026.2</td>
+<td align="center" width="90px">01</td>
+<td class="nome" width="340px">
+<a href="/sigaa/public/docente/portal.jsf?siape=9000040" target="_blank" title="Clique aqui para acessar a página pública deste docente">
+												PEDRO SOUZA 126
+											</a>
+</td>
+<td class="colVagas" width="110px">
+<span id="form:totalVagasj_id_57">15</span>
+</td>
+<td class="horario"> 35N12 (19/08/2026 - 19/12/2026)</td>
+</tr>
+</tbody>
+</table>
+</div>
+<br/>
+<div class="espaco_menor" id="listagem_tabela">
+<div id="group_lt">
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('form'),{'form:j_id_jsp_159980968_36j_id_58':'form:j_id_jsp_159980968_36j_id_58','id':'44736','publico':'public'},'');}return false" title="Visualizar Detalhes do Componente Curricular"><span id="form:outDescricaoResumidaj_id_58">MATA58 - SISTEMAS OPERACIONAIS</span></a>
+</div>
+<table id="table_lt">
+<tr class="campos">
+<td class="anoPeriodo" width="90px">
+												Período/
+												Ano
+											</td>
+<td class="anoPeriodo" width="90px">Turma</td>
+<td width="340px">Docente</td>
+<td class="colVagas" width="110px">Vgs Reservadas</td>
+<td width="65px">Horários</td>
+</tr>
+<tbody>
+<tr class="linha_par">
+<td class="anoPeriodo" width="90px"> 2026.2</td>
+<td align="center" width="90px">02</td>
+<td class="nome" width="340px">
+<a href="/sigaa/public/docente/portal.jsf?siape=9000016" target="_blank" title="Clique aqui para acessar a página pública deste docente">
+												CARLOS LIMA 278
+											</a>
+</td>
+<td class="colVagas" width="110px">
+<span id="form:totalVagasj_id_58">15</span>
+</td>
+<td class="horario"> 35N12 (19/08/2026 - 19/12/2026)</td>
+</tr>
+</tbody>
+</table>
+</div>
+<br/>
+<div class="espaco_menor" id="listagem_tabela">
+<div id="group_lt">
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('form'),{'form:j_id_jsp_159980968_36j_id_59':'form:j_id_jsp_159980968_36j_id_59','id':'45110','publico':'public'},'');}return false" title="Visualizar Detalhes do Componente Curricular"><span id="form:outDescricaoResumidaj_id_59">MATC82 - SISTEMAS WEB</span></a>
+</div>
+<table id="table_lt">
+<tr class="campos">
+<td class="anoPeriodo" width="90px">
+												Período/
+												Ano
+											</td>
+<td class="anoPeriodo" width="90px">Turma</td>
+<td width="340px">Docente</td>
+<td class="colVagas" width="110px">Vgs Reservadas</td>
+<td width="65px">Horários</td>
+</tr>
+<tbody>
+<tr class="linha_impar">
+<td class="anoPeriodo" width="90px"> 2026.2</td>
+<td align="center" width="90px">01</td>
+<td class="nome" width="340px">
+<a href="/sigaa/public/docente/portal.jsf?siape=9000039" target="_blank" title="Clique aqui para acessar a página pública deste docente">
+												MARIA OLIVEIRA 243
+											</a>
+</td>
+<td class="colVagas" width="110px">
+<span id="form:totalVagasj_id_59">30</span>
+</td>
+<td class="horario"> 46N34 (19/08/2026 - 19/12/2026)</td>
+</tr>
+</tbody>
+</table>
+</div>
+<br/>
+<div class="espaco_menor" id="listagem_tabela">
+<div id="group_lt">
+<a href="#" onclick="if(typeof jsfcljs == 'function'){jsfcljs(document.getElementById('form'),{'form:j_id_jsp_159980968_36j_id_60':'form:j_id_jsp_159980968_36j_id_60','id':'44722','publico':'public'},'');}return false" title="Visualizar Detalhes do Componente Curricular"><span id="form:outDescricaoResumidaj_id_60">MATA51 - TEORIA DA COMPUTAÇÃO</span></a>
+</div>
+<table id="table_lt">
+<tr class="campos">
+<td class="anoPeriodo" width="90px">
+												Período/
+												Ano
+											</td>
+<td class="anoPeriodo" width="90px">Turma</td>
+<td width="340px">Docente</td>
+<td class="colVagas" width="110px">Vgs Reservadas</td>
+<td width="65px">Horários</td>
+</tr>
+<tbody>
+<tr class="linha_par">
+<td class="anoPeriodo" width="90px"> 2026.2</td>
+<td align="center" width="90px">02</td>
+<td class="nome" width="340px">
+<a href="/sigaa/public/docente/portal.jsf?siape=9000022" target="_blank" title="Clique aqui para acessar a página pública deste docente">
+												PEDRO OLIVEIRA 146
+											</a>
+</td>
+<td class="colVagas" width="110px">
+<span id="form:totalVagasj_id_60">5</span>
+</td>
+<td class="horario"> 46N12 (19/08/2026 - 19/12/2026)</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="espaco_menor" id="listagem_tabela">
+<div id="foot_lt">
+                     61 
+					Turmas 
+					Disponíveis
+                </div>
+</div>
+<!-- FIM DA LISTAGEM -->
+<input id="javax.faces.ViewState" name="javax.faces.ViewState" type="hidden" value="j_id2"/>
+</form>
+<!--  FIM CONTE&#218;DO  -->
+</div>
+</div>
+</div>
+</div>
+<div id="rodape">
+<!-- Redmine #24522 - Telas e relat&#243;rios com rodap&#233;s sem a altera&#231;&#227;o - Portal Docente -->
+		SIGAA | STI/SUPAC - - | Copyright © 2006-2026 - UFBA
+	</div>
+</div>
+</div>
+</div>
+<script src="/sigaa/public/programa/js/jquery.js" type="text/javascript"></script>
+<script src="/sigaa/public/programa/js/submenu.js" type="text/javascript"></script>
+<script type="text/javascript">
+       new Submenu('#menu', {
+           elementsSelector: '.li-menu',
+           submenuSelector: '.sub-menu'
+       });
+  </script>
+<!-- MYFACES JAVASCRIPT -->
+</body>
+</html>
