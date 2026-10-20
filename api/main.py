@@ -26,10 +26,13 @@ from sigaa.client import _ssl_ctx
 from sigaa import cache as sigaa_cache
 
 from . import cache as cache_http
+from . import log_seguro
 from .config import config
 from .sessions import gerenciador
 
 log = logging.getLogger("sigaa_api")
+# máscara de segredo/dado pessoal em TODO log do processo (api/log_seguro.py)
+log_seguro.instalar()
 
 DESCRICAO = """
 API **não oficial** e de **somente leitura** pros dados do aluno no SIGAA da UFBA.
