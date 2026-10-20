@@ -180,7 +180,28 @@ async def erro_http(_: Request, exc: HTTPException):
 
 @app.exception_handler(RequestValidationError)
 async def erro_validacao(_: Request, exc: RequestValidationError):
-    return JSONResponse(status_code=422, content={"erro": {"codigo": "requisicao_invalida", "mensagem": "Parâmetros inválidos.", "detalhes": exc.errors()}})
+    return JSONResponse(status_code=422, content={"erro": {"codigo": "requisicao_invalida", "mensagem": "Parâmetros inválidos.", "detalhes": _sem_segredo(exc.errors())}})
+
+
+_SEGREDOS = {"senha", "password", "token"}
+
+
+def _sem_segredo(erros) -> list:
+    """O ``input`` dos erros de validação ecoa o corpo — sem a senha (ex.: login sem ``usuario``)."""
+    def limpar(v, chave=None):
+        if chave in _SEGREDOS:
+            return "***"
+        if isinstance(v, dict):
+            return {k: limpar(x, k) for k, x in v.items()}
+        return v
+
+    saida = []
+    for e in erros:
+        e = dict(e)
+        if "input" in e:
+            e["input"] = limpar(e["input"], next((str(p) for p in reversed(e.get("loc", ())) if isinstance(p, str)), None))
+        saida.append(e)
+    return saida
 
 
 @app.get("/v1/status", tags=["Sistema"], summary="A API e o SIGAA estão no ar?")

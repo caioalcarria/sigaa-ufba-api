@@ -51,7 +51,8 @@ curl -s localhost:8000/v1/pendencias            -H "Authorization: Bearer $TOKEN
 curl -s localhost:8000/v1/grade-horaria.ics     -H "Authorization: Bearer $TOKEN" > aulas.ics
 curl -s localhost:8000/v1/historico/pdf         -H "Authorization: Bearer $TOKEN" > historico.pdf
 
-# atalho pra script: Basic auth (a API cria e reaproveita a sessão)
+# atalho pra script: Basic auth (a API cria e reaproveita a sessão). DESLIGADO por padrão:
+# a senha viaja em toda requisição — religue só pra uso local com SIGAA_API_PERMITIR_BASIC=true
 curl -s -u seu.login:*** localhost:8000/v1/notas
 ```
 
@@ -126,7 +127,13 @@ sequenceDiagram
 - **Keep-alive**: sessões em uso recebem um toque periódico, pra não caírem no meio do uso.
 - **Uma trava por aluno**: o SIGAA é *stateful*, então a navegação de cada sessão é serializada (alunos diferentes continuam em paralelo).
 - Rotas de sessão: `GET /v1/auth/sessao`, `POST /v1/auth/renovar` e `DELETE /v1/auth/sessao` (faz logout de verdade no SIGAA).
-- Há limite de tentativas de login por IP, de sessões por usuário e de sessões no total.
+- Há limite de tentativas de login por IP (IPv6 por bloco /64), de **falhas por usuário** (força bruta
+  vinda de muitos IPs não chega à conta no SIGAA), de sessões por usuário e de sessões no total.
+- Logout esquece tudo: o token, a senha cifrada do `lembrar`, as sessões do pool (logout no SIGAA), o
+  cache do aluno e o pré-aquecimento em curso.
+- Atrás de proxy reverso, diga ao uvicorn QUEM é o proxy: `FORWARDED_ALLOW_IPS=<ip do proxy>` (o
+  padrão é só `127.0.0.1`). Nunca `*` com a API exposta direto: aí o cliente escolhe o próprio IP
+  mandando `X-Forwarded-For` e fura o limite por IP.
 
 <details>
 <summary><b>Variáveis de ambiente</b></summary>
@@ -138,9 +145,12 @@ sequenceDiagram
 | `SIGAA_API_TOKEN_OCIOSO_MIN` | 120 | token sem uso por esse tempo é descartado |
 | `SIGAA_API_KEEPALIVE` · `_MIN` · `_JANELA_MIN` | true · 10 · 60 | keep-alive |
 | `SIGAA_API_PERMITIR_LEMBRAR` | true | desliga o relogin automático |
-| `SIGAA_API_PERMITIR_BASIC` | true | desliga o Basic auth |
+| `SIGAA_API_PERMITIR_BASIC` | **false** | liga o Basic auth (`curl -u`) — a senha vai em toda requisição |
 | `SIGAA_API_MAX_SESSOES` · `_POR_USUARIO` | 500 · 5 | |
-| `SIGAA_API_MAX_LOGINS_POR_IP` | 20 / 10 min | anti força bruta |
+| `SIGAA_API_MAX_LOGINS_POR_IP` | 20 / 10 min | anti força bruta (todas as tentativas, por IP) |
+| `SIGAA_API_MAX_FALHAS_POR_USUARIO` · `_JANELA_FALHAS_USUARIO_MIN` | 5 · 15 | logins errados por conta (de qualquer IP) antes do `429`; 0 = desliga |
+| `SIGAA_API_SEM_CORE_DUMP` | true | no boot: sem core dump e sem ptrace (`PR_SET_DUMPABLE=0`); false pra usar py-spy/gdb |
+| `FORWARDED_ALLOW_IPS` (uvicorn) | `127.0.0.1,::1` | IP(s) do proxy reverso confiável pro `X-Forwarded-For` |
 | `SIGAA_API_CORS` | `*` | origens liberadas |
 | `SIGAA_ESPERA_MAX_S` | 20 | quanto esperar por vaga no teto global (`SIGAA_API_MAX_CONCORRENCIA_SIGAA`) antes do `503 sigaa_ocupado` |
 | `SIGAA_API_TIMEOUT_S` | 120 | prazo total de uma requisição (`504 tempo_esgotado`) |
