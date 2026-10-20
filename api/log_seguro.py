@@ -24,7 +24,7 @@ from typing import Any
 
 MASCARA = "***"
 #: nomes de campo cujo VALOR nunca vai pro log
-_SENSIVEL = r"(?:senha|password|passwd|pwd|secret|segredo|token|api[_-]?key)"
+_SENSIVEL = r"(?:senha|password|passwd|pwd|secret|segredo|token|api[_-]?key|cifrado)"
 
 #: (regex, substituição) — aplicados em ordem
 PADROES: list[tuple[re.Pattern[str], str]] = [

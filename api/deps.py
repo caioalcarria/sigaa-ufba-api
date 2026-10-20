@@ -44,6 +44,10 @@ async def _sessao(
             raise _erro(401, "token_invalido", "Token inválido ou expirado. Faça login de novo em POST /v1/auth/login.")
         return sess
     if esquema == "basic" and valor and config.PERMITIR_BASIC:
+        from .login_seguro import https_ok
+
+        if not https_ok(request.url.scheme, request.client.host if request.client else None):
+            raise _erro(403, "https_obrigatorio", "A senha só pode ser enviada por HTTPS (fora do próprio servidor).")
         try:
             usuario, sep, senha = base64.b64decode(valor.strip(), validate=True).decode("utf-8").partition(":")
         except Exception:  # noqa: BLE001 - sem encadear: o traceback teria a credencial

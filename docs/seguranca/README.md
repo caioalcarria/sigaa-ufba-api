@@ -31,6 +31,17 @@ Documentos desta pasta:
 
 **Basic auth** vem desligado.
 
+**Transporte da senha**
+* HTTPS obrigatório fora do localhost: login e Basic por HTTP puro só de 127.0.0.1/::1; de fora,
+  `403 https_obrigatorio` sem ler a senha (`SIGAA_API_EXIGIR_HTTPS`). Atrás de proxy TLS, o esquema vem
+  do `X-Forwarded-Proto` do proxy confiável.
+* Corpo do login cifrado, opcional: `GET /v1/auth/chave` dá uma chave RSA 2048 (gerada no boot) e o
+  cliente manda `{"cifrado": base64(RSA-OAEP-SHA256({"usuario","senha","ts"}))}`. O envelope vale
+  5 min e uma vez só, e a mensagem de erro é única. Protege de quem vê o corpo depois do TLS (proxy ou
+  APM que loga corpo); **não** protege do dono do servidor.
+* O corpo do login nunca vai pro log: nem no 500, nem no 401, nem no 422 ou com JSON quebrado
+  (teste `test_corpo_do_login_nunca_vai_pro_log`).
+
 **Isolamento entre alunos**
 * A chave do cache de aluno leva HMAC(segredo, aluno).
 * As rotas compartilhadas formam uma lista fechada e ancorada; qualquer rota nova é por aluno.
@@ -102,7 +113,7 @@ Variáveis novas da auditoria (todas com padrão seguro; tabela completa no [GUI
 * `SIGAA_API_MAX_FRESCO_POR_MIN`
 * `SIGAA_API_CACHE_SEGREDO_MIN`, `SIGAA_API_CACHE_APAGAR_AO_EXPIRAR`
 
-Mudaram de padrão:
+Mudaram de padrão (também `SIGAA_API_EXIGIR_HTTPS=auto`: login por HTTP só do localhost):
 
 * `SIGAA_API_PERMITIR_BASIC`: `true` → **`false`**
 * `SIGAA_API_CORS`: `*` → **vazio**
@@ -165,6 +176,8 @@ anterior e passa no atual.
 | SEC-10 | baixa | git | Nenhum segredo no histórico; ficam caminhos `/home/…` e os 19 nomes em commits antigos | documentado |
 | DOS-5 | baixa | disponib. | ReDoS: as regex suspeitas foram medidas e são lineares | aceito |
 | ISO-10/11 | baixa | cache | Período padrão de `/v1/consultas/turmas`; resultado anômalo no L2 compartilhado | documentado |
+| T1 | média | auth | A senha era aceita por HTTP puro de qualquer lugar | corrigido (HTTPS fora do localhost) |
+| T2 | baixa | auth | Não havia como proteger a senha de proxy/APM que loga corpo depois do TLS | corrigido (login cifrado opcional) |
 | H14 | info | HTTP | CSRF não se aplica (nada autentica por cookie) | documentado |
 
 ## Riscos que ficaram
