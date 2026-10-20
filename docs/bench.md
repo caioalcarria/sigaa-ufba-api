@@ -113,3 +113,24 @@ direto.** (Correção definitiva sugerida no código: `cliente_anonimo` usar `co
 * O PDF sintético tem 2 páginas/45 componentes: parse ≈ 220 ms (o real ≈ 300 ms).
 * Concorrência DENTRO de uma mesma sessão: o mock não serializa nem quebra (o real pode misturar
   estado de bean JSF); a regra de ViewState com janela de 20 telas é uma aproximação do JSF.
+
+## O bench (`bench/bench.py`)
+
+Cliente HTTP só (**aiohttp** — o httpx desaba com 200 conexões simultâneas: 86 × 1220 req/s medidos), roda
+sempre com a `.venv` da bancada e mede QUALQUER worktree. Fases: descoberta (ids reais via
+`/v1/turmas-virtuais`) → **fria × quente** por rota (login novo por amostra, aluno novo; quente = K
+repetições na mesma sessão; p50/p95/mín/máx) → **carga** N alunos × C conexões (logins antes, rajada de R
+requisições ou `--duracao` s com C sempre em voo, `POST /__mock/reset` antes e `/__mock/stats` depois de cada
+cenário: pico de concorrência no mock, misses). `--calibrar-cliente` mostra o teto do gerador direto no mock.
+Aborta se a API não apontar pra 127.0.0.1.
+
+```bash
+BANC=~/PROJECTS/UFBA/sigaa-api-perf-bancada; WT=~/PROJECTS/UFBA/sigaa-api-perf-<frente>
+$BANC/.venv/bin/python $BANC/bench/mock_sigaa.py --porta 8121 &
+$BANC/bench/api_instancia.sh "$WT" 8122 http://127.0.0.1:8121        # parar: api_instancia.sh parar 8122
+$BANC/.venv/bin/python $BANC/bench/bench.py --api http://127.0.0.1:8122 --mock http://127.0.0.1:8121 \
+   --worktree "$WT" --rotulo <frente> [--rapido] --saida-md X.md --saida-json X.json
+```
+
+Detalhes e todas as opções: `bench/README.md`. O baseline do código de hoje está em `bench/resultados/baseline.md`
+— rode o MESMO comando (`bench/rodar_baseline.sh <worktree> <rotulo>`) no seu worktree pra ter o "depois".
