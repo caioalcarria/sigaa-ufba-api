@@ -130,3 +130,14 @@ def test_gzip_quando_o_cliente_aceita():
     r = cli.get("/__teste/grande", headers={"Accept-Encoding": "gzip"})
     assert r.headers.get("content-encoding") == "gzip" and len(r.json()["itens"]) == 200
     assert "content-encoding" not in cli.get("/__teste/grande", headers={"Accept-Encoding": "identity"}).headers
+
+
+def test_gzip_fica_por_fora_do_cache_http():
+    """Por dentro, o cache guardaria o corpo já comprimido sem o Content-Encoding (JSON ilegível no MISS→HIT)."""
+    from fastapi.middleware.gzip import GZipMiddleware
+
+    from api import cache as cache_http
+    from api.main import app
+
+    ordem = [m.cls for m in app.user_middleware]  # 0 = mais de fora
+    assert ordem.index(GZipMiddleware) < ordem.index(cache_http.CacheHTTP)

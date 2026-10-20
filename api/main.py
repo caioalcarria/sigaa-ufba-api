@@ -109,12 +109,13 @@ app = FastAPI(
     contact={"name": "sigaa-api", "url": "https://github.com/"},
     license_info={"name": "MIT"},
 )
-# gzip por DENTRO do cache: nas rotas cacheáveis o cache tira o Accept-Encoding e comprime ele mesmo
-# (uma vez por entrada); o GZip daqui pega as outras. JSON do histórico: 27 KB → 4,7 KB por ~0,2 ms de CPU
-if config.GZIP_MIN_BYTES > 0:
-    app.add_middleware(GZipMiddleware, minimum_size=config.GZIP_MIN_BYTES, compresslevel=5)
 # cache HTTP (L1) por DENTRO do CORS: o HIT sai com os cabeçalhos de CORS também
 app.add_middleware(cache_http.CacheHTTP)
+# gzip por FORA do cache: o cache comprime o que ele serve (e marca Content-Encoding, então o GZip
+# deixa passar); o GZip pega as rotas que o cache não cobre. Por DENTRO ele quebrava: o cache guardava
+# o corpo já comprimido sem o cabeçalho. JSON do histórico: 27 KB → 4,7 KB por ~0,2 ms de CPU
+if config.GZIP_MIN_BYTES > 0:
+    app.add_middleware(GZipMiddleware, minimum_size=config.GZIP_MIN_BYTES, compresslevel=5)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=config.CORS,
