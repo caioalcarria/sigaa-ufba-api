@@ -5,18 +5,18 @@ from __future__ import annotations
 from datetime import datetime, timezone
 
 from fastapi import APIRouter, HTTPException, Request
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, SecretStr
 
 from ..config import config
-from ..deps import SessaoAtual
-from ..sessions import gerenciador
+from ..deps import MSG_MUITAS, SessaoAtual
+from ..sessions import MuitasTentativas, gerenciador
 
 router = APIRouter(prefix="/v1/auth", tags=["Autenticação"])
 
 
 class LoginRequest(BaseModel):
     usuario: str = Field(description="Login do SIGAA (o mesmo da tela de login).", examples=["fulano.tal"])
-    senha: str = Field(description="Senha do SIGAA. Nunca é gravada; com `lembrar` fica cifrada só na memória do servidor.")
+    senha: SecretStr = Field(description="Senha do SIGAA. Nunca é gravada; com `lembrar` fica cifrada só na memória do servidor.")
     lembrar: bool = Field(
         False,
         description="Se true, a API reloga sozinha quando o SIGAA derrubar a sessão por inatividade (~30 min). "
@@ -55,9 +55,10 @@ def _info(sess, token: str | None = None) -> SessaoInfo:
 )
 async def login(corpo: LoginRequest, request: Request):
     ip = request.client.host if request.client else "?"
-    if not gerenciador.limite_login.permitir(ip):
-        raise HTTPException(429, detail={"codigo": "muitas_tentativas", "mensagem": "Muitas tentativas de login. Espere alguns minutos."})
-    token, sess = await gerenciador.criar(corpo.usuario, corpo.senha, lembrar=corpo.lembrar)
+    try:
+        token, sess = await gerenciador.autenticar(corpo.usuario, corpo.senha.get_secret_value(), ip=ip, lembrar=corpo.lembrar)
+    except MuitasTentativas:  # por IP ou por usuário: a mesma resposta (não revela qual)
+        raise HTTPException(429, detail={"codigo": "muitas_tentativas", "mensagem": MSG_MUITAS}) from None
     return _info(sess, token)
 
 
@@ -74,7 +75,7 @@ async def renovar(sess: SessaoAtual):
 
 
 @router.delete("/sessao", status_code=204, summary="Sair (logout no SIGAA e invalida o token)")
-async def logout(request: Request, sess: SessaoAtual):
-    token = (request.headers.get("authorization") or "").partition(" ")[2].strip()
-    if not await gerenciador.encerrar(token):
-        await sess.cliente.logout()
+async def logout(sess: SessaoAtual):
+    # pela própria sessão: vale pro token e pro Basic (antes, no Basic, só deslogava do SIGAA e a sessão
+    # — com a senha cifrada — continuava viva). Esquece a credencial e fecha o pool inteiro.
+    await gerenciador.encerrar_sessao(sess)

@@ -15,14 +15,28 @@ Desenho:
   ``sessao_expirada`` e o cliente faz login de novo;
 * keep-alive opcional: sessões usadas recentemente recebem um "toque" periódico pra
   não expirarem no meio do uso;
-* nada vai pro disco: reiniciar o servidor invalida todos os tokens.
+* nada vai pro disco: reiniciar o servidor invalida todos os tokens;
+* logout (ou expiração, ou o teto por usuário) ESQUECE a credencial: a cifrada da sessão e as
+  closures que o cliente e o pool guardam pra relogar (ver ``Gerenciador._esquecer``);
+* Basic auth: a chave da sessão é HMAC(chave aleatória do processo, usuário+senha) — nunca um hash
+  rápido e sem sal da senha que um dump de memória permitiria quebrar offline;
+* limite de login: por IP (todas as tentativas; IPv6 por bloco /64) e por USUÁRIO (só as falhas),
+  pra força bruta distribuída em muitos IPs não chegar à conta do aluno no SIGAA.
+
+Limite honesto: ``str``/``bytes`` do Python são imutáveis e não dá pra zerar a senha na memória — o
+que se faz é soltar todas as referências o quanto antes (o GC reaproveita a memória) e, no boot,
+desligar core dump (``endurecer_processo``).
 """
 
 from __future__ import annotations
 
 import asyncio
+import ctypes
 import hashlib
+import hmac
+import ipaddress
 import logging
+import resource
 import secrets
 import time
 from dataclasses import dataclass, field
@@ -30,7 +44,7 @@ from dataclasses import dataclass, field
 from cryptography.fernet import Fernet
 
 from sigaa.client import Carga, SigaaClient, transporte
-from sigaa.errors import SessaoExpirada
+from sigaa.errors import CredenciaisInvalidas, SessaoExpirada
 from sigaa.pool import PoolSigaa
 
 from .config import config
@@ -38,8 +52,53 @@ from .config import config
 log = logging.getLogger("sigaa_api.sessoes")
 
 
+#: chave aleatória do processo (nunca sai da memória): HMAC das chaves Basic e do limite por usuário
+_CHAVE_PROCESSO = secrets.token_bytes(32)
+
+
 def _hash(valor: str) -> str:
+    """SHA-256 — só pro token (256 bits aleatórios: hash rápido sem sal basta, não há o que adivinhar)."""
     return hashlib.sha256(valor.encode()).hexdigest()
+
+
+def _hmac(valor: str) -> str:
+    return hmac.new(_CHAVE_PROCESSO, valor.encode(), hashlib.sha256).hexdigest()
+
+
+def chave_basic(usuario: str, senha: str) -> str:
+    """Chave da sessão Basic: HMAC com a chave do processo (um dump não vira dicionário de senhas)."""
+    return "basic:" + _hmac(f"{usuario}\x00{senha}")
+
+
+def chave_usuario(usuario: str) -> str:
+    return _hmac("usuario\x00" + usuario.strip().lower())
+
+
+def chave_ip(ip: str) -> str:
+    """Chave do limite por IP. IPv6 conta por bloco /64 (um cliente costuma ter o /64 inteiro)."""
+    try:
+        end = ipaddress.ip_address(ip)
+    except ValueError:
+        return ip
+    if end.version == 6:
+        if end.ipv4_mapped is not None:
+            return str(end.ipv4_mapped)
+        return str(ipaddress.ip_network(f"{end}/64", strict=False))
+    return str(end)
+
+
+def endurecer_processo() -> None:
+    """Sem core dump (a memória tem tokens, senhas cifradas e a chave que as decifra) e sem ptrace por
+    outro processo do mesmo usuário (``PR_SET_DUMPABLE=0``). Melhor-esforço: fora do Linux só o rlimit."""
+    try:
+        resource.setrlimit(resource.RLIMIT_CORE, (0, 0))
+    except (ValueError, OSError) as e:
+        log.warning("não deu pra desligar core dump: %s", e)
+    try:
+        if ctypes.CDLL(None, use_errno=True).prctl(4, 0, 0, 0, 0) != 0:  # PR_SET_DUMPABLE = 4
+            log.warning("prctl(PR_SET_DUMPABLE, 0) falhou")
+    except (OSError, AttributeError):
+        pass
 
 
 @dataclass
@@ -52,25 +111,65 @@ class Sessao:
     lembrar: bool
     origem: str = "token"  # "token" | "basic"
     ultimo_uso: float = field(default_factory=time.time)
-    _cred: bytes | None = None
+    _cred: bytes | None = field(default=None, repr=False)
+    #: caixinhas ([credencial cifrada]) que as closures de relogin leem; o logout esvazia
+    _cofres: tuple[list, ...] = field(default=(), repr=False)
+    _aquecimento: asyncio.Task | None = field(default=None, repr=False)
+
+    def valida(self, agora: float | None = None) -> bool:
+        agora = time.time() if agora is None else agora
+        return agora <= self.expira_em and agora - self.ultimo_uso <= config.TOKEN_OCIOSO_MIN * 60
 
 
 class LimiteLogin:
-    """Janela deslizante simples por chave (IP)."""
+    """Janela deslizante por chave (IP ou usuário), com memória limitada: chaves que saíram da janela
+    são varridas de tempos em tempos e o dicionário tem teto (``MAX_CHAVES``)."""
+
+    MAX_CHAVES = 100_000
 
     def __init__(self, maximo: int, janela_s: float = 600) -> None:
         self.maximo, self.janela = maximo, janela_s
         self._eventos: dict[str, list[float]] = {}
+        self._varrido_em = 0.0
 
-    def permitir(self, chave: str) -> bool:
+    def _recentes(self, chave: str, agora: float) -> list[float]:
+        return [t for t in self._eventos.get(chave, ()) if agora - t < self.janela]
+
+    def _varrer(self, agora: float) -> None:
+        if len(self._eventos) < self.MAX_CHAVES and agora - self._varrido_em < min(self.janela, 60):
+            return
+        self._varrido_em = agora
+        velhas = [k for k, ev in self._eventos.items() if not ev or agora - ev[-1] >= self.janela]
+        for k in velhas:
+            del self._eventos[k]
+        excesso = len(self._eventos) - self.MAX_CHAVES
+        if excesso >= 0:  # rajada com tudo dentro da janela: sai o mais antigo (e 10 % de folga)
+            for k in sorted(self._eventos, key=lambda k: self._eventos[k][-1])[: excesso + self.MAX_CHAVES // 10]:
+                del self._eventos[k]
+
+    def bloqueado(self, chave: str) -> bool:
+        return self.maximo > 0 and len(self._recentes(chave, time.time())) >= self.maximo
+
+    def registrar(self, chave: str) -> None:
         agora = time.time()
-        ev = [t for t in self._eventos.get(chave, []) if agora - t < self.janela]
-        if len(ev) >= self.maximo:
-            self._eventos[chave] = ev
-            return False
+        self._varrer(agora)
+        ev = self._recentes(chave, agora)
         ev.append(agora)
         self._eventos[chave] = ev
+
+    def zerar(self, chave: str) -> None:
+        self._eventos.pop(chave, None)
+
+    def permitir(self, chave: str) -> bool:
+        """Conta a tentativa e diz se ela pode seguir."""
+        if self.bloqueado(chave):
+            return False
+        self.registrar(chave)
         return True
+
+
+class MuitasTentativas(Exception):
+    """Login recusado pelo limite (por IP ou por usuário — a resposta é a mesma, de propósito)."""
 
 
 class Gerenciador:
@@ -79,6 +178,9 @@ class Gerenciador:
         self._fernet = Fernet(Fernet.generate_key())
         self._basic_lock = asyncio.Lock()
         self.limite_login = LimiteLogin(config.MAX_LOGINS_POR_IP)
+        #: falhas de login por usuário (HMAC do login) — o limite lê config.MAX_FALHAS_POR_USUARIO a cada uso
+        self.limite_usuario = LimiteLogin(config.MAX_FALHAS_POR_USUARIO, config.JANELA_FALHAS_USUARIO_MIN * 60)
+        self._fechando: set[asyncio.Task] = set()
         self._tarefa: asyncio.Task | None = None
         self._limite: Carga | None = None
         self._aquecendo: set[asyncio.Task] = set()
@@ -116,11 +218,12 @@ class Gerenciador:
 
         lembrar = lembrar and config.PERMITIR_LEMBRAR
         cred = self._fernet.encrypt(f"{usuario}\x00{senha}".encode()) if lembrar else None
+        cofre = [cred]  # as closures leem daqui: o logout esvazia e nenhuma delas reloga mais
 
         async def credenciais():
-            if not cred:
+            if not cofre[0]:
                 raise SessaoExpirada("Sessão expirada e as credenciais não foram guardadas (lembrar=false).")
-            u, s = self._fernet.decrypt(cred).decode().split("\x00", 1)
+            u, s = self._fernet.decrypt(cofre[0]).decode().split("\x00", 1)
             return u, s
 
         cli = self._novo_cliente(credenciais if lembrar else None)
@@ -148,6 +251,7 @@ class Gerenciador:
             tarefas_por_sessao=config.POOL_TAREFAS_POR_SESSAO,
             pressao_max=config.POOL_PRESSAO_MAX,
         )
+        t = None
         if aquecer > 1:
             async def aquecimento():
                 try:
@@ -171,6 +275,8 @@ class Gerenciador:
             lembrar=lembrar,
             origem=origem,
             _cred=cred,
+            _cofres=(cofre, pool_cred),
+            _aquecimento=t,
         )
         self._sessoes[_hash(token)] = sess
         return token, sess
@@ -181,25 +287,54 @@ class Gerenciador:
         if sess is None:
             return None
         agora = time.time()
-        if agora > sess.expira_em or agora - sess.ultimo_uso > config.TOKEN_OCIOSO_MIN * 60:
+        if not sess.valida(agora):
             await self.encerrar(token)
             return None
         sess.ultimo_uso = agora
         return sess
 
-    async def obter_basic(self, usuario: str, senha: str) -> Sessao:
-        """Basic auth: reaproveita a sessão da mesma credencial (chave = hash de usuário+senha)."""
-        chave = "basic:" + _hash(f"{usuario}\x00{senha}")
+    def espiar(self, token: str) -> Sessao | None:
+        """Como ``obter``, mas sem tocar (não renova a ociosidade nem encerra): pro cache e o pré-aquecimento."""
+        sess = self._sessoes.get(_hash(token))
+        return sess if sess is not None and sess.valida() else None
+
+    def espiar_basic(self, usuario: str, senha: str) -> Sessao | None:
+        sess = self._sessoes.get(chave_basic(usuario, senha))
+        return sess if sess is not None and sess.valida() else None
+
+    async def autenticar(self, usuario: str, senha: str, *, ip: str = "?", lembrar: bool = False, origem: str = "token") -> tuple[str, Sessao]:
+        """Login com os limites: tentativas por IP e FALHAS por usuário (``MuitasTentativas`` antes de ir ao SIGAA)."""
+        if not self.limite_login.permitir(chave_ip(ip)):
+            raise MuitasTentativas
+        cu = chave_usuario(usuario)
+        self.limite_usuario.maximo = config.MAX_FALHAS_POR_USUARIO
+        if self.limite_usuario.bloqueado(cu):
+            raise MuitasTentativas
+        try:
+            token, sess = await self.criar(usuario, senha, lembrar=lembrar, origem=origem)
+        except CredenciaisInvalidas:
+            self.limite_usuario.registrar(cu)
+            raise
+        self.limite_usuario.zerar(cu)
+        return token, sess
+
+    async def obter_basic(self, usuario: str, senha: str, *, ip: str = "?") -> Sessao:
+        """Basic auth: reaproveita a sessão da mesma credencial (chave = HMAC de usuário+senha). Só um
+        login NOVO passa pelos limites — reaproveitar a sessão não é tentativa de login."""
+        sess = self.espiar_basic(usuario, senha)
+        if sess is not None:
+            sess.ultimo_uso = time.time()
+            return sess
+        chave = chave_basic(usuario, senha)
         async with self._basic_lock:
-            sess = self._sessoes.get(chave)
-            if sess and time.time() < sess.expira_em:
+            sess = self.espiar_basic(usuario, senha)
+            if sess is not None:
                 sess.ultimo_uso = time.time()
                 return sess
-            _, sess = await self.criar(usuario, senha, lembrar=True, origem="basic")
-            # move pra chave determinística
-            for k, v in list(self._sessoes.items()):
-                if v is sess:
-                    del self._sessoes[k]
+            if chave in self._sessoes:  # vencida: encerra antes de criar a nova
+                await self.encerrar_por_chave(chave)
+            token, sess = await self.autenticar(usuario, senha, ip=ip, lembrar=True, origem="basic")
+            self._sessoes.pop(_hash(token), None)  # move pra chave determinística
             self._sessoes[chave] = sess
             return sess
 
@@ -207,19 +342,51 @@ class Gerenciador:
     async def encerrar(self, token: str) -> bool:
         return await self.encerrar_por_chave(_hash(token))
 
+    async def encerrar_sessao(self, sess: Sessao) -> bool:
+        """Encerra pela própria sessão (serve pro token e pro Basic, cuja chave não é o hash do header)."""
+        chave = next((k for k, v in self._sessoes.items() if v is sess), None)
+        if chave is not None:
+            return await self.encerrar_por_chave(chave)
+        self._esquecer(sess)
+        if sess.pool is not None:
+            await sess.pool.fechar()
+        return False
+
     async def encerrar_por_chave(self, chave: str) -> bool:
         sess = self._sessoes.pop(chave, None)
         if not sess:
             return False
-        await sess.pool.fechar()  # logout (melhor-esforço) + close de todas as sessões do aluno
+        self._esquecer(sess)
+        if sess.pool is not None:
+            await sess.pool.fechar()  # logout (melhor-esforço) + close de todas as sessões do aluno
         return True
+
+    @staticmethod
+    def _esquecer(sess: Sessao) -> None:
+        """Solta a credencial: a cifrada da sessão, as caixinhas que as closures leem e as próprias
+        closures no cliente/pool (alguém com a ``Sessao`` na mão — uma rota em voo — não reloga mais)."""
+        for cofre in sess._cofres:
+            cofre[0] = None
+        sess._cred = None
+        if sess._aquecimento is not None and not sess._aquecimento.done():
+            sess._aquecimento.cancel()
+        if sess.pool is not None:
+            sess.pool._credenciais = None  # noqa: SLF001
+            for s in list(sess.pool.sessoes):
+                s._credenciais = None  # noqa: SLF001
+        if sess.cliente is not None:
+            sess.cliente._credenciais = None  # noqa: SLF001
 
     def _expurgar(self) -> None:
         agora = time.time()
-        mortas = [k for k, s in self._sessoes.items() if agora > s.expira_em or agora - s.ultimo_uso > config.TOKEN_OCIOSO_MIN * 60]
+        mortas = [k for k, s in self._sessoes.items() if not s.valida(agora)]
         for k in mortas:
             sess = self._sessoes.pop(k)
-            asyncio.create_task(sess.pool.fechar())
+            self._esquecer(sess)
+            if sess.pool is not None:
+                t = asyncio.create_task(sess.pool.fechar())
+                self._fechando.add(t)
+                t.add_done_callback(self._fechando.discard)
 
     @property
     def total(self) -> int:
@@ -227,6 +394,8 @@ class Gerenciador:
 
     # --------------------------------------------------------------- keep-alive
     def iniciar(self) -> None:
+        if config.SEM_CORE_DUMP:
+            endurecer_processo()
         if config.KEEPALIVE and self._tarefa is None:
             self._tarefa = asyncio.create_task(self._keepalive())
 
