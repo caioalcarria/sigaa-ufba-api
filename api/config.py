@@ -71,6 +71,19 @@ class Config:
     PARSE_PROCESSOS: int | None = int(os.environ["SIGAA_PARSE_PROCESSOS"]) if os.getenv("SIGAA_PARSE_PROCESSOS") else None
     #: prazo total de uma requisição na API (s); estourou = 504 e a navegação é cancelada
     TIMEOUT_REQUISICAO_S: float = _num("SIGAA_API_TIMEOUT_S", 120)
+    #: /v1/status é público e faz um GET no SIGAA a cada chamada; sem isto um atacante usa a API pra
+    #: martelar a UFBA. O resultado da sondagem fica em cache por N segundos (0 = sem cache).
+    STATUS_CACHE_S: float = _num("SIGAA_API_STATUS_CACHE_S", 10)
+    # ---- limites de concorrência da API (anti-DoS por abuso; ver api/limites.py) ----
+    #: máximo de requisições EM VOO ao mesmo tempo por token (ou por IP nas rotas logadas sem Bearer);
+    #: excedeu → 429 muitas_tentativas. 0 = desliga.
+    CONC_POR_TOKEN: int = int(_num("SIGAA_API_CONC_POR_TOKEN", 6))
+    #: máximo de requisições em voo por IP nas rotas públicas /v1/publico/*; excedeu → 429. 0 = desliga.
+    CONC_POR_IP: int = int(_num("SIGAA_API_CONC_POR_IP", 8))
+    #: máximo de requisições em voo na API inteira; a mais espera CONC_ESPERA_S e senão → 503. 0 = desliga.
+    CONC_GLOBAL: int = int(_num("SIGAA_API_CONC_GLOBAL", 128))
+    #: quanto uma requisição espera por vaga no teto global antes de 503 sigaa_ocupado (s)
+    CONC_ESPERA_S: float = _num("SIGAA_API_CONC_ESPERA_S", 20)
     #: comprimir respostas JSON maiores que isso (bytes) com gzip quando o cliente aceita; 0 = desliga
     GZIP_MIN_BYTES: int = int(_num("SIGAA_API_GZIP_MIN_BYTES", 2048))
     #: limiares do coletor de lixo (gc.set_threshold) — o padrão do Python é 700,10,10
