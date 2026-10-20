@@ -134,8 +134,16 @@ def montar_chave(pol: Politica, path: str, q: list[tuple[str, str]], usuario_has
 
 
 # ------------------------------------------------------------------ identidade
+def _viva(sess, agora: float) -> bool:
+    """A sessão ainda vale: nem vencida (``expira_em``) nem ociosa além de ``TOKEN_OCIOSO_MIN``."""
+    from .config import config
+
+    return sess is not None and agora <= sess.expira_em and agora - sess.ultimo_uso <= config.TOKEN_OCIOSO_MIN * 60
+
+
 async def identificar(headers: dict[str, str], *, tocar: bool = True) -> str | None:
-    """Hash do aluno dono do ``Authorization`` — só se a sessão existe e é válida."""
+    """Hash do aluno dono do ``Authorization`` — só se a sessão existe e é válida (nem vencida nem
+    ociosa). ``tocar=True`` conta como uso da sessão (o HIT mantém o token vivo como a rota manteria)."""
     from . import sessions as S
 
     esquema, _, valor = (headers.get("authorization") or "").partition(" ")
@@ -143,12 +151,13 @@ async def identificar(headers: dict[str, str], *, tocar: bool = True) -> str | N
     if not valor:
         return None
     ger = S.gerenciador
+    agora = time.time()
     if esquema == "bearer":
         if tocar:
             sess = await ger.obter(valor)
         else:
             sess = ger._sessoes.get(S._hash(valor))
-            if sess is not None and time.time() > sess.expira_em:
+            if not _viva(sess, agora):
                 sess = None
         return getattr(sess, "usuario_hash", None)
     if esquema == "basic":
@@ -157,10 +166,22 @@ async def identificar(headers: dict[str, str], *, tocar: bool = True) -> str | N
         except Exception:  # noqa: BLE001
             return None
         sess = ger._sessoes.get("basic:" + S._hash(f"{usuario}\x00{senha}"))  # só se a senha já foi validada
-        if sess is None or time.time() > sess.expira_em:
+        if not _viva(sess, agora):
             return None
+        if tocar:
+            sess.ultimo_uso = agora
         return sess.usuario_hash
     return None
+
+
+def _dono_do_token(headers: dict[str, str]) -> str | None:
+    """Dono do Bearer mesmo vencido/ocioso (só pro logout: quem tem o token prova que é o dono)."""
+    from . import sessions as S
+
+    esquema, _, valor = (headers.get("authorization") or "").partition(" ")
+    if esquema.lower() != "bearer" or not valor.strip():
+        return None
+    return getattr(S.gerenciador._sessoes.get(S._hash(valor.strip())), "usuario_hash", None)
 
 
 # ----------------------------------------------------------------------- ASGI
@@ -423,8 +444,8 @@ class CacheHTTP:
             self._tarefa(self._preaquecer(scope, token))
 
     async def _logout(self, scope, receive, send) -> None:
-        h = {k.decode("latin-1").lower(): v.decode("latin-1") for k, v in scope["headers"]}
-        uh = await identificar(h, tocar=False)
+        h = _cabecalhos(scope)
+        uh = await identificar(h, tocar=False) or _dono_do_token(h)  # token vencido/ocioso também limpa
         await self.app(scope, receive, send)
         if uh:
             await cache.limpar_aluno(uh)

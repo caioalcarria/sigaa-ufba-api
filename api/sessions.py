@@ -192,9 +192,12 @@ class Gerenciador:
         chave = "basic:" + _hash(f"{usuario}\x00{senha}")
         async with self._basic_lock:
             sess = self._sessoes.get(chave)
-            if sess and time.time() < sess.expira_em:
-                sess.ultimo_uso = time.time()
+            agora = time.time()
+            if sess and agora < sess.expira_em and agora - sess.ultimo_uso <= config.TOKEN_OCIOSO_MIN * 60:
+                sess.ultimo_uso = agora
                 return sess
+            if sess:  # vencida ou ociosa: vale como o Bearer (fecha e valida a senha de novo)
+                await self.encerrar_por_chave(chave)
             _, sess = await self.criar(usuario, senha, lembrar=True, origem="basic")
             # move pra chave determinística
             for k, v in list(self._sessoes.items()):

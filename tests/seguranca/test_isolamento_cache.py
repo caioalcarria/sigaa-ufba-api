@@ -214,5 +214,66 @@ async def test_cabecalhos_que_nao_mudam_a_resposta_nao_separam_alunos():
     assert rb.json()["dono"] == "aluno-b"
 
 
+# ------------------------------------------------------------ identificação
+async def test_token_invalido_ou_ausente_nunca_recebe_hit_compartilhado():
+    ch: dict[str, int] = {}
+    async with _cli(_app(ch)) as c:
+        assert (await c.get("/v1/consultas/estruturas/9", headers=A)).status_code == 200
+        assert (await c.get("/v1/consultas/estruturas/9", headers=B)).headers["x-cache"] == "HIT"
+        for h in ({}, {"Authorization": "Bearer lixo"}, {"Authorization": "Basic " + base64.b64encode(b"x:y").decode()}):
+            r = await c.get("/v1/consultas/estruturas/9", headers=h)
+            assert r.status_code == 401 and "x-cache" not in r.headers, h
+
+
+async def test_bearer_ocioso_nao_recebe_hit():
+    _sessao("tokVelho", "aluno-a", ocioso_s=config.TOKEN_OCIOSO_MIN * 60 + 5)
+    ch: dict[str, int] = {}
+    async with _cli(_app(ch)) as c:
+        await c.get("/v1/eco", headers=A)
+        r = await c.get("/v1/eco", headers={"Authorization": "Bearer tokVelho"})
+    assert r.status_code == 401 and "x-cache" not in r.headers
+
+
+async def test_identificar_sem_tocar_respeita_ociosidade():
+    """ISO-04: ``tocar=False`` (logout, pré-aquecimento) só olhava ``expira_em``."""
+    _sessao("tokVelho", "aluno-a", ocioso_s=config.TOKEN_OCIOSO_MIN * 60 + 5)
+    assert await C.identificar({"authorization": "Bearer tokVelho"}, tocar=False) is None
+    assert await C.identificar({"authorization": "Bearer tokA"}, tocar=False) == "aluno-a"
+
+
 def _basic(u: str, s: str) -> dict[str, str]:
     return {"Authorization": "Basic " + base64.b64encode(f"{u}:{s}".encode()).decode()}
+
+
+async def test_basic_ocioso_nao_recebe_hit_nem_reaproveita_a_sessao(monkeypatch):
+    """ISO-04: a sessão Basic ociosa além de TOKEN_OCIOSO_MIN ainda servia HIT (e a rota a
+    reaproveitava). Agora ela é tratada como expirada: a credencial é validada de novo."""
+    chave = "basic:" + S._hash("fulano\x00senha-ficticia")
+    _sessao("", "aluno-a", chave=chave, ocioso_s=config.TOKEN_OCIOSO_MIN * 60 + 5)
+    criadas: list[str] = []
+
+    async def criar(usuario, senha, *, lembrar=False, origem="token"):  # login NOVO (validaria a senha no SIGAA)
+        criadas.append(usuario)
+        return "tok-novo", _sessao("tok-novo", "aluno-a")
+
+    monkeypatch.setattr(S.gerenciador, "criar", criar)
+    ch: dict[str, int] = {}
+    async with _cli(_app(ch)) as c:
+        await c.get("/v1/eco", headers=A)  # o cache do aluno A está quente
+        r = await c.get("/v1/eco", headers=_basic("fulano", "senha-ficticia"))
+    assert r.status_code == 200 and r.headers.get("x-cache") != "HIT"
+    assert criadas == ["fulano"], "a sessão Basic ociosa foi reaproveitada sem validar a senha de novo"
+
+
+async def test_basic_ativo_recebe_hit_e_conta_como_uso():
+    chave = "basic:" + S._hash("fulano\x00senha-ficticia")
+    sess = _sessao("", "aluno-a", chave=chave, ocioso_s=60)
+    antes = sess.ultimo_uso
+    ch: dict[str, int] = {}
+    async with _cli(_app(ch)) as c:
+        await c.get("/v1/eco", headers=A)
+        r = await c.get("/v1/eco", headers=_basic("fulano", "senha-ficticia"))
+    assert r.headers["x-cache"] == "HIT" and r.json()["dono"] == "aluno-a"
+    assert sess.ultimo_uso > antes
+    r = await C.identificar({"authorization": _basic("fulano", "outra-senha")["Authorization"]})
+    assert r is None  # senha errada nunca acha a sessão (a chave leva a senha)
