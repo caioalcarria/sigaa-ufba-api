@@ -89,6 +89,7 @@ Pra testar tudo pelo navegador, abra **http://localhost:8000/docs**: cada rota t
 | usar como biblioteca Python ou em JavaScript | [examples/](examples) |
 | saber como cada tela do SIGAA foi mapeada | [docs/mapeamento/](docs/mapeamento) |
 | contribuir | [docs/CONTRATO.md](docs/CONTRATO.md) |
+| saber o que a API garante de segurança e configurar produção | [docs/seguranca/](docs/seguranca/README.md) · reportar falha: [SECURITY.md](SECURITY.md) |
 
 ## Aviso
 
