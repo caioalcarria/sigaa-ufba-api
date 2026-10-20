@@ -158,6 +158,10 @@ sequenceDiagram
 | `SIGAA_API_HOSTS` | vazio | hosts aceitos no `Host` (vazio = qualquer) |
 | `SIGAA_API_DOCS` | true | `/docs`, `/redoc` e `/openapi.json` no ar |
 | `SIGAA_API_FOTO_MAX_BYTES` | 2097152 | maior foto repassada (502 acima) |
+| `SIGAA_API_CONC_POR_TOKEN` · `_POR_IP` · `_GLOBAL` | 6 · 8 · 128 | requisições em voo por token (429), por IP nas rotas públicas (429) e na API inteira (espera e depois 503); 0 = desliga |
+| `SIGAA_API_CONC_ESPERA_S` | 20 | espera por vaga no teto global da API antes do `503` |
+| `SIGAA_MAX_RESP_HTML_MB` · `SIGAA_MAX_RESP_PDF_MB` | 20 · 50 | maior resposta do SIGAA aceita, já descomprimida (`502 sigaa_resposta_grande`) |
+| `SIGAA_API_STATUS_CACHE_S` | 10 | `/v1/status` reaproveita a sondagem do SIGAA por esse tempo (anti-amplificação) |
 | `SIGAA_ESPERA_MAX_S` | 20 | quanto esperar por vaga no teto global (`SIGAA_API_MAX_CONCORRENCIA_SIGAA`) antes do `503 sigaa_ocupado` |
 | `SIGAA_API_TIMEOUT_S` | 120 | prazo total de uma requisição (`504 tempo_esgotado`) |
 | `SIGAA_PARSE_PROCESSOS` | núcleos-1 (1–8) | processos que fazem o parse de HTML/PDF fora do event loop (0 = desliga) |
