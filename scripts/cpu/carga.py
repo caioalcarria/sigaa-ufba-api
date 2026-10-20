@@ -72,6 +72,8 @@ async def _trabalhar(a, tokens: list[str], conc: int, fila: mp.Queue) -> None:
                 h = {"Authorization": f"Bearer {tok}"} if tok else {}
                 if a.gzip:
                     h["Accept-Encoding"] = "gzip"
+                if a.sem_cache:  # fura o cache HTTP (frente cache): toda requisição vai ao SIGAA
+                    h["Cache-Control"] = "no-cache"
                 t = time.perf_counter()
                 try:
                     async with s.get(a.api + a.rota, headers=h) as r:
@@ -121,6 +123,7 @@ def main() -> None:
     p.add_argument("--sonda", default="")
     p.add_argument("--uma-vez", action="store_true")
     p.add_argument("--gzip", action="store_true")
+    p.add_argument("--sem-cache", action="store_true", help="manda Cache-Control: no-cache (mede o custo de verdade, sem HIT)")
     p.add_argument("--rotulo", default="")
     p.add_argument("--mock", default="http://127.0.0.1:8131", help="SIGAA simulado da bancada (pro --mock-fator)")
     p.add_argument("--mock-fator", type=float, default=None, help="depois dos logins, muda o fator de latência do mock")
