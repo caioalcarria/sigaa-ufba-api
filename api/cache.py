@@ -41,6 +41,7 @@ from urllib.parse import parse_qsl, urlencode
 
 from fastapi import APIRouter
 
+from sigaa.pool import prioridade_baixa
 from sigaa.cache import Entrada, cache
 
 from .deps import SessaoAtual
@@ -421,7 +422,10 @@ class CacheHTTP:
             return  # sem sessão, ou já tem um aquecimento rodando pra esse aluno (dois logins seguidos)
         self.ultimo_fim[uh] = 0.0
         try:
-            await self._aquecer(base, auth, hs, uh)
+            # trabalho de FUNDO: só usa sessão do pool que sobra (deixa uma livre pro aluno) e nunca
+            # abre sessão nova — as tarefas criadas dentro herdam o contexto
+            with prioridade_baixa():
+                await self._aquecer(base, auth, hs, uh)
         finally:
             self.ultimo_fim.pop(uh, None)
 
