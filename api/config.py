@@ -126,6 +126,13 @@ class Config:
     DOCS: bool = _bool("SIGAA_API_DOCS", True)
     #: maior foto repassada por /v1/fotos e /v1/me/foto (bytes); passou = 502
     FOTO_MAX_BYTES: int = int(_num("SIGAA_API_FOTO_MAX_BYTES", 2 * 1024 * 1024))
+    # ---- transporte da senha (ver api/login_seguro.py) ----
+    #: login/Basic por HTTP puro: "auto" (padrão) = só do próprio host (loopback); "true" = só HTTPS; "false" = aceita
+    EXIGIR_HTTPS: str = os.getenv("SIGAA_API_EXIGIR_HTTPS", "auto")
+    #: aceitar login com corpo cifrado (chave pública em GET /v1/auth/chave)
+    LOGIN_CIFRADO: bool = _bool("SIGAA_API_LOGIN_CIFRADO", True)
+    #: validade do "ts" de um login cifrado (s); cada envelope vale uma vez só
+    LOGIN_CIFRADO_JANELA_S: float = _num("SIGAA_API_LOGIN_CIFRADO_JANELA_S", 300)
 
 
 config = Config()

@@ -158,6 +158,8 @@ sequenceDiagram
 | `SIGAA_API_KEEPALIVE` · `_MIN` · `_JANELA_MIN` | true · 10 · 60 | keep-alive |
 | `SIGAA_API_PERMITIR_LEMBRAR` | true | desliga o relogin automático |
 | `SIGAA_API_PERMITIR_BASIC` | **false** | liga o Basic auth (`curl -u`) — a senha vai em toda requisição |
+| `SIGAA_API_EXIGIR_HTTPS` | `auto` | senha (login/Basic) por HTTP só do próprio host; fora dele `403 https_obrigatorio`. `true` = só HTTPS; `false` = aceita HTTP |
+| `SIGAA_API_LOGIN_CIFRADO` · `_JANELA_S` | true · 300 | login com corpo cifrado (`GET /v1/auth/chave`, RSA-OAEP-256); validade do `ts` e uso único |
 | `SIGAA_API_MAX_SESSOES` · `_POR_USUARIO` | 500 · 5 | |
 | `SIGAA_API_MAX_LOGINS_POR_IP` | 20 / 10 min | anti força bruta (todas as tentativas, por IP) |
 | `SIGAA_API_MAX_FALHAS_POR_USUARIO` · `_JANELA_FALHAS_USUARIO_MIN` | 5 · 15 | logins errados por conta (de qualquer IP) antes do `429`; 0 = desliga |

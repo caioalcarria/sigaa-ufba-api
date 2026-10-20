@@ -5,23 +5,39 @@ from __future__ import annotations
 from datetime import datetime, timezone
 
 from fastapi import APIRouter, HTTPException, Request
-from pydantic import BaseModel, Field, SecretStr
+from pydantic import BaseModel, Field, SecretStr, model_validator
 
 from ..config import config
 from ..deps import MSG_MUITAS, SessaoAtual
+from ..login_seguro import CifradoInvalido, chaveiro, https_ok
 from ..sessions import MuitasTentativas, gerenciador
 
 router = APIRouter(prefix="/v1/auth", tags=["Autenticação"])
 
+MSG_HTTPS = "A senha só pode ser enviada por HTTPS (fora do próprio servidor). Use https:// — ver docs/seguranca/README.md."
+
 
 class LoginRequest(BaseModel):
-    usuario: str = Field(description="Login do SIGAA (o mesmo da tela de login).", examples=["fulano.tal"])
-    senha: SecretStr = Field(description="Senha do SIGAA. Nunca é gravada; com `lembrar` fica cifrada só na memória do servidor.")
+    usuario: str = Field(description="Login do SIGAA (o mesmo da tela de login). Dispensado com `cifrado`.", examples=["fulano.tal"])
+    senha: SecretStr = Field(description="Senha do SIGAA. Nunca é gravada; com `lembrar` fica cifrada só na memória do servidor. Dispensada com `cifrado`.")
+    cifrado: SecretStr | None = Field(
+        None,
+        description="Alternativa a `usuario`+`senha`: base64 de RSA-OAEP-SHA256 do JSON `{\"usuario\",\"senha\",\"ts\"}` "
+        "com a chave de `GET /v1/auth/chave` (`ts` = segundos desde 1970; vale 5 min e uma vez só).",
+    )
     lembrar: bool = Field(
         False,
         description="Se true, a API reloga sozinha quando o SIGAA derrubar a sessão por inatividade (~30 min). "
         "Sem isso, a resposta vira 401 `sessao_expirada` e o cliente precisa logar de novo.",
     )
+
+    @model_validator(mode="before")
+    @classmethod
+    def _cifrado_dispensa(cls, v):
+        # com `cifrado`, usuario/senha vêm de dentro do envelope (o erro de campo faltando continua igual sem ele)
+        if isinstance(v, dict) and v.get("cifrado") is not None:
+            v = {**v, "usuario": v.get("usuario") or "-", "senha": v.get("senha") or "-"}
+        return v
 
 
 class SessaoInfo(BaseModel):
@@ -55,11 +71,34 @@ def _info(sess, token: str | None = None) -> SessaoInfo:
 )
 async def login(corpo: LoginRequest, request: Request):
     ip = request.client.host if request.client else "?"
+    if not https_ok(request.url.scheme, ip):
+        raise HTTPException(403, detail={"codigo": "https_obrigatorio", "mensagem": MSG_HTTPS})
+    if corpo.cifrado is not None:
+        if not config.LOGIN_CIFRADO:
+            raise HTTPException(422, detail={"codigo": "requisicao_invalida", "mensagem": "Login cifrado desligado neste servidor."})
+        try:
+            usuario, senha = chaveiro.abrir(corpo.cifrado.get_secret_value())
+        except CifradoInvalido as e:
+            raise HTTPException(422, detail={"codigo": "cifrado_invalido", "mensagem": str(e)}) from None
+    else:
+        usuario, senha = corpo.usuario, corpo.senha.get_secret_value()
     try:
-        token, sess = await gerenciador.autenticar(corpo.usuario, corpo.senha.get_secret_value(), ip=ip, lembrar=corpo.lembrar)
+        token, sess = await gerenciador.autenticar(usuario, senha, ip=ip, lembrar=corpo.lembrar)
     except MuitasTentativas:  # por IP ou por usuário: a mesma resposta (não revela qual)
         raise HTTPException(429, detail={"codigo": "muitas_tentativas", "mensagem": MSG_MUITAS}) from None
     return _info(sess, token)
+
+
+@router.get(
+    "/chave",
+    summary="Chave pública pra cifrar o corpo do login (opcional)",
+    description="RSA 2048 gerada no boot (muda a cada reinício). Cifre `{\"usuario\",\"senha\",\"ts\"}` com RSA-OAEP-SHA256 e "
+    "mande `{\"cifrado\": base64}` em POST /v1/auth/login. Protege a senha de quem vê o corpo depois do TLS; não do dono do servidor.",
+)
+async def chave():
+    if not config.LOGIN_CIFRADO:
+        raise HTTPException(404, detail={"codigo": "nao_encontrado", "mensagem": "Login cifrado desligado neste servidor."})
+    return chaveiro.publica()
 
 
 @router.get("/sessao", response_model=SessaoInfo, summary="Ver a sessão atual (validade, se o SIGAA ainda está logado)")
