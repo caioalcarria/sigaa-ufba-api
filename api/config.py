@@ -40,6 +40,14 @@ class Config:
     MAX_SESSOES_POR_USUARIO: int = int(_num("SIGAA_API_MAX_SESSOES_POR_USUARIO", 5))
     #: tentativas de login por IP numa janela de 10 min (anti força-bruta)
     MAX_LOGINS_POR_IP: int = int(_num("SIGAA_API_MAX_LOGINS_POR_IP", 20))
+    #: processos do pool de parse (HTML/PDF fora do event loop). Vazio = núcleos-1 (1 a 8); 0 = desliga
+    PARSE_PROCESSOS: int | None = int(os.environ["SIGAA_PARSE_PROCESSOS"]) if os.getenv("SIGAA_PARSE_PROCESSOS") else None
+    #: prazo total de uma requisição na API (s); estourou = 504 e a navegação é cancelada
+    TIMEOUT_REQUISICAO_S: float = _num("SIGAA_API_TIMEOUT_S", 120)
+    #: comprimir respostas JSON maiores que isso (bytes) com gzip quando o cliente aceita; 0 = desliga
+    GZIP_MIN_BYTES: int = int(_num("SIGAA_API_GZIP_MIN_BYTES", 2048))
+    #: limiares do coletor de lixo (gc.set_threshold) — o padrão do Python é 700,10,10
+    GC_LIMIARES: tuple[int, ...] = tuple(int(x) for x in os.getenv("SIGAA_API_GC_LIMIARES", "50000,20,20").split(","))
     #: origens liberadas no CORS (vírgula). "*" libera tudo.
     CORS: list[str] = [o.strip() for o in os.getenv("SIGAA_API_CORS", "*").split(",") if o.strip()]
 
