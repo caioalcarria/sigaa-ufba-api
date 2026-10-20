@@ -5,7 +5,8 @@ O SIGAA é um sistema JSF/Struts *stateful*: cada tela guarda estado no servidor
 próprio sistema gerou. Por isso este cliente:
 
 * serializa a navegação de uma sessão (``asyncio.Lock``) — duas telas abertas ao
-  mesmo tempo na mesma sessão quebram o ViewState uma da outra;
+  mesmo tempo na mesma sessão quebram o ViewState uma da outra. Pra paralelizar, use
+  VÁRIAS sessões do mesmo aluno (``sigaa.pool.PoolSigaa``) e ``await c.paralelo([...])``;
 * sabe "clicar" nos ``h:commandLink`` (função JS ``jsfcljs``) e nos itens do
   menu JSCook do portal sem precisar de navegador;
 * trata a tela de avisos pós-login e a escolha de vínculo;
@@ -19,11 +20,14 @@ import asyncio
 import re
 import time
 from dataclasses import dataclass, field
-from typing import Any, Awaitable, Callable
+from typing import TYPE_CHECKING, Any, Awaitable, Callable, Sequence, TypeVar
 from urllib.parse import urlencode, urljoin
 
 import httpx
 from bs4 import BeautifulSoup
+
+if TYPE_CHECKING:
+    from .pool import PoolSigaa
 
 from .errors import (
     AcessoNegado,
@@ -35,6 +39,7 @@ from .errors import (
 )
 
 BASE_URL = "https://sigaa.ufba.br"
+URL_PORTAL = "/sigaa/verPortalDiscente.do"
 USER_AGENT = (
     "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) "
     "Chrome/130.0 Safari/537.36 sigaa-api"
@@ -183,6 +188,41 @@ def corpo_form(data: dict[str, Any]) -> bytes:
 
 
 LoginCallback = Callable[[], Awaitable[tuple[str, str]]]
+T = TypeVar("T")
+Fluxo = Callable[["SigaaClient"], Awaitable[T]]
+
+
+class _Transporte(httpx.AsyncBaseTransport):
+    """Embrulha um transporte httpx COMPARTILHADO (várias sessões, uma piscina de conexões
+    keep-alive): fechar um cliente não fecha as conexões dos outros."""
+
+    def __init__(self, inner: httpx.AsyncBaseTransport) -> None:
+        self.inner = inner
+
+    async def handle_async_request(self, request: httpx.Request) -> httpx.Response:
+        return await self.inner.handle_async_request(request)
+
+    async def aclose(self) -> None:  # o dono (quem criou o transporte) fecha
+        pass
+
+
+def transporte(*, http2: bool = False, max_conexoes: int = 200, keepalive: int = 100, keepalive_s: float = 30.0) -> httpx.AsyncHTTPTransport:
+    """Transporte httpx pra compartilhar entre sessões (``SigaaClient(transport=...)``)."""
+    return httpx.AsyncHTTPTransport(
+        http2=http2,
+        limits=httpx.Limits(max_connections=max_conexoes, max_keepalive_connections=keepalive, keepalive_expiry=keepalive_s),
+        retries=1,
+    )
+
+
+@dataclass
+class Compartilhado:
+    """Estado do ALUNO (não da tela) dividido entre as sessões dele: cache curto (``memo``), as
+    buscas em andamento (singleflight) e dados estáveis (ex.: mapa idTurma↔frontEndIdTurma)."""
+
+    memo: dict[str, tuple[float, Any]] = field(default_factory=dict)
+    em_voo: dict[str, asyncio.Future] = field(default_factory=dict)
+    dados: dict[str, Any] = field(default_factory=dict)
 
 
 class SigaaClient:
@@ -203,7 +243,17 @@ class SigaaClient:
         min_interval: float = 0.25,
         credenciais: LoginCallback | None = None,
         cookies: dict[str, str] | None = None,
+        transport: httpx.AsyncBaseTransport | None = None,
+        http2: bool = False,
+        compartilhado: Compartilhado | None = None,
+        limite: asyncio.Semaphore | None = None,
+        reusar_views: int = 0,
     ) -> None:
+        """``transport``: transporte httpx compartilhado (keep-alive entre sessões; ver ``transporte()``).
+        ``compartilhado``: memo/dados do aluno divididos entre as sessões do pool.
+        ``limite``: semáforo GLOBAL de requisições simultâneas ao SIGAA (protege o SIGAA).
+        ``reusar_views``: quantas navegações uma página GET (portal, turmas.jsf) pode ser reaproveitada
+        (o ViewState dela continua válido no servidor) antes de ser baixada de novo; 0 = nunca reaproveita."""
         self.base_url = base_url.rstrip("/")
         self._http = httpx.AsyncClient(
             base_url=self.base_url,
@@ -211,30 +261,68 @@ class SigaaClient:
             timeout=timeout,
             follow_redirects=True,
             cookies=cookies,
+            transport=_Transporte(transport) if transport is not None else None,
+            http2=http2 if transport is None else False,
         )
         self.lock = asyncio.Lock()
         self._credenciais = credenciais
         self._min_interval = min_interval
         self._ultimo = 0.0
+        self._ritmo = asyncio.Lock()
+        self._limite = limite
         self.logado = bool(cookies)
         self.ultimo_uso = time.time()
         self.portal_cache: Page | None = None
-        self._memo: dict[str, tuple[float, Any]] = {}
+        self.compartilhado = compartilhado or Compartilhado()
+        self.pool: PoolSigaa | None = None
+        self.reusar_views = reusar_views
+        self.navegacoes = 0  # requisições feitas nesta sessão (cada uma pode criar uma view no servidor)
+        self.requisicoes = 0
+        self._paginas: dict[str, tuple[int, float, Page]] = {}
+
+    @property
+    def _memo(self) -> dict[str, tuple[float, Any]]:
+        return self.compartilhado.memo
+
+    @property
+    def dados(self) -> dict[str, Any]:
+        """Dados estáveis do aluno (compartilhados entre as sessões do pool)."""
+        return self.compartilhado.dados
 
     # ------------------------------------------------------------------ cache
     async def memo(self, chave: str, ttl: float, fn: Callable[[], Awaitable[Any]]) -> Any:
-        """Cache curto por sessão: evita reemitir o mesmo documento/tela em rotas que
-        dependem dele (ex.: histórico → índices, integralização, pendências)."""
-        agora = time.monotonic()
-        hit = self._memo.get(chave)
-        if hit and agora - hit[0] < ttl:
+        """Cache curto do aluno (dividido entre as sessões do pool): evita reemitir o mesmo
+        documento/tela em rotas que dependem dele (ex.: histórico → índices, integralização).
+
+        SINGLEFLIGHT: se outra sessão/rota já está buscando a mesma ``chave``, espera o resultado
+        dela em vez de buscar de novo (duas rotas que precisam do histórico = 1 emissão)."""
+        comp = self.compartilhado
+        hit = comp.memo.get(chave)
+        if hit and time.monotonic() - hit[0] < ttl:
             return hit[1]
-        valor = await fn()
-        self._memo[chave] = (agora, valor)
-        return valor
+        voo = comp.em_voo.get(chave)
+        if voo is not None:
+            return await asyncio.shield(voo)
+        fut: asyncio.Future = asyncio.get_running_loop().create_future()
+        comp.em_voo[chave] = fut
+        try:
+            valor = await fn()
+        except BaseException as e:
+            if not fut.done():
+                fut.set_exception(e) if isinstance(e, Exception) else fut.cancel()
+            fut.exception() if not fut.cancelled() else None  # evita "exception never retrieved"
+            raise
+        else:
+            comp.memo[chave] = (time.monotonic(), valor)
+            fut.set_result(valor)
+            return valor
+        finally:
+            if comp.em_voo.get(chave) is fut:
+                del comp.em_voo[chave]
 
     def limpar_cache(self) -> None:
         self._memo.clear()
+        self.dados.clear()
 
     # ------------------------------------------------------------------ infra
     async def __aenter__(self) -> "SigaaClient":
@@ -253,11 +341,21 @@ class SigaaClient:
         return path if path.startswith("http") else urljoin(self.base_url + "/", path.lstrip("/"))
 
     async def _req(self, method: str, path: str, *, verificar: bool = True, **kw) -> Page:
-        espera = self._min_interval - (time.monotonic() - self._ultimo)
-        if espera > 0:
-            await asyncio.sleep(espera)
+        # ritmo por sessão: ``min_interval`` entre o FIM de uma requisição e o começo da próxima
+        # (e, se houver requisições simultâneas na mesma sessão, entre os começos).
+        async with self._ritmo:
+            espera = self._min_interval - (time.monotonic() - self._ultimo)
+            if espera > 0:
+                await asyncio.sleep(espera)
+            self._ultimo = time.monotonic()
+        self.navegacoes += 1
+        self.requisicoes += 1
         try:
-            r = await self._http.request(method, self._url(path), **kw)
+            if self._limite is not None:
+                async with self._limite:
+                    r = await self._http.request(method, self._url(path), **kw)
+            else:
+                r = await self._http.request(method, self._url(path), **kw)
         except (httpx.TimeoutException, httpx.NetworkError) as e:
             raise SistemaIndisponivel(f"SIGAA não respondeu: {e}") from e
         finally:
@@ -305,19 +403,66 @@ class SigaaClient:
     async def _com_relogin(self, fn: Callable[[], Awaitable[Page]]) -> Page:
         return await fn()
 
-    async def executar(self, fluxo: Callable[["SigaaClient"], Awaitable[Any]]) -> Any:
+    async def executar(self, fluxo: Fluxo[T]) -> T:
         """Roda um fluxo de navegação com a sessão travada; se a sessão do SIGAA tiver caído
         e houver credenciais guardadas, reloga e refaz o fluxo UMA vez (as telas antigas morrem
-        junto com a sessão, então o fluxo inteiro precisa recomeçar)."""
+        junto com a sessão, então o fluxo inteiro precisa recomeçar).
+
+        Com pool (``c.pool``), o fluxo vai pra QUALQUER sessão livre do aluno — duas rotas do
+        mesmo aluno rodam ao mesmo tempo."""
+        if self.pool is not None:
+            return await self.pool.executar(fluxo)
         async with self.lock:
-            try:
-                return await fluxo(self)
-            except SessaoExpirada:
-                if not self._credenciais:
-                    raise
-                usuario, senha = await self._credenciais()
-                await self.login(usuario, senha)
-                return await fluxo(self)
+            return await self._rodar(fluxo)
+
+    async def _rodar(self, fluxo: Fluxo[T]) -> T:
+        """O fluxo nesta sessão (já travada por quem chama), com o relogin automático."""
+        try:
+            return await fluxo(self)
+        except SessaoExpirada:
+            if not self._credenciais:
+                raise
+            await self.relogar()
+            return await fluxo(self)
+
+    async def relogar(self) -> Page:
+        if not self._credenciais:
+            raise SessaoExpirada("Sessão expirada e sem credenciais guardadas.")
+        usuario, senha = await self._credenciais()
+        return await self.login(usuario, senha)
+
+    async def paralelo(self, fluxos: Sequence[Fluxo[T]], *, max_sessoes: int | None = None) -> list[T]:
+        """Roda vários fluxos INDEPENDENTES e devolve os resultados na mesma ordem.
+
+        Cada fluxo recebe uma sessão só dele enquanto roda (pode navegar à vontade: abrir turma,
+        clicar no menu...). Sem pool, roda um depois do outro nesta sessão (mesmo resultado, só mais
+        lento). Com pool, esta sessão (que quem chama já está segurando) trabalha junto com as outras
+        sessões livres do aluno, e o pool abre sessões novas se a fila compensar. Se algum fluxo
+        falhar, os que ainda não começaram são cancelados e o erro do primeiro (pela ordem) sobe.
+
+        Exemplo::
+
+            notas = await c.paralelo([lambda s, t=t: notas_turma(s, t) for t in turmas])
+        """
+        fluxos = list(fluxos)
+        if self.pool is not None and len(fluxos) > 1:
+            return await self.pool.paralelo(fluxos, atual=self, max_sessoes=max_sessoes)
+        return [await self._rodar(f) for f in fluxos]
+
+    async def pagina(self, path: str, *, reusar: bool = True) -> Page:
+        """GET de uma tela de PARTIDA (portal, turmas.jsf) que pode ser reaproveitada enquanto o
+        ViewState dela continua guardado no servidor (o JSF guarda as N últimas views da sessão).
+        Só reaproveita se ``reusar_views`` > 0 e se houve menos de ``reusar_views`` navegações nesta
+        sessão desde que a página foi baixada."""
+        hit = self._paginas.get(path) if reusar and self.reusar_views > 0 else None
+        if hit and self.navegacoes - hit[0] < self.reusar_views and time.monotonic() - hit[1] < 600:
+            return hit[2]
+        page = await self.get(path)
+        self._paginas[path] = (self.navegacoes, time.monotonic(), page)
+        return page
+
+    def esquecer_paginas(self) -> None:
+        self._paginas.clear()
 
     async def submit(
         self,
@@ -369,6 +514,7 @@ class SigaaClient:
     # ------------------------------------------------------------------ login
     async def login(self, usuario: str, senha: str) -> Page:
         self._http.cookies.clear()
+        self._paginas.clear()
         await self._req("GET", "/sigaa/verTelaLogin.do", verificar=False)
         page = await self._req(
             "POST",
@@ -394,6 +540,8 @@ class SigaaClient:
         page = await self._pos_login(page)
         self.logado = True
         self.portal_cache = page if "/portais/discente/" in page.url else None
+        if self.portal_cache is not None:  # a tela de chegada É o portal: serve de partida pro menu
+            self._paginas[URL_PORTAL] = (self.navegacoes, time.monotonic(), page)
         return page
 
     async def _pos_login(self, page: Page) -> Page:
@@ -427,14 +575,29 @@ class SigaaClient:
 
     # ---------------------------------------------------------------- portal
     async def portal(self) -> Page:
-        """Página inicial do Portal do Discente (ponto de partida de quase tudo)."""
-        page = await self.get("/sigaa/verPortalDiscente.do")
+        """Página inicial do Portal do Discente (ponto de partida de quase tudo). Sempre baixa de novo."""
+        page = await self.get(URL_PORTAL)
         self.portal_cache = page
+        self._paginas[URL_PORTAL] = (self.navegacoes, time.monotonic(), page)
         return page
 
     async def menu(self, acao: str, portal: Page | None = None) -> Page:
-        """Dispara um item do menu do portal. ``acao`` = trecho do bean (``portalDiscente.historico``) ou rótulo."""
-        portal = portal or await self.portal()
+        """Dispara um item do menu do portal. ``acao`` = trecho do bean (``portalDiscente.historico``) ou rótulo.
+
+        Sem ``portal``, reaproveita a última página do portal desta sessão enquanto o ViewState dela
+        ainda vale (``reusar_views``) — economiza 1 viagem por item de menu. Se o SIGAA recusar o
+        ViewState reaproveitado, baixa o portal de novo e repete UMA vez."""
+        reusado = portal is None and self.reusar_views > 0 and URL_PORTAL in self._paginas
+        portal = portal or await self.pagina(URL_PORTAL)
+        try:
+            return await self._disparar_menu(portal, acao)
+        except NavegacaoInvalida:
+            if not reusado:
+                raise
+            self._paginas.pop(URL_PORTAL, None)
+            return await self._disparar_menu(await self.portal(), acao)
+
+    async def _disparar_menu(self, portal: Page, acao: str) -> Page:
         itens = portal.menu_items()
         item = next((i for i in itens if acao in i.acao), None) or next(
             (i for i in itens if acao.lower() == i.rotulo.lower()), None
@@ -449,7 +612,8 @@ class SigaaClient:
     async def manter_viva(self) -> bool:
         """Toca o SIGAA pra sessão não expirar. Devolve False se ela já tinha caído."""
         try:
-            await self._req("GET", "/sigaa/verPortalDiscente.do")
+            page = await self._req("GET", URL_PORTAL)
+            self._paginas[URL_PORTAL] = (self.navegacoes, time.monotonic(), page)
             return True
         except SessaoExpirada:
             return False
