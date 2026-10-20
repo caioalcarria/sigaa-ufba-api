@@ -55,7 +55,7 @@ async def me(cli: Cliente, incluir_foto: bool = False):
                     conteudo, tipo = await S.foto(c)
                     tipo = "image/png" if conteudo[:4] == b"\x89PNG" else "image/gif" if conteudo[:3] == b"GIF" else tipo
                     d.foto_base64 = f"data:{tipo};base64," + base64.b64encode(conteudo).decode()
-                except Exception:  # noqa: BLE001 - sem foto não derruba o /me
+                except Exception:  # noqa: BLE001 - sem foto não derruba o /me  # nosec B110
                     pass
         return d
 

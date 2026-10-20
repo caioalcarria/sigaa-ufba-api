@@ -286,7 +286,7 @@ class Redis(Backend):
     async def fechar(self) -> None:
         try:
             await self._r.aclose()
-        except Exception:  # noqa: BLE001
+        except Exception:  # noqa: BLE001 - fechar no desligamento é melhor esforço  # nosec B110
             pass
 
 
@@ -328,7 +328,7 @@ class Singleflight:
                 v = await asyncio.shield(f)
                 if v is not _FALHOU:
                     return v
-            except Exception:  # noqa: BLE001 - o líder falhou (ex.: a sessão DELE caiu): tenta por conta própria
+            except Exception:  # noqa: BLE001 - o líder falhou (ex.: a sessão DELE caiu): tenta por conta própria  # nosec B110
                 pass
         f = self.iniciar(chave)
         try:
