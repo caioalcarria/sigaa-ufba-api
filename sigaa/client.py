@@ -325,11 +325,8 @@ _SSL: Any = None
 
 
 def ssl_compartilhado() -> Any:
-    """UM contexto SSL pro processo (criar um por cliente custa CPU e memória a cada sessão nova)."""
-    global _SSL
-    if _SSL is None:
-        _SSL = httpx.create_ssl_context()
-    return _SSL
+    """Apelido de :func:`_ssl_ctx` (um contexto SSL por processo)."""
+    return _ssl_ctx()
 
 
 def transporte(*, http2: bool = False, max_conexoes: int = 4, keepalive: int | None = None, keepalive_s: float = 4.5) -> httpx.AsyncHTTPTransport:
@@ -342,7 +339,7 @@ def transporte(*, http2: bool = False, max_conexoes: int = 4, keepalive: int | N
     (``Keep-Alive: timeout=5``), daí ``keepalive_s`` = 4,5; conexão nova custa ~0,1 s de TCP+TLS."""
     return httpx.AsyncHTTPTransport(
         http2=http2,
-        verify=ssl_compartilhado(),
+        verify=_ssl_ctx(),
         limits=httpx.Limits(max_connections=max_conexoes, max_keepalive_connections=keepalive or max_conexoes, keepalive_expiry=keepalive_s),
         retries=1,
     )
@@ -387,6 +384,7 @@ class Compartilhado:
     em_voo: dict[str, asyncio.Future] = field(default_factory=dict)
     dados: dict[str, Any] = field(default_factory=dict)
 
+_SSL: Any = None
 
 #: quanto uma requisição espera por vaga no teto global (``Carga``) antes de desistir com
 #: ``SigaaOcupado`` (503 + Retry-After) — falha em vez de empilhar quando o SIGAA está lento
@@ -394,9 +392,13 @@ ESPERA_MAX_S = float(os.getenv("SIGAA_ESPERA_MAX_S", "20"))
 
 
 def _ssl_ctx() -> Any:
-    """O contexto SSL único do processo (o mesmo de ``ssl_compartilhado``): criar um por
-    ``httpx.AsyncClient`` recarregava o bundle de CAs — ~11 ms de CPU no event loop a cada cliente."""
-    return ssl_compartilhado()
+    """UM contexto SSL pro processo inteiro. Criar um por ``httpx.AsyncClient`` (o padrão)
+    carrega o bundle de CAs de novo a cada cliente: ~11 ms de CPU no event loop por login e
+    por requisição pública. O contexto é imutável depois de pronto, então dá pra dividir."""
+    global _SSL
+    if _SSL is None:
+        _SSL = httpx.create_ssl_context()  # o mesmo que o httpx faria (certifi / SSL_CERT_FILE)
+    return _SSL
 
 
 def _plano_submit(html: str, url: str, form_id: str, extra: dict | None, botao) -> tuple[str, dict]:
