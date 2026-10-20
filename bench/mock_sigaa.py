@@ -72,7 +72,7 @@ class Config:
     latencias: dict = field(default_factory=lambda: dict(LATENCIAS_PADRAO))
     max_concorrencia: int = 0  # 0 = sem limite
     ttl_sessao: float = 1800.0  # ociosidade até a sessão expirar (s)
-    views: int = 20  # telas (ViewStates) lembradas por sessão
+    views: int = 10  # telas (ViewStates) lembradas por sessão — o MyFaces do SIGAA real guarda 10
     seed: int | None = None
 
 
@@ -150,7 +150,7 @@ class Sessao:
 
 SESSOES: dict[str, Sessao] = {}
 STATS = {"req": Counter(), "regra": Counter(), "misses": [], "status": Counter(), "pico": 0, "em_voo": 0,
-         "logins": 0, "expiradas": 0, "vs_invalido": 0, "inicio": time.time()}
+         "logins": 0, "expiradas": 0, "vs_invalido": 0, "vs_expirado": 0, "inicio": time.time()}
 
 
 def nova_sessao() -> Sessao:
@@ -455,7 +455,12 @@ async def tratar(req: Request) -> Response:
     if resp is None and req.method == "POST" and "javax.faces.ViewState" in form:
         vs = form["javax.faces.ViewState"]
         origem = sess.views.get(vs)
-        if origem is None:
+        num = vs[4:] if vs.startswith("j_id") else ""
+        if origem is None and num.isdigit() and int(num) < sess.cont:
+            # view que JÁ SAIU da janela: o SIGAA real ignora o clique e devolve o portal, sem erro
+            STATS["vs_expirado"] += 1
+            resp = tela("portal/portal.html", "viewstate_fora_da_janela→portal")
+        elif origem is None:  # ViewState que esta sessão nunca emitiu
             STATS["vs_invalido"] += 1
             resp = Resp(PAG_INVALIDA, regra="viewstate_invalido")
         else:
@@ -525,7 +530,7 @@ async def ctl_stats(_: Request) -> Response:
     return JSONResponse({
         "uptime_s": round(time.time() - STATS["inicio"], 1), "sessoes": len(SESSOES), "logins": STATS["logins"],
         "em_voo": STATS["em_voo"], "pico_concorrencia": STATS["pico"], "expiradas": STATS["expiradas"],
-        "viewstate_invalido": STATS["vs_invalido"], "status": dict(STATS["status"]), "por_regra": dict(STATS["regra"].most_common()),
+        "viewstate_invalido": STATS["vs_invalido"], "viewstate_fora_da_janela": STATS["vs_expirado"], "status": dict(STATS["status"]), "por_regra": dict(STATS["regra"].most_common()),
         "por_caminho": dict(STATS["req"].most_common(40)), "misses": STATS["misses"][-50:], "total_misses": STATS["regra"]["MISS"],
     })
 
@@ -533,7 +538,7 @@ async def ctl_stats(_: Request) -> Response:
 async def ctl_reset(_: Request) -> Response:
     for k in ("req", "regra", "status"):
         STATS[k] = Counter()
-    STATS.update(misses=[], pico=0, expiradas=0, vs_invalido=0, logins=0, inicio=time.time())
+    STATS.update(misses=[], pico=0, expiradas=0, vs_invalido=0, vs_expirado=0, logins=0, inicio=time.time())
     return JSONResponse({"ok": True})
 
 
@@ -564,7 +569,7 @@ def main() -> None:
     ap.add_argument("--lat", action="append", default=[], metavar="CLASSE=SEG", help="ex.: --lat pdf=3.5 --lat padrao=0.45")
     ap.add_argument("--max-concorrencia", type=int, default=0)
     ap.add_argument("--ttl-sessao", type=float, default=1800)
-    ap.add_argument("--views", type=int, default=20)
+    ap.add_argument("--views", type=int, default=10)
     ap.add_argument("--seed", type=int)
     a = ap.parse_args()
     if a.porta == 8000:

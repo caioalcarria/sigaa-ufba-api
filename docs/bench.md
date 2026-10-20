@@ -42,8 +42,10 @@ cache 8130–8139 · cpu 8140–8149 · orquestrador 8150–8159. **Nunca a 8000
   → 302 pra `/sigaa/expirada.jsp` (a API reloga sozinha com `lembrar=true`, senão 401 `sessao_expirada`).
   `logar.do?dispatch=logOff` mata a sessão.
 * **ViewState**: cada tela servida ganha um `j_idN` NOVO da sessão; a sessão lembra as últimas
-  `--views` (padrão 20). POST com ViewState que a sessão não emitiu (ou que saiu da janela) →
-  "O endereço digitado não é válido" (a API devolve 502 `navegacao_invalida`).
+  `--views` (padrão **10**, o que o MyFaces do SIGAA real guarda — verificado pela frente sessões). POST com
+  view que **já saiu da janela** → o clique é ignorado e volta o **PORTAL**, sem erro (como o real; o
+  serviço recebe a tela errada). ViewState que a sessão nunca emitiu → "O endereço digitado não é válido"
+  (a API devolve 502 `navegacao_invalida`). `/__mock/stats` conta os dois (`viewstate_fora_da_janela`, `viewstate_invalido`).
 * **Navegação**: menu JSCook do portal (`jscook_action`), cliques `jsfcljs` (o mock descobre QUAL link
   da tela de origem foi clicado), submits de formulário, GETs diretos (turmas.jsf, mobile, painéis,
   páginas públicas). Abrir uma turma guarda o `frontEndIdTurma` na sessão (estado JSF por sessão).
@@ -71,7 +73,7 @@ simular o SIGAA saturado.
 
 ```
 GET  /__mock/config            → parâmetros atuais
-POST /__mock/config  {"fator":1,"jitter":0.1,"latencias":{"pdf":3.5},"max_concorrencia":0,"ttl_sessao":1800,"views":20}
+POST /__mock/config  {"fator":1,"jitter":0.1,"latencias":{"pdf":3.5},"max_concorrencia":0,"ttl_sessao":1800,"views":10}
 GET  /__mock/stats             → requisições por regra/caminho, misses, sessões, pico de concorrência
 POST /__mock/reset             → zera as estatísticas
 POST /__mock/expirar           → derruba todas as sessões (testa o relogin)
@@ -112,7 +114,7 @@ direto.** (Correção definitiva sugerida no código: `cliente_anonimo` usar `co
   pessoais e o orquestrador decidiu não gravar telas logadas).
 * O PDF sintético tem 2 páginas/45 componentes: parse ≈ 220 ms (o real ≈ 300 ms).
 * Concorrência DENTRO de uma mesma sessão: o mock não serializa nem quebra (o real pode misturar
-  estado de bean JSF); a regra de ViewState com janela de 20 telas é uma aproximação do JSF.
+  estado de bean JSF); a janela de 10 views segue o MyFaces do SIGAA real.
 
 ## O bench (`bench/bench.py`)
 

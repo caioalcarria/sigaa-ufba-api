@@ -1,0 +1,3623 @@
+{
+ "meta": {
+  "rotulo": "baseline",
+  "data": "2026-10-20T01:28:27-03:00",
+  "api": "http://127.0.0.1:8118",
+  "api_versao": "0.1.0",
+  "sigaa_url": "http://127.0.0.1:8117",
+  "mock_url": "http://127.0.0.1:8117",
+  "mock_config": {
+   "mock": "sigaa-simulado",
+   "fator": 1.0,
+   "jitter": 0.1,
+   "latencias_s": {
+    "padrao": 0.45,
+    "pdf": 3.5,
+    "login": 0.7,
+    "redirect": 0.08,
+    "publico": 0.15,
+    "publico_pesado": 0.45,
+    "ajax": 0.25
+   },
+   "max_concorrencia": 0,
+   "ttl_sessao_s": 1800,
+   "views_por_sessao": 20
+  },
+  "git": {
+   "worktree": "~/PROJECTS/UFBA/sigaa-api-perf-bancada",
+   "commit": "c0aa0f3f6ab1da6726b4de44854cfbbdc182e0d8",
+   "branch": "perf/bancada",
+   "sujo": false
+  },
+  "host": {
+   "nproc": 20,
+   "nproc_disponivel": 20,
+   "loadavg": [
+    3.12,
+    2.27,
+    2.62
+   ],
+   "python": "3.12.3",
+   "aiohttp": "3.14.5",
+   "sistema": "Linux-6.17.0-1033-oem-x86_64-with-glibc2.39"
+  },
+  "parametros": {
+   "amostras_frias": 3,
+   "quentes": 5,
+   "paralelo_frias": 1,
+   "conexoes": [
+    1,
+    10,
+    50,
+    200
+   ],
+   "alunos": [
+    "auto",
+    "1"
+   ],
+   "alunos_max": 50,
+   "requisicoes": 0,
+   "duracao": 30.0,
+   "aquecer": false,
+   "login_paralelo": 20,
+   "timeout": 120,
+   "rapido": false,
+   "rotas": [
+    "/v1/historico",
+    "/v1/indices",
+    "/v1/integralizacao",
+    "/v1/matricula",
+    "/v1/turmas",
+    "/v1/portal",
+    "/v1/me",
+    "/v1/grade-curricular",
+    "/v1/planejamento/matricula",
+    "/v1/notas",
+    "/v1/frequencia",
+    "/v1/turmas/{turma_id}/notas",
+    "/v1/turmas/{turma_id}",
+    "/v1/documentos/comprovante-inscricao",
+    "/v1/publico/turmas?ano={ano}&periodo={periodo}&unidade={unidade}",
+    "/v1/publico/componentes/{componente_id}",
+    "/v1/publico/cursos/{curso_id}",
+    "/v1/publico/cursos/{curso_id}/estruturas/{estrutura_id}",
+    "/v1/publico/cursos/{curso_id}/calendario"
+   ],
+   "rotas_carga": [
+    "/v1/historico",
+    "/v1/turmas",
+    "/v1/notas",
+    "/v1/publico/componentes/{componente_id}"
+   ]
+  },
+  "params": {
+   "ano": "2026",
+   "periodo": "2",
+   "codigo": "MATA37",
+   "componente_id": "44697",
+   "curso_id": "1876885",
+   "estrutura_id": "2421505",
+   "unidade": "1114",
+   "turma_id": "393420"
+  },
+  "descoberta": {
+   "login": "200",
+   "/v1/turmas-virtuais": "200",
+   "turma_id_de": "/v1/turmas-virtuais"
+  },
+  "mock_stats_fria_quente": {
+   "requisicoes": 1317,
+   "logins": 42,
+   "total_misses": 0,
+   "pico_concorrencia": 1,
+   "viewstate_invalido": 0,
+   "expiradas": 0,
+   "sessoes": 135,
+   "status": {
+    "200": 1173,
+    "302": 144
+   },
+   "por_regra": {
+    "get:/sigaa/portais/discente/turmas.jsf": 204,
+    "portal": 165,
+    "tv:abrir": 144,
+    "login:tela": 84,
+    "tv:ver notas": 72,
+    "get:/sigaa/mobile/touch/menu.jsf": 60,
+    "clique:portal/mobile_home.html:lnkMinhasTurmas": 60,
+    "clique:turma_virtual/turmas_mobile.html:lnkVerTodas": 60,
+    "tv:frequência": 54,
+    "login:ok": 42,
+    "login:aviso": 42,
+    "login:aviso_ok": 42,
+    "logout": 42,
+    "menu:matriculaGraduacao.verComprovanteSolicitacoes": 18,
+    "menu:portalDiscente.atestadoMatricula": 18,
+    "get:/sigaa/public/turmas/listar.jsf": 18,
+    "submit:consultas/publico/turmas_form:formTurma": 18,
+    "get:visualizarComponente": 18,
+    "get:/sigaa/public/componentes/resumo.jsf": 18,
+    "get:/sigaa/public/curso/portal.jsf": 18,
+    "get:/sigaa/public/curso/curriculo.jsf": 18,
+    "clique:consultas/publico/curso_curriculos.html:": 18,
+    "get:/sigaa/public/curso/calendario.jsf": 18,
+    "menu:portalDiscente.historico": 15,
+    "menu:curriculo.popularBuscaGeral": 12,
+    "submit:consultas/estrutura:busca:j_id": 12,
+    "submit:consultas/estrutura:busca:curso": 6,
+    "clique:consultas/estruturas_busca.html:resultado:relatorio": 6,
+    "clique:consultas/estruturas_busca.html:resultado:detalhar": 6,
+    "menu:buscaTurmaBean.popularBuscaGeral": 6,
+    "submit:consultas/turmas_busca:form:buttonBuscar": 3
+   },
+   "misses": []
+  },
+  "tempo_total_s": 2572.5
+ },
+ "login_frio": {
+  "n": 42,
+  "p50": 3024.2,
+  "p95": 3142.2,
+  "p99": 3184.6,
+  "min": 2894.1,
+  "max": 3191.7,
+  "media": 3026.7,
+  "status": {
+   "200": 42
+  }
+ },
+ "login_carga": {
+  "n": 342,
+  "p50": 3203.2,
+  "p95": 3619.8,
+  "p99": 3656.3,
+  "min": 2883.6,
+  "max": 3786.3,
+  "media": 3245.6,
+  "status": {
+   "200": 342
+  }
+ },
+ "fria_quente": [
+  {
+   "rota": "/v1/historico",
+   "url": "/v1/historico",
+   "publica": false,
+   "fria": {
+    "n": 3,
+    "p50": 4721.5,
+    "p95": 4779.5,
+    "p99": 4784.7,
+    "min": 4441.4,
+    "max": 4786.0,
+    "media": 4649.7,
+    "status": {
+     "200": 3
+    },
+    "ms_todas": [
+     4441.4,
+     4721.5,
+     4786.0
+    ],
+    "bytes_medio": 19662,
+    "erros": []
+   },
+   "quente": {
+    "n": 15,
+    "p50": 0.7,
+    "p95": 1.8,
+    "p99": 2.0,
+    "min": 0.5,
+    "max": 2.1,
+    "media": 0.8,
+    "status": {
+     "200": 15
+    },
+    "ms_todas": [
+     2.1,
+     0.6,
+     0.5,
+     0.5,
+     0.5,
+     1.6,
+     0.7,
+     0.9,
+     0.5,
+     0.5,
+     0.9,
+     0.7,
+     0.8,
+     0.6,
+     0.7
+    ],
+    "bytes_medio": 19662,
+    "erros": []
+   }
+  },
+  {
+   "rota": "/v1/indices",
+   "url": "/v1/indices",
+   "publica": false,
+   "fria": {
+    "n": 3,
+    "p50": 4780.8,
+    "p95": 5011.7,
+    "p99": 5032.3,
+    "min": 4654.8,
+    "max": 5037.4,
+    "media": 4824.3,
+    "status": {
+     "200": 3
+    },
+    "ms_todas": [
+     5037.4,
+     4780.8,
+     4654.8
+    ],
+    "bytes_medio": 1994,
+    "erros": []
+   },
+   "quente": {
+    "n": 15,
+    "p50": 0.5,
+    "p95": 1.0,
+    "p99": 1.0,
+    "min": 0.2,
+    "max": 1.0,
+    "media": 0.6,
+    "status": {
+     "200": 15
+    },
+    "ms_todas": [
+     0.8,
+     0.3,
+     0.2,
+     0.2,
+     0.2,
+     0.7,
+     0.5,
+     0.4,
+     0.6,
+     0.6,
+     1.0,
+     0.5,
+     0.5,
+     0.6,
+     1.0
+    ],
+    "bytes_medio": 1994,
+    "erros": []
+   }
+  },
+  {
+   "rota": "/v1/integralizacao",
+   "url": "/v1/integralizacao",
+   "publica": false,
+   "fria": {
+    "n": 3,
+    "p50": 4813.1,
+    "p95": 4926.3,
+    "p99": 4936.4,
+    "min": 4463.2,
+    "max": 4938.9,
+    "media": 4738.4,
+    "status": {
+     "200": 3
+    },
+    "ms_todas": [
+     4813.1,
+     4938.9,
+     4463.2
+    ],
+    "bytes_medio": 834,
+    "erros": []
+   },
+   "quente": {
+    "n": 15,
+    "p50": 0.7,
+    "p95": 1.1,
+    "p99": 1.3,
+    "min": 0.2,
+    "max": 1.3,
+    "media": 0.6,
+    "status": {
+     "200": 15
+    },
+    "ms_todas": [
+     0.8,
+     0.4,
+     0.3,
+     0.3,
+     0.2,
+     0.8,
+     1.3,
+     1.1,
+     0.7,
+     0.7,
+     0.9,
+     0.5,
+     0.7,
+     0.6,
+     0.5
+    ],
+    "bytes_medio": 834,
+    "erros": []
+   }
+  },
+  {
+   "rota": "/v1/matricula",
+   "url": "/v1/matricula",
+   "publica": false,
+   "fria": {
+    "n": 3,
+    "p50": 1393.7,
+    "p95": 1460.3,
+    "p99": 1466.3,
+    "min": 1370.3,
+    "max": 1467.7,
+    "media": 1410.6,
+    "status": {
+     "200": 3
+    },
+    "ms_todas": [
+     1370.3,
+     1467.7,
+     1393.7
+    ],
+    "bytes_medio": 4072,
+    "erros": []
+   },
+   "quente": {
+    "n": 15,
+    "p50": 1388.9,
+    "p95": 1440.6,
+    "p99": 1443.4,
+    "min": 1319.8,
+    "max": 1444.0,
+    "media": 1390.3,
+    "status": {
+     "200": 15
+    },
+    "ms_todas": [
+     1439.2,
+     1375.8,
+     1391.6,
+     1391.8,
+     1426.5,
+     1414.2,
+     1384.8,
+     1319.8,
+     1404.4,
+     1383.3,
+     1359.1,
+     1388.9,
+     1343.8,
+     1444.0,
+     1387.9
+    ],
+    "bytes_medio": 4072,
+    "erros": []
+   }
+  },
+  {
+   "rota": "/v1/turmas",
+   "url": "/v1/turmas",
+   "publica": false,
+   "fria": {
+    "n": 3,
+    "p50": 3586.6,
+    "p95": 3602.8,
+    "p99": 3604.2,
+    "min": 3481.0,
+    "max": 3604.6,
+    "media": 3557.4,
+    "status": {
+     "200": 3
+    },
+    "ms_todas": [
+     3586.6,
+     3481.0,
+     3604.6
+    ],
+    "bytes_medio": 29970,
+    "erros": []
+   },
+   "quente": {
+    "n": 15,
+    "p50": 3501.8,
+    "p95": 3600.2,
+    "p99": 3617.4,
+    "min": 3391.5,
+    "max": 3621.7,
+    "media": 3518.7,
+    "status": {
+     "200": 15
+    },
+    "ms_todas": [
+     3499.8,
+     3490.8,
+     3584.7,
+     3621.7,
+     3391.5,
+     3548.7,
+     3498.4,
+     3555.9,
+     3590.0,
+     3476.8,
+     3432.4,
+     3590.9,
+     3428.5,
+     3567.9,
+     3501.8
+    ],
+    "bytes_medio": 29970,
+    "erros": []
+   }
+  },
+  {
+   "rota": "/v1/portal",
+   "url": "/v1/portal",
+   "publica": false,
+   "fria": {
+    "n": 3,
+    "p50": 680.1,
+    "p95": 718.8,
+    "p99": 722.2,
+    "min": 669.3,
+    "max": 723.1,
+    "media": 690.8,
+    "status": {
+     "200": 3
+    },
+    "ms_todas": [
+     680.1,
+     669.3,
+     723.1
+    ],
+    "bytes_medio": 6071,
+    "erros": []
+   },
+   "quente": {
+    "n": 15,
+    "p50": 706.9,
+    "p95": 743.9,
+    "p99": 745.6,
+    "min": 658.0,
+    "max": 746.0,
+    "media": 704.5,
+    "status": {
+     "200": 15
+    },
+    "ms_todas": [
+     679.9,
+     727.3,
+     666.3,
+     739.1,
+     692.4,
+     658.0,
+     746.0,
+     682.8,
+     711.0,
+     697.9,
+     743.0,
+     706.9,
+     720.7,
+     717.6,
+     678.8
+    ],
+    "bytes_medio": 6071,
+    "erros": []
+   }
+  },
+  {
+   "rota": "/v1/me",
+   "url": "/v1/me",
+   "publica": false,
+   "fria": {
+    "n": 3,
+    "p50": 720.8,
+    "p95": 725.6,
+    "p99": 726.0,
+    "min": 678.9,
+    "max": 726.1,
+    "media": 708.6,
+    "status": {
+     "200": 3
+    },
+    "ms_todas": [
+     726.1,
+     720.8,
+     678.9
+    ],
+    "bytes_medio": 866,
+    "erros": []
+   },
+   "quente": {
+    "n": 15,
+    "p50": 692.7,
+    "p95": 746.1,
+    "p99": 751.8,
+    "min": 616.3,
+    "max": 753.3,
+    "media": 695.0,
+    "status": {
+     "200": 15
+    },
+    "ms_todas": [
+     713.1,
+     743.0,
+     692.7,
+     753.3,
+     616.3,
+     679.1,
+     659.7,
+     678.9,
+     664.0,
+     710.0,
+     703.2,
+     731.2,
+     663.3,
+     742.7,
+     674.8
+    ],
+    "bytes_medio": 866,
+    "erros": []
+   }
+  },
+  {
+   "rota": "/v1/grade-curricular",
+   "url": "/v1/grade-curricular",
+   "publica": false,
+   "fria": {
+    "n": 3,
+    "p50": 11062.1,
+    "p95": 11199.7,
+    "p99": 11211.9,
+    "min": 11032.7,
+    "max": 11215.0,
+    "media": 11103.3,
+    "status": {
+     "200": 3
+    },
+    "ms_todas": [
+     11215.0,
+     11062.1,
+     11032.7
+    ],
+    "bytes_medio": 44793,
+    "erros": []
+   },
+   "quente": {
+    "n": 15,
+    "p50": 1.8,
+    "p95": 2.3,
+    "p99": 2.3,
+    "min": 1.5,
+    "max": 2.3,
+    "media": 1.9,
+    "status": {
+     "200": 15
+    },
+    "ms_todas": [
+     1.7,
+     1.5,
+     1.5,
+     1.6,
+     1.6,
+     2.2,
+     2.2,
+     1.7,
+     1.8,
+     2.3,
+     2.2,
+     2.0,
+     1.8,
+     1.8,
+     1.9
+    ],
+    "bytes_medio": 44793,
+    "erros": []
+   }
+  },
+  {
+   "rota": "/v1/planejamento/matricula",
+   "url": "/v1/planejamento/matricula",
+   "publica": false,
+   "fria": {
+    "n": 3,
+    "p50": 14483.3,
+    "p95": 14645.9,
+    "p99": 14660.4,
+    "min": 14115.5,
+    "max": 14664.0,
+    "media": 14420.9,
+    "status": {
+     "200": 3
+    },
+    "ms_todas": [
+     14664.0,
+     14115.5,
+     14483.3
+    ],
+    "bytes_medio": 558,
+    "erros": []
+   },
+   "quente": {
+    "n": 15,
+    "p50": 1.9,
+    "p95": 2.4,
+    "p99": 2.4,
+    "min": 1.8,
+    "max": 2.4,
+    "media": 2.0,
+    "status": {
+     "200": 15
+    },
+    "ms_todas": [
+     2.3,
+     2.0,
+     1.8,
+     1.9,
+     2.0,
+     2.4,
+     1.9,
+     1.9,
+     1.9,
+     1.9,
+     2.4,
+     1.9,
+     1.9,
+     1.8,
+     1.9
+    ],
+    "bytes_medio": 558,
+    "erros": []
+   }
+  },
+  {
+   "rota": "/v1/notas",
+   "url": "/v1/notas",
+   "publica": false,
+   "fria": {
+    "n": 3,
+    "p50": 9149.1,
+    "p95": 9241.0,
+    "p99": 9249.2,
+    "min": 9137.0,
+    "max": 9251.2,
+    "media": 9179.1,
+    "status": {
+     "200": 3
+    },
+    "ms_todas": [
+     9251.2,
+     9137.0,
+     9149.1
+    ],
+    "bytes_medio": 2515,
+    "erros": []
+   },
+   "quente": {
+    "n": 15,
+    "p50": 9151.4,
+    "p95": 9270.9,
+    "p99": 9281.5,
+    "min": 8926.3,
+    "max": 9284.2,
+    "media": 9148.0,
+    "status": {
+     "200": 15
+    },
+    "ms_todas": [
+     9198.0,
+     9151.4,
+     9071.1,
+     9159.4,
+     9284.2,
+     9137.3,
+     9137.8,
+     9198.4,
+     9188.0,
+     9045.2,
+     9221.5,
+     9102.8,
+     8926.3,
+     9265.1,
+     9132.8
+    ],
+    "bytes_medio": 2515,
+    "erros": []
+   }
+  },
+  {
+   "rota": "/v1/frequencia",
+   "url": "/v1/frequencia",
+   "publica": false,
+   "fria": {
+    "n": 3,
+    "p50": 9192.4,
+    "p95": 9338.5,
+    "p99": 9351.5,
+    "min": 9093.6,
+    "max": 9354.7,
+    "media": 9213.6,
+    "status": {
+     "200": 3
+    },
+    "ms_todas": [
+     9093.6,
+     9192.4,
+     9354.7
+    ],
+    "bytes_medio": 5206,
+    "erros": []
+   },
+   "quente": {
+    "n": 15,
+    "p50": 9152.8,
+    "p95": 9323.4,
+    "p99": 9339.0,
+    "min": 8983.6,
+    "max": 9342.9,
+    "media": 9159.2,
+    "status": {
+     "200": 15
+    },
+    "ms_todas": [
+     9049.9,
+     9134.9,
+     9199.0,
+     9107.8,
+     9315.0,
+     8983.6,
+     9231.7,
+     9342.9,
+     9041.1,
+     9260.2,
+     9012.3,
+     9271.0,
+     9069.1,
+     9152.8,
+     9216.7
+    ],
+    "bytes_medio": 5206,
+    "erros": []
+   }
+  },
+  {
+   "rota": "/v1/turmas/{turma_id}/notas",
+   "url": "/v1/turmas/393420/notas",
+   "publica": false,
+   "fria": {
+    "n": 3,
+    "p50": 4950.9,
+    "p95": 4979.8,
+    "p99": 4982.4,
+    "min": 4837.6,
+    "max": 4983.0,
+    "media": 4923.8,
+    "status": {
+     "200": 3
+    },
+    "ms_todas": [
+     4983.0,
+     4837.6,
+     4950.9
+    ],
+    "bytes_medio": 837,
+    "erros": []
+   },
+   "quente": {
+    "n": 15,
+    "p50": 2102.7,
+    "p95": 2169.7,
+    "p99": 2194.6,
+    "min": 2014.9,
+    "max": 2200.8,
+    "media": 2101.2,
+    "status": {
+     "200": 15
+    },
+    "ms_todas": [
+     2048.5,
+     2200.8,
+     2130.9,
+     2156.3,
+     2082.3,
+     2077.0,
+     2120.2,
+     2085.4,
+     2122.0,
+     2153.6,
+     2014.9,
+     2064.0,
+     2143.9,
+     2102.7,
+     2015.8
+    ],
+    "bytes_medio": 837,
+    "erros": []
+   }
+  },
+  {
+   "rota": "/v1/turmas/{turma_id}",
+   "url": "/v1/turmas/393420",
+   "publica": false,
+   "fria": {
+    "n": 3,
+    "p50": 4271.5,
+    "p95": 4300.9,
+    "p99": 4303.6,
+    "min": 4083.8,
+    "max": 4304.2,
+    "media": 4219.8,
+    "status": {
+     "200": 3
+    },
+    "ms_todas": [
+     4083.8,
+     4304.2,
+     4271.5
+    ],
+    "bytes_medio": 2639,
+    "erros": []
+   },
+   "quente": {
+    "n": 15,
+    "p50": 1408.7,
+    "p95": 1482.2,
+    "p99": 1499.8,
+    "min": 1295.0,
+    "max": 1504.2,
+    "media": 1401.3,
+    "status": {
+     "200": 15
+    },
+    "ms_todas": [
+     1504.2,
+     1351.7,
+     1382.8,
+     1423.3,
+     1419.4,
+     1356.6,
+     1456.3,
+     1295.0,
+     1391.7,
+     1386.1,
+     1408.7,
+     1472.8,
+     1342.0,
+     1419.3,
+     1409.5
+    ],
+    "bytes_medio": 2639,
+    "erros": []
+   }
+  },
+  {
+   "rota": "/v1/documentos/comprovante-inscricao",
+   "url": "/v1/documentos/comprovante-inscricao",
+   "publica": false,
+   "fria": {
+    "n": 3,
+    "p50": 1449.2,
+    "p95": 1468.9,
+    "p99": 1470.7,
+    "min": 1383.6,
+    "max": 1471.1,
+    "media": 1434.6,
+    "status": {
+     "200": 3
+    },
+    "ms_todas": [
+     1449.2,
+     1383.6,
+     1471.1
+    ],
+    "bytes_medio": 3899,
+    "erros": []
+   },
+   "quente": {
+    "n": 15,
+    "p50": 1403.4,
+    "p95": 1477.8,
+    "p99": 1482.2,
+    "min": 1329.1,
+    "max": 1483.3,
+    "media": 1411.9,
+    "status": {
+     "200": 15
+    },
+    "ms_todas": [
+     1400.3,
+     1458.8,
+     1401.3,
+     1434.5,
+     1441.0,
+     1329.1,
+     1374.9,
+     1373.5,
+     1483.3,
+     1446.9,
+     1422.7,
+     1403.4,
+     1475.5,
+     1360.4,
+     1373.1
+    ],
+    "bytes_medio": 3899,
+    "erros": []
+   }
+  },
+  {
+   "rota": "/v1/publico/turmas?ano={ano}&periodo={periodo}&unidade={unidade}",
+   "url": "/v1/publico/turmas?ano=2026&periodo=2&unidade=1114",
+   "publica": true,
+   "fria": {
+    "n": 3,
+    "p50": 698.9,
+    "p95": 709.7,
+    "p99": 710.7,
+    "min": 694.2,
+    "max": 710.9,
+    "media": 701.3,
+    "status": {
+     "200": 3
+    },
+    "ms_todas": [
+     710.9,
+     694.2,
+     698.9
+    ],
+    "bytes_medio": 32813,
+    "erros": []
+   },
+   "quente": {
+    "n": 15,
+    "p50": 701.3,
+    "p95": 783.1,
+    "p99": 796.0,
+    "min": 680.2,
+    "max": 799.2,
+    "media": 710.4,
+    "status": {
+     "200": 15
+    },
+    "ms_todas": [
+     680.2,
+     799.2,
+     690.2,
+     694.9,
+     718.8,
+     705.6,
+     695.3,
+     683.3,
+     717.5,
+     705.4,
+     776.3,
+     684.5,
+     701.3,
+     722.2,
+     680.8
+    ],
+    "bytes_medio": 32813,
+    "erros": []
+   }
+  },
+  {
+   "rota": "/v1/publico/componentes/{componente_id}",
+   "url": "/v1/publico/componentes/44697",
+   "publica": true,
+   "fria": {
+    "n": 3,
+    "p50": 253.6,
+    "p95": 259.0,
+    "p99": 259.4,
+    "min": 249.2,
+    "max": 259.5,
+    "media": 254.1,
+    "status": {
+     "200": 3
+    },
+    "ms_todas": [
+     249.2,
+     253.6,
+     259.5
+    ],
+    "bytes_medio": 11892,
+    "erros": []
+   },
+   "quente": {
+    "n": 15,
+    "p50": 282.5,
+    "p95": 312.6,
+    "p99": 352.4,
+    "min": 254.3,
+    "max": 362.3,
+    "media": 283.3,
+    "status": {
+     "200": 15
+    },
+    "ms_todas": [
+     254.3,
+     284.6,
+     278.3,
+     267.5,
+     288.2,
+     280.8,
+     287.0,
+     263.0,
+     291.3,
+     285.5,
+     286.2,
+     362.3,
+     267.9,
+     270.2,
+     282.5
+    ],
+    "bytes_medio": 11892,
+    "erros": []
+   }
+  },
+  {
+   "rota": "/v1/publico/cursos/{curso_id}",
+   "url": "/v1/publico/cursos/1876885",
+   "publica": true,
+   "fria": {
+    "n": 3,
+    "p50": 183.1,
+    "p95": 191.8,
+    "p99": 192.6,
+    "min": 170.6,
+    "max": 192.8,
+    "media": 182.2,
+    "status": {
+     "200": 3
+    },
+    "ms_todas": [
+     183.1,
+     170.6,
+     192.8
+    ],
+    "bytes_medio": 928,
+    "erros": []
+   },
+   "quente": {
+    "n": 15,
+    "p50": 179.3,
+    "p95": 191.4,
+    "p99": 195.9,
+    "min": 163.5,
+    "max": 197.0,
+    "media": 179.5,
+    "status": {
+     "200": 15
+    },
+    "ms_todas": [
+     186.4,
+     185.3,
+     180.2,
+     170.7,
+     189.1,
+     186.8,
+     178.4,
+     179.3,
+     181.4,
+     177.3,
+     170.8,
+     163.5,
+     197.0,
+     174.6,
+     172.4
+    ],
+    "bytes_medio": 928,
+    "erros": []
+   }
+  },
+  {
+   "rota": "/v1/publico/cursos/{curso_id}/estruturas/{estrutura_id}",
+   "url": "/v1/publico/cursos/1876885/estruturas/2421505",
+   "publica": true,
+   "fria": {
+    "n": 3,
+    "p50": 1301.1,
+    "p95": 1306.3,
+    "p99": 1306.8,
+    "min": 1270.7,
+    "max": 1306.9,
+    "media": 1292.9,
+    "status": {
+     "200": 3
+    },
+    "ms_todas": [
+     1306.9,
+     1301.1,
+     1270.7
+    ],
+    "bytes_medio": 22152,
+    "erros": []
+   },
+   "quente": {
+    "n": 15,
+    "p50": 1305.2,
+    "p95": 1364.8,
+    "p99": 1366.6,
+    "min": 1244.6,
+    "max": 1367.0,
+    "media": 1308.0,
+    "status": {
+     "200": 15
+    },
+    "ms_todas": [
+     1363.9,
+     1296.5,
+     1306.0,
+     1273.0,
+     1349.1,
+     1256.9,
+     1336.8,
+     1335.3,
+     1305.2,
+     1244.6,
+     1273.2,
+     1367.0,
+     1302.0,
+     1278.1,
+     1332.0
+    ],
+    "bytes_medio": 22152,
+    "erros": []
+   }
+  },
+  {
+   "rota": "/v1/publico/cursos/{curso_id}/calendario",
+   "url": "/v1/publico/cursos/1876885/calendario",
+   "publica": true,
+   "fria": {
+    "n": 3,
+    "p50": 181.5,
+    "p95": 188.9,
+    "p99": 189.5,
+    "min": 166.0,
+    "max": 189.7,
+    "media": 179.1,
+    "status": {
+     "200": 3
+    },
+    "ms_todas": [
+     181.5,
+     189.7,
+     166.0
+    ],
+    "bytes_medio": 1455,
+    "erros": []
+   },
+   "quente": {
+    "n": 15,
+    "p50": 175.5,
+    "p95": 186.7,
+    "p99": 186.9,
+    "min": 168.6,
+    "max": 187.0,
+    "media": 176.6,
+    "status": {
+     "200": 15
+    },
+    "ms_todas": [
+     178.9,
+     173.3,
+     172.1,
+     186.6,
+     168.6,
+     169.4,
+     187.0,
+     173.3,
+     180.6,
+     178.4,
+     183.1,
+     168.9,
+     174.9,
+     178.3,
+     175.5
+    ],
+    "bytes_medio": 1455,
+    "erros": []
+   }
+  }
+ ],
+ "carga": [
+  {
+   "rota": "/v1/historico",
+   "url": "/v1/historico",
+   "conexoes": 1,
+   "alunos": 1,
+   "publica": false,
+   "logins": {
+    "pedidos": 1,
+    "ok": 1,
+    "tempo_s": 2.91,
+    "n": 1,
+    "p50": 2905.3,
+    "p95": 2905.3,
+    "p99": 2905.3,
+    "min": 2905.3,
+    "max": 2905.3,
+    "media": 2905.3
+   },
+   "requisicoes": 71295,
+   "ok": 71295,
+   "tempo_s": 30.0,
+   "rps": 2376.49,
+   "rps_ok": 2376.49,
+   "latencia_ok": {
+    "n": 71295,
+    "p50": 0.3,
+    "p95": 0.7,
+    "p99": 1.0,
+    "min": 0.2,
+    "max": 4637.5,
+    "media": 0.4
+   },
+   "latencia_todas": {
+    "n": 71295,
+    "p50": 0.3,
+    "p95": 0.7,
+    "p99": 1.0,
+    "min": 0.2,
+    "max": 4637.5,
+    "media": 0.4
+   },
+   "status": {
+    "200": 71295
+   },
+   "erros": {},
+   "mock": {
+    "requisicoes": 2,
+    "logins": 0,
+    "total_misses": 0,
+    "pico_concorrencia": 1,
+    "viewstate_invalido": 0,
+    "expiradas": 0,
+    "sessoes": 52208,
+    "status": {
+     "200": 2
+    },
+    "por_regra": {
+     "portal": 1,
+     "menu:portalDiscente.historico": 1
+    },
+    "misses": []
+   },
+   "teto_cliente": {
+    "requisicoes": 198,
+    "ok": 198,
+    "tempo_s": 30.0,
+    "rps": 6.6,
+    "rps_ok": 6.6,
+    "latencia_ok": {
+     "n": 198,
+     "p50": 151.6,
+     "p95": 164.6,
+     "p99": 166.4,
+     "min": 135.4,
+     "max": 166.7,
+     "media": 151.5
+    },
+    "latencia_todas": {
+     "n": 198,
+     "p50": 151.6,
+     "p95": 164.6,
+     "p99": 166.4,
+     "min": 135.4,
+     "max": 166.7,
+     "media": 151.5
+    },
+    "status": {
+     "200": 198
+    },
+    "erros": {},
+    "url": "http://127.0.0.1:8117/sigaa/public/turmas/listar.jsf",
+    "ideal_rps": 6.6,
+    "eficiencia": 1.0
+   }
+  },
+  {
+   "rota": "/v1/historico",
+   "url": "/v1/historico",
+   "conexoes": 10,
+   "alunos": 10,
+   "publica": false,
+   "logins": {
+    "pedidos": 10,
+    "ok": 10,
+    "tempo_s": 3.37,
+    "n": 10,
+    "p50": 3328.7,
+    "p95": 3357.0,
+    "p99": 3367.3,
+    "min": 3197.7,
+    "max": 3369.9,
+    "media": 3317.3
+   },
+   "requisicoes": 121150,
+   "ok": 121150,
+   "tempo_s": 30.0,
+   "rps": 4038.08,
+   "rps_ok": 4038.08,
+   "latencia_ok": {
+    "n": 121150,
+    "p50": 1.7,
+    "p95": 3.5,
+    "p99": 3.7,
+    "min": 0.4,
+    "max": 6722.5,
+    "media": 2.5
+   },
+   "latencia_todas": {
+    "n": 121150,
+    "p50": 1.7,
+    "p95": 3.5,
+    "p99": 3.7,
+    "min": 0.4,
+    "max": 6722.5,
+    "media": 2.5
+   },
+   "status": {
+    "200": 121150
+   },
+   "erros": {},
+   "mock": {
+    "requisicoes": 20,
+    "logins": 0,
+    "total_misses": 0,
+    "pico_concorrencia": 10,
+    "viewstate_invalido": 0,
+    "expiradas": 0,
+    "sessoes": 52218,
+    "status": {
+     "200": 20
+    },
+    "por_regra": {
+     "portal": 10,
+     "menu:portalDiscente.historico": 10
+    },
+    "misses": []
+   },
+   "teto_cliente": {
+    "requisicoes": 1995,
+    "ok": 1995,
+    "tempo_s": 30.11,
+    "rps": 66.25,
+    "rps_ok": 66.25,
+    "latencia_ok": {
+     "n": 1995,
+     "p50": 150.8,
+     "p95": 164.5,
+     "p99": 166.0,
+     "min": 134.9,
+     "max": 178.1,
+     "media": 150.7
+    },
+    "latencia_todas": {
+     "n": 1995,
+     "p50": 150.8,
+     "p95": 164.5,
+     "p99": 166.0,
+     "min": 134.9,
+     "max": 178.1,
+     "media": 150.7
+    },
+    "status": {
+     "200": 1995
+    },
+    "erros": {},
+    "url": "http://127.0.0.1:8117/sigaa/public/turmas/listar.jsf",
+    "ideal_rps": 66.3,
+    "eficiencia": 1.0
+   }
+  },
+  {
+   "rota": "/v1/historico",
+   "url": "/v1/historico",
+   "conexoes": 10,
+   "alunos": 1,
+   "publica": false,
+   "logins": {
+    "pedidos": 1,
+    "ok": 1,
+    "tempo_s": 3.15,
+    "n": 1,
+    "p50": 3151.2,
+    "p95": 3151.2,
+    "p99": 3151.2,
+    "min": 3151.2,
+    "max": 3151.2,
+    "media": 3151.2
+   },
+   "requisicoes": 117725,
+   "ok": 117725,
+   "tempo_s": 30.0,
+   "rps": 3923.9,
+   "rps_ok": 3923.9,
+   "latencia_ok": {
+    "n": 117725,
+    "p50": 1.9,
+    "p95": 3.8,
+    "p99": 4.2,
+    "min": 0.4,
+    "max": 5009.3,
+    "media": 2.5
+   },
+   "latencia_todas": {
+    "n": 117725,
+    "p50": 1.9,
+    "p95": 3.8,
+    "p99": 4.2,
+    "min": 0.4,
+    "max": 5009.3,
+    "media": 2.5
+   },
+   "status": {
+    "200": 117725
+   },
+   "erros": {},
+   "mock": {
+    "requisicoes": 2,
+    "logins": 0,
+    "total_misses": 0,
+    "pico_concorrencia": 1,
+    "viewstate_invalido": 0,
+    "expiradas": 0,
+    "sessoes": 52219,
+    "status": {
+     "200": 2
+    },
+    "por_regra": {
+     "portal": 1,
+     "menu:portalDiscente.historico": 1
+    },
+    "misses": []
+   },
+   "teto_cliente": {
+    "requisicoes": 1995,
+    "ok": 1995,
+    "tempo_s": 30.11,
+    "rps": 66.25,
+    "rps_ok": 66.25,
+    "latencia_ok": {
+     "n": 1995,
+     "p50": 150.8,
+     "p95": 164.5,
+     "p99": 166.0,
+     "min": 134.9,
+     "max": 178.1,
+     "media": 150.7
+    },
+    "latencia_todas": {
+     "n": 1995,
+     "p50": 150.8,
+     "p95": 164.5,
+     "p99": 166.0,
+     "min": 134.9,
+     "max": 178.1,
+     "media": 150.7
+    },
+    "status": {
+     "200": 1995
+    },
+    "erros": {},
+    "url": "http://127.0.0.1:8117/sigaa/public/turmas/listar.jsf",
+    "ideal_rps": 66.3,
+    "eficiencia": 1.0
+   }
+  },
+  {
+   "rota": "/v1/historico",
+   "url": "/v1/historico",
+   "conexoes": 50,
+   "alunos": 50,
+   "publica": false,
+   "logins": {
+    "pedidos": 50,
+    "ok": 50,
+    "tempo_s": 10.1,
+    "n": 50,
+    "p50": 3363.0,
+    "p95": 3624.2,
+    "p99": 3707.5,
+    "min": 3014.6,
+    "max": 3786.3,
+    "media": 3370.4
+   },
+   "requisicoes": 53838,
+   "ok": 53838,
+   "tempo_s": 30.01,
+   "rps": 1793.95,
+   "rps_ok": 1793.95,
+   "latencia_ok": {
+    "n": 53838,
+    "p50": 10.9,
+    "p95": 12.3,
+    "p99": 22.1,
+    "min": 8.9,
+    "max": 18105.8,
+    "media": 27.9
+   },
+   "latencia_todas": {
+    "n": 53838,
+    "p50": 10.9,
+    "p95": 12.3,
+    "p99": 22.1,
+    "min": 8.9,
+    "max": 18105.8,
+    "media": 27.9
+   },
+   "status": {
+    "200": 53838
+   },
+   "erros": {},
+   "mock": {
+    "requisicoes": 100,
+    "logins": 0,
+    "total_misses": 0,
+    "pico_concorrencia": 50,
+    "viewstate_invalido": 0,
+    "expiradas": 0,
+    "sessoes": 52269,
+    "status": {
+     "200": 100
+    },
+    "por_regra": {
+     "portal": 50,
+     "menu:portalDiscente.historico": 50
+    },
+    "misses": []
+   },
+   "teto_cliente": {
+    "requisicoes": 9995,
+    "ok": 9995,
+    "tempo_s": 30.16,
+    "rps": 331.43,
+    "rps_ok": 331.43,
+    "latencia_ok": {
+     "n": 9995,
+     "p50": 150.5,
+     "p95": 164.1,
+     "p99": 165.5,
+     "min": 134.4,
+     "max": 168.3,
+     "media": 150.5
+    },
+    "latencia_todas": {
+     "n": 9995,
+     "p50": 150.5,
+     "p95": 164.1,
+     "p99": 165.5,
+     "min": 134.4,
+     "max": 168.3,
+     "media": 150.5
+    },
+    "status": {
+     "200": 9995
+    },
+    "erros": {},
+    "url": "http://127.0.0.1:8117/sigaa/public/turmas/listar.jsf",
+    "ideal_rps": 332.2,
+    "eficiencia": 1.0
+   }
+  },
+  {
+   "rota": "/v1/historico",
+   "url": "/v1/historico",
+   "conexoes": 50,
+   "alunos": 1,
+   "publica": false,
+   "logins": {
+    "pedidos": 1,
+    "ok": 1,
+    "tempo_s": 2.99,
+    "n": 1,
+    "p50": 2993.1,
+    "p95": 2993.1,
+    "p99": 2993.1,
+    "min": 2993.1,
+    "max": 2993.1,
+    "media": 2993.1
+   },
+   "requisicoes": 128738,
+   "ok": 128738,
+   "tempo_s": 30.01,
+   "rps": 4289.92,
+   "rps_ok": 4289.92,
+   "latencia_ok": {
+    "n": 128738,
+    "p50": 9.6,
+    "p95": 11.1,
+    "p99": 19.1,
+    "min": 2.0,
+    "max": 4770.1,
+    "media": 11.7
+   },
+   "latencia_todas": {
+    "n": 128738,
+    "p50": 9.6,
+    "p95": 11.1,
+    "p99": 19.1,
+    "min": 2.0,
+    "max": 4770.1,
+    "media": 11.7
+   },
+   "status": {
+    "200": 128738
+   },
+   "erros": {},
+   "mock": {
+    "requisicoes": 2,
+    "logins": 0,
+    "total_misses": 0,
+    "pico_concorrencia": 1,
+    "viewstate_invalido": 0,
+    "expiradas": 0,
+    "sessoes": 52270,
+    "status": {
+     "200": 2
+    },
+    "por_regra": {
+     "portal": 1,
+     "menu:portalDiscente.historico": 1
+    },
+    "misses": []
+   },
+   "teto_cliente": {
+    "requisicoes": 9995,
+    "ok": 9995,
+    "tempo_s": 30.16,
+    "rps": 331.43,
+    "rps_ok": 331.43,
+    "latencia_ok": {
+     "n": 9995,
+     "p50": 150.5,
+     "p95": 164.1,
+     "p99": 165.5,
+     "min": 134.4,
+     "max": 168.3,
+     "media": 150.5
+    },
+    "latencia_todas": {
+     "n": 9995,
+     "p50": 150.5,
+     "p95": 164.1,
+     "p99": 165.5,
+     "min": 134.4,
+     "max": 168.3,
+     "media": 150.5
+    },
+    "status": {
+     "200": 9995
+    },
+    "erros": {},
+    "url": "http://127.0.0.1:8117/sigaa/public/turmas/listar.jsf",
+    "ideal_rps": 332.2,
+    "eficiencia": 1.0
+   }
+  },
+  {
+   "rota": "/v1/historico",
+   "url": "/v1/historico",
+   "conexoes": 200,
+   "alunos": 50,
+   "publica": false,
+   "logins": {
+    "pedidos": 50,
+    "ok": 50,
+    "tempo_s": 10.0,
+    "n": 50,
+    "p50": 3375.3,
+    "p95": 3656.3,
+    "p99": 3656.5,
+    "min": 2984.0,
+    "max": 3656.5,
+    "media": 3345.2
+   },
+   "requisicoes": 41430,
+   "ok": 41430,
+   "tempo_s": 30.04,
+   "rps": 1379.21,
+   "rps_ok": 1379.21,
+   "latencia_ok": {
+    "n": 41430,
+    "p50": 50.9,
+    "p95": 140.0,
+    "p99": 151.3,
+    "min": 11.3,
+    "max": 18070.1,
+    "media": 144.9
+   },
+   "latencia_todas": {
+    "n": 41430,
+    "p50": 50.9,
+    "p95": 140.0,
+    "p99": 151.3,
+    "min": 11.3,
+    "max": 18070.1,
+    "media": 144.9
+   },
+   "status": {
+    "200": 41430
+   },
+   "erros": {},
+   "mock": {
+    "requisicoes": 100,
+    "logins": 0,
+    "total_misses": 0,
+    "pico_concorrencia": 50,
+    "viewstate_invalido": 0,
+    "expiradas": 0,
+    "sessoes": 52320,
+    "status": {
+     "200": 100
+    },
+    "por_regra": {
+     "portal": 50,
+     "menu:portalDiscente.historico": 50
+    },
+    "misses": []
+   },
+   "teto_cliente": {
+    "requisicoes": 39884,
+    "ok": 39884,
+    "tempo_s": 30.15,
+    "rps": 1322.78,
+    "rps_ok": 1322.78,
+    "latencia_ok": {
+     "n": 39884,
+     "p50": 150.7,
+     "p95": 164.2,
+     "p99": 165.8,
+     "min": 134.3,
+     "max": 232.8,
+     "media": 150.8
+    },
+    "latencia_todas": {
+     "n": 39884,
+     "p50": 150.7,
+     "p95": 164.2,
+     "p99": 165.8,
+     "min": 134.3,
+     "max": 232.8,
+     "media": 150.8
+    },
+    "status": {
+     "200": 39884
+    },
+    "erros": {},
+    "url": "http://127.0.0.1:8117/sigaa/public/turmas/listar.jsf",
+    "ideal_rps": 1327.1,
+    "eficiencia": 1.0
+   }
+  },
+  {
+   "rota": "/v1/historico",
+   "url": "/v1/historico",
+   "conexoes": 200,
+   "alunos": 1,
+   "publica": false,
+   "logins": {
+    "pedidos": 1,
+    "ok": 1,
+    "tempo_s": 2.98,
+    "n": 1,
+    "p50": 2976.2,
+    "p95": 2976.2,
+    "p99": 2976.2,
+    "min": 2976.2,
+    "max": 2976.2,
+    "media": 2976.2
+   },
+   "requisicoes": 115815,
+   "ok": 115815,
+   "tempo_s": 30.04,
+   "rps": 3855.15,
+   "rps_ok": 3855.15,
+   "latencia_ok": {
+    "n": 115815,
+    "p50": 42.1,
+    "p95": 51.5,
+    "p99": 109.2,
+    "min": 10.1,
+    "max": 4853.6,
+    "media": 51.8
+   },
+   "latencia_todas": {
+    "n": 115815,
+    "p50": 42.1,
+    "p95": 51.5,
+    "p99": 109.2,
+    "min": 10.1,
+    "max": 4853.6,
+    "media": 51.8
+   },
+   "status": {
+    "200": 115815
+   },
+   "erros": {},
+   "mock": {
+    "requisicoes": 2,
+    "logins": 0,
+    "total_misses": 0,
+    "pico_concorrencia": 1,
+    "viewstate_invalido": 0,
+    "expiradas": 0,
+    "sessoes": 52321,
+    "status": {
+     "200": 2
+    },
+    "por_regra": {
+     "portal": 1,
+     "menu:portalDiscente.historico": 1
+    },
+    "misses": []
+   },
+   "teto_cliente": {
+    "requisicoes": 39884,
+    "ok": 39884,
+    "tempo_s": 30.15,
+    "rps": 1322.78,
+    "rps_ok": 1322.78,
+    "latencia_ok": {
+     "n": 39884,
+     "p50": 150.7,
+     "p95": 164.2,
+     "p99": 165.8,
+     "min": 134.3,
+     "max": 232.8,
+     "media": 150.8
+    },
+    "latencia_todas": {
+     "n": 39884,
+     "p50": 150.7,
+     "p95": 164.2,
+     "p99": 165.8,
+     "min": 134.3,
+     "max": 232.8,
+     "media": 150.8
+    },
+    "status": {
+     "200": 39884
+    },
+    "erros": {},
+    "url": "http://127.0.0.1:8117/sigaa/public/turmas/listar.jsf",
+    "ideal_rps": 1327.1,
+    "eficiencia": 1.0
+   }
+  },
+  {
+   "rota": "/v1/turmas",
+   "url": "/v1/turmas",
+   "conexoes": 1,
+   "alunos": 1,
+   "publica": false,
+   "logins": {
+    "pedidos": 1,
+    "ok": 1,
+    "tempo_s": 3.07,
+    "n": 1,
+    "p50": 3072.5,
+    "p95": 3072.5,
+    "p99": 3072.5,
+    "min": 3072.5,
+    "max": 3072.5,
+    "media": 3072.5
+   },
+   "requisicoes": 9,
+   "ok": 9,
+   "tempo_s": 31.79,
+   "rps": 0.28,
+   "rps_ok": 0.28,
+   "latencia_ok": {
+    "n": 9,
+    "p50": 3541.9,
+    "p95": 3583.6,
+    "p99": 3583.6,
+    "min": 3391.5,
+    "max": 3583.6,
+    "media": 3531.7
+   },
+   "latencia_todas": {
+    "n": 9,
+    "p50": 3541.9,
+    "p95": 3583.6,
+    "p99": 3583.6,
+    "min": 3391.5,
+    "max": 3583.6,
+    "media": 3531.7
+   },
+   "status": {
+    "200": 9
+   },
+   "erros": {},
+   "mock": {
+    "requisicoes": 45,
+    "logins": 0,
+    "total_misses": 0,
+    "pico_concorrencia": 1,
+    "viewstate_invalido": 0,
+    "expiradas": 0,
+    "sessoes": 52322,
+    "status": {
+     "200": 45
+    },
+    "por_regra": {
+     "portal": 9,
+     "get:/sigaa/portais/discente/turmas.jsf": 9,
+     "get:/sigaa/mobile/touch/menu.jsf": 9,
+     "clique:portal/mobile_home.html:lnkMinhasTurmas": 9,
+     "clique:turma_virtual/turmas_mobile.html:lnkVerTodas": 9
+    },
+    "misses": []
+   },
+   "teto_cliente": {
+    "requisicoes": 198,
+    "ok": 198,
+    "tempo_s": 30.0,
+    "rps": 6.6,
+    "rps_ok": 6.6,
+    "latencia_ok": {
+     "n": 198,
+     "p50": 151.6,
+     "p95": 164.6,
+     "p99": 166.4,
+     "min": 135.4,
+     "max": 166.7,
+     "media": 151.5
+    },
+    "latencia_todas": {
+     "n": 198,
+     "p50": 151.6,
+     "p95": 164.6,
+     "p99": 166.4,
+     "min": 135.4,
+     "max": 166.7,
+     "media": 151.5
+    },
+    "status": {
+     "200": 198
+    },
+    "erros": {},
+    "url": "http://127.0.0.1:8117/sigaa/public/turmas/listar.jsf",
+    "ideal_rps": 6.6,
+    "eficiencia": 1.0
+   }
+  },
+  {
+   "rota": "/v1/turmas",
+   "url": "/v1/turmas",
+   "conexoes": 10,
+   "alunos": 10,
+   "publica": false,
+   "logins": {
+    "pedidos": 10,
+    "ok": 10,
+    "tempo_s": 3.3,
+    "n": 10,
+    "p50": 3191.9,
+    "p95": 3291.7,
+    "p99": 3301.0,
+    "min": 3099.8,
+    "max": 3303.3,
+    "media": 3197.0
+   },
+   "requisicoes": 90,
+   "ok": 90,
+   "tempo_s": 32.05,
+   "rps": 2.81,
+   "rps_ok": 2.81,
+   "latencia_ok": {
+    "n": 90,
+    "p50": 3525.2,
+    "p95": 3777.2,
+    "p99": 3794.9,
+    "min": 3197.8,
+    "max": 3823.8,
+    "media": 3520.6
+   },
+   "latencia_todas": {
+    "n": 90,
+    "p50": 3525.2,
+    "p95": 3777.2,
+    "p99": 3794.9,
+    "min": 3197.8,
+    "max": 3823.8,
+    "media": 3520.6
+   },
+   "status": {
+    "200": 90
+   },
+   "erros": {},
+   "mock": {
+    "requisicoes": 450,
+    "logins": 0,
+    "total_misses": 0,
+    "pico_concorrencia": 10,
+    "viewstate_invalido": 0,
+    "expiradas": 0,
+    "sessoes": 52332,
+    "status": {
+     "200": 450
+    },
+    "por_regra": {
+     "portal": 90,
+     "get:/sigaa/portais/discente/turmas.jsf": 90,
+     "get:/sigaa/mobile/touch/menu.jsf": 90,
+     "clique:portal/mobile_home.html:lnkMinhasTurmas": 90,
+     "clique:turma_virtual/turmas_mobile.html:lnkVerTodas": 90
+    },
+    "misses": []
+   },
+   "teto_cliente": {
+    "requisicoes": 1995,
+    "ok": 1995,
+    "tempo_s": 30.11,
+    "rps": 66.25,
+    "rps_ok": 66.25,
+    "latencia_ok": {
+     "n": 1995,
+     "p50": 150.8,
+     "p95": 164.5,
+     "p99": 166.0,
+     "min": 134.9,
+     "max": 178.1,
+     "media": 150.7
+    },
+    "latencia_todas": {
+     "n": 1995,
+     "p50": 150.8,
+     "p95": 164.5,
+     "p99": 166.0,
+     "min": 134.9,
+     "max": 178.1,
+     "media": 150.7
+    },
+    "status": {
+     "200": 1995
+    },
+    "erros": {},
+    "url": "http://127.0.0.1:8117/sigaa/public/turmas/listar.jsf",
+    "ideal_rps": 66.3,
+    "eficiencia": 1.0
+   }
+  },
+  {
+   "rota": "/v1/turmas",
+   "url": "/v1/turmas",
+   "conexoes": 10,
+   "alunos": 1,
+   "publica": false,
+   "logins": {
+    "pedidos": 1,
+    "ok": 1,
+    "tempo_s": 3.09,
+    "n": 1,
+    "p50": 3087.9,
+    "p95": 3087.9,
+    "p99": 3087.9,
+    "min": 3087.9,
+    "max": 3087.9,
+    "media": 3087.9
+   },
+   "requisicoes": 18,
+   "ok": 18,
+   "tempo_s": 62.98,
+   "rps": 0.29,
+   "rps_ok": 0.29,
+   "latencia_ok": {
+    "n": 18,
+    "p50": 33220.9,
+    "p95": 35104.9,
+    "p99": 35137.8,
+    "min": 3517.5,
+    "max": 35146.0,
+    "media": 26246.1
+   },
+   "latencia_todas": {
+    "n": 18,
+    "p50": 33220.9,
+    "p95": 35104.9,
+    "p99": 35137.8,
+    "min": 3517.5,
+    "max": 35146.0,
+    "media": 26246.1
+   },
+   "status": {
+    "200": 18
+   },
+   "erros": {},
+   "mock": {
+    "requisicoes": 90,
+    "logins": 0,
+    "total_misses": 0,
+    "pico_concorrencia": 1,
+    "viewstate_invalido": 0,
+    "expiradas": 0,
+    "sessoes": 52333,
+    "status": {
+     "200": 90
+    },
+    "por_regra": {
+     "portal": 18,
+     "get:/sigaa/portais/discente/turmas.jsf": 18,
+     "get:/sigaa/mobile/touch/menu.jsf": 18,
+     "clique:portal/mobile_home.html:lnkMinhasTurmas": 18,
+     "clique:turma_virtual/turmas_mobile.html:lnkVerTodas": 18
+    },
+    "misses": []
+   },
+   "teto_cliente": {
+    "requisicoes": 1995,
+    "ok": 1995,
+    "tempo_s": 30.11,
+    "rps": 66.25,
+    "rps_ok": 66.25,
+    "latencia_ok": {
+     "n": 1995,
+     "p50": 150.8,
+     "p95": 164.5,
+     "p99": 166.0,
+     "min": 134.9,
+     "max": 178.1,
+     "media": 150.7
+    },
+    "latencia_todas": {
+     "n": 1995,
+     "p50": 150.8,
+     "p95": 164.5,
+     "p99": 166.0,
+     "min": 134.9,
+     "max": 178.1,
+     "media": 150.7
+    },
+    "status": {
+     "200": 1995
+    },
+    "erros": {},
+    "url": "http://127.0.0.1:8117/sigaa/public/turmas/listar.jsf",
+    "ideal_rps": 66.3,
+    "eficiencia": 1.0
+   }
+  },
+  {
+   "rota": "/v1/turmas",
+   "url": "/v1/turmas",
+   "conexoes": 50,
+   "alunos": 50,
+   "publica": false,
+   "logins": {
+    "pedidos": 50,
+    "ok": 50,
+    "tempo_s": 9.54,
+    "n": 50,
+    "p50": 3123.9,
+    "p95": 3580.0,
+    "p99": 3626.4,
+    "min": 2883.6,
+    "max": 3626.5,
+    "media": 3196.2
+   },
+   "requisicoes": 386,
+   "ok": 386,
+   "tempo_s": 34.08,
+   "rps": 11.33,
+   "rps_ok": 11.33,
+   "latencia_ok": {
+    "n": 386,
+    "p50": 4241.7,
+    "p95": 4606.8,
+    "p99": 4732.7,
+    "min": 3696.4,
+    "max": 4782.9,
+    "media": 4245.2
+   },
+   "latencia_todas": {
+    "n": 386,
+    "p50": 4241.7,
+    "p95": 4606.8,
+    "p99": 4732.7,
+    "min": 3696.4,
+    "max": 4782.9,
+    "media": 4245.2
+   },
+   "status": {
+    "200": 386
+   },
+   "erros": {},
+   "mock": {
+    "requisicoes": 1930,
+    "logins": 0,
+    "total_misses": 0,
+    "pico_concorrencia": 50,
+    "viewstate_invalido": 0,
+    "expiradas": 0,
+    "sessoes": 52383,
+    "status": {
+     "200": 1930
+    },
+    "por_regra": {
+     "portal": 386,
+     "get:/sigaa/portais/discente/turmas.jsf": 386,
+     "get:/sigaa/mobile/touch/menu.jsf": 386,
+     "clique:portal/mobile_home.html:lnkMinhasTurmas": 386,
+     "clique:turma_virtual/turmas_mobile.html:lnkVerTodas": 386
+    },
+    "misses": []
+   },
+   "teto_cliente": {
+    "requisicoes": 9995,
+    "ok": 9995,
+    "tempo_s": 30.16,
+    "rps": 331.43,
+    "rps_ok": 331.43,
+    "latencia_ok": {
+     "n": 9995,
+     "p50": 150.5,
+     "p95": 164.1,
+     "p99": 165.5,
+     "min": 134.4,
+     "max": 168.3,
+     "media": 150.5
+    },
+    "latencia_todas": {
+     "n": 9995,
+     "p50": 150.5,
+     "p95": 164.1,
+     "p99": 165.5,
+     "min": 134.4,
+     "max": 168.3,
+     "media": 150.5
+    },
+    "status": {
+     "200": 9995
+    },
+    "erros": {},
+    "url": "http://127.0.0.1:8117/sigaa/public/turmas/listar.jsf",
+    "ideal_rps": 332.2,
+    "eficiencia": 1.0
+   }
+  },
+  {
+   "rota": "/v1/turmas",
+   "url": "/v1/turmas",
+   "conexoes": 50,
+   "alunos": 1,
+   "publica": false,
+   "logins": {
+    "pedidos": 1,
+    "ok": 1,
+    "tempo_s": 2.98,
+    "n": 1,
+    "p50": 2978.7,
+    "p95": 2978.7,
+    "p99": 2978.7,
+    "min": 2978.7,
+    "max": 2978.7,
+    "media": 2978.7
+   },
+   "requisicoes": 58,
+   "ok": 34,
+   "tempo_s": 148.59,
+   "rps": 0.39,
+   "rps_ok": 0.23,
+   "latencia_ok": {
+    "n": 34,
+    "p50": 61823.7,
+    "p95": 113904.0,
+    "p99": 118577.7,
+    "min": 3426.5,
+    "max": 119745.0,
+    "media": 61734.4
+   },
+   "latencia_todas": {
+    "n": 58,
+    "p50": 103958.6,
+    "p95": 120591.8,
+    "p99": 120779.1,
+    "min": 3426.5,
+    "max": 120914.9,
+    "media": 86064.1
+   },
+   "status": {
+    "200": 34,
+    "timeout": 24
+   },
+   "erros": {
+    "timeout": 24
+   },
+   "mock": {
+    "requisicoes": 211,
+    "logins": 0,
+    "total_misses": 0,
+    "pico_concorrencia": 1,
+    "viewstate_invalido": 0,
+    "expiradas": 0,
+    "sessoes": 52384,
+    "status": {
+     "200": 211
+    },
+    "por_regra": {
+     "portal": 43,
+     "get:/sigaa/portais/discente/turmas.jsf": 42,
+     "get:/sigaa/mobile/touch/menu.jsf": 42,
+     "clique:portal/mobile_home.html:lnkMinhasTurmas": 42,
+     "clique:turma_virtual/turmas_mobile.html:lnkVerTodas": 42
+    },
+    "misses": []
+   },
+   "teto_cliente": {
+    "requisicoes": 9995,
+    "ok": 9995,
+    "tempo_s": 30.16,
+    "rps": 331.43,
+    "rps_ok": 331.43,
+    "latencia_ok": {
+     "n": 9995,
+     "p50": 150.5,
+     "p95": 164.1,
+     "p99": 165.5,
+     "min": 134.4,
+     "max": 168.3,
+     "media": 150.5
+    },
+    "latencia_todas": {
+     "n": 9995,
+     "p50": 150.5,
+     "p95": 164.1,
+     "p99": 165.5,
+     "min": 134.4,
+     "max": 168.3,
+     "media": 150.5
+    },
+    "status": {
+     "200": 9995
+    },
+    "erros": {},
+    "url": "http://127.0.0.1:8117/sigaa/public/turmas/listar.jsf",
+    "ideal_rps": 332.2,
+    "eficiencia": 1.0
+   }
+  },
+  {
+   "rota": "/v1/turmas",
+   "url": "/v1/turmas",
+   "conexoes": 200,
+   "alunos": 50,
+   "publica": false,
+   "logins": {
+    "pedidos": 50,
+    "ok": 50,
+    "tempo_s": 9.66,
+    "n": 50,
+    "p50": 3150.5,
+    "p95": 3598.5,
+    "p99": 3599.8,
+    "min": 2897.0,
+    "max": 3600.0,
+    "media": 3218.7
+   },
+   "requisicoes": 550,
+   "ok": 550,
+   "tempo_s": 45.99,
+   "rps": 11.96,
+   "rps_ok": 11.96,
+   "latencia_ok": {
+    "n": 550,
+    "p50": 16530.2,
+    "p95": 17190.1,
+    "p99": 17365.5,
+    "min": 3542.1,
+    "max": 17516.7,
+    "media": 14358.1
+   },
+   "latencia_todas": {
+    "n": 550,
+    "p50": 16530.2,
+    "p95": 17190.1,
+    "p99": 17365.5,
+    "min": 3542.1,
+    "max": 17516.7,
+    "media": 14358.1
+   },
+   "status": {
+    "200": 550
+   },
+   "erros": {},
+   "mock": {
+    "requisicoes": 2750,
+    "logins": 0,
+    "total_misses": 0,
+    "pico_concorrencia": 50,
+    "viewstate_invalido": 0,
+    "expiradas": 0,
+    "sessoes": 52434,
+    "status": {
+     "200": 2750
+    },
+    "por_regra": {
+     "portal": 550,
+     "get:/sigaa/portais/discente/turmas.jsf": 550,
+     "get:/sigaa/mobile/touch/menu.jsf": 550,
+     "clique:portal/mobile_home.html:lnkMinhasTurmas": 550,
+     "clique:turma_virtual/turmas_mobile.html:lnkVerTodas": 550
+    },
+    "misses": []
+   },
+   "teto_cliente": {
+    "requisicoes": 39884,
+    "ok": 39884,
+    "tempo_s": 30.15,
+    "rps": 1322.78,
+    "rps_ok": 1322.78,
+    "latencia_ok": {
+     "n": 39884,
+     "p50": 150.7,
+     "p95": 164.2,
+     "p99": 165.8,
+     "min": 134.3,
+     "max": 232.8,
+     "media": 150.8
+    },
+    "latencia_todas": {
+     "n": 39884,
+     "p50": 150.7,
+     "p95": 164.2,
+     "p99": 165.8,
+     "min": 134.3,
+     "max": 232.8,
+     "media": 150.8
+    },
+    "status": {
+     "200": 39884
+    },
+    "erros": {},
+    "url": "http://127.0.0.1:8117/sigaa/public/turmas/listar.jsf",
+    "ideal_rps": 1327.1,
+    "eficiencia": 1.0
+   }
+  },
+  {
+   "rota": "/v1/turmas",
+   "url": "/v1/turmas",
+   "conexoes": 200,
+   "alunos": 1,
+   "publica": false,
+   "logins": {
+    "pedidos": 1,
+    "ok": 1,
+    "tempo_s": 2.98,
+    "n": 1,
+    "p50": 2984.7,
+    "p95": 2984.7,
+    "p99": 2984.7,
+    "min": 2984.7,
+    "max": 2984.7,
+    "media": 2984.7
+   },
+   "requisicoes": 208,
+   "ok": 34,
+   "tempo_s": 148.86,
+   "rps": 1.4,
+   "rps_ok": 0.23,
+   "latencia_ok": {
+    "n": 34,
+    "p50": 61256.7,
+    "p95": 113430.5,
+    "p99": 118066.0,
+    "min": 3582.3,
+    "max": 119229.7,
+    "media": 61306.5
+   },
+   "latencia_todas": {
+    "n": 208,
+    "p50": 120851.2,
+    "p95": 120855.7,
+    "p99": 120856.5,
+    "min": 3582.3,
+    "max": 120883.5,
+    "media": 111106.9
+   },
+   "status": {
+    "200": 34,
+    "timeout": 174
+   },
+   "erros": {
+    "timeout": 174
+   },
+   "mock": {
+    "requisicoes": 212,
+    "logins": 0,
+    "total_misses": 0,
+    "pico_concorrencia": 1,
+    "viewstate_invalido": 0,
+    "expiradas": 0,
+    "sessoes": 52435,
+    "status": {
+     "200": 212
+    },
+    "por_regra": {
+     "portal": 43,
+     "get:/sigaa/portais/discente/turmas.jsf": 43,
+     "get:/sigaa/mobile/touch/menu.jsf": 42,
+     "clique:portal/mobile_home.html:lnkMinhasTurmas": 42,
+     "clique:turma_virtual/turmas_mobile.html:lnkVerTodas": 42
+    },
+    "misses": []
+   },
+   "teto_cliente": {
+    "requisicoes": 39884,
+    "ok": 39884,
+    "tempo_s": 30.15,
+    "rps": 1322.78,
+    "rps_ok": 1322.78,
+    "latencia_ok": {
+     "n": 39884,
+     "p50": 150.7,
+     "p95": 164.2,
+     "p99": 165.8,
+     "min": 134.3,
+     "max": 232.8,
+     "media": 150.8
+    },
+    "latencia_todas": {
+     "n": 39884,
+     "p50": 150.7,
+     "p95": 164.2,
+     "p99": 165.8,
+     "min": 134.3,
+     "max": 232.8,
+     "media": 150.8
+    },
+    "status": {
+     "200": 39884
+    },
+    "erros": {},
+    "url": "http://127.0.0.1:8117/sigaa/public/turmas/listar.jsf",
+    "ideal_rps": 1327.1,
+    "eficiencia": 1.0
+   }
+  },
+  {
+   "rota": "/v1/notas",
+   "url": "/v1/notas",
+   "conexoes": 1,
+   "alunos": 1,
+   "publica": false,
+   "logins": {
+    "pedidos": 1,
+    "ok": 1,
+    "tempo_s": 2.95,
+    "n": 1,
+    "p50": 2952.0,
+    "p95": 2952.0,
+    "p99": 2952.0,
+    "min": 2952.0,
+    "max": 2952.0,
+    "media": 2952.0
+   },
+   "requisicoes": 4,
+   "ok": 4,
+   "tempo_s": 36.78,
+   "rps": 0.11,
+   "rps_ok": 0.11,
+   "latencia_ok": {
+    "n": 4,
+    "p50": 9204.4,
+    "p95": 9233.1,
+    "p99": 9236.5,
+    "min": 9136.4,
+    "max": 9237.4,
+    "media": 9195.7
+   },
+   "latencia_todas": {
+    "n": 4,
+    "p50": 9204.4,
+    "p95": 9233.1,
+    "p99": 9236.5,
+    "min": 9136.4,
+    "max": 9237.4,
+    "media": 9195.7
+   },
+   "status": {
+    "200": 4
+   },
+   "erros": {},
+   "mock": {
+    "requisicoes": 52,
+    "logins": 0,
+    "total_misses": 0,
+    "pico_concorrencia": 1,
+    "viewstate_invalido": 0,
+    "expiradas": 0,
+    "sessoes": 52437,
+    "status": {
+     "200": 52
+    },
+    "por_regra": {
+     "get:/sigaa/portais/discente/turmas.jsf": 16,
+     "tv:abrir": 12,
+     "tv:ver notas": 12,
+     "get:/sigaa/mobile/touch/menu.jsf": 4,
+     "clique:portal/mobile_home.html:lnkMinhasTurmas": 4,
+     "clique:turma_virtual/turmas_mobile.html:lnkVerTodas": 4
+    },
+    "misses": []
+   },
+   "teto_cliente": {
+    "requisicoes": 198,
+    "ok": 198,
+    "tempo_s": 30.0,
+    "rps": 6.6,
+    "rps_ok": 6.6,
+    "latencia_ok": {
+     "n": 198,
+     "p50": 151.6,
+     "p95": 164.6,
+     "p99": 166.4,
+     "min": 135.4,
+     "max": 166.7,
+     "media": 151.5
+    },
+    "latencia_todas": {
+     "n": 198,
+     "p50": 151.6,
+     "p95": 164.6,
+     "p99": 166.4,
+     "min": 135.4,
+     "max": 166.7,
+     "media": 151.5
+    },
+    "status": {
+     "200": 198
+    },
+    "erros": {},
+    "url": "http://127.0.0.1:8117/sigaa/public/turmas/listar.jsf",
+    "ideal_rps": 6.6,
+    "eficiencia": 1.0
+   }
+  },
+  {
+   "rota": "/v1/notas",
+   "url": "/v1/notas",
+   "conexoes": 10,
+   "alunos": 10,
+   "publica": false,
+   "logins": {
+    "pedidos": 10,
+    "ok": 10,
+    "tempo_s": 3.29,
+    "n": 10,
+    "p50": 3214.6,
+    "p95": 3279.0,
+    "p99": 3289.0,
+    "min": 3147.5,
+    "max": 3291.5,
+    "media": 3213.1
+   },
+   "requisicoes": 40,
+   "ok": 40,
+   "tempo_s": 37.24,
+   "rps": 1.07,
+   "rps_ok": 1.07,
+   "latencia_ok": {
+    "n": 40,
+    "p50": 9201.2,
+    "p95": 9474.5,
+    "p99": 9523.4,
+    "min": 8826.5,
+    "max": 9551.4,
+    "media": 9209.4
+   },
+   "latencia_todas": {
+    "n": 40,
+    "p50": 9201.2,
+    "p95": 9474.5,
+    "p99": 9523.4,
+    "min": 8826.5,
+    "max": 9551.4,
+    "media": 9209.4
+   },
+   "status": {
+    "200": 40
+   },
+   "erros": {},
+   "mock": {
+    "requisicoes": 520,
+    "logins": 0,
+    "total_misses": 0,
+    "pico_concorrencia": 10,
+    "viewstate_invalido": 0,
+    "expiradas": 0,
+    "sessoes": 52447,
+    "status": {
+     "200": 520
+    },
+    "por_regra": {
+     "get:/sigaa/portais/discente/turmas.jsf": 160,
+     "tv:abrir": 120,
+     "tv:ver notas": 120,
+     "get:/sigaa/mobile/touch/menu.jsf": 40,
+     "clique:portal/mobile_home.html:lnkMinhasTurmas": 40,
+     "clique:turma_virtual/turmas_mobile.html:lnkVerTodas": 40
+    },
+    "misses": []
+   },
+   "teto_cliente": {
+    "requisicoes": 1995,
+    "ok": 1995,
+    "tempo_s": 30.11,
+    "rps": 66.25,
+    "rps_ok": 66.25,
+    "latencia_ok": {
+     "n": 1995,
+     "p50": 150.8,
+     "p95": 164.5,
+     "p99": 166.0,
+     "min": 134.9,
+     "max": 178.1,
+     "media": 150.7
+    },
+    "latencia_todas": {
+     "n": 1995,
+     "p50": 150.8,
+     "p95": 164.5,
+     "p99": 166.0,
+     "min": 134.9,
+     "max": 178.1,
+     "media": 150.7
+    },
+    "status": {
+     "200": 1995
+    },
+    "erros": {},
+    "url": "http://127.0.0.1:8117/sigaa/public/turmas/listar.jsf",
+    "ideal_rps": 66.3,
+    "eficiencia": 1.0
+   }
+  },
+  {
+   "rota": "/v1/notas",
+   "url": "/v1/notas",
+   "conexoes": 10,
+   "alunos": 1,
+   "publica": false,
+   "logins": {
+    "pedidos": 1,
+    "ok": 1,
+    "tempo_s": 3.05,
+    "n": 1,
+    "p50": 3054.8,
+    "p95": 3054.8,
+    "p99": 3054.8,
+    "min": 3054.8,
+    "max": 3054.8,
+    "media": 3054.8
+   },
+   "requisicoes": 13,
+   "ok": 13,
+   "tempo_s": 118.77,
+   "rps": 0.11,
+   "rps_ok": 0.11,
+   "latencia_ok": {
+    "n": 13,
+    "p50": 63975.9,
+    "p95": 91453.2,
+    "p99": 91510.5,
+    "min": 9068.0,
+    "max": 91524.8,
+    "media": 59741.3
+   },
+   "latencia_todas": {
+    "n": 13,
+    "p50": 63975.9,
+    "p95": 91453.2,
+    "p99": 91510.5,
+    "min": 9068.0,
+    "max": 91524.8,
+    "media": 59741.3
+   },
+   "status": {
+    "200": 13
+   },
+   "erros": {},
+   "mock": {
+    "requisicoes": 169,
+    "logins": 0,
+    "total_misses": 0,
+    "pico_concorrencia": 1,
+    "viewstate_invalido": 0,
+    "expiradas": 0,
+    "sessoes": 52448,
+    "status": {
+     "200": 169
+    },
+    "por_regra": {
+     "get:/sigaa/portais/discente/turmas.jsf": 52,
+     "tv:abrir": 39,
+     "tv:ver notas": 39,
+     "get:/sigaa/mobile/touch/menu.jsf": 13,
+     "clique:portal/mobile_home.html:lnkMinhasTurmas": 13,
+     "clique:turma_virtual/turmas_mobile.html:lnkVerTodas": 13
+    },
+    "misses": []
+   },
+   "teto_cliente": {
+    "requisicoes": 1995,
+    "ok": 1995,
+    "tempo_s": 30.11,
+    "rps": 66.25,
+    "rps_ok": 66.25,
+    "latencia_ok": {
+     "n": 1995,
+     "p50": 150.8,
+     "p95": 164.5,
+     "p99": 166.0,
+     "min": 134.9,
+     "max": 178.1,
+     "media": 150.7
+    },
+    "latencia_todas": {
+     "n": 1995,
+     "p50": 150.8,
+     "p95": 164.5,
+     "p99": 166.0,
+     "min": 134.9,
+     "max": 178.1,
+     "media": 150.7
+    },
+    "status": {
+     "200": 1995
+    },
+    "erros": {},
+    "url": "http://127.0.0.1:8117/sigaa/public/turmas/listar.jsf",
+    "ideal_rps": 66.3,
+    "eficiencia": 1.0
+   }
+  },
+  {
+   "rota": "/v1/notas",
+   "url": "/v1/notas",
+   "conexoes": 50,
+   "alunos": 50,
+   "publica": false,
+   "logins": {
+    "pedidos": 50,
+    "ok": 50,
+    "tempo_s": 9.68,
+    "n": 50,
+    "p50": 3156.9,
+    "p95": 3516.1,
+    "p99": 3516.8,
+    "min": 2908.3,
+    "max": 3517.2,
+    "media": 3196.3
+   },
+   "requisicoes": 150,
+   "ok": 150,
+   "tempo_s": 35.2,
+   "rps": 4.26,
+   "rps_ok": 4.26,
+   "latencia_ok": {
+    "n": 150,
+    "p50": 11787.5,
+    "p95": 12027.5,
+    "p99": 12099.2,
+    "min": 11172.9,
+    "max": 12107.8,
+    "media": 11660.5
+   },
+   "latencia_todas": {
+    "n": 150,
+    "p50": 11787.5,
+    "p95": 12027.5,
+    "p99": 12099.2,
+    "min": 11172.9,
+    "max": 12107.8,
+    "media": 11660.5
+   },
+   "status": {
+    "200": 150
+   },
+   "erros": {},
+   "mock": {
+    "requisicoes": 1950,
+    "logins": 0,
+    "total_misses": 0,
+    "pico_concorrencia": 50,
+    "viewstate_invalido": 0,
+    "expiradas": 0,
+    "sessoes": 52498,
+    "status": {
+     "200": 1950
+    },
+    "por_regra": {
+     "get:/sigaa/portais/discente/turmas.jsf": 600,
+     "tv:abrir": 450,
+     "tv:ver notas": 450,
+     "get:/sigaa/mobile/touch/menu.jsf": 150,
+     "clique:portal/mobile_home.html:lnkMinhasTurmas": 150,
+     "clique:turma_virtual/turmas_mobile.html:lnkVerTodas": 150
+    },
+    "misses": []
+   },
+   "teto_cliente": {
+    "requisicoes": 9995,
+    "ok": 9995,
+    "tempo_s": 30.16,
+    "rps": 331.43,
+    "rps_ok": 331.43,
+    "latencia_ok": {
+     "n": 9995,
+     "p50": 150.5,
+     "p95": 164.1,
+     "p99": 165.5,
+     "min": 134.4,
+     "max": 168.3,
+     "media": 150.5
+    },
+    "latencia_todas": {
+     "n": 9995,
+     "p50": 150.5,
+     "p95": 164.1,
+     "p99": 165.5,
+     "min": 134.4,
+     "max": 168.3,
+     "media": 150.5
+    },
+    "status": {
+     "200": 9995
+    },
+    "erros": {},
+    "url": "http://127.0.0.1:8117/sigaa/public/turmas/listar.jsf",
+    "ideal_rps": 332.2,
+    "eficiencia": 1.0
+   }
+  },
+  {
+   "rota": "/v1/notas",
+   "url": "/v1/notas",
+   "conexoes": 50,
+   "alunos": 1,
+   "publica": false,
+   "logins": {
+    "pedidos": 1,
+    "ok": 1,
+    "tempo_s": 2.99,
+    "n": 1,
+    "p50": 2989.4,
+    "p95": 2989.4,
+    "p99": 2989.4,
+    "min": 2989.4,
+    "max": 2989.4,
+    "media": 2989.4
+   },
+   "requisicoes": 53,
+   "ok": 13,
+   "tempo_s": 147.38,
+   "rps": 0.36,
+   "rps_ok": 0.09,
+   "latencia_ok": {
+    "n": 13,
+    "p50": 64193.1,
+    "p95": 113731.7,
+    "p99": 118084.2,
+    "min": 9165.4,
+    "max": 119172.3,
+    "media": 64163.9
+   },
+   "latencia_todas": {
+    "n": 53,
+    "p50": 120370.6,
+    "p95": 120371.4,
+    "p99": 120371.6,
+    "min": 9165.4,
+    "max": 120371.6,
+    "media": 106571.0
+   },
+   "status": {
+    "200": 13,
+    "timeout": 40
+   },
+   "erros": {
+    "timeout": 40
+   },
+   "mock": {
+    "requisicoes": 209,
+    "logins": 0,
+    "total_misses": 0,
+    "pico_concorrencia": 1,
+    "viewstate_invalido": 0,
+    "expiradas": 0,
+    "sessoes": 52499,
+    "status": {
+     "200": 209
+    },
+    "por_regra": {
+     "get:/sigaa/portais/discente/turmas.jsf": 65,
+     "tv:abrir": 48,
+     "tv:ver notas": 48,
+     "get:/sigaa/mobile/touch/menu.jsf": 16,
+     "clique:portal/mobile_home.html:lnkMinhasTurmas": 16,
+     "clique:turma_virtual/turmas_mobile.html:lnkVerTodas": 16
+    },
+    "misses": []
+   },
+   "teto_cliente": {
+    "requisicoes": 9995,
+    "ok": 9995,
+    "tempo_s": 30.16,
+    "rps": 331.43,
+    "rps_ok": 331.43,
+    "latencia_ok": {
+     "n": 9995,
+     "p50": 150.5,
+     "p95": 164.1,
+     "p99": 165.5,
+     "min": 134.4,
+     "max": 168.3,
+     "media": 150.5
+    },
+    "latencia_todas": {
+     "n": 9995,
+     "p50": 150.5,
+     "p95": 164.1,
+     "p99": 165.5,
+     "min": 134.4,
+     "max": 168.3,
+     "media": 150.5
+    },
+    "status": {
+     "200": 9995
+    },
+    "erros": {},
+    "url": "http://127.0.0.1:8117/sigaa/public/turmas/listar.jsf",
+    "ideal_rps": 332.2,
+    "eficiencia": 1.0
+   }
+  },
+  {
+   "rota": "/v1/notas",
+   "url": "/v1/notas",
+   "conexoes": 200,
+   "alunos": 50,
+   "publica": false,
+   "logins": {
+    "pedidos": 50,
+    "ok": 50,
+    "tempo_s": 9.6,
+    "n": 50,
+    "p50": 3170.8,
+    "p95": 3497.9,
+    "p99": 3550.5,
+    "min": 2950.9,
+    "max": 3600.7,
+    "media": 3201.9
+   },
+   "requisicoes": 300,
+   "ok": 300,
+   "tempo_s": 70.9,
+   "rps": 4.23,
+   "rps_ok": 4.23,
+   "latencia_ok": {
+    "n": 300,
+    "p50": 40508.0,
+    "p95": 47568.0,
+    "p99": 47691.2,
+    "min": 10835.6,
+    "max": 47808.6,
+    "media": 35104.0
+   },
+   "latencia_todas": {
+    "n": 300,
+    "p50": 40508.0,
+    "p95": 47568.0,
+    "p99": 47691.2,
+    "min": 10835.6,
+    "max": 47808.6,
+    "media": 35104.0
+   },
+   "status": {
+    "200": 300
+   },
+   "erros": {},
+   "mock": {
+    "requisicoes": 3900,
+    "logins": 0,
+    "total_misses": 0,
+    "pico_concorrencia": 50,
+    "viewstate_invalido": 0,
+    "expiradas": 0,
+    "sessoes": 52549,
+    "status": {
+     "200": 3900
+    },
+    "por_regra": {
+     "get:/sigaa/portais/discente/turmas.jsf": 1200,
+     "tv:abrir": 900,
+     "tv:ver notas": 900,
+     "get:/sigaa/mobile/touch/menu.jsf": 300,
+     "clique:portal/mobile_home.html:lnkMinhasTurmas": 300,
+     "clique:turma_virtual/turmas_mobile.html:lnkVerTodas": 300
+    },
+    "misses": []
+   },
+   "teto_cliente": {
+    "requisicoes": 39884,
+    "ok": 39884,
+    "tempo_s": 30.15,
+    "rps": 1322.78,
+    "rps_ok": 1322.78,
+    "latencia_ok": {
+     "n": 39884,
+     "p50": 150.7,
+     "p95": 164.2,
+     "p99": 165.8,
+     "min": 134.3,
+     "max": 232.8,
+     "media": 150.8
+    },
+    "latencia_todas": {
+     "n": 39884,
+     "p50": 150.7,
+     "p95": 164.2,
+     "p99": 165.8,
+     "min": 134.3,
+     "max": 232.8,
+     "media": 150.8
+    },
+    "status": {
+     "200": 39884
+    },
+    "erros": {},
+    "url": "http://127.0.0.1:8117/sigaa/public/turmas/listar.jsf",
+    "ideal_rps": 1327.1,
+    "eficiencia": 1.0
+   }
+  },
+  {
+   "rota": "/v1/notas",
+   "url": "/v1/notas",
+   "conexoes": 200,
+   "alunos": 1,
+   "publica": false,
+   "logins": {
+    "pedidos": 1,
+    "ok": 1,
+    "tempo_s": 3.13,
+    "n": 1,
+    "p50": 3129.1,
+    "p95": 3129.1,
+    "p99": 3129.1,
+    "min": 3129.1,
+    "max": 3129.1,
+    "media": 3129.1
+   },
+   "requisicoes": 203,
+   "ok": 13,
+   "tempo_s": 147.89,
+   "rps": 1.37,
+   "rps_ok": 0.09,
+   "latencia_ok": {
+    "n": 13,
+    "p50": 64283.7,
+    "p95": 113221.2,
+    "p99": 117615.8,
+    "min": 9422.3,
+    "max": 118714.4,
+    "media": 64115.9
+   },
+   "latencia_todas": {
+    "n": 203,
+    "p50": 120873.6,
+    "p95": 120879.0,
+    "p99": 120879.4,
+    "min": 9422.3,
+    "max": 120880.1,
+    "media": 117231.6
+   },
+   "status": {
+    "200": 13,
+    "timeout": 190
+   },
+   "erros": {
+    "timeout": 190
+   },
+   "mock": {
+    "requisicoes": 210,
+    "logins": 0,
+    "total_misses": 0,
+    "pico_concorrencia": 1,
+    "viewstate_invalido": 0,
+    "expiradas": 0,
+    "sessoes": 52550,
+    "status": {
+     "200": 210
+    },
+    "por_regra": {
+     "get:/sigaa/portais/discente/turmas.jsf": 65,
+     "tv:abrir": 48,
+     "tv:ver notas": 48,
+     "get:/sigaa/mobile/touch/menu.jsf": 17,
+     "clique:portal/mobile_home.html:lnkMinhasTurmas": 16,
+     "clique:turma_virtual/turmas_mobile.html:lnkVerTodas": 16
+    },
+    "misses": []
+   },
+   "teto_cliente": {
+    "requisicoes": 39884,
+    "ok": 39884,
+    "tempo_s": 30.15,
+    "rps": 1322.78,
+    "rps_ok": 1322.78,
+    "latencia_ok": {
+     "n": 39884,
+     "p50": 150.7,
+     "p95": 164.2,
+     "p99": 165.8,
+     "min": 134.3,
+     "max": 232.8,
+     "media": 150.8
+    },
+    "latencia_todas": {
+     "n": 39884,
+     "p50": 150.7,
+     "p95": 164.2,
+     "p99": 165.8,
+     "min": 134.3,
+     "max": 232.8,
+     "media": 150.8
+    },
+    "status": {
+     "200": 39884
+    },
+    "erros": {},
+    "url": "http://127.0.0.1:8117/sigaa/public/turmas/listar.jsf",
+    "ideal_rps": 1327.1,
+    "eficiencia": 1.0
+   }
+  },
+  {
+   "rota": "/v1/publico/componentes/{componente_id}",
+   "url": "/v1/publico/componentes/44697",
+   "conexoes": 1,
+   "alunos": 0,
+   "publica": true,
+   "requisicoes": 110,
+   "ok": 110,
+   "tempo_s": 30.09,
+   "rps": 3.66,
+   "rps_ok": 3.66,
+   "latencia_ok": {
+    "n": 110,
+    "p50": 270.5,
+    "p95": 290.6,
+    "p99": 365.3,
+    "min": 249.4,
+    "max": 385.4,
+    "media": 273.5
+   },
+   "latencia_todas": {
+    "n": 110,
+    "p50": 270.5,
+    "p95": 290.6,
+    "p99": 365.3,
+    "min": 249.4,
+    "max": 385.4,
+    "media": 273.5
+   },
+   "status": {
+    "200": 110
+   },
+   "erros": {},
+   "mock": {
+    "requisicoes": 221,
+    "logins": 0,
+    "total_misses": 0,
+    "pico_concorrencia": 1,
+    "viewstate_invalido": 0,
+    "expiradas": 0,
+    "sessoes": 52661,
+    "status": {
+     "302": 111,
+     "200": 110
+    },
+    "por_regra": {
+     "get:visualizarComponente": 110,
+     "get:/sigaa/public/componentes/resumo.jsf": 110,
+     "sem_sessao": 1
+    },
+    "misses": []
+   },
+   "teto_cliente": {
+    "requisicoes": 198,
+    "ok": 198,
+    "tempo_s": 30.0,
+    "rps": 6.6,
+    "rps_ok": 6.6,
+    "latencia_ok": {
+     "n": 198,
+     "p50": 151.6,
+     "p95": 164.6,
+     "p99": 166.4,
+     "min": 135.4,
+     "max": 166.7,
+     "media": 151.5
+    },
+    "latencia_todas": {
+     "n": 198,
+     "p50": 151.6,
+     "p95": 164.6,
+     "p99": 166.4,
+     "min": 135.4,
+     "max": 166.7,
+     "media": 151.5
+    },
+    "status": {
+     "200": 198
+    },
+    "erros": {},
+    "url": "http://127.0.0.1:8117/sigaa/public/turmas/listar.jsf",
+    "ideal_rps": 6.6,
+    "eficiencia": 1.0
+   }
+  },
+  {
+   "rota": "/v1/publico/componentes/{componente_id}",
+   "url": "/v1/publico/componentes/44697",
+   "conexoes": 10,
+   "alunos": 0,
+   "publica": true,
+   "requisicoes": 338,
+   "ok": 338,
+   "tempo_s": 30.76,
+   "rps": 10.99,
+   "rps_ok": 10.99,
+   "latencia_ok": {
+    "n": 338,
+    "p50": 863.1,
+    "p95": 1135.6,
+    "p99": 1168.6,
+    "min": 393.7,
+    "max": 1185.1,
+    "media": 899.4
+   },
+   "latencia_todas": {
+    "n": 338,
+    "p50": 863.1,
+    "p95": 1135.6,
+    "p99": 1168.6,
+    "min": 393.7,
+    "max": 1185.1,
+    "media": 899.4
+   },
+   "status": {
+    "200": 338
+   },
+   "erros": {},
+   "mock": {
+    "requisicoes": 676,
+    "logins": 0,
+    "total_misses": 0,
+    "pico_concorrencia": 4,
+    "viewstate_invalido": 0,
+    "expiradas": 0,
+    "sessoes": 52999,
+    "status": {
+     "302": 338,
+     "200": 338
+    },
+    "por_regra": {
+     "get:visualizarComponente": 338,
+     "get:/sigaa/public/componentes/resumo.jsf": 338
+    },
+    "misses": []
+   },
+   "teto_cliente": {
+    "requisicoes": 1995,
+    "ok": 1995,
+    "tempo_s": 30.11,
+    "rps": 66.25,
+    "rps_ok": 66.25,
+    "latencia_ok": {
+     "n": 1995,
+     "p50": 150.8,
+     "p95": 164.5,
+     "p99": 166.0,
+     "min": 134.9,
+     "max": 178.1,
+     "media": 150.7
+    },
+    "latencia_todas": {
+     "n": 1995,
+     "p50": 150.8,
+     "p95": 164.5,
+     "p99": 166.0,
+     "min": 134.9,
+     "max": 178.1,
+     "media": 150.7
+    },
+    "status": {
+     "200": 1995
+    },
+    "erros": {},
+    "url": "http://127.0.0.1:8117/sigaa/public/turmas/listar.jsf",
+    "ideal_rps": 66.3,
+    "eficiencia": 1.0
+   }
+  },
+  {
+   "rota": "/v1/publico/componentes/{componente_id}",
+   "url": "/v1/publico/componentes/44697",
+   "conexoes": 50,
+   "alunos": 0,
+   "publica": true,
+   "requisicoes": 382,
+   "ok": 382,
+   "tempo_s": 34.38,
+   "rps": 11.11,
+   "rps_ok": 11.11,
+   "latencia_ok": {
+    "n": 382,
+    "p50": 4398.3,
+    "p95": 4711.3,
+    "p99": 4767.2,
+    "min": 323.5,
+    "max": 4806.3,
+    "media": 4219.7
+   },
+   "latencia_todas": {
+    "n": 382,
+    "p50": 4398.3,
+    "p95": 4711.3,
+    "p99": 4767.2,
+    "min": 323.5,
+    "max": 4806.3,
+    "media": 4219.7
+   },
+   "status": {
+    "200": 382
+   },
+   "erros": {},
+   "mock": {
+    "requisicoes": 764,
+    "logins": 0,
+    "total_misses": 0,
+    "pico_concorrencia": 4,
+    "viewstate_invalido": 0,
+    "expiradas": 0,
+    "sessoes": 53381,
+    "status": {
+     "302": 382,
+     "200": 382
+    },
+    "por_regra": {
+     "get:visualizarComponente": 382,
+     "get:/sigaa/public/componentes/resumo.jsf": 382
+    },
+    "misses": []
+   },
+   "teto_cliente": {
+    "requisicoes": 9995,
+    "ok": 9995,
+    "tempo_s": 30.16,
+    "rps": 331.43,
+    "rps_ok": 331.43,
+    "latencia_ok": {
+     "n": 9995,
+     "p50": 150.5,
+     "p95": 164.1,
+     "p99": 165.5,
+     "min": 134.4,
+     "max": 168.3,
+     "media": 150.5
+    },
+    "latencia_todas": {
+     "n": 9995,
+     "p50": 150.5,
+     "p95": 164.1,
+     "p99": 165.5,
+     "min": 134.4,
+     "max": 168.3,
+     "media": 150.5
+    },
+    "status": {
+     "200": 9995
+    },
+    "erros": {},
+    "url": "http://127.0.0.1:8117/sigaa/public/turmas/listar.jsf",
+    "ideal_rps": 332.2,
+    "eficiencia": 1.0
+   }
+  },
+  {
+   "rota": "/v1/publico/componentes/{componente_id}",
+   "url": "/v1/publico/componentes/44697",
+   "conexoes": 200,
+   "alunos": 0,
+   "publica": true,
+   "requisicoes": 528,
+   "ok": 528,
+   "tempo_s": 47.73,
+   "rps": 11.06,
+   "rps_ok": 11.06,
+   "latencia_ok": {
+    "n": 528,
+    "p50": 18005.5,
+    "p95": 18244.7,
+    "p99": 18295.8,
+    "min": 319.5,
+    "max": 18313.9,
+    "media": 14734.3
+   },
+   "latencia_todas": {
+    "n": 528,
+    "p50": 18005.5,
+    "p95": 18244.7,
+    "p99": 18295.8,
+    "min": 319.5,
+    "max": 18313.9,
+    "media": 14734.3
+   },
+   "status": {
+    "200": 528
+   },
+   "erros": {},
+   "mock": {
+    "requisicoes": 1056,
+    "logins": 0,
+    "total_misses": 0,
+    "pico_concorrencia": 4,
+    "viewstate_invalido": 0,
+    "expiradas": 0,
+    "sessoes": 53909,
+    "status": {
+     "302": 528,
+     "200": 528
+    },
+    "por_regra": {
+     "get:visualizarComponente": 528,
+     "get:/sigaa/public/componentes/resumo.jsf": 528
+    },
+    "misses": []
+   },
+   "teto_cliente": {
+    "requisicoes": 39884,
+    "ok": 39884,
+    "tempo_s": 30.15,
+    "rps": 1322.78,
+    "rps_ok": 1322.78,
+    "latencia_ok": {
+     "n": 39884,
+     "p50": 150.7,
+     "p95": 164.2,
+     "p99": 165.8,
+     "min": 134.3,
+     "max": 232.8,
+     "media": 150.8
+    },
+    "latencia_todas": {
+     "n": 39884,
+     "p50": 150.7,
+     "p95": 164.2,
+     "p99": 165.8,
+     "min": 134.3,
+     "max": 232.8,
+     "media": 150.8
+    },
+    "status": {
+     "200": 39884
+    },
+    "erros": {},
+    "url": "http://127.0.0.1:8117/sigaa/public/turmas/listar.jsf",
+    "ideal_rps": 1327.1,
+    "eficiencia": 1.0
+   }
+  }
+ ]
+}
