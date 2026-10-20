@@ -130,12 +130,14 @@ if config.GZIP_MIN_BYTES > 0:
     app.add_middleware(GZipMiddleware, minimum_size=config.GZIP_MIN_BYTES, compresslevel=5)
 # CORS: por padrão NENHUMA origem (a auth é Bearer/Basic, sem cookie: não há CSRF, mas um site qualquer não
 # precisa usar a API pelo navegador da vítima). SIGAA_API_CORS libera; credenciais nunca (allow_credentials=False)
+#: métodos liberados no CORS (PUT/PATCH: ações de escrita da frente feat/acoes)
+METODOS_CORS = ["GET", "POST", "PUT", "PATCH", "DELETE"]
 if config.CORS:
     app.add_middleware(
         CORSMiddleware,
         allow_origins=config.CORS,
         allow_credentials=False,
-        allow_methods=["GET", "POST", "DELETE"],
+        allow_methods=METODOS_CORS,
         allow_headers=["Authorization", "Content-Type", "If-None-Match", "Cache-Control", "Pragma"],
         expose_headers=["X-Cache", "Age", "X-Cache-Gerado-Em", "ETag", "Retry-After"],
         max_age=600,
