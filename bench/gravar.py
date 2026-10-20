@@ -187,6 +187,26 @@ ROTEIRO_PUBLICO = [
 ]
 
 
+async def roteiro_publico(api: str, grav: Gravador, reps: int) -> dict:
+    """Só páginas PÚBLICAS (sem login, nenhum dado pessoal): calibra a latência do SIGAA real."""
+    resultado: dict = {"api": api, "reps": [], "logins_s": [], "modo": "publico"}
+    async with aiohttp.ClientSession(timeout=aiohttp.ClientTimeout(total=300)) as h:
+        for rep in range(reps):
+            tempos = []
+            for alvo in ["__tela_login__"] + ROTEIRO_PUBLICO:
+                grav.marca = f"rep{rep}:{alvo}"
+                url = grav.base_local + "/sigaa/verTelaLogin.do" if alvo == "__tela_login__" else api + alvo
+                t = time.monotonic()
+                async with h.get(url) as r:
+                    dados = await r.read()
+                    st = r.status
+                dt = time.monotonic() - t
+                tempos.append({"rota": alvo, "url": alvo, "status": st, "s": round(dt, 3), "bytes": len(dados)})
+                print(f"  [{rep}] {st} {dt:6.2f}s {alvo}", flush=True)
+            resultado["reps"].append(tempos)
+    return resultado
+
+
 async def roteiro(api: str, grav: Gravador | None, reps: int, so: str | None) -> dict:
     sys.path.insert(0, str(RAIZ / "recon"))
     from sess import _cred  # noqa: E402 — lê do LastPass, nunca imprime
@@ -235,7 +255,7 @@ async def roteiro(api: str, grav: Gravador | None, reps: int, so: str | None) ->
             async with h.delete(api + "/v1/auth/sessao", headers=tok) as r:
                 await r.read()
             resultado["reps"].append(tempos)
-        if grav:  # como o SIGAA responde a uma sessão que não existe (1 requisição só)
+        if grav:  # como o SIGAA responde a uma sessão que não existe (1 requisição só, sem login)
             grav.marca = "sessao_invalida"
             async with h.get(grav.base_local + "/sigaa/verPortalDiscente.do", headers={"Cookie": "JSESSIONID=00000000000000000000000000000000"}, allow_redirects=True) as r:
                 await r.read()
@@ -271,7 +291,8 @@ async def cmd_tudo(a) -> None:
     api = subir_api(a.porta_api, grav.base_local)
     try:
         await esperar(f"http://127.0.0.1:{a.porta_api}")
-        res = await roteiro(f"http://127.0.0.1:{a.porta_api}", grav, a.reps, a.so)
+        api_url = f"http://127.0.0.1:{a.porta_api}"
+        res = await (roteiro_publico(api_url, grav, a.reps) if a.cmd == "publico" else roteiro(api_url, grav, a.reps, a.so))
         arq = saida / "calibracao.json"
         antigos = json.loads(arq.read_text()) if arq.exists() else []
         antigos.append({"quando": time.strftime("%Y-%m-%d %H:%M:%S"), **res})
@@ -307,11 +328,17 @@ def main() -> None:
     t.add_argument("--porta-proxy", type=int, default=8114)
     t.add_argument("--porta-api", type=int, default=8113)
     t.add_argument("--so", help="só as rotas que contêm este trecho")
+    pu = sub.add_parser("publico", help="só páginas públicas (sem login): calibração da latência")
+    pu.add_argument("--rotulo", default="publico")
+    pu.add_argument("--reps", type=int, default=3)
+    pu.add_argument("--porta-proxy", type=int, default=8114)
+    pu.add_argument("--porta-api", type=int, default=8113)
+    pu.add_argument("--so")
     p = sub.add_parser("proxy")
     p.add_argument("--rotulo", default="extra")
     p.add_argument("--porta", type=int, default=8114)
     a = ap.parse_args()
-    asyncio.run(cmd_tudo(a) if a.cmd == "tudo" else cmd_proxy(a))
+    asyncio.run(cmd_proxy(a) if a.cmd == "proxy" else cmd_tudo(a))
 
 
 if __name__ == "__main__":

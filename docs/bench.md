@@ -59,7 +59,8 @@ cache 8130–8139 · cpu 8140–8149 · orquestrador 8150–8159. **Nunca a 8000
 | `pdf` | 3,5 | histórico / declaração (o SIGAA gerando o PDF) |
 | `login` | 0,7 | o POST `logar.do` (login inteiro ≈ 3 s, como no real) |
 | `redirect` | 0,08 | 302 sem trabalho |
-| `publico` | 0,45 | telas públicas |
+| `publico` | 0,15 | telas públicas (medido: mediana 95 ms) |
+| `publico_pesado` | 0,45 | `curriculo.jsf` (medido ~430 ms) |
 | `ajax` | 0,25 | painéis `view_painel.jsf?ajaxRequest=true` |
 
 `--lat pdf=3.6 --lat padrao=0.5` muda uma classe; `--fator 0` zera tudo (mede só a CPU da API);
@@ -106,7 +107,7 @@ direto.** (Correção definitiva sugerida no código: `cliente_anonimo` usar `co
 
 * As telas são as MESMAS pra todo aluno (o mock não personaliza por usuário) e a turma virtual
   serve um conjunto fixo de páginas (a principal varia por turma entre 4 fixtures).
-* Latência dos fluxos LOGADOS vem do brief (medição anterior) — a calibração nova só pôde usar
+* Latência dos fluxos LOGADOS vem do brief (medição anterior) — a calibração nova (`bench/resultados/calibracao_sigaa_real.md`) só pôde usar
   páginas PÚBLICAS (o login com a credencial do Caio foi bloqueado pelo classificador de dados
   pessoais e o orquestrador decidiu não gravar telas logadas).
 * O PDF sintético tem 2 páginas/45 componentes: parse ≈ 220 ms (o real ≈ 300 ms).

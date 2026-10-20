@@ -59,7 +59,8 @@ LATENCIAS_PADRAO = {
     "pdf": 3.5,  # o SIGAA gerando o PDF do histórico/declaração
     "login": 0.7,  # POST logar.do; + 4 telas "padrao" + 2×0,25 s do min_interval do cliente ≈ 3 s no total
     "redirect": 0.08,  # 302 sem trabalho no servidor
-    "publico": 0.45,  # telas públicas (sem login)
+    "publico": 0.15,  # telas públicas (sem login) — medido 20/10/2026: mediana 95 ms, média ~170 ms
+    "publico_pesado": 0.45,  # curriculo.jsf (lista/estrutura do curso): medido ~430 ms
     "ajax": 0.25,  # respostas a4j (parciais)
 }
 
@@ -313,7 +314,7 @@ def _norm(s: str) -> str:
     return re.sub(r"\s+", " ", unicodedata.normalize("NFC", s or "")).strip().lower()
 
 
-CLIQUES: list[tuple[str, str, str]] = [
+CLIQUES: list[tuple] = [  # (origem, trecho, destino[, classe])
     ("portal/portal.html", "meusDadosPessoais", "portal/dados_pessoais.html"),
     ("portal/mobile_home.html", "lnkMinhasTurmas", "turma_virtual/turmas_mobile.html"),
     ("turma_virtual/turmas_mobile.html", "lnkVerTodas", "portal/mobile_turmas_todas.html"),
@@ -323,8 +324,8 @@ CLIQUES: list[tuple[str, str, str]] = [
     ("consultas/estruturas_busca.html", "resultado:declaracaoPrazoMaximo", "consultas/estrutura_declaracao.html"),
     ("consultas/calendario_lista.html", "'id'", "consultas/calendario.html"),
     ("consultas/componentes_busca.html", "", "consultas/componente_relatorio.html"),
-    ("consultas/publico/curso_curriculos.html", "Relat", "consultas/publico/estrutura_relatorio.html"),
-    ("consultas/publico/curso_curriculos.html", "", "consultas/publico/estrutura_detalhes.html"),
+    ("consultas/publico/curso_curriculos.html", "Relat", "consultas/publico/estrutura_relatorio.html", "publico_pesado"),
+    ("consultas/publico/curso_curriculos.html", "", "consultas/publico/estrutura_detalhes.html", "publico_pesado"),
     ("consultas/publico/componentes_busca", "", "consultas/publico/componente_detalhe_busca.html"),
 ]
 
@@ -338,12 +339,12 @@ GETS: dict[str, tuple[str, str]] = {  # caminho → (tela, classe)
     # públicas (sem login)
     "/sigaa/public/curso/lista.jsf": ("consultas/publico/curso_lista_G.html", "publico"),
     "/sigaa/public/curso/portal.jsf": ("consultas/publico/curso_portal.html", "publico"),
-    "/sigaa/public/curso/curriculo.jsf": ("consultas/publico/curso_curriculos.html", "publico"),
+    "/sigaa/public/curso/curriculo.jsf": ("consultas/publico/curso_curriculos.html", "publico_pesado"),
     "/sigaa/public/curso/calendario.jsf": ("consultas/publico/curso_calendario.html", "publico"),
     "/sigaa/public/curso/noticias.jsf": ("consultas/publico/curso_noticias.html", "publico"),
     "/sigaa/public/curso/ppp.jsf": ("consultas/publico/curso_ppp.html", "publico"),
     "/sigaa/public/componentes/busca_componentes.jsf": ("consultas/publico/componentes_busca_codigo.html", "publico"),
-    "/sigaa/link/public/ensino/visualizarComponente/": ("consultas/publico/componente_resumo_link.html", "publico"),
+    "/sigaa/public/componentes/resumo.jsf": ("consultas/publico/componente_resumo_link.html", "redirect"),
     "/sigaa/public/turmas/listar.jsf": ("consultas/publico/turmas_form.html", "publico"),
     "/sigaa/public/departamento/portal.jsf": ("consultas/publico/departamento_portal.html", "publico"),
     "/sigaa/public/departamento/professores.jsf": ("consultas/publico/departamento_professores.html", "publico"),
@@ -385,6 +386,8 @@ def rotear(c: Ctx) -> Resp | None:
             if chave in c.acao():
                 return tela(destino, f"menu:{chave}", classe)
         return None
+    if m == "GET" and p.startswith("/sigaa/link/public/ensino/visualizarComponente/"):  # o real responde 302
+        return redirect("/sigaa/public/componentes/resumo.jsf", "get:visualizarComponente", classe="publico")
     if m == "GET":
         alvo = GETS.get(p) or next((v for k, v in GETS.items() if k.endswith("/") and p.startswith(k)), None)
         if alvo:
@@ -405,13 +408,13 @@ def rotear(c: Ctx) -> Resp | None:
             dest = TV_MENU.get(_norm(ln["texto"]))
             if dest:
                 return tela(TV + dest, f"tv:{_norm(ln['texto'])}")
-        for o, trecho, dest in CLIQUES:
+        for o, trecho, dest, *cl in CLIQUES:
             if org.startswith(o) and (trecho in ln["onclick"] or trecho == ln["texto"]):
-                return tela(dest, f"clique:{o}:{trecho}")
+                return tela(dest, f"clique:{o}:{trecho}", cl[0] if cl else ("publico" if o.startswith("consultas/publico") else "padrao"))
     if m == "POST" and c.origem:
         for o, campo, dest in SUBMITS:
             if c.origem.startswith(o) and any(k.startswith(campo) for k in c.form):
-                return tela(dest, f"submit:{o}:{campo}")
+                return tela(dest, f"submit:{o}:{campo}", "publico" if o.startswith("consultas/publico") else "padrao")
     return None
 
 
@@ -422,12 +425,15 @@ PROTEGIDO = re.compile(r"^/sigaa/(portais|ava|mobile|graduacao|verPortalDiscente
 async def tratar(req: Request) -> Response:
     corpo = await req.body()
     caminho = req.url.path
+    sid_url = None
+    if ";jsessionid=" in caminho:  # o SIGAA real reescreve URL nas sessões anônimas
+        caminho, _, sid_url = caminho.partition(";jsessionid=")
     query = dict(parse_qsl(req.url.query, keep_blank_values=True))
     form = dict(parse_qsl(corpo.decode("iso-8859-1"), keep_blank_values=True)) if corpo and req.method == "POST" else {}
     STATS["req"][f"{req.method} {caminho}"] += 1
 
     agora = time.time()
-    sid = req.cookies.get("JSESSIONID")
+    sid = req.cookies.get("JSESSIONID") or sid_url
     sess = SESSOES.get(sid) if sid else None
     if sess and agora - sess.ultimo > CFG.ttl_sessao:
         SESSOES.pop(sess.id, None)
@@ -471,7 +477,7 @@ async def tratar(req: Request) -> Response:
     STATS["em_voo"] += 1
     STATS["pico"] = max(STATS["pico"], STATS["em_voo"])
     try:
-        dt = latencia(resp.classe if not caminho.startswith("/sigaa/public") or resp.classe != "padrao" else "publico")
+        dt = latencia(resp.classe)
         if _sem is not None:
             async with _sem:
                 if dt:
