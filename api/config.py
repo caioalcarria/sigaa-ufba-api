@@ -75,8 +75,26 @@ class Config:
     GZIP_MIN_BYTES: int = int(_num("SIGAA_API_GZIP_MIN_BYTES", 2048))
     #: limiares do coletor de lixo (gc.set_threshold) — o padrão do Python é 700,10,10
     GC_LIMIARES: tuple[int, ...] = tuple(int(x) for x in os.getenv("SIGAA_API_GC_LIMIARES", "50000,20,20").split(","))
-    #: origens liberadas no CORS (vírgula). "*" libera tudo.
-    CORS: list[str] = [o.strip() for o in os.getenv("SIGAA_API_CORS", "*").split(",") if o.strip()]
+    # ---- camada HTTP (ver docs/seguranca/http.md) ----
+    #: origens liberadas no CORS (vírgula). Vazio (padrão) = nenhuma: a API é chamada de servidor/script/app,
+    #: não do navegador de outro site. "*" libera qualquer origem (nunca junto com credenciais: a API não usa cookie).
+    CORS: list[str] = [o.strip() for o in os.getenv("SIGAA_API_CORS", "").split(",") if o.strip()]
+    #: maior corpo de requisição aceito (bytes); passou = 413. 0 = sem limite
+    MAX_CORPO_BYTES: int = int(_num("SIGAA_API_MAX_CORPO_BYTES", 64 * 1024))
+    #: maior caminho+query aceito (bytes); passou = 414. 0 = sem limite
+    MAX_URL_BYTES: int = int(_num("SIGAA_API_MAX_URL_BYTES", 8 * 1024))
+    #: cabeçalhos da requisição: soma de bytes e quantidade; passou = 431. 0 = sem limite
+    MAX_CABECALHOS_BYTES: int = int(_num("SIGAA_API_MAX_CABECALHOS_BYTES", 32 * 1024))
+    MAX_CABECALHOS: int = int(_num("SIGAA_API_MAX_CABECALHOS", 100))
+    #: Strict-Transport-Security: "auto" = só quando a requisição chegou por HTTPS (scope.scheme; atrás de
+    #: proxy, rode o uvicorn com --proxy-headers e --forwarded-allow-ips do proxy); "true" = sempre; "false" = nunca
+    HSTS: str = os.getenv("SIGAA_API_HSTS", "auto")
+    #: hosts aceitos no cabeçalho Host (vírgula; "*.exemplo.br" vale). Vazio (padrão) = qualquer um
+    HOSTS: list[str] = [h.strip() for h in os.getenv("SIGAA_API_HOSTS", "").split(",") if h.strip()]
+    #: publicar /docs, /redoc e /openapi.json (desligue em produção se não quiser expor o mapa da API)
+    DOCS: bool = _bool("SIGAA_API_DOCS", True)
+    #: maior foto repassada por /v1/fotos e /v1/me/foto (bytes); passou = 502
+    FOTO_MAX_BYTES: int = int(_num("SIGAA_API_FOTO_MAX_BYTES", 2 * 1024 * 1024))
 
 
 config = Config()
