@@ -75,6 +75,7 @@ app.add_middleware(
     allow_origins=config.CORS,
     allow_methods=["*"],
     allow_headers=["*"],
+    expose_headers=["X-Cache", "Age", "X-Cache-Gerado-Em", "ETag"],
 )
 
 for nome in ROTAS:
