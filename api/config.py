@@ -110,6 +110,8 @@ class Config:
     CORS: list[str] = [o.strip() for o in os.getenv("SIGAA_API_CORS", "").split(",") if o.strip()]
     #: maior corpo de requisição aceito (bytes); passou = 413. 0 = sem limite
     MAX_CORPO_BYTES: int = int(_num("SIGAA_API_MAX_CORPO_BYTES", 64 * 1024))
+    #: ... exceto nos uploads (PUT /v1/me/foto da frente de ações: foto de 2 MB em base64 ≈ 2,7 MB)
+    MAX_CORPO_UPLOAD_BYTES: int = int(_num("SIGAA_API_MAX_CORPO_UPLOAD_BYTES", 4 * 1024 * 1024))
     #: maior caminho+query aceito (bytes); passou = 414. 0 = sem limite
     MAX_URL_BYTES: int = int(_num("SIGAA_API_MAX_URL_BYTES", 8 * 1024))
     #: cabeçalhos da requisição: soma de bytes e quantidade; passou = 431. 0 = sem limite

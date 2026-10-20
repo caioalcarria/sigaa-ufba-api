@@ -193,6 +193,10 @@ def _json(status: int, codigo: str, mensagem: str, extra: list[tuple[bytes, byte
     return status, hs + (extra or []), corpo
 
 
+#: (método, caminho) que recebem arquivo no corpo: limite SIGAA_API_MAX_CORPO_UPLOAD_BYTES
+UPLOADS = {("PUT", "/v1/me/foto")}
+
+
 class SegurancaHTTP:
     """Middleware ASGI puro, o mais externo da pilha: limites (405/413/414/431) e cabeçalhos de segurança."""
 
@@ -209,6 +213,7 @@ class SegurancaHTTP:
     ) -> None:
         self.app = app
         self.max_corpo = config.MAX_CORPO_BYTES if max_corpo is None else max_corpo
+        self.max_upload = max(self.max_corpo, config.MAX_CORPO_UPLOAD_BYTES) if self.max_corpo > 0 else 0
         self.max_url = config.MAX_URL_BYTES if max_url is None else max_url
         self.max_cab_bytes = config.MAX_CABECALHOS_BYTES if max_cabecalhos_bytes is None else max_cabecalhos_bytes
         self.max_cab = config.MAX_CABECALHOS if max_cabecalhos is None else max_cabecalhos
@@ -234,12 +239,13 @@ class SegurancaHTTP:
         if recusa is not None:
             return await self._enviar_pronto(enviar, *recusa)
 
-        if self.max_corpo > 0:
+        max_corpo = self.max_upload if (scope.get("method"), path) in UPLOADS else self.max_corpo
+        if max_corpo > 0:
             hs = scope["headers"]
             cl = next((v for k, v in hs if k == b"content-length"), None)
             if cl is not None:
-                if cl.strip().isdigit() and int(cl) > self.max_corpo:
-                    return await self._enviar_pronto(enviar, *_json(413, "corpo_grande", f"Corpo da requisição passa de {self.max_corpo} bytes."))
+                if cl.strip().isdigit() and int(cl) > max_corpo:
+                    return await self._enviar_pronto(enviar, *_json(413, "corpo_grande", f"Corpo da requisição passa de {max_corpo} bytes."))
             elif any(k == b"transfer-encoding" for k, _ in hs):
                 # sem Content-Length (chunked): lê até o limite antes de deixar a app ver qualquer byte
                 partes, total = [], 0
@@ -249,8 +255,8 @@ class SegurancaHTTP:
                         return
                     corpo = m.get("body", b"")
                     total += len(corpo)
-                    if total > self.max_corpo:
-                        return await self._enviar_pronto(enviar, *_json(413, "corpo_grande", f"Corpo da requisição passa de {self.max_corpo} bytes."))
+                    if total > max_corpo:
+                        return await self._enviar_pronto(enviar, *_json(413, "corpo_grande", f"Corpo da requisição passa de {max_corpo} bytes."))
                     partes.append(corpo)
                     if not m.get("more_body"):
                         break
@@ -262,7 +268,7 @@ class SegurancaHTTP:
 
     def _recusar(self, scope):
         if scope.get("method", "GET").upper() in METODOS_BLOQUEADOS:
-            return _json(405, "metodo_nao_permitido", "Método não permitido.", [(b"allow", b"GET, POST, DELETE, OPTIONS")])
+            return _json(405, "metodo_nao_permitido", "Método não permitido.", [(b"allow", b"GET, POST, PUT, PATCH, DELETE, OPTIONS")])
         if self.max_url > 0 and len(scope.get("raw_path") or scope.get("path", "").encode()) + len(scope.get("query_string") or b"") > self.max_url:
             return _json(414, "url_grande", f"Endereço passa de {self.max_url} bytes.")
         hs = scope.get("headers") or []

@@ -72,3 +72,21 @@ def test_options_sem_cors_nao_vaza():
 
 def test_requisicao_normal_continua():
     assert cliente.get("/").status_code == 200
+
+
+def test_upload_de_foto_tem_limite_proprio():
+    """PUT /v1/me/foto (frente de ações) recebe foto em base64: passa do limite geral, não do de upload."""
+    c = TestClient(app)
+    grande = b"x" * (config.MAX_CORPO_BYTES + 1)
+    r = c.put("/v1/me/foto", content=grande, headers={"content-type": "application/json"})
+    assert r.status_code != 413  # chega na app (aqui: 401/404/405 — sem login ou rota ainda ausente)
+    r = c.post("/v1/auth/login", content=grande, headers={"content-type": "application/json"})
+    assert r.status_code == 413
+    r = c.put("/v1/me/foto", content=b"x" * (config.MAX_CORPO_UPLOAD_BYTES + 1), headers={"content-type": "application/json"})
+    assert r.status_code == 413
+
+
+def test_cors_libera_os_metodos_das_acoes():
+    from api import main
+
+    assert {"PUT", "PATCH"} <= set(main.METODOS_CORS) and "TRACE" not in main.METODOS_CORS
