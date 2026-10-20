@@ -300,7 +300,7 @@ def _sigaa_falso(log: list, recusar_vs: set[str] | None = None, como_portal: boo
 def test_menu_reaproveita_o_portal_enquanto_a_view_vale():
     async def main():
         log = []
-        c = SigaaClient("http://sigaa.test", transport=_sigaa_falso(log), min_interval=0, reusar_views=3)
+        c = SigaaClient("http://sigaa.test", transport=_sigaa_falso(log), min_interval=0, folga=0, reusar_views=3)
         for _ in range(4):  # usar a view a renova (é o que o MyFaces faz): 4 menus seguidos = 1 GET do portal
             await c.menu("Atestado")
         assert [m for m, _ in log] == ["GET", "POST", "POST", "POST", "POST"]
@@ -316,7 +316,7 @@ def test_menu_reaproveita_o_portal_enquanto_a_view_vale():
 def test_menu_view_descartada_devolve_portal_e_o_cliente_repete():
     async def main():
         log = []
-        c = SigaaClient("http://sigaa.test", transport=_sigaa_falso(log, recusar_vs={"j_id1"}, como_portal=True), min_interval=0, reusar_views=10)
+        c = SigaaClient("http://sigaa.test", transport=_sigaa_falso(log, recusar_vs={"j_id1"}, como_portal=True), min_interval=0, folga=0, reusar_views=10)
         await c.portal()  # j_id1: o servidor "esqueceu" essa view e devolve o portal no clique
         r = await c.menu("Atestado")
         assert "tela do menu" in r.html
@@ -326,10 +326,53 @@ def test_menu_view_descartada_devolve_portal_e_o_cliente_repete():
     run(main())
 
 
+def test_menu_nao_reaproveita_portal_depois_da_turma_virtual():
+    """No SIGAA real, depois de navegar na turma virtual o portal guardado dispara o menu pra tela atual
+    (/ava/index.jsf): entrar em /ava/ ou /mobile/ descarta o portal da sessão."""
+
+    async def main():
+        log = []
+        c = SigaaClient("http://sigaa.test", transport=_sigaa_falso(log), min_interval=0, folga=0, reusar_views=8)
+        await c.menu("Atestado")
+        await c.get("/sigaa/ava/index.jsf")
+        await c.menu("Atestado")
+        await c.get("/sigaa/mobile/touch/menu.jsf")
+        await c.menu("Atestado")
+        assert [m for m, _ in log] == ["GET", "POST", "GET", "GET", "POST", "GET", "GET", "POST"]
+        await c.close()
+
+    run(main())
+
+
+def test_menu_que_cai_na_turma_virtual_baixa_portal_e_repete():
+    async def main():
+        log = []
+        n = {"post": 0}
+
+        def handler(req):
+            log.append((req.method, req.url.path))
+            if req.url.path == "/sigaa/verPortalDiscente.do":
+                return httpx.Response(200, html=PORTAL.format(n=len(log)))
+            if req.method == "GET":
+                return httpx.Response(200, html="<html><form id='formMenu'></form>turma virtual</html>")
+            n["post"] += 1
+            if n["post"] == 1:  # a 1a resposta do menu é a tela em que a sessão estava
+                return httpx.Response(302, headers={"location": "/sigaa/ava/index.jsf"})
+            return httpx.Response(200, html="<html>tela do menu</html>")
+
+        c = SigaaClient("http://sigaa.test", transport=httpx.MockTransport(handler), min_interval=0, folga=0, reusar_views=8)
+        await c.portal()
+        r = await c.menu("Atestado")
+        assert "tela do menu" in r.html and n["post"] == 2
+        await c.close()
+
+    run(main())
+
+
 def test_menu_sem_reuso_baixa_portal_sempre():
     async def main():
         log = []
-        c = SigaaClient("http://sigaa.test", transport=_sigaa_falso(log), min_interval=0)
+        c = SigaaClient("http://sigaa.test", transport=_sigaa_falso(log), min_interval=0, folga=0)
         for _ in range(3):
             await c.menu("Atestado")
         assert sum(x[0] == "GET" for x in log) == 3
@@ -341,7 +384,7 @@ def test_menu_sem_reuso_baixa_portal_sempre():
 def test_menu_viewstate_recusado_baixa_portal_e_repete():
     async def main():
         log = []
-        c = SigaaClient("http://sigaa.test", transport=_sigaa_falso(log, recusar_vs={"j_id1"}), min_interval=0, reusar_views=10)
+        c = SigaaClient("http://sigaa.test", transport=_sigaa_falso(log, recusar_vs={"j_id1"}), min_interval=0, folga=0, reusar_views=10)
         await c.portal()  # j_id1 (o servidor vai "esquecer" essa view)
         r = await c.menu("Atestado")
         assert "tela do menu" in r.html
@@ -355,8 +398,8 @@ def test_transporte_compartilhado_nao_fecha_com_um_cliente():
     async def main():
         log = []
         t = _sigaa_falso(log)
-        a = SigaaClient("http://sigaa.test", transport=t, min_interval=0)
-        b = SigaaClient("http://sigaa.test", transport=t, min_interval=0)
+        a = SigaaClient("http://sigaa.test", transport=t, min_interval=0, folga=0)
+        b = SigaaClient("http://sigaa.test", transport=t, min_interval=0, folga=0)
         await a.portal()
         await a.close()
         await b.portal()  # o transporte continua de pé
@@ -401,5 +444,33 @@ def test_carga_limita_requisicoes_simultaneas():
 
         await asyncio.gather(*(req() for _ in range(6)))
         assert pico == 2 and carga.em_voo == 0
+
+    run(main())
+
+
+def test_ritmo_conta_do_inicio_e_tem_folga_do_fim():
+    """min_interval entre INÍCIOS + folga depois do FIM: resposta lenta não paga o intervalo inteiro de novo."""
+    lento = 0.2
+
+    async def handler_lento(req):
+        await asyncio.sleep(lento)
+        return httpx.Response(200, html="<html>ok</html>")
+
+    async def main():
+        c = SigaaClient("http://sigaa.test", transport=httpx.MockTransport(handler_lento), min_interval=0.3, folga=0.05)
+        t = time.perf_counter()
+        for _ in range(4):
+            await c.get("/x")
+        dt = time.perf_counter() - t
+        # 4 × 0,2 s de resposta + 3 × 0,1 s (o que falta pros 0,3 s entre inícios) = 1,1 s; o ritmo antigo
+        # (0,3 s depois do fim) daria 0,8 + 0,9 = 1,7 s
+        assert 1.05 <= dt < 1.4
+        rapido = SigaaClient("http://sigaa.test", transport=_sigaa_falso([]), min_interval=0.3, folga=0.05)
+        t = time.perf_counter()
+        for _ in range(4):
+            await rapido.get("/x")
+        assert time.perf_counter() - t >= 0.9  # resposta instantânea: quem manda é o min_interval (3 × 0,3 s)
+        await c.close()
+        await rapido.close()
 
     run(main())

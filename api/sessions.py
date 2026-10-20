@@ -6,8 +6,9 @@ Desenho:
   do login + até ``POOL_MAX - 1`` sessões extras (JSESSIONIDs independentes, cada uma com a sua
   trava, porque a navegação JSF de UMA sessão não pode ser paralela). Rotas diferentes do mesmo
   aluno rodam ao mesmo tempo e as rotas agregadas espalham o trabalho (``c.paralelo``);
-* todas as sessões de todos os alunos dividem uma piscina de conexões HTTP keep-alive e um teto
-  global de requisições simultâneas ao SIGAA (``MAX_CONCORRENCIA_SIGAA``);
+* cada sessão tem as suas conexões HTTP keep-alive (uma piscina compartilhada degrada com muita
+  concorrência), todas dividem o contexto SSL e um teto global de requisições simultâneas ao SIGAA
+  (``MAX_CONCORRENCIA_SIGAA``);
 * ``lembrar=True`` guarda a senha CIFRADA em memória (Fernet, chave gerada no boot e
   nunca gravada) — com isso, quando o SIGAA derruba a sessão por inatividade, a API
   reloga sozinha e refaz a consulta. Sem ``lembrar``, a API devolve 401
@@ -28,9 +29,7 @@ from dataclasses import dataclass, field
 
 from cryptography.fernet import Fernet
 
-import httpx
-
-from sigaa.client import Carga, SigaaClient, transporte
+from sigaa.client import Carga, SigaaClient
 from sigaa.errors import SessaoExpirada
 from sigaa.pool import PoolSigaa
 
@@ -81,19 +80,19 @@ class Gerenciador:
         self._basic_lock = asyncio.Lock()
         self.limite_login = LimiteLogin(config.MAX_LOGINS_POR_IP)
         self._tarefa: asyncio.Task | None = None
-        self._transporte: httpx.AsyncHTTPTransport | None = None
         self._limite: Carga | None = None
         self._aquecendo: set[asyncio.Task] = set()
 
     def _novo_cliente(self, credenciais=None) -> SigaaClient:
-        if self._transporte is None:
-            self._transporte = transporte(http2=config.HTTP2, max_conexoes=config.MAX_CONEXOES, keepalive=config.MAX_CONEXOES)
+        if self._limite is None:
             self._limite = Carga(config.MAX_CONCORRENCIA_SIGAA)
         return SigaaClient(
             config.SIGAA_URL,
             credenciais=credenciais,
             min_interval=config.MIN_INTERVALO,
-            transport=self._transporte,
+            folga=config.MIN_FOLGA,
+            http2=config.HTTP2,
+            conexoes=config.CONEXOES_POR_SESSAO,
             limite=self._limite,
             reusar_views=config.REUSAR_VIEWS,
         )
@@ -232,9 +231,6 @@ class Gerenciador:
             self._tarefa = None
         for k in list(self._sessoes):
             await self.encerrar_por_chave(k)
-        if self._transporte is not None:
-            await self._transporte.aclose()
-            self._transporte = None
 
     async def _keepalive(self) -> None:
         while True:

@@ -199,6 +199,11 @@ class MenuItem:
     form_id: str
 
 
+def _sai_do_portal(url: str) -> bool:
+    """URL da turma virtual (``/ava/``) ou do módulo mobile: contexto JSF diferente do portal."""
+    return "/sigaa/ava/" in url or "/sigaa/mobile/" in url
+
+
 def eh_portal(page: "Page") -> bool:
     """A resposta é a página inicial do Portal do Discente? (é o que o SIGAA devolve quando o
     clique veio de uma view que ele já descartou)."""
@@ -303,8 +308,8 @@ Fluxo = Callable[["SigaaClient"], Awaitable[T]]
 
 
 class _Transporte(httpx.AsyncBaseTransport):
-    """Embrulha um transporte httpx COMPARTILHADO (várias sessões, uma piscina de conexões
-    keep-alive): fechar um cliente não fecha as conexões dos outros."""
+    """Embrulha um transporte httpx de OUTRO dono (``SigaaClient(transport=...)``): fechar o cliente
+    não fecha o transporte."""
 
     def __init__(self, inner: httpx.AsyncBaseTransport) -> None:
         self.inner = inner
@@ -316,15 +321,29 @@ class _Transporte(httpx.AsyncBaseTransport):
         pass
 
 
-def transporte(*, http2: bool = False, max_conexoes: int = 200, keepalive: int = 100, keepalive_s: float = 4.5) -> httpx.AsyncHTTPTransport:
-    """Transporte httpx pra compartilhar entre sessões (``SigaaClient(transport=...)``).
+_SSL: Any = None
 
-    O SIGAA UFBA fala só HTTP/1.1 (ALPN recusa h2) e fecha conexão ociosa em 5 s
-    (``Keep-Alive: timeout=5``), daí ``keepalive_s`` = 4,5. Conexão nova custa ~0,1 s de TCP+TLS."""
+
+def ssl_compartilhado() -> Any:
+    """UM contexto SSL pro processo (criar um por cliente custa CPU e memória a cada sessão nova)."""
+    global _SSL
+    if _SSL is None:
+        _SSL = httpx.create_ssl_context()
+    return _SSL
+
+
+def transporte(*, http2: bool = False, max_conexoes: int = 4, keepalive: int | None = None, keepalive_s: float = 4.5) -> httpx.AsyncHTTPTransport:
+    """Transporte httpx de UMA sessão (é o padrão de cada ``SigaaClient``).
+
+    Um transporte por sessão, e não um compartilhado entre todas: a piscina de conexões do httpcore
+    degrada com muita requisição simultânea (medido, servidor de 150 ms: C=64 → 356 req/s nos dois
+    desenhos; C=200 → compartilhado 76 req/s × um por sessão 793 req/s). O contexto SSL é que é
+    compartilhado. O SIGAA UFBA fala só HTTP/1.1 (ALPN recusa h2) e fecha conexão ociosa em 5 s
+    (``Keep-Alive: timeout=5``), daí ``keepalive_s`` = 4,5; conexão nova custa ~0,1 s de TCP+TLS."""
     return httpx.AsyncHTTPTransport(
         http2=http2,
-        verify=_ssl_ctx(),
-        limits=httpx.Limits(max_connections=max_conexoes, max_keepalive_connections=keepalive, keepalive_expiry=keepalive_s),
+        verify=ssl_compartilhado(),
+        limits=httpx.Limits(max_connections=max_conexoes, max_keepalive_connections=keepalive or max_conexoes, keepalive_expiry=keepalive_s),
         retries=1,
     )
 
@@ -368,7 +387,6 @@ class Compartilhado:
     em_voo: dict[str, asyncio.Future] = field(default_factory=dict)
     dados: dict[str, Any] = field(default_factory=dict)
 
-_SSL: Any = None
 
 #: quanto uma requisição espera por vaga no teto global (``Carga``) antes de desistir com
 #: ``SigaaOcupado`` (503 + Retry-After) — falha em vez de empilhar quando o SIGAA está lento
@@ -376,13 +394,9 @@ ESPERA_MAX_S = float(os.getenv("SIGAA_ESPERA_MAX_S", "20"))
 
 
 def _ssl_ctx() -> Any:
-    """UM contexto SSL pro processo inteiro. Criar um por ``httpx.AsyncClient`` (o padrão)
-    carrega o bundle de CAs de novo a cada cliente: ~11 ms de CPU no event loop por login e
-    por requisição pública. O contexto é imutável depois de pronto, então dá pra dividir."""
-    global _SSL
-    if _SSL is None:
-        _SSL = httpx.create_ssl_context()  # o mesmo que o httpx faria (certifi / SSL_CERT_FILE)
-    return _SSL
+    """O contexto SSL único do processo (o mesmo de ``ssl_compartilhado``): criar um por
+    ``httpx.AsyncClient`` recarregava o bundle de CAs — ~11 ms de CPU no event loop a cada cliente."""
+    return ssl_compartilhado()
 
 
 def _plano_submit(html: str, url: str, form_id: str, extra: dict | None, botao) -> tuple[str, dict]:
@@ -440,16 +454,23 @@ class SigaaClient:
         base_url: str | None = None,
         *,
         timeout: float = 40.0,
-        min_interval: float = 0.25,
+        min_interval: float = 0.3,
+        folga: float = 0.15,
         credenciais: LoginCallback | None = None,
         cookies: dict[str, str] | None = None,
         transport: httpx.AsyncBaseTransport | None = None,
         http2: bool = False,
+        conexoes: int = 4,
         compartilhado: Compartilhado | None = None,
         limite: Carga | asyncio.Semaphore | None = None,
         reusar_views: int = 0,
     ) -> None:
-        """``transport``: transporte httpx compartilhado (keep-alive entre sessões; ver ``transporte()``).
+        """``min_interval``: intervalo mínimo entre o INÍCIO de duas requisições desta sessão (≤ 1/min_interval
+        req/s). ``folga``: pausa mínima entre o FIM de uma requisição e o início da próxima. Com o SIGAA
+        respondendo em ~0,45 s, quem manda é a folga — a espera por viagem cai de 0,25 s (o antigo
+        min_interval contado do fim) pra 0,15 s, sem nunca disparar colado na resposta anterior.
+        ``transport``: transporte httpx de outro dono (testes); sem ele cada sessão cria o seu (``transporte()``,
+        ``conexoes`` conexões keep-alive, contexto SSL compartilhado).
         ``compartilhado``: memo/dados do aluno divididos entre as sessões do pool.
         ``limite``: teto GLOBAL de requisições simultâneas ao SIGAA (``Carga``; protege o SIGAA).
         ``reusar_views``: quantas navegações uma página GET (portal, turmas.jsf) pode ser reaproveitada
@@ -461,14 +482,14 @@ class SigaaClient:
             timeout=timeout,
             follow_redirects=True,
             cookies=cookies,
-            verify=_ssl_ctx(),
-            transport=_Transporte(transport) if transport is not None else None,
-            http2=http2 if transport is None else False,
+            transport=_Transporte(transport) if transport is not None else transporte(http2=http2, max_conexoes=conexoes),
         )
         self.lock = asyncio.Lock()
         self._credenciais = credenciais
         self._min_interval = min_interval
-        self._ultimo = 0.0
+        self._folga = folga
+        self._ultimo_inicio = 0.0
+        self._ultimo = 0.0  # fim da última requisição
         self._ritmo = asyncio.Lock()
         self._limite = limite
         self.logado = bool(cookies)
@@ -542,13 +563,12 @@ class SigaaClient:
         return path if path.startswith("http") else urljoin(self.base_url + "/", path.lstrip("/"))
 
     async def _req(self, method: str, path: str, *, verificar: bool = True, **kw) -> Page:
-        # ritmo por sessão: ``min_interval`` entre o FIM de uma requisição e o começo da próxima
-        # (e, se houver requisições simultâneas na mesma sessão, entre os começos).
+        # ritmo por sessão: ``min_interval`` entre os INÍCIOS e ``folga`` depois do FIM da anterior
         async with self._ritmo:
-            espera = self._min_interval - (time.monotonic() - self._ultimo)
+            espera = max(self._ultimo_inicio + self._min_interval, self._ultimo + self._folga) - time.monotonic()
             if espera > 0:
                 await asyncio.sleep(espera)
-            self._ultimo = time.monotonic()
+            self._ultimo_inicio = time.monotonic()
         self.navegacoes += 1
         self.requisicoes += 1
         try:
@@ -562,6 +582,10 @@ class SigaaClient:
         finally:
             self._ultimo = time.monotonic()
         self.navegacoes += len(r.history)  # cada redirect seguido também pode virar uma view
+        if _sai_do_portal(path) or _sai_do_portal(str(r.url)):
+            # entrar na turma virtual / no módulo mobile muda o contexto JSF da sessão: o portal guardado
+            # passa a disparar o menu pra tela atual (medido: o menu voltou /ava/index.jsf com 7 navegações)
+            self._paginas.pop(URL_PORTAL, None)
         self.ultimo_uso = time.time()
         if r.status_code >= 500:
             raise SistemaIndisponivel(f"SIGAA respondeu HTTP {r.status_code}")
@@ -799,8 +823,8 @@ class SigaaClient:
             if not reusado:
                 raise
             page = None
-        if reusado and (page is None or eh_portal(page)):
-            # a view reaproveitada já tinha saído da janela do servidor (ele devolve o portal): baixa e repete
+        if reusado and (page is None or eh_portal(page) or _sai_do_portal(page.url)):
+            # a view reaproveitada já não valia (o SIGAA devolve o portal, ou a tela em que a sessão está): baixa e repete
             self._paginas.pop(URL_PORTAL, None)
             page = await self._disparar_menu(await self.portal(), acao)
         return page

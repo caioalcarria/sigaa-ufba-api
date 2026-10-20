@@ -53,12 +53,15 @@ class Config:
     #: novo (o MyFaces do SIGAA UFBA guarda as 10 últimas views da sessão: uma página sobrevive a 9
     #: navegações e morre na 10ª; 8 deixa margem). 0 = sempre baixa (comportamento antigo).
     REUSAR_VIEWS: int = int(_num("SIGAA_API_REUSAR_VIEWS", 8))
-    #: intervalo mínimo entre requisições de UMA sessão (segundos)
-    MIN_INTERVALO: float = _num("SIGAA_API_MIN_INTERVALO", 0.25)
+    #: ritmo de UMA sessão: intervalo mínimo entre o INÍCIO de duas requisições (s) — teto de ~3 req/s
+    MIN_INTERVALO: float = _num("SIGAA_API_MIN_INTERVALO", 0.3)
+    #: ... e pausa mínima entre o FIM de uma e o início da próxima (s). Antes era 0,25 s contado do fim
+    #: (somava 250 ms a cada viagem); 0,15 s é o mínimo combinado pro SIGAA real.
+    MIN_FOLGA: float = _num("SIGAA_API_MIN_FOLGA", 0.15)
     #: teto GLOBAL de requisições simultâneas ao SIGAA (todas as sessões de todos os alunos)
     MAX_CONCORRENCIA_SIGAA: int = int(_num("SIGAA_API_MAX_CONCORRENCIA_SIGAA", 64))
-    #: conexões HTTP keep-alive compartilhadas entre as sessões
-    MAX_CONEXOES: int = int(_num("SIGAA_API_MAX_CONEXOES", 128))
+    #: conexões HTTP keep-alive de CADA sessão (uma sessão navega uma tela por vez; >1 só pra GETs simultâneos)
+    CONEXOES_POR_SESSAO: int = int(_num("SIGAA_API_CONEXOES_POR_SESSAO", 4))
     #: negociar HTTP/2 com o SIGAA (o da UFBA só fala HTTP/1.1; deixe false)
     HTTP2: bool = _bool("SIGAA_API_HTTP2", False)
     #: processos do pool de parse (HTML/PDF fora do event loop). Vazio = núcleos-1 (1 a 8); 0 = desliga

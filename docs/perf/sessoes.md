@@ -14,6 +14,7 @@ TEMPO (várias sessões do aluno) e MENOS viagens (reaproveitar o ViewState, nã
 | quantas views a sessão guarda | **10**: uma página sobrevive a 9 navegações e morre na 10ª | — |
 | usar uma view a renova? | **sim** (vira a mais recente): 25 reusos seguidos funcionam | — |
 | o que acontece com view morta | **sem erro**: o SIGAA ignora o clique e devolve o PORTAL | 39 KB em vez da tela |
+| portal guardado depois de entrar na TURMA VIRTUAL | **não vale**: o menu cai na tela atual (`/ava/index.jsf`), mesmo com só 7 navegações | achado na comparação e2e |
 | 2 cliques da mesma `turmas.jsf` / Notas + Frequência da mesma página da turma | funcionam | — |
 | GETs diretos (relatorioProcessamento, view_painel, turmas.jsf, mobile) | aceitos, até 3 ao mesmo tempo na mesma sessão | 3 GETs em 0,59 s |
 | HTTP/2 | **não** (ALPN → HTTP/1.1) | — |
@@ -26,9 +27,9 @@ TEMPO (várias sessões do aluno) e MENOS viagens (reaproveitar o ViewState, nã
 | arquivo | mudança |
 |---|---|
 | `sigaa/pool.py` (novo) | `PoolSigaa`: as sessões do aluno. `executar(fluxo)` na 1ª sessão livre; `paralelo(fluxos)` espalha fluxos independentes; sessões novas sob demanda (login em 2º plano) até `maximo`, só se a fila compensa o login e o SIGAA está folgado (`Carga.pressao`); relogin por sessão; sessão extra que cai sem credencial sai do pool e o fluxo dela vai pra outra |
-| `sigaa/client.py` | `c.paralelo([...])` (sem pool = serial, mesmo resultado); `Compartilhado` (memo + dados do aluno entre as sessões) e **singleflight** no `memo`; `c.pagina(path)` + `menu()` reaproveitando o ViewState do portal (conta conservadora de navegações, renovação no uso, detecção de "voltou pro portal" → baixa e repete); transporte httpx **compartilhado** (keep-alive 4,5 s) e `Carga` (teto global de requisições ao SIGAA) |
+| `sigaa/client.py` | `c.paralelo([...])` (sem pool = serial, mesmo resultado); `Compartilhado` (memo + dados do aluno entre as sessões) e **singleflight** no `memo`; `c.pagina(path)` + `menu()` reaproveitando o ViewState do portal (conta conservadora de navegações, renovação no uso, detecção de "voltou pro portal" → baixa e repete); **um transporte httpx por sessão** (keep-alive 4,5 s, contexto SSL compartilhado) e `Carga` (teto global de requisições ao SIGAA) |
 | `api/sessions.py` | token → pool (a sessão do login + extras); aquecimento de `POOL_AQUECER` sessões logo após o login; sem `lembrar` a senha cifrada só vive até o aquecimento acabar; keep-alive e logout do pool inteiro |
-| `api/config.py` | `POOL_MAX` (4), `POOL_AQUECER` (2), `POOL_TAREFAS_POR_SESSAO` (2), `POOL_PRESSAO_MAX` (0,5), `REUSAR_VIEWS` (8), `MIN_INTERVALO` (0,25), `MAX_CONCORRENCIA_SIGAA` (64), `MAX_CONEXOES` (128), `HTTP2` (false) |
+| `api/config.py` | `POOL_MAX` (4), `POOL_AQUECER` (2), `POOL_TAREFAS_POR_SESSAO` (2), `POOL_PRESSAO_MAX` (0,5), `REUSAR_VIEWS` (8), `MIN_INTERVALO` (0,3 s entre INÍCIOS), `MIN_FOLGA` (0,15 s depois do FIM), `MAX_CONCORRENCIA_SIGAA` (64), `CONEXOES_POR_SESSAO` (4), `HTTP2` (false) |
 | `sigaa/services/turma_virtual.py` | agregadas (`notas_todas`, `frequencia_todas`, `tarefas_pendentes`, `avaliacoes_todas`) em paralelo, uma turma por sessão; lista de turmas memorizada 10 min (`_do_periodo`); `turmas.jsf` × lista mobile em paralelo; `abrir_turma` reaproveita `turmas.jsf`; mapa idTurma↔frontEnd em `c.dados` (era `c.__dict__`) |
 | `sigaa/services/academico.py` | `resultados_processamento`: os GETs `relatorioProcessamento` em paralelo |
 | `sigaa/services/planejamento.py` | pré-requisitos (`view_painel` por componente) em paralelo; grade × oferta em paralelo |
@@ -86,10 +87,55 @@ com o SIGAA abaixo de 50% do teto. O ganho grande é no aluno que abre o app (ra
 agregadas; o "mesmo aluno × muitas conexões" fica limitado a `POOL_MAX` sessões (a frente de cache,
 com singleflight por rota, resolve o resto).
 
+### Ritmo por sessão (achado da bancada)
+
+O `min_interval=0,25` antigo contava do FIM da requisição anterior: somava 250 ms a cada viagem
+consecutiva. Agora são duas regras: ≥ 0,3 s entre os INÍCIOS (teto de ~3 req/s por sessão, a regra do
+CONTRATO) e ≥ 0,15 s de folga depois do FIM (o mínimo combinado pro SIGAA real). Com o SIGAA
+respondendo em ~0,45 s, a espera por viagem cai de 0,25 s pra 0,15 s. Simulado, média de 2 rodadas:
+
+| rota | antigo (0,25 do fim) | novo (0,3 início + 0,15 fim) | folga 0 (SÓ no mock; fura a regra do real) |
+|---|--:|--:|--:|
+| login | 2,99 s | 2,81 s | 2,59 s |
+| `/v1/notas` (1ª) | 5,69 s | 4,76 s | 3,86 s |
+| `/v1/tarefas` | 1,37 s | 1,24 s | 0,95 s |
+| `/v1/avaliacoes` | 1,41 s | 1,18 s | 0,98 s |
+| `/v1/planejamento/matricula` | 9,41 s | 8,66 s | 7,41 s |
+| rajada de 6 rotas | 5,75 s | 5,24 s | 4,24 s |
+
+### Mesmo resultado (SIGAA real, JSON comparado byte a byte)
+
+Antes (sequencial, 1 sessão) × depois (pool; na 2ª rodada as 8 rotas disparadas JUNTAS no mesmo token):
+`/v1/notas`, `/v1/frequencia`, `/v1/tarefas`, `/v1/avaliacoes`, `/v1/matricula/processamento`,
+`/v1/planejamento/matricula` **idênticos**; `/v1/matricula` e `/v1/historico` idênticos salvo
+`emitido_em`/`codigo_verificacao` (o SIGAA gera a cada emissão). A 1ª comparação pegou um bug real —
+o portal reaproveitado depois da turma virtual levava o menu pra `/ava/index.jsf` (404 no
+processamento) — corrigido: navegar em `/ava/` ou `/mobile/` descarta o portal guardado, e menu que
+cai lá é repetido com portal novo.
+
+### Transporte: um por sessão, não um compartilhado (achado da bancada)
+
+A piscina de conexões do httpcore degrada com muita requisição simultânea. Microbench (servidor local de
+150 ms, N sessões `SigaaClient`): C=16 → 103 × 99 req/s · C=64 → 356 × 360 · **C=200 → compartilhado 76 ×
+um por sessão 793 req/s**. Por isso cada sessão tem o seu `AsyncHTTPTransport` (4 conexões), e só o contexto
+SSL é dividido. Simulado, `/v1/notas`:
+
+| cenário | transporte compartilhado | um por sessão |
+|---|--:|--:|
+| 50 alunos × 50, teto 64 | p50 8,32 s · 5,5 req/s | p50 7,17 s · 5,7 req/s |
+| 200 × 200, teto 256 | p50 45,1 s · 3,9 req/s (pico no SIGAA: 128) | p50 27,3 s · 7,0 req/s (pico 256) |
+| 200 × 200, teto 64 (padrão) | — | p50 31,8 s · 5,3 req/s, 0 erro |
+
+O teto padrão continua 64 pra proteger o SIGAA real (a capacidade dele com centenas de sessões não foi
+medida); `SIGAA_API_MAX_CONCORRENCIA_SIGAA` sobe se o SIGAA aguentar.
+
 ## Riscos e limites
 
 * **Mais logins no SIGAA**: cada login da API vira 2 logins (aquecimento) e até 4 sob demanda. Some
   com `SIGAA_API_POOL_MAX=1` (comportamento antigo) ou `POOL_AQUECER=1` (sem aquecimento).
+* **Contexto JSF**: além da janela, a turma virtual e o módulo mobile invalidam o portal guardado
+  (tratado). Outro módulo com o mesmo efeito ainda não visto faria o menu cair numa tela errada;
+  `REUSAR_VIEWS=0` desliga todo o reuso se aparecer algo assim.
 * **Janela de views**: o reuso assume a janela de 10 do MyFaces da UFBA (`REUSAR_VIEWS=8`). Se o SIGAA
   mudar, a view morta devolve o portal — o `menu()` e o `abrir_turma` detectam e repetem com página
   nova (custa 1 viagem), sem erro pro usuário. `REUSAR_VIEWS=0` desliga.
@@ -97,5 +143,14 @@ com singleflight por rota, resolve o resto).
   pool. A principal caindo → 401 `sessao_expirada`, como antes.
 * `c.paralelo` exige fluxos INDEPENDENTES (cada um começa do zero na sua sessão; nada de passar uma
   `Page` de uma sessão pra outra).
-* O transporte compartilhado ignora `HTTPS_PROXY` do ambiente (transporte próprio); o alvo continua
-  sendo `SIGAA_URL`.
+* O transporte próprio de cada sessão ignora `HTTPS_PROXY` do ambiente (a trava "buraco negro" do
+  lançador da bancada não vale nele); o alvo continua sendo `SIGAA_URL`.
+
+## Integração (pro orquestrador)
+
+* `perf/turbo`, `perf/cache`, `perf/bancada`: merge sem conflito.
+* `perf/cpu`: 2 trechos em `sigaa/client.py` (função `transporte()` e o `httpx.AsyncClient` do
+  `SigaaClient`). Fique com o lado SESSÕES (um transporte por sessão: `transport=_Transporte(transport) if
+  transport is not None else transporte(http2=http2, max_conexoes=conexoes)`) e troque `ssl_compartilhado()`
+  por `_ssl_ctx()` da cpu (é a mesma ideia: um contexto SSL por processo) — ou deixe
+  `def ssl_compartilhado(): return _ssl_ctx()`.
