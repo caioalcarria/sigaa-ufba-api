@@ -62,6 +62,17 @@ história). JSON idêntico nas 19 rotas.
 Com o pool de sessões (navegações do mesmo aluno em paralelo) a CPU por requisição SOBE (mais logins e
 mais telas ao mesmo tempo) — é justamente onde parse fora do event loop rende mais.
 
+**HIT do cache durante uma rajada de logins** (`scripts/cpu/preaquecer.py`): uma sessão pede
+`/v1/historico` (HIT) a cada 50 ms enquanto N alunos fazem login AO MESMO TEMPO — cada login dispara o
+pré-aquecimento do cache, que emite e parseia o histórico. Latência calibrada; `perf/turbo` 46bfc09 × este branch.
+
+| | HIT p95 | HIT p99 | HIT máx | conexões derrubadas |
+|---|---|---|---|---|
+| 50 logins — turbo | 66,7 ms | 231 ms | **11,8 s** | 0 |
+| 50 logins — turbo + cpu | **1,3 ms** | 1,6 ms | 7,9 ms | 0 |
+| 150 logins — turbo | 261 ms | 614 ms | **16,2 s** | 3 |
+| 150 logins — turbo + cpu | **1,4 ms** | 2,3 ms | 58 ms | 0 |
+
 ## Desenho
 
 ```
