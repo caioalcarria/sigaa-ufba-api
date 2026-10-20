@@ -28,7 +28,7 @@ TEMPO (várias sessões do aluno) e MENOS viagens (reaproveitar o ViewState, nã
 | `sigaa/pool.py` (novo) | `PoolSigaa`: as sessões do aluno. `executar(fluxo)` na 1ª sessão livre; `paralelo(fluxos)` espalha fluxos independentes; sessões novas sob demanda (login em 2º plano) até `maximo`, só se a fila compensa o login e o SIGAA está folgado (`Carga.pressao`); relogin por sessão; sessão extra que cai sem credencial sai do pool e o fluxo dela vai pra outra |
 | `sigaa/client.py` | `c.paralelo([...])` (sem pool = serial, mesmo resultado); `Compartilhado` (memo + dados do aluno entre as sessões) e **singleflight** no `memo`; `c.pagina(path)` + `menu()` reaproveitando o ViewState do portal (conta conservadora de navegações, renovação no uso, detecção de "voltou pro portal" → baixa e repete); transporte httpx **compartilhado** (keep-alive 4,5 s) e `Carga` (teto global de requisições ao SIGAA) |
 | `api/sessions.py` | token → pool (a sessão do login + extras); aquecimento de `POOL_AQUECER` sessões logo após o login; sem `lembrar` a senha cifrada só vive até o aquecimento acabar; keep-alive e logout do pool inteiro |
-| `api/config.py` | `POOL_MAX` (4), `POOL_AQUECER` (2), `POOL_TAREFAS_POR_SESSAO` (2), `POOL_PRESSAO_MAX` (0,5), `REUSAR_VIEWS` (8), `MIN_INTERVALO` (0,25), `MAX_CONCORRENCIA_SIGAA` (64), `MAX_CONEXOES` (128), `HTTP2` (false) |
+| `api/config.py` | `POOL_MAX` (4), `POOL_AQUECER` (2), `POOL_TAREFAS_POR_SESSAO` (2), `POOL_PRESSAO_MAX` (0,5), `REUSAR_VIEWS` (8), `MIN_INTERVALO` (0,3 s entre INÍCIOS), `MIN_FOLGA` (0,15 s depois do FIM), `MAX_CONCORRENCIA_SIGAA` (64), `MAX_CONEXOES` (128), `HTTP2` (false) |
 | `sigaa/services/turma_virtual.py` | agregadas (`notas_todas`, `frequencia_todas`, `tarefas_pendentes`, `avaliacoes_todas`) em paralelo, uma turma por sessão; lista de turmas memorizada 10 min (`_do_periodo`); `turmas.jsf` × lista mobile em paralelo; `abrir_turma` reaproveita `turmas.jsf`; mapa idTurma↔frontEnd em `c.dados` (era `c.__dict__`) |
 | `sigaa/services/academico.py` | `resultados_processamento`: os GETs `relatorioProcessamento` em paralelo |
 | `sigaa/services/planejamento.py` | pré-requisitos (`view_painel` por componente) em paralelo; grade × oferta em paralelo |
@@ -85,6 +85,22 @@ requisições simultâneas fica cheio); abrir mais sessões ali só gasta login.
 com o SIGAA abaixo de 50% do teto. O ganho grande é no aluno que abre o app (rajada) e nas rotas
 agregadas; o "mesmo aluno × muitas conexões" fica limitado a `POOL_MAX` sessões (a frente de cache,
 com singleflight por rota, resolve o resto).
+
+### Ritmo por sessão (achado da bancada)
+
+O `min_interval=0,25` antigo contava do FIM da requisição anterior: somava 250 ms a cada viagem
+consecutiva. Agora são duas regras: ≥ 0,3 s entre os INÍCIOS (teto de ~3 req/s por sessão, a regra do
+CONTRATO) e ≥ 0,15 s de folga depois do FIM (o mínimo combinado pro SIGAA real). Com o SIGAA
+respondendo em ~0,45 s, a espera por viagem cai de 0,25 s pra 0,15 s. Simulado, média de 2 rodadas:
+
+| rota | antigo (0,25 do fim) | novo (0,3 início + 0,15 fim) | folga 0 (SÓ no mock; fura a regra do real) |
+|---|--:|--:|--:|
+| login | 2,99 s | 2,81 s | 2,59 s |
+| `/v1/notas` (1ª) | 5,69 s | 4,76 s | 3,86 s |
+| `/v1/tarefas` | 1,37 s | 1,24 s | 0,95 s |
+| `/v1/avaliacoes` | 1,41 s | 1,18 s | 0,98 s |
+| `/v1/planejamento/matricula` | 9,41 s | 8,66 s | 7,41 s |
+| rajada de 6 rotas | 5,75 s | 5,24 s | 4,24 s |
 
 ## Riscos e limites
 

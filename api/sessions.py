@@ -93,6 +93,7 @@ class Gerenciador:
             config.SIGAA_URL,
             credenciais=credenciais,
             min_interval=config.MIN_INTERVALO,
+            folga=config.MIN_FOLGA,
             transport=self._transporte,
             limite=self._limite,
             reusar_views=config.REUSAR_VIEWS,

@@ -280,7 +280,8 @@ class SigaaClient:
         base_url: str | None = None,
         *,
         timeout: float = 40.0,
-        min_interval: float = 0.25,
+        min_interval: float = 0.3,
+        folga: float = 0.15,
         credenciais: LoginCallback | None = None,
         cookies: dict[str, str] | None = None,
         transport: httpx.AsyncBaseTransport | None = None,
@@ -289,7 +290,11 @@ class SigaaClient:
         limite: Carga | asyncio.Semaphore | None = None,
         reusar_views: int = 0,
     ) -> None:
-        """``transport``: transporte httpx compartilhado (keep-alive entre sessões; ver ``transporte()``).
+        """``min_interval``: intervalo mínimo entre o INÍCIO de duas requisições desta sessão (≤ 1/min_interval
+        req/s). ``folga``: pausa mínima entre o FIM de uma requisição e o início da próxima. Com o SIGAA
+        respondendo em ~0,45 s, quem manda é a folga — a espera por viagem cai de 0,25 s (o antigo
+        min_interval contado do fim) pra 0,15 s, sem nunca disparar colado na resposta anterior.
+        ``transport``: transporte httpx compartilhado (keep-alive entre sessões; ver ``transporte()``).
         ``compartilhado``: memo/dados do aluno divididos entre as sessões do pool.
         ``limite``: teto GLOBAL de requisições simultâneas ao SIGAA (``Carga``; protege o SIGAA).
         ``reusar_views``: quantas navegações uma página GET (portal, turmas.jsf) pode ser reaproveitada
@@ -307,7 +312,9 @@ class SigaaClient:
         self.lock = asyncio.Lock()
         self._credenciais = credenciais
         self._min_interval = min_interval
-        self._ultimo = 0.0
+        self._folga = folga
+        self._ultimo_inicio = 0.0
+        self._ultimo = 0.0  # fim da última requisição
         self._ritmo = asyncio.Lock()
         self._limite = limite
         self.logado = bool(cookies)
@@ -381,13 +388,12 @@ class SigaaClient:
         return path if path.startswith("http") else urljoin(self.base_url + "/", path.lstrip("/"))
 
     async def _req(self, method: str, path: str, *, verificar: bool = True, **kw) -> Page:
-        # ritmo por sessão: ``min_interval`` entre o FIM de uma requisição e o começo da próxima
-        # (e, se houver requisições simultâneas na mesma sessão, entre os começos).
+        # ritmo por sessão: ``min_interval`` entre os INÍCIOS e ``folga`` depois do FIM da anterior
         async with self._ritmo:
-            espera = self._min_interval - (time.monotonic() - self._ultimo)
+            espera = max(self._ultimo_inicio + self._min_interval, self._ultimo + self._folga) - time.monotonic()
             if espera > 0:
                 await asyncio.sleep(espera)
-            self._ultimo = time.monotonic()
+            self._ultimo_inicio = time.monotonic()
         self.navegacoes += 1
         self.requisicoes += 1
         try:
