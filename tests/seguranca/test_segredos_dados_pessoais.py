@@ -68,7 +68,8 @@ def test_nenhum_cpf_valido_versionado():
 
 
 def test_emails_so_ficticios_ou_institucionais():
-    rx = re.compile(r"[A-Za-z0-9._%+-]+@[A-Za-z0-9-]+(?:\.[A-Za-z0-9-]+)*\.[A-Za-z]{2,}")
+    # (?<![/:\w]): "usuario:senha@host" / "https://a@b" de URL de teste não é e-mail
+    rx = re.compile(r"(?<![/:\w.%+-])[A-Za-z0-9._%+-]+@[A-Za-z0-9-]+(?:\.[A-Za-z0-9-]+)*\.[A-Za-z]{2,}")
     ok = lambda e: bool(DOMINIOS_FICTICIOS.search(e)) or hashlib.sha256(e.encode()).hexdigest() in EMAILS_INSTITUCIONAIS  # noqa: E731
     assert _achados(rx, ok) == []
 

@@ -1,5 +1,5 @@
-"""SEG·SEGREDOS — ``/v1/status`` (sem login): não vira amplificador de requisição ao SIGAA e não expõe
-os contadores internos (sessões ativas, conexões em uso, processos) a qualquer um por padrão.
+"""SEG·SEGREDOS — ``/v1/status`` (sem login) não expõe os contadores internos (sessões ativas, conexões
+em uso, processos) a qualquer um por padrão. (A sonda cacheada do SIGAA é da frente DoS: test_dos_status.py.)
 
 Sem rede: a sonda do SIGAA é trocada por uma falsa."""
 
@@ -24,17 +24,8 @@ def sonda(monkeypatch):
 
     monkeypatch.setattr(config, "SIGAA_URL", "http://127.0.0.1:9")  # nunca o SIGAA real
     monkeypatch.setattr(m, "_sondar_sigaa", falsa)
-    monkeypatch.setattr(m, "_SONDA", {"quando": float("-inf"), "valor": (False, None), "tarefa": None})
+    monkeypatch.setattr(m, "_status_sigaa", m._StatusSigaa())
     return chamadas
-
-
-def test_rajada_no_status_nao_vira_rajada_no_sigaa(sonda, monkeypatch):
-    monkeypatch.setattr(config, "STATUS_CACHE_S", 30.0)
-    c = TestClient(m.app)
-    for _ in range(20):
-        r = c.get("/v1/status")
-        assert r.status_code == 200 and r.json()["sigaa"]["no_ar"] is True
-    assert len(sonda) == 1
 
 
 def test_contadores_internos_escondidos_por_padrao(sonda, monkeypatch):

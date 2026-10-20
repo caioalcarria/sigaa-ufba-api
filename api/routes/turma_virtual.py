@@ -6,9 +6,10 @@ from __future__ import annotations
 from typing import Annotated
 from urllib.parse import quote
 
-from fastapi import APIRouter, Path, Query, Response
+from fastapi import APIRouter, HTTPException, Path, Query, Response
 
 from api.deps import Cliente
+from api.seguranca_http import resposta_arquivo, tipo_imagem
 from sigaa.models.turma_virtual import (
     Arquivo,
     Avaliacao,
@@ -58,11 +59,8 @@ def _tid(turma_id: str) -> int | str:
 
 
 def _download(conteudo: bytes, tipo: str, nome: str) -> Response:
-    return Response(
-        conteudo,
-        media_type=tipo,
-        headers={"Content-Disposition": f"attachment; filename*=UTF-8''{quote(nome)}"},
-    )
+    # nome e tipo vêm do SIGAA: filename saneado e tipo ativo (HTML/SVG/XML/JS) vira octet-stream
+    return resposta_arquivo(conteudo, tipo, nome)
 
 
 # ------------------------------------------------------------------ turmas
@@ -270,7 +268,10 @@ async def estatisticas(cli: Cliente, turma_id: TurmaId):
             responses={200: {"content": {"image/png": {}}}})
 async def grafico(cli: Cliente, turma_id: TurmaId):
     conteudo, tipo = await cli.executar(lambda c: S.grafico_estatisticas(c, _tid(turma_id)))
-    return Response(conteudo, media_type=tipo)
+    img = tipo_imagem(tipo)
+    if img is None:  # página de erro do SIGAA (HTML) ou SVG não são servidos no domínio da API
+        raise HTTPException(404, detail={"codigo": "nao_encontrado", "mensagem": "O SIGAA não devolveu a imagem do gráfico."})
+    return Response(conteudo, media_type=img)
 
 
 # ------------------------------------------------------------------ agregadas

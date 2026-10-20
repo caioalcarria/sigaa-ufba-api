@@ -35,12 +35,14 @@ from sigaa.services import consultas as S
 from sigaa.services import consultas_publico as SP
 
 from ..deps import Cliente
+from ..seguranca_http import mensagem_publica
 
 router = APIRouter(prefix="/v1")
 
 
 def _422(e: ValueError) -> HTTPException:
-    return HTTPException(422, detail={"codigo": "filtro_invalido", "mensagem": str(e)})
+    # só a mensagem de propósito do serviço; ValueError do Python (parse do HTML do SIGAA) não vaza
+    return HTTPException(422, detail={"codigo": "filtro_invalido", "mensagem": mensagem_publica(e, "Filtro inválido.")})
 
 
 async def _logado(cli: SigaaClient, fluxo: Callable[[SigaaClient], Awaitable[Any]]) -> Any:

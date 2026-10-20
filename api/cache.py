@@ -139,22 +139,15 @@ async def identificar(headers: dict[str, str], *, tocar: bool = True) -> str | N
         return None
     ger = S.gerenciador
     if esquema == "bearer":
-        if tocar:
-            sess = await ger.obter(valor)
-        else:
-            sess = ger._sessoes.get(S._hash(valor))
-            if sess is not None and time.time() > sess.expira_em:
-                sess = None
+        sess = await ger.obter(valor) if tocar else ger.espiar(valor)  # espiar: valida também a ociosidade
         return getattr(sess, "usuario_hash", None)
     if esquema == "basic":
         try:
             usuario, _, senha = base64.b64decode(valor).decode("utf-8").partition(":")
         except Exception:  # noqa: BLE001
             return None
-        sess = ger._sessoes.get("basic:" + S._hash(f"{usuario}\x00{senha}"))  # só se a senha já foi validada
-        if sess is None or time.time() > sess.expira_em:
-            return None
-        return sess.usuario_hash
+        sess = ger.espiar_basic(usuario, senha)  # só se a senha já foi validada (chave = HMAC do processo)
+        return getattr(sess, "usuario_hash", None)
     return None
 
 
@@ -406,6 +399,12 @@ class CacheHTTP:
         uh = await identificar(h, tocar=False)
         await self.app(scope, receive, send)
         if uh:
+            # o passo de pré-aquecimento em curso morre aqui (senão terminava DEPOIS da limpeza e regravava
+            # dado do aluno); a fila dele vê a sessão encerrada e para
+            passo = self._passo.get(uh)
+            if passo is not None and not passo[1].done():
+                passo[1].cancel()
+                await asyncio.gather(passo[1], return_exceptions=True)
             await cache.limpar_aluno(uh)
 
     async def _preaquecer(self, base: dict, token: str) -> None:

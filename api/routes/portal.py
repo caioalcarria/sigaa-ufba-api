@@ -9,7 +9,9 @@ from typing import Annotated
 
 from fastapi import APIRouter, HTTPException, Path, Query, Response
 
+from api.config import config
 from api.deps import Cliente
+from api.seguranca_http import TEXTO_ID, tipo_imagem
 from sigaa.models.portal import (
     Atividade,
     Atualizacao,
@@ -103,7 +105,11 @@ async def perfil(cli: Cliente):
 )
 async def foto(cli: Cliente):
     conteudo, tipo = await cli.executar(S.foto)
-    tipo = "image/png" if conteudo[:4] == b"\x89PNG" else tipo
+    tipo = "image/png" if conteudo[:4] == b"\x89PNG" else tipo_imagem(tipo)
+    if tipo is None:  # SVG/HTML no domínio da API = script; só imagem raster passa
+        raise HTTPException(404, detail={"codigo": "nao_encontrado", "mensagem": "O SIGAA não devolveu uma imagem para a foto."})
+    if config.FOTO_MAX_BYTES > 0 and len(conteudo) > config.FOTO_MAX_BYTES:
+        raise HTTPException(502, detail={"codigo": "sigaa_erro", "mensagem": "A foto do SIGAA passa do tamanho máximo."})
     return Response(content=conteudo, media_type=tipo, headers={"Cache-Control": "private, max-age=3600"})
 
 
@@ -218,7 +224,7 @@ async def mensagens(cli: Cliente):
     summary="Caixa postal (uma mensagem)",
     description="Conteúdo de uma mensagem. Mesma limitação de rede de /v1/mensagens.",
 )
-async def mensagem(cli: Cliente, mensagem_id: str):
+async def mensagem(cli: Cliente, mensagem_id: Annotated[str, Path(pattern=TEXTO_ID)]):
     return await cli.executar(lambda c: S.mensagem(c, mensagem_id))
 
 

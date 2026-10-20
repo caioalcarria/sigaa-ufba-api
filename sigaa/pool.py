@@ -162,6 +162,11 @@ class PoolSigaa:
             if isinstance(e, CredenciaisInvalidas):
                 self._credenciais = None
             return
+        except asyncio.CancelledError:
+            # o pool fechou (logout) no meio do login: o SIGAA já pode ter aceitado a sessão — desloga,
+            # senão ela fica logada e órfã até o SIGAA derrubar por inatividade
+            await self._fechar_sessao(s)
+            raise
         finally:
             self._criando -= 1
             self._avisar()

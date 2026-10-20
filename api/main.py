@@ -10,13 +10,13 @@ import asyncio
 import gc
 import importlib
 import logging
-import time
 from contextlib import asynccontextmanager
 
 import httpx
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.middleware.gzip import GZipMiddleware
+from fastapi.middleware.trustedhost import TrustedHostMiddleware
 from fastapi.responses import JSONResponse
 
 from sigaa import cpu
@@ -29,6 +29,7 @@ from sigaa import cache as sigaa_cache
 from . import cache as cache_http
 from . import log_seguro
 from .config import config
+from .seguranca_http import SegurancaHTTP, limitar, mensagem_publica
 from .sessions import gerenciador
 
 log = logging.getLogger("sigaa_api")
@@ -112,7 +113,17 @@ app = FastAPI(
     lifespan=lifespan,
     contact={"name": "sigaa-api", "url": "https://github.com/"},
     license_info={"name": "MIT"},
+    # SIGAA_API_DOCS=false tira /docs, /redoc e /openapi.json do ar
+    docs_url="/docs" if config.DOCS else None,
+    redoc_url="/redoc" if config.DOCS else None,
+    openapi_url="/openapi.json" if config.DOCS else None,
 )
+# limites de concorrência (anti-DoS por token/IP) — INNERMOST: um cache HIT (barato, não toca o
+# SIGAA) passa livre; só as requisições que de fato vão trabalhar contam contra os tetos. As respostas
+# 429/503 ainda saem pelo CORS (que é mais externo). Ver api/limites.py.
+from . import limites as _limites  # noqa: E402
+
+_limites.instalar(app)
 # cache HTTP (L1) por DENTRO do CORS: o HIT sai com os cabeçalhos de CORS também
 app.add_middleware(cache_http.CacheHTTP)
 # gzip por FORA do cache: o cache comprime o que ele serve (e marca Content-Encoding, então o GZip
@@ -120,14 +131,26 @@ app.add_middleware(cache_http.CacheHTTP)
 # o corpo já comprimido sem o cabeçalho. JSON do histórico: 27 KB → 4,7 KB por ~0,2 ms de CPU
 if config.GZIP_MIN_BYTES > 0:
     app.add_middleware(GZipMiddleware, minimum_size=config.GZIP_MIN_BYTES, compresslevel=5)
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=config.CORS,
-    allow_methods=["*"],
-    allow_headers=["*"],
-    expose_headers=["X-Cache", "Age", "X-Cache-Gerado-Em", "ETag"],
-)
+# CORS: por padrão NENHUMA origem (a auth é Bearer/Basic, sem cookie: não há CSRF, mas um site qualquer não
+# precisa usar a API pelo navegador da vítima). SIGAA_API_CORS libera; credenciais nunca (allow_credentials=False)
+if config.CORS:
+    app.add_middleware(
+        CORSMiddleware,
+        allow_origins=config.CORS,
+        allow_credentials=False,
+        allow_methods=["GET", "POST", "DELETE"],
+        allow_headers=["Authorization", "Content-Type", "If-None-Match", "Cache-Control", "Pragma"],
+        expose_headers=["X-Cache", "Age", "X-Cache-Gerado-Em", "ETag", "Retry-After"],
+        max_age=600,
+    )
 app.add_middleware(Prazo, segundos=config.TIMEOUT_REQUISICAO_S)
+if config.HOSTS:  # Host header fora da lista = 400 (padrão: aceita qualquer, pra não quebrar quem já usa)
+    app.add_middleware(TrustedHostMiddleware, allowed_hosts=config.HOSTS)
+
+# cabeçalhos de segurança + limites (405/413/414/431) POR FORA de toda a pilha, inclusive do tratador de 500
+# do Starlette (ServerErrorMiddleware): vale pra HIT, 304, erros, 504 e preflight. ASGI puro.
+_pilha_original = app.build_middleware_stack
+app.build_middleware_stack = lambda: SegurancaHTTP(_pilha_original(), docs=(app.docs_url or "", app.redoc_url or ""))
 
 for nome in ROTAS:
     try:
@@ -158,12 +181,17 @@ STATUS = {
 async def erro_sigaa(_: Request, exc: E.SigaaError):
     status = next((s for cls, s in STATUS.items() if isinstance(exc, cls)), 502)
     headers = {"Retry-After": "5"} if isinstance(exc, E.SigaaOcupado) else None
-    return JSONResponse(status_code=status, content={"erro": {"codigo": exc.codigo, "mensagem": str(exc)}}, headers=headers)
+    # a mensagem às vezes vem do HTML do SIGAA: sem controle e com tamanho limitado
+    return JSONResponse(status_code=status, content={"erro": {"codigo": exc.codigo, "mensagem": limitar(str(exc))}}, headers=headers)
 
 
 @app.exception_handler(ValueError)
 async def erro_valor(_: Request, exc: ValueError):
-    return JSONResponse(status_code=422, content={"erro": {"codigo": "requisicao_invalida", "mensagem": str(exc)}})
+    # só as mensagens de propósito dos serviços; ValueError do Python (int(), json, pydantic...) não vaza
+    msg = mensagem_publica(exc)
+    if msg == "Parâmetros inválidos.":
+        log.warning("ValueError sem mensagem pública: %r", exc)
+    return JSONResponse(status_code=422, content={"erro": {"codigo": "requisicao_invalida", "mensagem": msg}})
 
 
 @app.exception_handler(Exception)
@@ -184,10 +212,13 @@ async def erro_http(_: Request, exc: HTTPException):
 
 @app.exception_handler(RequestValidationError)
 async def erro_validacao(_: Request, exc: RequestValidationError):
-    return JSONResponse(status_code=422, content={"erro": {"codigo": "requisicao_invalida", "mensagem": "Parâmetros inválidos.", "detalhes": exc.errors()}})
+    # sem "input"/"ctx"/"url": o pydantic ecoa o valor recebido (no login malformado, a SENHA)
+    detalhes = [{"type": e.get("type"), "loc": list(e.get("loc", ())), "msg": limitar(str(e.get("msg", "")), 200)} for e in exc.errors()[:20]]
+    return JSONResponse(status_code=422, content={"erro": {"codigo": "requisicao_invalida", "mensagem": "Parâmetros inválidos.", "detalhes": detalhes}})
 
 
 async def _sondar_sigaa() -> tuple[bool, int | None]:
+    """Um GET no SIGAA pra ver se ele responde. Isolado pra poder ser cacheado/testado."""
     try:
         async with httpx.AsyncClient(timeout=10, verify=_ssl_ctx()) as h:
             r = await h.get(config.SIGAA_URL + "/sigaa/verTelaLogin.do")
@@ -196,24 +227,36 @@ async def _sondar_sigaa() -> tuple[bool, int | None]:
         return False, None
 
 
-#: última sonda do SIGAA (SIGAA_API_STATUS_CACHE_S) + a que está em andamento (uma só pra todo mundo)
-_SONDA: dict = {"quando": float("-inf"), "valor": (False, None), "tarefa": None}
+class _StatusSigaa:
+    """Cacheia a sondagem do SIGAA por ``STATUS_CACHE_S`` s. /v1/status é PÚBLICO e sondava o SIGAA
+    a cada chamada: um atacante repetindo /v1/status transformava a API num martelo contra a UFBA.
+    O cache (com singleflight por trava) garante no máximo uma sondagem por janela, por mais
+    chamadas simultâneas que cheguem."""
+
+    def __init__(self) -> None:
+        self._ts = 0.0
+        self._val: tuple[bool, int | None] = (False, None)
+        self._lock = asyncio.Lock()
+
+    async def ler(self) -> tuple[bool, int | None]:
+        import time as _t
+
+        if config.STATUS_CACHE_S > 0 and _t.monotonic() - self._ts < config.STATUS_CACHE_S:
+            return self._val
+        async with self._lock:
+            if config.STATUS_CACHE_S > 0 and _t.monotonic() - self._ts < config.STATUS_CACHE_S:
+                return self._val
+            self._val = await _sondar_sigaa()
+            self._ts = _t.monotonic()
+            return self._val
 
 
-async def _sigaa_no_ar() -> tuple[bool, int | None]:
-    if time.monotonic() - _SONDA["quando"] < config.STATUS_CACHE_S:
-        return _SONDA["valor"]
-    t = _SONDA["tarefa"]
-    if t is None or t.done():
-        t = _SONDA["tarefa"] = asyncio.ensure_future(_sondar_sigaa())
-    valor = await asyncio.shield(t)
-    _SONDA.update(quando=time.monotonic(), valor=valor)
-    return valor
+_status_sigaa = _StatusSigaa()
 
 
 @app.get("/v1/status", tags=["Sistema"], summary="A API e o SIGAA estão no ar?")
 async def status():
-    sigaa_ok, ms = await _sigaa_no_ar()
+    sigaa_ok, ms = await _status_sigaa.ler()
     det = config.STATUS_DETALHADO  # sem ele os contadores internos vêm null (os campos continuam)
     return {"api": "ok", "versao": __version__, "sigaa": {"url": config.SIGAA_URL, "no_ar": sigaa_ok, "latencia_ms": ms},
             "sessoes_ativas": gerenciador.total if det else None,

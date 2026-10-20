@@ -17,6 +17,8 @@ próprio sistema gerou. Por isso este cliente:
 from __future__ import annotations
 
 import asyncio
+import contextlib
+import logging
 import os
 import re
 import time
@@ -39,6 +41,8 @@ from .errors import (
     SigaaOcupado,
     SistemaIndisponivel,
 )
+
+log = logging.getLogger("sigaa.client")
 
 #: SIGAA alvo. Respeita SIGAA_URL em TODO SigaaClient criado sem base_url (inclusive as sessões
 #: anônimas das rotas públicas) — senão um teste contra o SIGAA simulado vazaria pro SIGAA real.
@@ -197,6 +201,11 @@ class MenuItem:
     rotulo: str
     acao: str
     form_id: str
+
+
+def _sem_usuario(texto: str, usuario: str) -> str:
+    """Pro log: o texto do SIGAA sem o login do aluno e curto."""
+    return (texto.replace(usuario, "<usuario>") if usuario else texto)[:200]
 
 
 def _sai_do_portal(url: str) -> bool:
@@ -391,6 +400,37 @@ _SSL: Any = None
 #: ``SigaaOcupado`` (503 + Retry-After) — falha em vez de empilhar quando o SIGAA está lento
 ESPERA_MAX_S = float(os.getenv("SIGAA_ESPERA_MAX_S", "20"))
 
+#: teto de bytes de UMA resposta do SIGAA, já DESCOMPRIMIDA, lido em streaming. Sem isso o httpx
+#: carrega o corpo inteiro na memória e descomprime gzip/deflate/brotli SEM limite: um upstream
+#: comprometido/mal-intencionado (ou um MITM) devolveria um corpo gigante ou uma "bomba" de
+#: compressão (poucos KB → vários GB) e derrubaria o processo da API por falta de memória. O teto é
+#: por tipo (HTML × PDF) e a leitura aborta assim que passa, sem materializar o resto.
+MAX_RESP_HTML = int(float(os.getenv("SIGAA_MAX_RESP_HTML_MB", "20")) * 1024 * 1024)
+MAX_RESP_PDF = int(float(os.getenv("SIGAA_MAX_RESP_PDF_MB", "50")) * 1024 * 1024)
+
+
+class RespostaGrandeDemais(SigaaError):
+    """O SIGAA devolveu uma resposta acima do teto (``SIGAA_MAX_RESP_*_MB``): recusada sem carregar
+    o restante na memória (defesa contra resposta gigante / bomba de descompressão do upstream)."""
+
+    codigo = "sigaa_resposta_grande"
+
+
+async def _ler_com_teto(r: httpx.Response) -> bytes:
+    """Lê o corpo de ``r`` em pedaços (já descomprimido pelo httpx) até o teto do tipo; passou do
+    teto → aborta com ``RespostaGrandeDemais`` sem acumular o resto."""
+    teto = MAX_RESP_PDF if "pdf" in r.headers.get("content-type", "").lower() else MAX_RESP_HTML
+    tam = 0
+    pedacos: list[bytes] = []
+    async for ch in r.aiter_bytes():
+        tam += len(ch)
+        if tam > teto:
+            raise RespostaGrandeDemais(
+                f"O SIGAA devolveu mais de {teto // (1024 * 1024)} MB; resposta recusada."
+            )
+        pedacos.append(ch)
+    return b"".join(pedacos)
+
 
 def _ssl_ctx() -> Any:
     """UM contexto SSL pro processo inteiro. Criar um por ``httpx.AsyncClient`` (o padrão)
@@ -574,16 +614,22 @@ class SigaaClient:
             self._ultimo_inicio = time.monotonic()
         self.navegacoes += 1
         self.requisicoes += 1
+        # streaming + teto de bytes: o corpo é lido em pedaços e abortado se passar do limite, em vez
+        # de o httpx carregar/descomprimir a resposta inteira na memória (ver MAX_RESP_* / _ler_com_teto)
+        req = self._http.build_request(method, self._url(path), **kw)
+        limite_cm = self._limite if self._limite is not None else contextlib.nullcontext()
         try:
-            if self._limite is not None:
-                async with self._limite:
-                    r = await self._http.request(method, self._url(path), **kw)
-            else:
-                r = await self._http.request(method, self._url(path), **kw)
+            async with limite_cm:
+                r = await self._http.send(req, stream=True, follow_redirects=True)
+                try:
+                    conteudo = await _ler_com_teto(r)
+                finally:
+                    await r.aclose()
         except (httpx.TimeoutException, httpx.NetworkError) as e:
             raise SistemaIndisponivel(f"SIGAA não respondeu: {e}") from e
         finally:
             self._ultimo = time.monotonic()
+        r._content = conteudo  # replica o que .content guardaria, pra r.encoding decidir igual
         self.navegacoes += len(r.history)  # cada redirect seguido também pode virar uma view
         if _sai_do_portal(path) or _sai_do_portal(str(r.url)):
             # entrar na turma virtual / no módulo mobile muda o contexto JSF da sessão: o portal guardado
@@ -766,8 +812,11 @@ class SigaaClient:
         if "Usuário e/ou senha inválidos" in page.html:
             raise CredenciaisInvalidas("Usuário e/ou senha inválidos.")
         if "logar.do" in page.url and 'name="user.senha"' in page.html:
+            # qualquer recusa vira a MESMA mensagem (o texto do SIGAA — "usuário não encontrado",
+            # "bloqueado"... — diria se a conta existe e pode trazer o login); o motivo vai só pro log
             msg = page.soup.select_one(".erros, #painel-erros, .info")
-            raise CredenciaisInvalidas(msg.get_text(" ", strip=True) if msg else "Login recusado pelo SIGAA.")
+            log.info("login recusado pelo SIGAA: %s", _sem_usuario(msg.get_text(" ", strip=True) if msg else "sem mensagem", usuario))
+            raise CredenciaisInvalidas("Usuário e/ou senha inválidos.")
         page = await self._pos_login(page)
         self.logado = True
         self.portal_cache = page if "/portais/discente/" in page.url else None
