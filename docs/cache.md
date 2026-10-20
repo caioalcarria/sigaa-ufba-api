@@ -114,8 +114,15 @@ Desligar: `SIGAA_API_PREAQUECER=false`.
   processos/workers. Tem um L0 em memória de 5 s por cima, então o HIT quente nem vai ao Redis. Se o Redis
   cair, a API segue (vira MISS) e conta os erros em `estatisticas`.
   * dado de aluno (escopo `aluno`) vai pro Redis **cifrado** (Fernet, chave derivada de
-    `SIGAA_API_CACHE_SEGREDO`). **Sem segredo configurado, dado de aluno nunca vai pro Redis**: fica
+    `SIGAA_API_CACHE_SEGREDO` por scrypt; o HMAC das chaves usa outra subchave). A cifra leva a própria
+    chave dentro: valor de um aluno copiado pra chave de outro é recusado, e chave de aluno com valor em
+    claro também. **Sem segredo configurado, dado de aluno nunca vai pro Redis**: fica
     só na memória local do processo. Público/compartilhado vai em claro (é dado público);
+  * `SIGAA_API_CACHE_SEGREDO` precisa de pelo menos `SIGAA_API_CACHE_SEGREDO_MIN` caracteres (padrão
+    16; menos que isso é IGNORADO, com erro no log) e o recomendado é 32+ aleatórios
+    (`python -c 'import secrets;print(secrets.token_urlsafe(48))'`). O mesmo valor em todos os workers;
+  * Redis fora desta máquina: use `rediss://` (TLS) e senha (`rediss://:senha@host:6380/0`) — a API
+    avisa no log quando falta. Quem escreve no Redis consegue envenenar o cache público/compartilhado;
   * as chaves de aluno são `u:<HMAC>:/rota?query`: não há login nem token em claro;
   * o TTL no Redis é TTL + SWR (+1 s): o próprio Redis expira.
 * `SIGAA_API_CACHE=false` desliga tudo: o middleware passa direto e o L2 chama a função original.

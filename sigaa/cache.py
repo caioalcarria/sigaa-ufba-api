@@ -19,7 +19,9 @@ Backends:
   pra chave de outro no Redis não serve: é recusado); chave de aluno em texto claro no Redis é
   ignorada. Sem segredo configurado, dado de aluno fica só na memória local.
 
-Chaves de aluno usam HMAC(segredo, hash do usuário) — nunca o login nem o token em claro.
+Chaves de aluno usam HMAC(segredo, hash do usuário) — nunca o login nem o token em claro. O
+segredo passa por scrypt antes de virar chave (HMAC e Fernet com subchaves separadas); segredo
+com menos de ``SIGAA_API_CACHE_SEGREDO_MIN`` caracteres é recusado (vale o aleatório por processo).
 """
 
 from __future__ import annotations
@@ -40,6 +42,7 @@ import typing
 from collections import OrderedDict
 from dataclasses import dataclass, field
 from typing import Any, Awaitable, Callable
+from urllib.parse import urlparse
 
 log = logging.getLogger("sigaa_api.cache")
 
@@ -360,6 +363,36 @@ def _bool(nome: str, padrao: bool) -> bool:
     return padrao if v is None else v.strip().lower() in ("1", "true", "sim", "yes", "on")
 
 
+def _int(nome: str, padrao: int) -> int:
+    try:
+        return int(os.getenv(nome) or padrao)
+    except ValueError:
+        return padrao
+
+
+#: segredo menor que isso é recusado; menor que o recomendado só gera aviso
+SEGREDO_RECOMENDADO = 32
+
+
+def derivar_segredo(seg: bytes) -> bytes:
+    """Chave-mestra do cache a partir do ``SIGAA_API_CACHE_SEGREDO``: scrypt (custo de memória),
+    pra quem tem uma cópia do Redis não conseguir testar segredos fracos em massa — com o segredo
+    em mãos ele recalcularia o HMAC dos logins (matrículas são enumeráveis) e abriria a cifra.
+    Sal fixo: todos os workers precisam chegar na mesma chave."""
+    return hashlib.scrypt(seg, salt=b"sigaa-api-cache-v1", n=2**14, r=8, p=1, dklen=32)
+
+
+def _avisar_redis(url: str, com_segredo: bool) -> None:
+    u = urlparse(url)
+    local = u.scheme == "unix" or (u.hostname or "") in ("localhost", "127.0.0.1", "::1")
+    if u.scheme == "redis" and not local:
+        log.warning("SIGAA_API_CACHE_URL sem TLS pra um Redis fora desta máquina: use rediss:// (o dado compartilhado e as chaves trafegam em claro)")
+    if not u.password and not local:
+        log.warning("SIGAA_API_CACHE_URL sem senha: qualquer um que alcance o Redis lê e ENVENENA o cache compartilhado")
+    if not com_segredo:
+        log.warning("Redis sem SIGAA_API_CACHE_SEGREDO: dado de aluno fica só na memória deste processo (não vai pro Redis)")
+
+
 class Cache:
     """Instância do processo (``cache``). Configurada por variáveis de ambiente:
 
@@ -367,20 +400,29 @@ class Cache:
     * ``SIGAA_API_CACHE_URL`` — ``redis://...`` pra compartilhar entre workers (padrão: memória);
     * ``SIGAA_API_CACHE_SEGREDO`` — segredo do HMAC das chaves de aluno e da cifra no Redis
       (sem ele: aleatório por processo e dado de aluno nunca sai da memória local);
+    * ``SIGAA_API_CACHE_SEGREDO_MIN`` (padrão 16) — segredo mais curto que isso é recusado;
     * ``SIGAA_API_CACHE_MAX_MB`` (padrão 256) — teto da memória.
     """
 
     def __init__(self) -> None:
         self.ligado = _bool("SIGAA_API_CACHE", True)
-        seg = os.getenv("SIGAA_API_CACHE_SEGREDO")
+        seg = os.getenv("SIGAA_API_CACHE_SEGREDO") or ""
+        minimo = _int("SIGAA_API_CACHE_SEGREDO_MIN", 16)
+        if seg and len(seg) < minimo:
+            log.error("SIGAA_API_CACHE_SEGREDO com %d caracteres (mínimo %d): IGNORADO — vale um aleatório por processo", len(seg), minimo)
+            seg = ""
+        elif seg and len(seg) < SEGREDO_RECOMENDADO:
+            log.warning("SIGAA_API_CACHE_SEGREDO curto (%d caracteres): use %d+ aleatórios (ex.: python -c 'import secrets;print(secrets.token_urlsafe(48))')", len(seg), SEGREDO_RECOMENDADO)
         self.segredo_configurado = bool(seg)
-        self.segredo = seg.encode() if seg else secrets.token_bytes(32)
+        mestre = derivar_segredo(seg.encode()) if seg else secrets.token_bytes(32)
+        self.segredo = hmac.new(mestre, b"sigaa-cache-hmac-aluno", hashlib.sha256).digest()  # só o HMAC das chaves
         url = os.getenv("SIGAA_API_CACHE_URL", "").strip()
         max_b = int(float(os.getenv("SIGAA_API_CACHE_MAX_MB", "256")) * 1024 * 1024)
         self.backend: Backend = Memoria(max_b)
         if url:
+            _avisar_redis(url, bool(seg))
             try:
-                self.backend = Redis(url, segredo=seg.encode() if seg else None)
+                self.backend = Redis(url, segredo=mestre if seg else None)
             except Exception as e:  # noqa: BLE001 - sem o pacote redis: segue na memória
                 log.warning("SIGAA_API_CACHE_URL ignorado (%s); usando memória", e)
         self.sf = Singleflight()
