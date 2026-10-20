@@ -7,6 +7,7 @@ from typing import Literal
 from fastapi import APIRouter, Query
 from pydantic import BaseModel, Field
 
+from sigaa.models.oferta import PrevisaoOfertaAluno
 from sigaa.models.planejamento import CargaHorariaGestao, GradeCurricular, PlanejamentoMatricula, SimulacaoMatricula
 from sigaa.services import planejamento as svc
 
@@ -74,6 +75,26 @@ async def get_planejamento(
         if turmas:
             out.append(comp.model_copy(update={"turmas": turmas}))
     return plano.model_copy(update={"candidatos": out})
+
+
+@router.get(
+    "/planejamento/previsao-oferta",
+    response_model=PrevisaoOfertaAluno,
+    summary="Previsão de oferta dos pendentes do aluno (por paridade, com o histórico do SIGAA)",
+    description="Pra cada componente PENDENTE da grade do aluno (obrigatórios; `incluir_optativas=true` traz as optativas): "
+    "o padrão histórico de oferta desde `desde` (paridade, frequência, última oferta), a previsão pro `alvo` (padrão: o "
+    "período seguinte ao atual) e os pré/co-requisitos — do SIGAA e, quando o SIGAA não cita, a SEQUÊNCIA I → II "
+    "inferida pelo nome/código (`origem_sequencia='inferido'`). ATIVIDADES sem turma (TCC, estágio) vêm com "
+    "`sem_turma=true`: a matrícula delas é pelo colegiado. O histórico de cada componente vem do cache compartilhado.",
+)
+async def get_previsao_oferta(
+    cli: Cliente,
+    alvo: str | None = Query(None, pattern=r"^\d{4}\.[1-4]$", description="Período a prever, ex.: 2027.1"),
+    desde: str | None = Query(None, pattern=r"^\d{4}\.[1-4]$", description="Início da janela (mínimo 2023.1)"),
+    incluir_optativas: bool = False,
+    considerar_cursando_como_aprovado: bool = True,
+):
+    return await cli.executar(lambda c: svc.previsao_oferta(c, alvo, desde, incluir_optativas, considerar_cursando_como_aprovado))
 
 
 class EscolhaTurma(BaseModel):

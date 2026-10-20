@@ -1,6 +1,6 @@
 # Endpoints
 
-Gerado de `api.main:app` — 161 rotas. Detalhes de cada campo em `/docs` (Swagger).
+Gerado de `api.main:app` — 166 rotas. Detalhes de cada campo em `/docs` (Swagger).
 
 🔓 = não precisa de login · 🔒 = `Authorization: Bearer <token>`
 
@@ -114,6 +114,7 @@ Gerado de `api.main:app` — 161 rotas. Detalhes de cada campo em `/docs` (Swagg
 |---|---|---|---|
 | 🔒 | `GET` | `/v1/grade-curricular` | A grade curricular do aluno, marcada com o que já fez |
 | 🔒 | `GET` | `/v1/planejamento/matricula` | O que dá pra pegar no semestre (oferta × grade × histórico) |
+| 🔒 | `GET` | `/v1/planejamento/previsao-oferta` | Previsão de oferta dos pendentes do aluno (por paridade, com o histórico do SIGAA) |
 | 🔒 | `POST` | `/v1/planejamento/simular` | Simular uma matrícula (choques, CH máxima, pré-requisitos, integralização) |
 | 🔒 | `GET` | `/v1/planejamento/sugestao` | Sugestão automática de matrícula sem choque |
 | 🔒 | `GET` | `/v1/carga-horaria` | Gerenciamento de horas (obrigatória, optativa, complementar, extensão) |
@@ -138,6 +139,8 @@ Gerado de `api.main:app` — 161 rotas. Detalhes de cada campo em `/docs` (Swagg
 | 🔒 | `GET` | `/v1/consultas/estruturas/{estrutura_id}` | Estrutura curricular completa |
 | 🔒 | `GET` | `/v1/consultas/estruturas/{estrutura_id}/declaracao-prazo-maximo` | Declaração de prazo máximo de integralização |
 | 🔒 | `GET` | `/v1/consultas/turmas` | Turmas ofertadas (consulta geral) |
+| 🔒 | `GET` | `/v1/consultas/turmas/historico` | Oferta histórica de um componente (todos os períodos) + paridade e previsão |
+| 🔒 | `GET` | `/v1/consultas/turmas/historico/lote` | Oferta histórica de vários componentes de uma vez |
 | 🔒 | `GET` | `/v1/consultas/turmas/filtros` | Opções dos filtros de turmas |
 | 🔒 | `GET` | `/v1/consultas/turmas/{turma_id}` | Informações da turma (vagas e solicitações) |
 | 🔒 | `GET` | `/v1/consultas/turmas/{turma_id}/processamento` | Resultado do processamento da matrícula (agregado) |
@@ -228,4 +231,6 @@ Gerado de `api.main:app` — 161 rotas. Detalhes de cada campo em `/docs` (Swagg
 
 | | método | rota | o que faz |
 |---|---|---|---|
+| 🔓 | `GET` | `/v1/cache/estatisticas` | Contadores do cache (HIT/MISS/STALE...) e uso de memória |
+| 🔒 | `DELETE` | `/v1/cache/meu` | Apagar o MEU cache (a próxima consulta vai ao SIGAA) |
 | 🔓 | `GET` | `/v1/status` | A API e o SIGAA estão no ar? |

@@ -31,7 +31,9 @@ from sigaa.models.consultas import (
 )
 from sigaa.client import SigaaClient
 from sigaa.models import consultas_publico as MP
+from sigaa.models.oferta import HistoricoOferta
 from sigaa.services import consultas as S
+from sigaa.services import oferta as SO
 from sigaa.services import consultas_publico as SP
 
 from ..deps import Cliente
@@ -229,12 +231,15 @@ async def get_declaracao_prazo(cli: Cliente, estrutura_id: int):
     summary="Turmas ofertadas (consulta geral)",
     description="Oferta de turmas: docentes, horário (código + decodificado), local por dia, situação, "
     "matriculados/capacidade. Sem `ano`/`periodo` o SIGAA usa o período atual. Pelo menos um filtro além "
-    "do período. Ids de unidade/curso/etc. em /v1/consultas/turmas/filtros.",
+    "do período. Ids de unidade/curso/etc. em /v1/consultas/turmas/filtros.\n\n"
+    "⚠ `curso` = turmas com VAGA RESERVADA pro curso, e o SIGAA só tem reserva a partir de 2025.2: antes disso "
+    "a busca por curso volta vazia (as turmas existem; pesquise por `componente` ou use /v1/consultas/turmas/historico). "
+    "O SIGAA guarda turmas a partir de 2023.1.",
 )
 async def get_turmas(
     cli: Cliente,
-    ano: int | None = None,
-    periodo: int | None = None,
+    ano: Annotated[int | None, Query(ge=1960, le=2100, description="Ano (padrão: o período atual).")] = None,
+    periodo: Annotated[int | None, Query(ge=1, le=4, description="Período (1, 2; 3/4 especiais).")] = None,
     componente: Annotated[str | None, Query(description="Código do componente (ex.: MATA37).")] = None,
     nome: Annotated[str | None, Query(description="Trecho do nome do componente.")] = None,
     unidade: Annotated[int | None, Query(description="Id da unidade.")] = None,
@@ -256,7 +261,71 @@ async def get_turmas(
             c, ano, periodo, componente, nome, unidade, docente, curso, turma, local, horario, nivel, situacao, tipo, modalidade
         )
     )
-    return Pagina[TurmaOferta].de(itens, pagina, por_pagina)
+    pag = Pagina[TurmaOferta].de(itens, pagina, por_pagina)
+    if not itens and curso and ano and periodo and (ano, periodo) < SO.PRIMEIRO_PERIODO_RESERVA:
+        pag.avisos.append(
+            f"O SIGAA só registra reserva de vagas por curso a partir de {SO.rotulo(SO.PRIMEIRO_PERIODO_RESERVA)}; "
+            f"as turmas de {ano}.{periodo} existem, mas não aparecem no filtro `curso`. Use `componente` ou /v1/consultas/turmas/historico."
+        )
+    if not itens and ano and periodo and (ano, periodo) < SO.PRIMEIRO_PERIODO:
+        pag.avisos.append(f"O SIGAA da UFBA só guarda turmas a partir de {SO.rotulo(SO.PRIMEIRO_PERIODO)}.")
+    return pag
+
+
+DesdeQ = Annotated[str | None, Query(pattern=r"^\d{4}\.[1-4]$", description="Início da janela, ex.: 2023.1 (padrão e mínimo: 2023.1, o mais antigo que o SIGAA guarda).")]
+AlvoQ = Annotated[str | None, Query(pattern=r"^\d{4}\.[1-4]$", description="Período a prever, ex.: 2027.1 (padrão: o seguinte ao atual).")]
+
+
+@router.get(
+    "/consultas/turmas/historico",
+    response_model=HistoricoOferta,
+    tags=LOGADO,
+    summary="Oferta histórica de um componente (todos os períodos) + paridade e previsão",
+    description="Todas as turmas que o SIGAA guarda de UM componente (de 2023.1 até o período atual, ou o próximo se já "
+    "publicado), agrupadas por período — turma, docentes, horário, local, vagas — e um resumo: períodos em que abriu, "
+    "**paridade** (`impar` = só x.1, `par` = só x.2, `ambos`, `sem_oferta`), frequência, última oferta, média de turmas e "
+    "vagas; mais a **previsão** pro `alvo` pela frequência nos semestres da mesma paridade.\n\n"
+    "Custa 1 busca no SIGAA (2 com `curso`), guardada no cache compartilhado entre alunos. `curso` marca em cada período "
+    "se houve vaga reservada pro curso (dado que só existe de 2025.2 em diante). `incluir_turmas=false` devolve só os totais.",
+)
+async def get_turmas_historico(
+    cli: Cliente,
+    componente: Annotated[str, Query(min_length=4, max_length=12, description="Código do componente (ex.: MATC73).")],
+    desde: DesdeQ = None,
+    alvo: AlvoQ = None,
+    curso: Annotated[int | None, Query(description="Id do curso (de /v1/consultas/cursos/ids ou /v1/consultas/turmas/filtros).")] = None,
+    incluir_turmas: bool = True,
+):
+    return await _logado(cli, lambda c: SO.historico(c, componente, desde, alvo, curso, incluir_turmas))
+
+
+@router.get(
+    "/consultas/turmas/historico/lote",
+    response_model=list[HistoricoOferta],
+    tags=LOGADO,
+    summary="Oferta histórica de vários componentes de uma vez",
+    description="O mesmo de /v1/consultas/turmas/historico pra até 40 códigos separados por vírgula (as buscas rodam em "
+    "paralelo nas sessões do aluno e cada componente fica no cache compartilhado). Padrão `incluir_turmas=false`.",
+)
+async def get_turmas_historico_lote(
+    cli: Cliente,
+    componentes: Annotated[str, Query(min_length=4, description="Códigos separados por vírgula (ex.: MATC73,MATA37,GICC0004).")],
+    desde: DesdeQ = None,
+    alvo: AlvoQ = None,
+    curso: Annotated[int | None, Query(description="Id do curso.")] = None,
+    incluir_turmas: bool = False,
+):
+    try:
+        codigos = list(dict.fromkeys(SO.normalizar_codigo(x) for x in componentes.split(",") if x.strip()))
+    except ValueError as e:
+        raise _422(e) from None
+    if not codigos or len(codigos) > 40:
+        raise _422(ValueError("Informe de 1 a 40 códigos em `componentes`."))
+
+    async def fluxo(c: SigaaClient):
+        return await c.paralelo([lambda s, k=k: SO.historico_tolerante(s, k, desde, alvo, curso, incluir_turmas) for k in codigos])
+
+    return await _logado(cli, fluxo)
 
 
 @router.get(

@@ -85,6 +85,8 @@ Junta histórico, grade do curso e oferta do semestre pra responder **"o que eu 
 | `GET /v1/planejamento/matricula` | o que está ofertado e você ainda precisa: **apto?** (e o que falta), **atrasado?**, **quantas outras destrava**, horários, vagas livres. Filtros: `natureza`, `so_aptos`, `turnos=N`, `sem_dias=sab`, `com_vagas` |
 | `POST /v1/planejamento/simular` | você escolhe as turmas, ela aponta **choque de horário**, CH acima do máximo, pré-requisito faltando, turma lotada e como fica a integralização |
 | `GET /v1/planejamento/sugestao` | uma grade **sem choque** montada automaticamente, priorizando obrigatórias atrasadas e as que destravam mais |
+| `GET /v1/planejamento/previsao-oferta` | pra cada pendente: em que semestres costuma abrir (**paridade**, chance ponderada pelos semestres recentes), a previsão pro próximo período e os pré-requisitos (do SIGAA ou a sequência I → II **inferida**) |
+| `GET /v1/consultas/turmas/historico?componente=MATC73` | todas as turmas de um componente desde 2023.1 (turma, docente, horário, vagas) + resumo de paridade e previsão |
 | `GET /v1/carga-horaria` | gestão de horas: obrigatória, optativa, complementar e extensão, com as atividades aceitas e rejeitadas |
 
 ### 🧾 Matrícula, documentos e vida acadêmica

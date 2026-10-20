@@ -91,6 +91,8 @@ REGRAS: list[tuple[re.Pattern[str], Regra]] = [
         # "+5", "5.0", " 5" e "5_0" como 5 — com \d+ a declaração escapava pra regra compartilhada.
         (r"^/v1/consultas/estruturas/[^/]+/declaracao", Politica(ALUNO, 1 * H, 1 * H)),  # documento emitido
         (r"^/v1/consultas/turmas/filtros$", Politica(COMPARTILHADO, 24 * H, 7 * D)),
+        # histórico de oferta: período fechado não muda; o TTL só limita o atraso de oferta nova (SWR longo)
+        (r"^/v1/consultas/turmas/historico(/lote)?$", Politica(COMPARTILHADO, 6 * H, 7 * D)),
         (r"^/v1/consultas/turmas/[^/]+(/processamento)?$", Politica(COMPARTILHADO, 5 * M, 30 * M)),  # vagas/solicitações
         (r"^/v1/consultas/turmas$", Politica(COMPARTILHADO, 10 * M, 1 * H)),
         (r"^/v1/consultas/(cursos|cursos/ids|componentes|componentes/[^/]+|estruturas|estruturas/[^/]+|unidades|unidades/tipos)$",

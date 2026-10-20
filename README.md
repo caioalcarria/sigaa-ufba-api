@@ -27,7 +27,8 @@ que precise dos dados do aluno.
 - 🗺️ **Planejamento de matrícula**:
   - o que falta pra se formar;
   - o que você pode pegar no semestre;
-  - simulação de choque de horário.
+  - simulação de choque de horário;
+  - **previsão de oferta**: em que semestres cada matéria costuma abrir.
 - 🧾 **Matrícula do semestre e documentos**: comprovante, declaração de vínculo, histórico em PDF
 - 🌐 **Dados públicos sem login**: cursos, disciplinas, ementas, turmas ofertadas, professores, calendário
 

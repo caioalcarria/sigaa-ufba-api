@@ -8,6 +8,7 @@ from pydantic import BaseModel, Field
 
 from .academico import AtividadeAutonoma, CargaExtensionista, CargaHorariaCategoria
 from .consultas import HorarioAula
+from .oferta import OrigemRequisito, RequisitoComponente
 
 
 class StatusComponente(str, Enum):
@@ -88,7 +89,12 @@ class ComponenteCandidato(BaseModel):
     atrasado: bool = Field(description="True se o semestre ideal já passou (semestre ideal < período letivo atual do aluno).")
     pre_requisitos: str | None = Field(None, description="Expressão do SIGAA, ex.: '(MATA55) E (MATA40 OU MATA57)'.")
     co_requisitos: str | None = None
-    apto: bool | None = Field(None, description="Pré-requisitos cumpridos? None = não foi possível verificar.")
+    sequencia_apos: list[str] = Field(
+        default_factory=list,
+        description="Antecessor(es) por SEQUÊNCIA (I → II) que o SIGAA não lista no pré-requisito — regra inferida pelo nome/código.",
+    )
+    origem_sequencia: OrigemRequisito | None = Field(None, description="'inferido' quando `sequencia_apos` não veio do SIGAA.")
+    apto: bool | None = Field(None, description="Pré-requisitos (e sequência inferida) cumpridos? None = não foi possível verificar.")
     faltando: list[str] = Field(default_factory=list, description="Códigos que faltam pra cumprir o pré-requisito.")
     desbloqueia: list[str] = Field(default_factory=list, description="Componentes pendentes que têm este como pré-requisito.")
     reprovacoes_anteriores: int = 0
@@ -104,6 +110,11 @@ class PlanejamentoMatricula(BaseModel):
     ch_pendente: list[CargaHorariaCategoria] = Field(default_factory=list)
     candidatos: list[ComponenteCandidato]
     total_ofertados_para_o_curso: int = Field(description="Componentes distintos com turma reservada pro curso no período.")
+    requisitos: list[RequisitoComponente] = Field(
+        default_factory=list,
+        description="Pré/co-requisitos de TODOS os pendentes lidos — inclusive os sem turma no período (TCC, estágio e outras "
+        "ATIVIDADES nunca aparecem em `candidatos`). Use isto pra montar o grafo de pré-requisitos.",
+    )
     avisos: list[str] = Field(default_factory=list)
 
 
