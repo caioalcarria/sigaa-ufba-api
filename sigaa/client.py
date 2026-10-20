@@ -16,6 +16,7 @@ próprio sistema gerou. Por isso este cliente:
 from __future__ import annotations
 
 import asyncio
+import os
 import re
 import time
 from dataclasses import dataclass, field
@@ -34,7 +35,9 @@ from .errors import (
     SistemaIndisponivel,
 )
 
-BASE_URL = "https://sigaa.ufba.br"
+#: SIGAA alvo. Respeita SIGAA_URL em TODO SigaaClient criado sem base_url (inclusive as sessões
+#: anônimas das rotas públicas) — senão um teste contra o SIGAA simulado vazaria pro SIGAA real.
+BASE_URL = os.getenv("SIGAA_URL", "https://sigaa.ufba.br").rstrip("/")
 USER_AGENT = (
     "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) "
     "Chrome/130.0 Safari/537.36 sigaa-api"
@@ -197,14 +200,14 @@ class SigaaClient:
 
     def __init__(
         self,
-        base_url: str = BASE_URL,
+        base_url: str | None = None,
         *,
         timeout: float = 40.0,
         min_interval: float = 0.25,
         credenciais: LoginCallback | None = None,
         cookies: dict[str, str] | None = None,
     ) -> None:
-        self.base_url = base_url.rstrip("/")
+        self.base_url = (base_url or os.getenv("SIGAA_URL") or BASE_URL).rstrip("/")
         self._http = httpx.AsyncClient(
             base_url=self.base_url,
             headers={"User-Agent": USER_AGENT, "Accept-Language": "pt-BR,pt;q=0.9"},
