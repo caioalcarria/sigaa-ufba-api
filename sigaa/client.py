@@ -228,6 +228,33 @@ def transporte(*, http2: bool = False, max_conexoes: int = 200, keepalive: int =
     )
 
 
+class Carga:
+    """Teto GLOBAL de requisições simultâneas ao SIGAA (todas as sessões de todos os alunos) e a
+    medida de pressão: o pool só abre sessão nova (um login = ~4 viagens) se o SIGAA está folgado."""
+
+    def __init__(self, teto: int) -> None:
+        self.teto = max(1, teto)
+        self.em_voo = 0
+        self._sem = asyncio.Semaphore(self.teto)
+
+    @property
+    def pressao(self) -> float:
+        """0 = ocioso · 1 = no teto (ou com fila esperando vaga)."""
+        return self.em_voo / self.teto
+
+    async def __aenter__(self) -> None:
+        self.em_voo += 1  # conta também quem está na fila esperando vaga
+        try:
+            await self._sem.acquire()
+        except BaseException:
+            self.em_voo -= 1
+            raise
+
+    async def __aexit__(self, *exc) -> None:
+        self._sem.release()
+        self.em_voo -= 1
+
+
 @dataclass
 class Compartilhado:
     """Estado do ALUNO (não da tela) dividido entre as sessões dele: cache curto (``memo``), as
@@ -259,12 +286,12 @@ class SigaaClient:
         transport: httpx.AsyncBaseTransport | None = None,
         http2: bool = False,
         compartilhado: Compartilhado | None = None,
-        limite: asyncio.Semaphore | None = None,
+        limite: Carga | asyncio.Semaphore | None = None,
         reusar_views: int = 0,
     ) -> None:
         """``transport``: transporte httpx compartilhado (keep-alive entre sessões; ver ``transporte()``).
         ``compartilhado``: memo/dados do aluno divididos entre as sessões do pool.
-        ``limite``: semáforo GLOBAL de requisições simultâneas ao SIGAA (protege o SIGAA).
+        ``limite``: teto GLOBAL de requisições simultâneas ao SIGAA (``Carga``; protege o SIGAA).
         ``reusar_views``: quantas navegações uma página GET (portal, turmas.jsf) pode ser reaproveitada
         (o ViewState dela continua válido no servidor) antes de ser baixada de novo; 0 = nunca reaproveita."""
         self.base_url = (base_url or os.getenv("SIGAA_URL") or BASE_URL).rstrip("/")

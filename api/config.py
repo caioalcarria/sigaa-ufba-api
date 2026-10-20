@@ -47,6 +47,8 @@ class Config:
     POOL_AQUECER: int = int(_num("SIGAA_API_POOL_AQUECER", 2))
     #: no paralelo, só abre sessão nova se houver ao menos N fluxos na fila por sessão nova
     POOL_TAREFAS_POR_SESSAO: int = int(_num("SIGAA_API_POOL_TAREFAS_POR_SESSAO", 2))
+    #: só abre sessão extra se o SIGAA estiver com menos que esta fração do teto global em voo
+    POOL_PRESSAO_MAX: float = _num("SIGAA_API_POOL_PRESSAO_MAX", 0.5)
     #: quantas navegações a página do portal/turmas.jsf pode ser reaproveitada antes de ser baixada de
     #: novo (o MyFaces do SIGAA UFBA guarda as 10 últimas views da sessão: uma página sobrevive a 9
     #: navegações e morre na 10ª; 8 deixa margem). 0 = sempre baixa (comportamento antigo).

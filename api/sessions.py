@@ -30,7 +30,7 @@ from cryptography.fernet import Fernet
 
 import httpx
 
-from sigaa.client import SigaaClient, transporte
+from sigaa.client import Carga, SigaaClient, transporte
 from sigaa.errors import SessaoExpirada
 from sigaa.pool import PoolSigaa
 
@@ -82,13 +82,13 @@ class Gerenciador:
         self.limite_login = LimiteLogin(config.MAX_LOGINS_POR_IP)
         self._tarefa: asyncio.Task | None = None
         self._transporte: httpx.AsyncHTTPTransport | None = None
-        self._limite: asyncio.Semaphore | None = None
+        self._limite: Carga | None = None
         self._aquecendo: set[asyncio.Task] = set()
 
     def _novo_cliente(self, credenciais=None) -> SigaaClient:
         if self._transporte is None:
             self._transporte = transporte(http2=config.HTTP2, max_conexoes=config.MAX_CONEXOES, keepalive=config.MAX_CONEXOES)
-            self._limite = asyncio.Semaphore(config.MAX_CONCORRENCIA_SIGAA)
+            self._limite = Carga(config.MAX_CONCORRENCIA_SIGAA)
         return SigaaClient(
             config.SIGAA_URL,
             credenciais=credenciais,
@@ -142,6 +142,7 @@ class Gerenciador:
             maximo=config.POOL_MAX,
             credenciais=cred_pool if cred_tmp else None,
             tarefas_por_sessao=config.POOL_TAREFAS_POR_SESSAO,
+            pressao_max=config.POOL_PRESSAO_MAX,
         )
         if aquecer > 1:
             async def aquecimento():

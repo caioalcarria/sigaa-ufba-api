@@ -364,3 +364,42 @@ def test_transporte_compartilhado_nao_fecha_com_um_cliente():
         await b.close()
 
     run(main())
+
+
+def test_pool_nao_cresce_com_o_sigaa_sob_pressao():
+    from sigaa.client import Carga
+
+    async def main():
+        carga = Carga(10)
+        p = PoolSigaa(Falso(limite=carga), Falso, maximo=4, credenciais=_cred, tarefas_por_sessao=1, carga=carga)
+        carga.em_voo = 6  # 60% do teto em voo (outros alunos)
+        assert p.crescer(3) == 0
+        r = await p.principal.executar(lambda s: s.paralelo([lambda s, i=i: asyncio.sleep(0.01, i) for i in range(4)]))
+        assert r == [0, 1, 2, 3] and p.tamanho == 1
+        carga.em_voo = 0
+        await p.aquecer(3)
+        assert p.tamanho == 3
+        await p.fechar()
+
+    run(main())
+
+
+def test_carga_limita_requisicoes_simultaneas():
+    from sigaa.client import Carga
+
+    async def main():
+        carga = Carga(2)
+        dentro = pico = 0
+
+        async def req():
+            nonlocal dentro, pico
+            async with carga:
+                dentro += 1
+                pico = max(pico, dentro)
+                await asyncio.sleep(0.02)
+                dentro -= 1
+
+        await asyncio.gather(*(req() for _ in range(6)))
+        assert pico == 2 and carga.em_voo == 0
+
+    run(main())

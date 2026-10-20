@@ -78,17 +78,24 @@ async def _lista_mobile(c: SigaaClient) -> list[TurmaVirtualResumo]:
 
 async def listar_turmas(c: SigaaClient, *, com_ids: bool = True) -> list[TurmaVirtualResumo]:
     """Todas as turmas virtuais do aluno (semestre atual + anteriores), com o idTurma numérico."""
-    pag = await c.get(URL_TURMAS)
+
+    async def mobile_ou_nada(s: SigaaClient) -> list[TurmaVirtualResumo]:
+        try:
+            return await _lista_mobile(s)
+        except SigaaError:
+            return []
+
+    # turmas.jsf (1 viagem) e a lista mobile (3 viagens) são independentes: com pool, em sessões diferentes
+    if com_ids:
+        pag, mobile = await c.paralelo([lambda s: s.pagina(URL_TURMAS, reusar=False), mobile_ou_nada])
+    else:
+        pag, mobile = await c.pagina(URL_TURMAS, reusar=False), []
     lista = P.parse_turmas_anteriores(pag.html)
     m = re.search(r"Semestre atual:\s*(?:<[^>]+>\s*)*(\d{4}\.\d)", pag.html)
     atual = m.group(1) if m else (lista[0].periodo if lista else None)
     for t in lista:
         t.atual = t.periodo == atual
     if com_ids:
-        try:
-            mobile = await _lista_mobile(c)
-        except SigaaError:
-            mobile = []
         P.casar_turmas(lista, mobile)
     c.dados["_tv_mapa"] = {t.turma_id: t for t in lista if t.turma_id}
     c.dados["_tv_lista"] = lista

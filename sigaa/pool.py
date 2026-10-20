@@ -27,7 +27,7 @@ import time
 from collections import deque
 from typing import Any, Callable, Sequence, TypeVar
 
-from .client import Compartilhado, Fluxo, LoginCallback, SigaaClient
+from .client import Carga, Compartilhado, Fluxo, LoginCallback, SigaaClient
 from .errors import CredenciaisInvalidas, SessaoExpirada
 
 log = logging.getLogger("sigaa.pool")
@@ -46,11 +46,15 @@ class PoolSigaa:
         credenciais: LoginCallback | None = None,
         tarefas_por_sessao: int = 2,
         espera_falha_s: float = 60.0,
+        carga: Carga | None = None,
+        pressao_max: float = 0.5,
     ) -> None:
         """``fabrica``: cria um SigaaClient novo (deslogado) — o pool liga nele o mesmo ``Compartilhado``.
         ``credenciais``: devolve (usuário, senha) pra abrir sessões novas; None = pool fixo.
         ``tarefas_por_sessao``: no ``paralelo``, só abre sessão nova se houver pelo menos isso de
-        fluxos esperando por sessão nova (um login custa ~3 s ≈ 6 viagens; não compensa pra 1 fluxo)."""
+        fluxos esperando por sessão nova (um login custa ~3 s ≈ 6 viagens; não compensa pra 1 fluxo).
+        ``carga``/``pressao_max``: não abre sessão nova se o SIGAA já está com mais que essa fração do
+        teto global em voo — com muitos alunos ao mesmo tempo, login extra só rouba vaga de trabalho útil."""
         self.compartilhado: Compartilhado = principal.compartilhado
         self.principal = principal
         self._fabrica = fabrica
@@ -58,6 +62,8 @@ class PoolSigaa:
         self._credenciais = credenciais
         self.tarefas_por_sessao = max(1, tarefas_por_sessao)
         self._espera_falha = espera_falha_s
+        self._carga = carga if carga is not None else (principal._limite if isinstance(principal._limite, Carga) else None)  # noqa: SLF001
+        self.pressao_max = pressao_max
         self.sessoes: list[SigaaClient] = []
         self._criando = 0
         self._falhou_em = 0.0
@@ -97,6 +103,7 @@ class PoolSigaa:
             and self._credenciais is not None
             and len(self.sessoes) + self._criando < self.maximo
             and time.monotonic() - self._falhou_em > self._espera_falha
+            and (self._carga is None or self._carga.pressao < self.pressao_max)
         )
 
     def crescer(self, n: int = 1) -> int:
