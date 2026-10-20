@@ -55,6 +55,7 @@ from sigaa.models.turma_virtual import (
     Video,
 )
 from sigaa.parsers import turma_virtual as P
+from ..cpu import rodar
 
 URL_TURMAS = "/sigaa/portais/discente/turmas.jsf"
 URL_MOBILE_MENU = "/sigaa/mobile/touch/menu.jsf"
@@ -71,13 +72,13 @@ async def _lista_mobile(c: SigaaClient) -> list[TurmaVirtualResumo]:
     turmas = await c.clicar(menu, "lnkMinhasTurmas")
     if "lnkVerTodas" in turmas.html:
         turmas = await c.clicar(turmas, "lnkVerTodas")
-    return P.parse_turmas_mobile(turmas.html)
+    return await rodar(P.parse_turmas_mobile, turmas.html)
 
 
 async def listar_turmas(c: SigaaClient, *, com_ids: bool = True) -> list[TurmaVirtualResumo]:
     """Todas as turmas virtuais do aluno (semestre atual + anteriores), com o idTurma numérico."""
     pag = await c.get(URL_TURMAS)
-    lista = P.parse_turmas_anteriores(pag.html)
+    lista = await rodar(P.parse_turmas_anteriores, pag.html)
     m = re.search(r"Semestre atual:\s*(?:<[^>]+>\s*)*(\d{4}\.\d)", pag.html)
     atual = m.group(1) if m else (lista[0].periodo if lista else None)
     for t in lista:
@@ -152,7 +153,7 @@ async def turma(c: SigaaClient, turma_id: int | str) -> TurmaVirtual:
     """Página principal: cabeçalho, andamento, última notícia, tópicos de aula com materiais, quadros laterais."""
     r = await _resumo(c, turma_id)
     tv = await abrir_turma(c, turma_id)
-    t = P.parse_principal(tv.html, r.front_end_id)
+    t = await rodar(P.parse_principal, tv.html, r.front_end_id)
     t.turma_id = r.turma_id
     t.carga_horaria = t.carga_horaria or r.carga_horaria
     t.turma = t.turma or r.turma
@@ -165,7 +166,7 @@ async def aulas(c: SigaaClient, turma_id: int | str) -> list[TopicoAula]:
 
 # ===================================================================== notícias
 async def noticias(c: SigaaClient, turma_id: int | str) -> list[Noticia]:
-    return P.parse_noticias((await abrir_item(c, turma_id, "Notícias")).html)
+    return await rodar(P.parse_noticias, (await abrir_item(c, turma_id, "Notícias")).html)
 
 
 async def noticia(c: SigaaClient, turma_id: int | str, noticia_id: int) -> Noticia:
@@ -173,14 +174,14 @@ async def noticia(c: SigaaClient, turma_id: int | str, noticia_id: int) -> Notic
     ln = _link_id(pag, noticia_id)
     if ln is None:
         raise NaoEncontrado(f"Notícia {noticia_id} não encontrada nesta turma.")
-    n = P.parse_noticia((await c.clicar(pag, ln)).html)
+    n = await rodar(P.parse_noticia, (await c.clicar(pag, ln)).html)
     n.id = n.id or noticia_id
     return n
 
 
 # ===================================================================== participantes / plano
 async def participantes(c: SigaaClient, turma_id: int | str) -> Participantes:
-    return P.parse_participantes((await abrir_item(c, turma_id, "Participantes")).html)
+    return await rodar(P.parse_participantes, (await abrir_item(c, turma_id, "Participantes")).html)
 
 
 async def docentes(c: SigaaClient, turma_id: int | str) -> list[Participante]:
@@ -188,26 +189,26 @@ async def docentes(c: SigaaClient, turma_id: int | str) -> list[Participante]:
 
 
 async def plano_curso(c: SigaaClient, turma_id: int | str) -> PlanoCurso:
-    return P.parse_plano_curso((await abrir_item(c, turma_id, "Plano de Curso")).html)
+    return await rodar(P.parse_plano_curso, (await abrir_item(c, turma_id, "Plano de Curso")).html)
 
 
 async def programa(c: SigaaClient, turma_id: int | str) -> ProgramaComponente:
     """'Visualizar Programa'. Quando não há programa o SIGAA fica na tela anterior com uma mensagem de erro."""
-    return P.parse_programa((await abrir_item(c, turma_id, "Visualizar Programa")).html)
+    return await rodar(P.parse_programa, (await abrir_item(c, turma_id, "Visualizar Programa")).html)
 
 
 # ===================================================================== materiais
 async def conteudos(c: SigaaClient, turma_id: int | str) -> list[ConteudoTurma]:
-    return P.parse_conteudos((await abrir_item(c, turma_id, "Conteúdo/Página web", "Conteúdo")).html)
+    return await rodar(P.parse_conteudos, (await abrir_item(c, turma_id, "Conteúdo/Página web", "Conteúdo")).html)
 
 
 async def conteudo(c: SigaaClient, turma_id: int | str, conteudo_id: int) -> ConteudoTurma:
     pag = await abrir_item(c, turma_id, "Conteúdo/Página web", "Conteúdo")
-    lista = {x.id: x for x in P.parse_conteudos(pag.html)}
+    lista = {x.id: x for x in await rodar(P.parse_conteudos, pag.html)}
     ln = _link_id(pag, conteudo_id)
     if ln is None:
         raise NaoEncontrado(f"Conteúdo {conteudo_id} não encontrado nesta turma.")
-    det = P.parse_conteudo((await c.clicar(pag, ln)).html, conteudo_id)
+    det = await rodar(P.parse_conteudo, (await c.clicar(pag, ln)).html, conteudo_id)
     if conteudo_id in lista:
         det.criado_em = det.criado_em or lista[conteudo_id].criado_em
         det.titulo = det.titulo or lista[conteudo_id].titulo
@@ -215,16 +216,16 @@ async def conteudo(c: SigaaClient, turma_id: int | str, conteudo_id: int) -> Con
 
 
 async def referencias(c: SigaaClient, turma_id: int | str) -> list[ReferenciaTurma]:
-    return P.parse_referencias((await abrir_item(c, turma_id, "Referências")).html)
+    return await rodar(P.parse_referencias, (await abrir_item(c, turma_id, "Referências")).html)
 
 
 async def referencia(c: SigaaClient, turma_id: int | str, referencia_id: int) -> ReferenciaTurma:
     pag = await abrir_item(c, turma_id, "Referências")
-    base = next((r for r in P.parse_referencias(pag.html) if r.id == referencia_id), None)
+    base = next((r for r in await rodar(P.parse_referencias, pag.html) if r.id == referencia_id), None)
     ln = _link_id(pag, referencia_id)
     if ln is None:
         raise NaoEncontrado(f"Referência {referencia_id} não encontrada nesta turma.")
-    det = P.parse_referencia((await c.clicar(pag, ln)).html, referencia_id)
+    det = await rodar(P.parse_referencia, (await c.clicar(pag, ln)).html, referencia_id)
     if base:
         det.topico = det.topico or base.topico
         det.url = det.url or base.url
@@ -232,11 +233,11 @@ async def referencia(c: SigaaClient, turma_id: int | str, referencia_id: int) ->
 
 
 async def videos(c: SigaaClient, turma_id: int | str) -> list[Video]:
-    return P.parse_videos((await abrir_item(c, turma_id, "Vídeos")).html)
+    return await rodar(P.parse_videos, (await abrir_item(c, turma_id, "Vídeos")).html)
 
 
 async def arquivos(c: SigaaClient, turma_id: int | str) -> list[Arquivo]:
-    return P.parse_arquivos((await abrir_item(c, turma_id, "Arquivos")).html)
+    return await rodar(P.parse_arquivos, (await abrir_item(c, turma_id, "Arquivos")).html)
 
 
 _RE_COMBINANTE = re.compile(r"([A-Za-z])(768|769|770|771|776|807)")
@@ -264,11 +265,11 @@ async def baixar_arquivo(c: SigaaClient, turma_id: int | str, arquivo_id: int | 
     aid = str(arquivo_id)
     if aid.isdigit():
         pag = await abrir_item(c, turma_id, "Arquivos")
-        nome = next((a.nome for a in P.parse_arquivos(pag.html) if a.id == int(aid)), None)
+        nome = next((a.nome for a in await rodar(P.parse_arquivos, pag.html) if a.id == int(aid)), None)
     else:
         aid = aid.upper()
         pag = await abrir_turma(c, turma_id)
-        nome = next((m.titulo for t in P.parse_principal(pag.html).topicos for m in t.materiais if m.id_hash == aid), None)
+        nome = next((m.titulo for t in (await rodar(P.parse_principal, pag.html)).topicos for m in t.materiais if m.id_hash == aid), None)
     ln = _link_id(pag, aid)
     if ln is None:
         raise NaoEncontrado(f"Arquivo {arquivo_id} não encontrado nesta turma.")
@@ -281,19 +282,19 @@ async def baixar_arquivo(c: SigaaClient, turma_id: int | str, arquivo_id: int | 
 
 # ===================================================================== atividades
 async def tarefas(c: SigaaClient, turma_id: int | str) -> list[Tarefa]:
-    return P.parse_tarefas((await abrir_item(c, turma_id, "Tarefas")).html)
+    return await rodar(P.parse_tarefas, (await abrir_item(c, turma_id, "Tarefas")).html)
 
 
 async def questionarios(c: SigaaClient, turma_id: int | str) -> list[Questionario]:
-    return P.parse_questionarios((await abrir_item(c, turma_id, "Questionários")).html)
+    return await rodar(P.parse_questionarios, (await abrir_item(c, turma_id, "Questionários")).html)
 
 
 async def enquetes(c: SigaaClient, turma_id: int | str) -> list[Enquete]:
-    return P.parse_enquetes((await abrir_item(c, turma_id, "Enquetes")).html)
+    return await rodar(P.parse_enquetes, (await abrir_item(c, turma_id, "Enquetes")).html)
 
 
 async def avaliacoes(c: SigaaClient, turma_id: int | str) -> list[Avaliacao]:
-    return P.parse_avaliacoes((await abrir_item(c, turma_id, "Avaliações")).html)
+    return await rodar(P.parse_avaliacoes, (await abrir_item(c, turma_id, "Avaliações")).html)
 
 
 async def avaliacao(c: SigaaClient, turma_id: int | str, avaliacao_id: int) -> Avaliacao:
@@ -301,7 +302,7 @@ async def avaliacao(c: SigaaClient, turma_id: int | str, avaliacao_id: int) -> A
     ln = _link_id(pag, avaliacao_id)
     if ln is None:
         raise NaoEncontrado(f"Avaliação {avaliacao_id} não encontrada nesta turma.")
-    return P.parse_avaliacao((await c.clicar(pag, ln)).html, avaliacao_id)
+    return await rodar(P.parse_avaliacao, (await c.clicar(pag, ln)).html, avaliacao_id)
 
 
 # ===================================================================== fórum
@@ -312,7 +313,7 @@ def _links_coluna(page: Page, trecho: str) -> list[JsfLink]:
 
 
 async def foruns(c: SigaaClient, turma_id: int | str) -> list[ForumTurma]:
-    return P.parse_foruns((await abrir_item(c, turma_id, "Fóruns")).html)
+    return await rodar(P.parse_foruns, (await abrir_item(c, turma_id, "Fóruns")).html)
 
 
 async def _abrir_forum(c: SigaaClient, turma_id: int | str, forum_id: int) -> Page:
@@ -332,14 +333,14 @@ async def _abrir_topico(c: SigaaClient, turma_id: int | str, forum_id: int, topi
 
 
 async def forum(c: SigaaClient, turma_id: int | str, forum_id: int) -> ForumDetalhe:
-    return P.parse_forum((await _abrir_forum(c, turma_id, forum_id)).html, forum_id)
+    return await rodar(P.parse_forum, (await _abrir_forum(c, turma_id, forum_id)).html, forum_id)
 
 
 async def topico_forum(c: SigaaClient, turma_id: int | str, forum_id: int, topico_id: int) -> TopicoForumDetalhe:
     """Mensagens de um tópico. Só LÊ: não clica em 'Seguir tópico' nem responde."""
     pag, top = await _abrir_topico(c, turma_id, forum_id, topico_id)
-    detalhe = P.parse_forum(pag.html, forum_id)
-    res = P.parse_topico_forum(top.html, forum_id, topico_id)
+    detalhe = await rodar(P.parse_forum, pag.html, forum_id)
+    res = await rodar(P.parse_topico_forum, top.html, forum_id, topico_id)
     if topico_id <= len(detalhe.topicos):
         base = detalhe.topicos[topico_id - 1]
         base.respostas = len(res.respostas)
@@ -361,7 +362,7 @@ async def baixar_anexo_forum(c: SigaaClient, turma_id: int | str, forum_id: int,
 # ===================================================================== notas / frequência
 async def notas(c: SigaaClient, turma_id: int | str) -> NotasTurma:
     r = await _resumo(c, turma_id)
-    n = P.parse_notas((await abrir_item(c, turma_id, "Ver Notas")).html)
+    n = await rodar(P.parse_notas, (await abrir_item(c, turma_id, "Ver Notas")).html)
     n.turma_id = r.turma_id
     n.codigo = n.codigo or r.codigo
     n.nome = n.nome or r.nome
@@ -371,22 +372,22 @@ async def notas(c: SigaaClient, turma_id: int | str) -> NotasTurma:
 
 async def frequencia(c: SigaaClient, turma_id: int | str) -> Frequencia:
     r = await _resumo(c, turma_id)
-    f = P.parse_frequencia((await abrir_item(c, turma_id, "Frequência")).html)
+    f = await rodar(P.parse_frequencia, (await abrir_item(c, turma_id, "Frequência")).html)
     f.turma_id = r.turma_id
     return f
 
 
 # ===================================================================== outros
 async def linha_tempo(c: SigaaClient, turma_id: int | str) -> list[EventoLinhaTempo]:
-    return P.parse_linha_tempo((await abrir_item(c, turma_id, "Linha do Tempo")).html)
+    return await rodar(P.parse_linha_tempo, (await abrir_item(c, turma_id, "Linha do Tempo")).html)
 
 
 async def grupo(c: SigaaClient, turma_id: int | str) -> GrupoTurma:
-    return P.parse_grupo((await abrir_item(c, turma_id, "Ver Grupo")).html)
+    return await rodar(P.parse_grupo, (await abrir_item(c, turma_id, "Ver Grupo")).html)
 
 
 async def estatisticas(c: SigaaClient, turma_id: int | str) -> EstatisticasTurma:
-    return P.parse_estatisticas((await abrir_item(c, turma_id, "Situação dos Discentes", "Estatísticas")).html)
+    return await rodar(P.parse_estatisticas, (await abrir_item(c, turma_id, "Situação dos Discentes", "Estatísticas")).html)
 
 
 async def grafico_estatisticas(c: SigaaClient, turma_id: int | str) -> tuple[bytes, str]:

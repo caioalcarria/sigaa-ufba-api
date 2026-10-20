@@ -38,6 +38,7 @@ from ..parsers.academico import (
     parse_trancamentos,
 )
 from ..parsers.historico_pdf import parse_historico_pdf
+from ..cpu import rodar
 
 TTL_DOCUMENTO = 300.0  # 5 min
 
@@ -74,14 +75,7 @@ async def historico_pdf(c: SigaaClient) -> bytes:
 
 async def historico(c: SigaaClient) -> Historico:
     pdf = await historico_pdf(c)
-    return await c.memo("historico", TTL_DOCUMENTO, _async(lambda: parse_historico_pdf(pdf)))
-
-
-def _async(fn):
-    async def run():
-        return fn()
-
-    return run
+    return await c.memo("historico", TTL_DOCUMENTO, lambda: rodar(parse_historico_pdf, pdf))
 
 
 async def integralizacao(c: SigaaClient) -> Integralizacao:
@@ -108,7 +102,7 @@ async def comprovante_inscricao(c: SigaaClient) -> ComprovanteMatricula:
     page = await c.menu(MENU["atestado"])
     if "relatorio" not in page.html:
         raise NaoEncontrado(_msg(page, "O SIGAA não emitiu o comprovante de inscrição."))
-    return parse_comprovante_inscricao(page.html)
+    return await rodar(parse_comprovante_inscricao, page.html)
 
 
 async def comprovante_inscricao_html(c: SigaaClient) -> str:
@@ -124,7 +118,7 @@ async def declaracao_vinculo_pdf(c: SigaaClient) -> bytes:
 
 
 async def declaracao_vinculo(c: SigaaClient) -> DeclaracaoVinculo:
-    return parse_declaracao_vinculo_pdf(await declaracao_vinculo_pdf(c))
+    return await rodar(parse_declaracao_vinculo_pdf, await declaracao_vinculo_pdf(c))
 
 
 # ------------------------------------------------------------------ matrícula
@@ -132,7 +126,7 @@ async def matricula(c: SigaaClient) -> ComprovanteMatricula:
     page = await c.menu(MENU["comprovante"])
     if "comprovante_solicitacoes" not in page.url and "Comprovante" not in page.html:
         raise NaoEncontrado(_msg(page, "Não há comprovante de solicitação de matrícula disponível."))
-    return parse_comprovante_solicitacao(page.html)
+    return await rodar(parse_comprovante_solicitacao, page.html)
 
 
 async def resultado_processamento(c: SigaaClient, turma_id: int) -> ResultadoProcessamento:
@@ -142,7 +136,7 @@ async def resultado_processamento(c: SigaaClient, turma_id: int) -> ResultadoPro
         raise NaoEncontrado(f"A turma {turma_id} não está no comprovante de matrícula do período {comp.periodo}.")
     q = f"/sigaa/relatorioProcessamento?idTurma={turma_id}" + ("&rematricula=true" if alvo.rematricula else "")
     page = await c.get(q)
-    return parse_resultado_processamento(page.html, turma_id, comp.matricula, alvo.rematricula)
+    return await rodar(parse_resultado_processamento, page.html, turma_id, comp.matricula, alvo.rematricula)
 
 
 async def resultados_processamento(c: SigaaClient) -> list[ResultadoProcessamento]:
@@ -153,36 +147,36 @@ async def resultados_processamento(c: SigaaClient) -> list[ResultadoProcessament
             continue
         q = f"/sigaa/relatorioProcessamento?idTurma={t.turma_id}" + ("&rematricula=true" if t.rematricula else "")
         page = await c.get(q)
-        out.append(parse_resultado_processamento(page.html, t.turma_id, comp.matricula, t.rematricula))
+        out.append(await rodar(parse_resultado_processamento, page.html, t.turma_id, comp.matricula, t.rematricula))
     return out
 
 
 # --------------------------------------------------------- outras consultas
 async def trancamentos(c: SigaaClient) -> list[Trancamento]:
     page = await c.menu(MENU["trancamentos"])
-    return parse_trancamentos(page.html)
+    return await rodar(parse_trancamentos, page.html)
 
 
 async def suspensoes(c: SigaaClient) -> Suspensoes:
     page = await c.menu(MENU["suspensoes"])
-    return parse_suspensoes(page.html)
+    return await rodar(parse_suspensoes, page.html)
 
 
 async def atividades_autonomas(c: SigaaClient) -> AtividadesAutonomas:
     page = await c.menu(MENU["autonomas"])
-    return parse_atividades_autonomas(page.html)
+    return await rodar(parse_atividades_autonomas, page.html)
 
 
 async def aproveitamentos(c: SigaaClient) -> ListaGenerica:
-    return parse_listagem((await c.menu(MENU["aproveitamentos"])).html)
+    return await rodar(parse_listagem, (await c.menu(MENU["aproveitamentos"])).html)
 
 
 async def diploma_digital(c: SigaaClient) -> ListaGenerica:
-    return parse_listagem((await c.menu(MENU["diploma"])).html)
+    return await rodar(parse_listagem, (await c.menu(MENU["diploma"])).html)
 
 
 async def avaliacoes_institucionais(c: SigaaClient) -> ListaGenerica:
-    return parse_listagem((await c.menu(MENU["avaliacoes_anteriores"])).html)
+    return await rodar(parse_listagem, (await c.menu(MENU["avaliacoes_anteriores"])).html)
 
 
 def _msg(page: Page, padrao: str) -> str:
@@ -192,13 +186,13 @@ def _msg(page: Page, padrao: str) -> str:
 
 
 async def filtros_avaliacao(c: SigaaClient) -> FiltrosAvaliacao:
-    return parse_filtros_avaliacao((await c.menu(MENU["avaliacao_resultado"])).html)
+    return await rodar(parse_filtros_avaliacao, (await c.menu(MENU["avaliacao_resultado"])).html)
 
 
 async def resultado_avaliacao(c: SigaaClient, departamento_id: str, periodo: str) -> ResultadoAvaliacao:
     """``periodo`` aceita o ano-período ("2025.2") ou o id interno do SIGAA."""
     page = await c.menu(MENU["avaliacao_resultado"])
-    filtros = parse_filtros_avaliacao(page.html)
+    filtros = await rodar(parse_filtros_avaliacao, page.html)
     per = next((p for p in filtros.periodos if periodo in (p.id, p.nome)), None)
     if per is None:
         raise NaoEncontrado(f"Período {periodo} sem relatório. Disponíveis: {', '.join(p.nome for p in filtros.periodos)}")
@@ -206,7 +200,7 @@ async def resultado_avaliacao(c: SigaaClient, departamento_id: str, periodo: str
         raise NaoEncontrado(f"Departamento {departamento_id} não existe (veja /v1/avaliacao-institucional/filtros).")
     res = await c.submit(page, "form", extra={"form:escolha_relatorio": departamento_id, "form:anoPeriodo": per.id}, botao="form:botaoRelatorio")
     msgs = mensagens_sigaa(res.html)
-    out = parse_resultado_avaliacao(res.html)
+    out = await rodar(parse_resultado_avaliacao, res.html)
     if not out.linhas and msgs:
         raise NaoEncontrado(msgs[0])
     return out
@@ -222,7 +216,7 @@ async def observacoes_docentes(c: SigaaClient, periodo: str) -> ListaGenerica:
     if not valor:
         raise NaoEncontrado(f"Período {periodo} indisponível. Disponíveis: {', '.join(k for k in opcoes if not k.startswith('--'))}")
     res = await c.submit(page, "form", extra={"form:anoPeriodo": valor}, botao="form:consultar")
-    lista = parse_listagem(res.html)
+    lista = await rodar(parse_listagem, res.html)
     msgs = mensagens_sigaa(res.html)
     if lista.vazio and msgs:
         lista.mensagem = msgs[0]
@@ -238,7 +232,7 @@ async def _abrir_atividade(c: SigaaClient, registro_id: int) -> Page:
 
 
 async def atividade_autonoma(c: SigaaClient, registro_id: int) -> AtividadeAutonomaDetalhe:
-    return parse_atividade_autonoma_detalhe((await _abrir_atividade(c, registro_id)).html, registro_id)
+    return await rodar(parse_atividade_autonoma_detalhe, (await _abrir_atividade(c, registro_id)).html, registro_id)
 
 
 async def atividade_autonoma_comprovante(c: SigaaClient, registro_id: int) -> tuple[bytes, str, str]:

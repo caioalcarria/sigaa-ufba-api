@@ -137,6 +137,7 @@ from sigaa.parsers.consultas_publico import (
     sem_programa,
     unidade_existe,
 )
+from ..cpu import rodar
 
 PUB = "/sigaa/public"
 NIVEIS_CURSO = {"G", "S", "L", "T", "N"}
@@ -235,7 +236,7 @@ async def listar_cursos(
     A página já traz todos os cursos do nível; os filtros (trecho do nome/modalidade/unidade) são aplicados aqui."""
     nivel = _nivel(nivel, NIVEIS_CURSO)
     page = await c.get(f"{PUB}/curso/lista.jsf?nivel={nivel}&aba=p-ensino")
-    cursos = parse_lista_cursos(page.html, nivel)
+    cursos = await rodar(parse_lista_cursos, page.html, nivel)
     if nome:
         cursos = [x for x in cursos if _norm(nome) in _norm(x.nome)]
     if modalidade:
@@ -260,12 +261,12 @@ async def curso(c: SigaaClient, curso_id: int, nivel: str = "G") -> Curso:
     nivel = _nivel(nivel, NIVEIS_CURSO)
     if nivel == "S":
         page = await _abrir_curso_pos(c, curso_id, nivel)
-        cur = parse_curso_detalhe_pos(page.html, curso_id, nivel)
+        cur = await rodar(parse_curso_detalhe_pos, page.html, curso_id, nivel)
         if not cur.nome and not cur.unidade:
             raise NaoEncontrado(f"Curso {curso_id} sem detalhes públicos.")
         return cur
     page = await c.get(f"{PUB}/curso/portal.jsf?id={curso_id}&lc=pt_BR&nivel={nivel}")
-    cur = parse_curso_portal(page.html, curso_id, nivel)
+    cur = await rodar(parse_curso_portal, page.html, curso_id, nivel)
     if not cur.nome:
         raise NaoEncontrado(f"Curso {curso_id} não encontrado no portal público.")
     return cur
@@ -277,7 +278,7 @@ async def estruturas_curso(c: SigaaClient, curso_id: int, nivel: str = "G") -> l
     if nivel == "S":
         return (await curso(c, curso_id, nivel)).estruturas
     page = await c.get(f"{PUB}/curso/curriculo.jsf?lc=pt_BR&id={curso_id}")
-    return parse_estruturas_curso(page.html)
+    return await rodar(parse_estruturas_curso, page.html)
 
 
 async def estrutura_curricular(
@@ -296,7 +297,7 @@ async def estrutura_curricular(
     except NaoEncontrado:
         raise NaoEncontrado(f"Estrutura {estrutura_id} não pertence ao curso {curso_id}.") from None
     page = await c.clicar(origem, link)
-    est = parse_estrutura_curricular(page.html, estrutura_id, curso_id)
+    est = await rodar(parse_estrutura_curricular, page.html, estrutura_id, curso_id)
     if not est.codigo:
         raise NaoEncontrado(f"Estrutura {estrutura_id} sem detalhes.")
     return est
@@ -305,19 +306,19 @@ async def estrutura_curricular(
 async def calendario_curso(c: SigaaClient, curso_id: int) -> list[EventoCalendarioCurso]:
     """Calendário do curso (GET ``curso/calendario.jsf?id=``): eventos por ano.período."""
     page = await c.get(f"{PUB}/curso/calendario.jsf?lc=pt_BR&id={curso_id}")
-    return parse_calendario_curso(page.html)
+    return await rodar(parse_calendario_curso, page.html)
 
 
 async def projeto_pedagogico(c: SigaaClient, curso_id: int) -> ProjetoPedagogico:
     """Aba 'Projeto Pedagógico do Curso' (GET ``curso/ppp.jsf?id=``)."""
     page = await c.get(f"{PUB}/curso/ppp.jsf?lc=pt_BR&id={curso_id}")
-    return parse_ppp(page.html, curso_id)
+    return await rodar(parse_ppp, page.html, curso_id)
 
 
 async def noticias_curso(c: SigaaClient, curso_id: int) -> list[NoticiaCurso]:
     """Notícias do portal do curso (GET ``curso/noticias.jsf?id=``)."""
     page = await c.get(f"{PUB}/curso/noticias.jsf?lc=pt_BR&id={curso_id}")
-    return parse_noticias_curso(page.html)
+    return await rodar(parse_noticias_curso, page.html)
 
 
 async def turmas_curso(
@@ -330,7 +331,7 @@ async def turmas_curso(
     if codigo:
         extra[_campo_por_rotulo(page, "form", "Código")] = codigo.strip().upper()
     res = await _submit(c, page, "form", extra, botao=("form:buscar", "Buscar"))
-    return parse_turmas_curso(res.html)
+    return await rodar(parse_turmas_curso, res.html)
 
 
 # --------------------------------------------------------------------------- componentes
@@ -371,14 +372,14 @@ async def buscar_componentes(
     """Busca pública de componentes curriculares (POST de ``componentes/busca_componentes.jsf``).
     Exige ao menos um filtro. ``tipo``: DISCIPLINA, ATIVIDADE, BLOCO, MODULO. ``unidade_id``: id da unidade responsável."""
     page = await _buscar_componentes_page(c, nivel, codigo, nome, unidade_id, tipo)
-    return parse_busca_componentes(page.html)
+    return await rodar(parse_busca_componentes, page.html)
 
 
 async def componente(c: SigaaClient, componente_id: int) -> ComponenteCurricular:
     """Detalhe do componente pelo id numérico: GET ``/sigaa/link/public/ensino/visualizarComponente/{id}``
     (redireciona para ``componentes/resumo.jsf``). Ementa, CH, pré/co-requisitos, equivalências, currículos."""
     page = await c.get(f"/sigaa/link/public/ensino/visualizarComponente/{componente_id}")
-    comp = parse_componente(page.html, componente_id)
+    comp = await rodar(parse_componente, page.html, componente_id)
     if not comp.codigo:
         raise NaoEncontrado(f"Componente {componente_id} não encontrado.")
     return comp
@@ -387,12 +388,12 @@ async def componente(c: SigaaClient, componente_id: int) -> ComponenteCurricular
 async def componente_por_codigo(c: SigaaClient, codigo: str, nivel: str = "G") -> ComponenteCurricular:
     """Detalhe pelo CÓDIGO: busca o código e clica em 'Detalhes' (formato mais completo: modalidade e tabela de CHs)."""
     page = await _buscar_componentes_page(c, nivel, codigo, None, None, None)
-    achados = [x for x in parse_busca_componentes(page.html) if x.codigo.upper() == codigo.strip().upper()]
+    achados = [x for x in await rodar(parse_busca_componentes, page.html) if x.codigo.upper() == codigo.strip().upper()]
     if not achados or achados[0].id is None:
         raise NaoEncontrado(f"Componente {codigo} não encontrado no nível {nivel}.")
     link = _link_por_param(page, "id", achados[0].id, "Detalhes")
     det = await c.clicar(page, link)
-    comp = parse_componente(det.html, achados[0].id)
+    comp = await rodar(parse_componente, det.html, achados[0].id)
     if not comp.codigo:
         raise NaoEncontrado(f"Componente {codigo} sem detalhes.")
     return comp
@@ -403,7 +404,7 @@ async def programa_componente(c: SigaaClient, codigo: str, nivel: str = "G") -> 
     Busca o código e clica em 'Programa Atual do Componente'. ``NaoEncontrado`` quando o SIGAA diz que não há
     programa cadastrado (é o caso da maioria dos componentes de graduação da UFBA hoje)."""
     page = await _buscar_componentes_page(c, nivel, codigo, None, None, None)
-    achados = [x for x in parse_busca_componentes(page.html) if x.codigo.upper() == codigo.strip().upper()]
+    achados = [x for x in await rodar(parse_busca_componentes, page.html) if x.codigo.upper() == codigo.strip().upper()]
     if not achados or achados[0].id is None:
         raise NaoEncontrado(f"Componente {codigo} não encontrado no nível {nivel}.")
     try:
@@ -413,7 +414,7 @@ async def programa_componente(c: SigaaClient, codigo: str, nivel: str = "G") -> 
     res = await c.clicar(page, link)
     if sem_programa(res.html):
         raise NaoEncontrado(f"O componente {codigo} não possui um programa cadastrado.")
-    prog = parse_programa_componente(res.html, achados[0].id)
+    prog = await rodar(parse_programa_componente, res.html, achados[0].id)
     if prog is None:
         raise NaoEncontrado(f"Programa do componente {codigo} não pôde ser lido.")
     prog.codigo = prog.codigo or achados[0].codigo
@@ -426,7 +427,7 @@ async def unidades_academicas(c: SigaaClient) -> list[UnidadeAcademica]:
     """Unidades que ofertam turmas (o filtro 'Unidade' da consulta pública de turmas). O id é o mesmo dos
     departamentos/programas e do filtro de unidade da busca de componentes."""
     page = await c.get(f"{PUB}/turmas/listar.jsf?aba=p-ensino")
-    return parse_unidades_turmas(page.html)
+    return await rodar(parse_unidades_turmas, page.html)
 
 
 async def buscar_turmas(
@@ -450,7 +451,7 @@ async def buscar_turmas(
         "formTurma:inputPeriodo": str(periodo),
     }
     res = await _submit(c, page, "formTurma", extra, botao=_botao(page, "formTurma", "Buscar"))
-    turmas = parse_turmas_publicas(res.html)
+    turmas = await rodar(parse_turmas_publicas, res.html)
     if componente:
         alvo = _norm(componente)
         turmas = [t for t in turmas if _norm(t.codigo_componente).startswith(alvo) or alvo in _norm(t.nome_componente)]
@@ -468,7 +469,7 @@ async def buscar_docentes(
     page = await c.get(f"{PUB}/docente/busca_docentes.jsf?aba=p-academico")
     extra = {"form:nome": (nome or "").strip(), "form:departamento": str(departamento_id or 0)}
     res = await _submit(c, page, "form", extra, botao=("form:buscar", "Buscar"))
-    return parse_busca_docentes(res.html)
+    return await rodar(parse_busca_docentes, res.html)
 
 
 async def _pagina_docente(c: SigaaClient, aba: str, siape: int) -> Page:
@@ -481,26 +482,26 @@ async def _pagina_docente(c: SigaaClient, aba: str, siape: int) -> Page:
 async def docente(c: SigaaClient, siape: int) -> Docente:
     """Perfil público do docente (GET ``docente/portal.jsf?siape=``): formação, áreas de interesse, Lattes, contatos."""
     page = await _pagina_docente(c, "portal", siape)
-    return parse_docente(page.html, siape)
+    return await rodar(parse_docente, page.html, siape)
 
 
 async def producao_docente(c: SigaaClient, siape: int) -> list[ProducaoCategoria]:
     """Produção intelectual (GET ``docente/producao.jsf?siape=``): categorias com itens (TCCs, orientações, artigos...)."""
     page = await _pagina_docente(c, "producao", siape)
-    return parse_producao_docente(page.html)
+    return await rodar(parse_producao_docente, page.html)
 
 
 async def disciplinas_docente(c: SigaaClient, siape: int) -> list[DisciplinaMinistrada]:
     """Disciplinas ministradas (GET ``docente/disciplinas.jsf?siape=``): todas as turmas por período, com horário."""
     page = await _pagina_docente(c, "disciplinas", siape)
-    return parse_disciplinas_docente(page.html)
+    return await rodar(parse_disciplinas_docente, page.html)
 
 
 # ---------------------------------------------------------------- centros e departamentos
 async def listar_centros(c: SigaaClient) -> list[CentroResumo]:
     """Centros/unidades especializadas com seus departamentos (GET ``centro/lista.jsf``)."""
     page = await c.get(f"{PUB}/centro/lista.jsf?aba=p-academico")
-    return parse_lista_centros(page.html)
+    return await rodar(parse_lista_centros, page.html)
 
 
 async def centro(c: SigaaClient, centro_id: int) -> Centro:
@@ -509,13 +510,13 @@ async def centro(c: SigaaClient, centro_id: int) -> Centro:
     page = await c.get(f"{PUB}/centro/portal.jsf?lc=pt_BR&id={centro_id}")
     if not unidade_existe(page.html):
         raise NaoEncontrado(f"Centro {centro_id} não encontrado.")
-    cen = parse_centro(page.html, centro_id)
+    cen = await rodar(parse_centro, page.html, centro_id)
     deps = await c.get(f"{PUB}/centro/lista_departamentos.jsf?lc=pt_BR&id={centro_id}")
-    cen.departamentos = parse_centro_departamentos(deps.html)
+    cen.departamentos = await rodar(parse_centro_departamentos, deps.html)
     cur = await c.get(f"{PUB}/centro/lista_cursos.jsf?lc=pt_BR&id={centro_id}")
-    cen.cursos = parse_centro_cursos(cur.html)
+    cen.cursos = await rodar(parse_centro_cursos, cur.html)
     pro = await c.get(f"{PUB}/centro/lista_programas.jsf?lc=pt_BR&id={centro_id}")
-    cen.programas = parse_centro_programas(pro.html)
+    cen.programas = await rodar(parse_centro_programas, pro.html)
     return cen
 
 
@@ -523,7 +524,7 @@ async def listar_departamentos(c: SigaaClient, *, centro_id: int | None = None) 
     """Departamentos (``departamento/lista.jsf``, POST do form 'form' com o centro — 0 = todos)."""
     page = await c.get(f"{PUB}/departamento/lista.jsf?aba=p-academico")
     res = await _submit(c, page, "form", {"form:programas": str(centro_id or 0)}, botao=("form:buscar", "Buscar"))
-    return parse_lista_departamentos(res.html)
+    return await rodar(parse_lista_departamentos, res.html)
 
 
 async def departamento(c: SigaaClient, departamento_id: int) -> Departamento:
@@ -531,7 +532,7 @@ async def departamento(c: SigaaClient, departamento_id: int) -> Departamento:
     page = await c.get(f"{PUB}/departamento/portal.jsf?id={departamento_id}")
     if not unidade_existe(page.html):
         raise NaoEncontrado(f"Departamento {departamento_id} não encontrado.")
-    return parse_departamento(page.html, departamento_id)
+    return await rodar(parse_departamento, page.html, departamento_id)
 
 
 async def docentes_departamento(c: SigaaClient, departamento_id: int) -> list[DocenteResumo]:
@@ -539,7 +540,7 @@ async def docentes_departamento(c: SigaaClient, departamento_id: int) -> list[Do
     page = await c.get(f"{PUB}/departamento/professores.jsf?id={departamento_id}")
     if not unidade_existe(page.html):
         raise NaoEncontrado(f"Departamento {departamento_id} não encontrado.")
-    return parse_docentes_departamento(page.html)
+    return await rodar(parse_docentes_departamento, page.html)
 
 
 async def componentes_departamento(c: SigaaClient, departamento_id: int) -> list[ComponenteResumo]:
@@ -547,7 +548,7 @@ async def componentes_departamento(c: SigaaClient, departamento_id: int) -> list
     page = await c.get(f"{PUB}/departamento/componentes.jsf?id={departamento_id}")
     if not unidade_existe(page.html):
         raise NaoEncontrado(f"Departamento {departamento_id} não encontrado.")
-    return parse_componentes_departamento(page.html)
+    return await rodar(parse_componentes_departamento, page.html)
 
 
 # --------------------------------------------------------------------------- responsáveis
@@ -558,7 +559,7 @@ async def responsaveis(c: SigaaClient, tipo: str = "chefes") -> list[Responsavel
         raise ValueError(f"tipo inválido: {tipo!r}. Use um de {sorted(TIPOS_RESPONSAVEL)}.")
     page = await c.get(f"{PUB}/academico/busca_responsavel.jsf?aba=p-academico")
     res = await _submit(c, page, "form", {"form:tipoConsulta": TIPOS_RESPONSAVEL[tipo]}, botao=("form:btnBuscar", "Buscar"))
-    return parse_responsaveis(res.html, tipo)
+    return await rodar(parse_responsaveis, res.html, tipo)
 
 
 # ====================================================================================================
@@ -705,13 +706,13 @@ async def buscar_acervo(
         ano_inicio=ano_inicio, ano_fim=ano_fim, tipo_material=tipo_material, colecao=colecao,
         ordenacao=ordenacao, registros_por_pagina=registros_por_pagina,
     )
-    out = parse_acervo_resultado(page.html)
+    out = await rodar(parse_acervo_resultado, page.html)
     for _ in range(max_paginas - 1):
         nxt = await _ex1s_proxima(c, page)
         if nxt is None:
             break
         page = nxt
-        out += parse_acervo_resultado(page.html)
+        out += await rodar(parse_acervo_resultado, page.html)
     return out
 
 
@@ -737,7 +738,7 @@ async def titulo_acervo(
     for _ in range(max_paginas):
         link = next((ln for ln in page.links_jsf() if f"'idTitulo':'{titulo_id}'" in ln.onclick), None)
         if link is not None:
-            det = parse_acervo_detalhe((await c.clicar(page, link)).html)
+            det = await rodar(parse_acervo_detalhe, (await c.clicar(page, link)).html)
             if det.id is None:
                 det.id = titulo_id
             return det
@@ -777,13 +778,13 @@ async def buscar_artigos(
             extra[nome] = str(valor)
     page = await c.submit(page, f, extra, botao=(f"{f}:botaoPesquisar", "Pesquisar"))
     _ex1s_validar(page)
-    out = parse_artigos_resultado(page.html)
+    out = await rodar(parse_artigos_resultado, page.html)
     for _ in range(max_paginas - 1):
         nxt = await _ex1s_proxima(c, page)
         if nxt is None:
             break
         page = nxt
-        out += parse_artigos_resultado(page.html)
+        out += await rodar(parse_artigos_resultado, page.html)
     return out
 
 
@@ -805,7 +806,7 @@ async def buscar_aquisicoes(
     botao = form.find("input", attrs={"value": "Pesquisar"})
     page = await c.submit(page, fid, extra, botao=(botao["name"], "Pesquisar"))
     _ex1s_validar(page)
-    return parse_aquisicoes(page.html)
+    return await rodar(parse_aquisicoes, page.html)
 
 
 async def novas_aquisicoes(
@@ -821,7 +822,7 @@ async def novas_aquisicoes(
         extra["form:somAreaCNPQ"] = str(area_cnpq)
     page = await _ex1s_post_form(c, page, "form", extra, tirar=("form:smlbxBibliotecas",))
     _ex1s_validar(page)
-    return parse_novas_aquisicoes(page.html)
+    return await rodar(parse_novas_aquisicoes, page.html)
 
 
 # ---------------------------------------------------------- processos seletivos
@@ -836,7 +837,7 @@ async def listar_processos_seletivos(c: SigaaClient, *, nivel: str = "S") -> lis
     """Últimos processos seletivos de um nível (S=stricto, L=lato, T=técnico, I=infantil/fundamental,
     F=formação complementar). GET direto: processo_seletivo/lista.jsf?nivel=X."""
     page = await c.get(f"/sigaa/public/processo_seletivo/lista.jsf?nivel={_ex1s_nivel(nivel)}")
-    return parse_processos_seletivos(page.html)
+    return await rodar(parse_processos_seletivos, page.html)
 
 
 async def processo_seletivo(
@@ -855,7 +856,7 @@ async def processo_seletivo(
         links.sort(key=lambda ln: 0 if "Visualizar" in (ln.element.get("title") or "") else 1)
     if not links:
         raise NaoEncontrado(f"Processo seletivo {processo_id} não está na lista consultada.")
-    det = parse_processo_seletivo((await c.clicar(page, links[0])).html)
+    det = await rodar(parse_processo_seletivo, (await c.clicar(page, links[0])).html)
     if det.id is None:
         det.id = processo_id
     return det
@@ -888,7 +889,7 @@ async def listar_acordos_mobilidade(
                 extra[nome] = _ex1s_sem_acento(valor)
     page = await c.submit(page, f, extra, botao=(f"{f}:btnBusca", "Buscar"))
     _ex1s_validar(page)
-    return parse_acordos_mobilidade(page.html)
+    return await rodar(parse_acordos_mobilidade, page.html)
 
 
 # --------------------------------------------------------- programas de pós
@@ -901,7 +902,7 @@ async def listar_programas_pos(c: SigaaClient, *, nome: str | None = None, id_ce
     extra = {"form:nomePrograma": _ex1s_sem_acento(nome or ""), "form:programas": str(id_centro or 0)}
     page = await c.submit(page, "form", extra, botao=("form:buscar", "Buscar"))
     _ex1s_validar(page)
-    return parse_programas_pos(page.html)
+    return await rodar(parse_programas_pos, page.html)
 
 
 async def _ex1s_prog(c: SigaaClient, pagina: str, programa_id: int, extra_qs: str = "") -> Page:
@@ -913,43 +914,43 @@ async def _ex1s_prog(c: SigaaClient, pagina: str, programa_id: int, extra_qs: st
 
 async def programa_pos(c: SigaaClient, programa_id: int) -> ProgramaPos:
     """Página pública do programa (contato, últimas notícias, processos em destaque) + apresentação e coordenação."""
-    portal = parse_programa_portal((await _ex1s_prog(c, "portal", programa_id)).html)
+    portal = await rodar(parse_programa_portal, (await _ex1s_prog(c, "portal", programa_id)).html)
     if not portal.nome:
         raise NaoEncontrado(f"Programa {programa_id} não encontrado.")
     portal.id = portal.id or programa_id
-    ap = parse_programa_apresentacao((await _ex1s_prog(c, "apresentacao", programa_id)).html)
+    ap = await rodar(parse_programa_apresentacao, (await _ex1s_prog(c, "apresentacao", programa_id)).html)
     portal.apresentacao, portal.endereco_alternativo, portal.coordenacao = ap.texto, ap.endereco_alternativo, ap.coordenacao
     return portal
 
 
 async def programa_pos_areas(c: SigaaClient, programa_id: int) -> list[AreaConcentracaoPos]:
     """Áreas de concentração e linhas de pesquisa do programa (por nível)."""
-    return parse_programa_areas((await _ex1s_prog(c, "areas", programa_id)).html)
+    return await rodar(parse_programa_areas, (await _ex1s_prog(c, "areas", programa_id)).html)
 
 
 async def programa_pos_cursos(c: SigaaClient, programa_id: int) -> list[CursoProgramaPos]:
     """Cursos (mestrado/doutorado...) do programa."""
-    return parse_programa_cursos((await _ex1s_prog(c, "cursos", programa_id)).html)
+    return await rodar(parse_programa_cursos, (await _ex1s_prog(c, "cursos", programa_id)).html)
 
 
 async def programa_pos_docentes(c: SigaaClient, programa_id: int) -> list[DocenteProgramaPos]:
     """Corpo docente do programa (por grupo/área)."""
-    return parse_programa_docentes((await _ex1s_prog(c, "equipe", programa_id)).html)
+    return await rodar(parse_programa_docentes, (await _ex1s_prog(c, "equipe", programa_id)).html)
 
 
 async def programa_pos_processos_seletivos(c: SigaaClient, programa_id: int) -> list[ProcessoSeletivoProgramaPos]:
     """Processos seletivos listados na página do programa."""
-    return parse_programa_processos_seletivos((await _ex1s_prog(c, "processo_seletivo", programa_id)).html)
+    return await rodar(parse_programa_processos_seletivos, (await _ex1s_prog(c, "processo_seletivo", programa_id)).html)
 
 
 async def programa_pos_noticias(c: SigaaClient, programa_id: int) -> list[NoticiaProgramaPos]:
     """Todas as notícias do programa."""
-    return parse_programa_noticias((await _ex1s_prog(c, "noticias", programa_id)).html)
+    return await rodar(parse_programa_noticias, (await _ex1s_prog(c, "noticias", programa_id)).html)
 
 
 async def programa_pos_noticia(c: SigaaClient, programa_id: int, noticia_id: int) -> NoticiaProgramaPosDetalhe:
     """Texto de uma notícia do programa."""
-    det = parse_programa_noticia((await _ex1s_prog(c, "noticias_desc", programa_id, f"&noticia={int(noticia_id)}")).html)
+    det = await rodar(parse_programa_noticia, (await _ex1s_prog(c, "noticias_desc", programa_id, f"&noticia={int(noticia_id)}")).html)
     if not det.titulo and not det.texto:
         raise NaoEncontrado(f"Notícia {noticia_id} não encontrada no programa {programa_id}.")
     det.id, det.id_programa = noticia_id, programa_id
@@ -1063,7 +1064,7 @@ async def buscar_projetos_pesquisa(
         c, titulo=titulo, objetivos=objetivos, pesquisador=pesquisador, ano=ano,
         centro_id=centro_id, departamento_id=departamento_id, area_id=area_id, agencia_id=agencia_id,
     )
-    return parse_projetos_pesquisa(page.html)
+    return await rodar(parse_projetos_pesquisa, page.html)
 
 
 async def obter_projeto_pesquisa(
@@ -1082,7 +1083,7 @@ async def obter_projeto_pesquisa(
     if link is None:
         raise NaoEncontrado(f"Projeto de pesquisa {projeto_id} não está na lista com esses filtros.")
     det = await _ex2_clicar(c, page, link)
-    proj = parse_projeto_pesquisa(det.html)
+    proj = await rodar(parse_projeto_pesquisa, det.html)
     if not proj.titulo and not proj.codigo:
         raise NaoEncontrado(f"Projeto de pesquisa {projeto_id} não abriu.")
     return proj.model_copy(update={"id": projeto_id})
@@ -1099,7 +1100,7 @@ async def buscar_bases_pesquisa(
         (f"{F}:checkCoordenador", f"{F}:nomeCoordenador", coordenador),
     ])
     res = await _ex2_enviar(c, page, F, extra, botao=(f"{F}:buscar", "Buscar"))
-    return parse_bases_pesquisa(res.html)
+    return await rodar(parse_bases_pesquisa, res.html)
 
 
 async def buscar_bolsistas_pesquisa(
@@ -1127,7 +1128,7 @@ async def buscar_bolsistas_pesquisa(
     res = await _ex2_enviar(c, page, F, extra, botao=(f"{F}:buscar", "Buscar"))
     if "deveria ser uma lista de n" in res.html:
         raise SigaaError("Consulta de bolsistas indisponível neste SIGAA (parâmetro de sistema não configurado).")
-    return parse_bolsistas_pesquisa(res.html)
+    return await rodar(parse_bolsistas_pesquisa, res.html)
 
 
 async def _buscar_laboratorios_page(c: SigaaClient, **f) -> Page:
@@ -1161,7 +1162,7 @@ async def buscar_laboratorios(
         c, nome=nome, ano=ano, tipo_id=tipo_id, servidor=servidor,
         em_atividade=em_atividade, presta_servicos=presta_servicos, servico=servico,
     )
-    return parse_laboratorios(page.html)
+    return await rodar(parse_laboratorios, page.html)
 
 
 async def obter_laboratorio(
@@ -1178,7 +1179,7 @@ async def obter_laboratorio(
     if link is None:
         raise NaoEncontrado(f"Laboratório {laboratorio_id} não está na lista com esses filtros.")
     det = await _ex2_clicar(c, page, link)
-    lab = parse_laboratorio(det.html)
+    lab = await rodar(parse_laboratorio, det.html)
     if not lab.nome and not lab.codigo:
         raise NaoEncontrado(f"Laboratório {laboratorio_id} não abriu.")
     return lab.model_copy(update={"id": laboratorio_id})
@@ -1210,7 +1211,7 @@ async def buscar_acoes_extensao(
     """Ações de extensão. ``tipo_id``: 1 programa, 2 projeto, 3 curso, 4 evento,
     5 prestação de serviços, 6 produto. A lista vem inteira (sem paginação)."""
     page = await _buscar_extensao_page(c, tipo_id=tipo_id, titulo=titulo, unidade_id=unidade_id, ano=ano)
-    return parse_acoes_extensao(page.html)
+    return await rodar(parse_acoes_extensao, page.html)
 
 
 async def obter_acao_extensao(
@@ -1234,7 +1235,7 @@ async def obter_acao_extensao(
         det = await _ex2_clicar(c, page, link)
     else:
         det = await c.get(URL_EXTENSAO_LINK.format(id=int(acao_id)))
-    acao = parse_acao_extensao(det.html)
+    acao = await rodar(parse_acao_extensao, det.html)
     if not acao.titulo:
         raise NaoEncontrado(f"Ação de extensão {acao_id} não encontrada.")
     return acao.model_copy(update={"id": acao_id})
@@ -1252,14 +1253,14 @@ async def listar_inscricoes_extensao(
             (f"{F}:selectBuscaTipoAtividade", f"{F}:buscaTipoAcao", tipo_id),
         ])
         page = await _ex2_enviar(c, page, F, extra, botao=(f"{F}:cmdFiltarPeriodosInscricao", "Filtrar"))
-    return parse_inscricoes_extensao(page.html)
+    return await rodar(parse_inscricoes_extensao, page.html)
 
 
 # ------------------------------------------------------------ cursos abertos
 async def listar_centros_cursos_abertos(c: SigaaClient) -> list[CentroCursoAberto]:
     """Centros (com os departamentos do menu) que aparecem em Cursos Abertos."""
     page = await c.get(URL_CURSOS_ABERTOS)
-    return parse_centros_cursos_abertos(page.html)
+    return await rodar(parse_centros_cursos_abertos, page.html)
 
 
 async def _ex2_a4j_centro(c: SigaaClient, page: Page, centro_id: int) -> Page:
@@ -1279,7 +1280,7 @@ async def listar_departamentos_cursos_abertos(c: SigaaClient, centro_id: int) ->
     """Departamentos (com id) de um centro — o mesmo AJAX que a tela faz ao trocar o centro."""
     page = await c.get(URL_CURSOS_ABERTOS)
     resp = await _ex2_a4j_centro(c, page, centro_id)
-    return parse_departamentos_cursos_abertos(resp.html)
+    return await rodar(parse_departamentos_cursos_abertos, resp.html)
 
 
 async def _buscar_cursos_abertos_page(
@@ -1310,7 +1311,7 @@ async def buscar_cursos_abertos(
 ) -> list[CursoAbertoTurma]:
     """Turmas com conteúdo aberto. Sem filtros: as últimas turmas publicadas."""
     page = await _buscar_cursos_abertos_page(c, palavra_chave, centro_id, departamento_id)
-    return parse_cursos_abertos(page.html)
+    return await rodar(parse_cursos_abertos, page.html)
 
 
 async def obter_curso_aberto(
@@ -1323,7 +1324,7 @@ async def obter_curso_aberto(
     if link is None:
         raise NaoEncontrado(f"Turma aberta {turma_id} não está na lista.")
     det = await _ex2_clicar(c, page, link)
-    curso = parse_curso_aberto(det.html)
+    curso = await rodar(parse_curso_aberto, det.html)
     if not curso.nome:
         raise NaoEncontrado(f"Turma aberta {turma_id} não abriu.")
     return curso.model_copy(update={"id": turma_id})

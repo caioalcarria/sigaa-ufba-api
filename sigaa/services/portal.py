@@ -32,6 +32,7 @@ from sigaa.models.portal import (
 )
 from sigaa.parsers import portal as P
 from sigaa.util.horario import dia_por_nome, gerar_ics, montar_grade
+from ..cpu import rodar
 
 URL_TURMAS = "/sigaa/portais/discente/turmas.jsf"
 URL_PERFIL = "/sigaa/portais/discente/perfil.jsf"
@@ -45,7 +46,7 @@ URL_GERENCIADOR_SALAS = "/sigaa/verMenuGerenciadorSalas.do"
 async def portal(c: SigaaClient) -> PortalDiscente:
     """Página inicial do Portal do Discente, tudo junto."""
     page = await c.portal()
-    return P.parse_portal(page.html)
+    return await rodar(P.parse_portal, page.html)
 
 
 async def me(c: SigaaClient) -> DadosInstitucionais:
@@ -67,20 +68,20 @@ async def dados_pessoais(c: SigaaClient) -> DadosPessoais:
     page = await c.clicar(inicio, "meusDadosPessoais")
     if page.form("formDiscente") is None and "dados pessoais" not in page.html.lower():
         raise NavegacaoInvalida("A tela 'Meus Dados Pessoais' não abriu.")
-    return P.parse_dados_pessoais(page.html)
+    return await rodar(P.parse_dados_pessoais, page.html)
 
 
 async def perfil(c: SigaaClient) -> Perfil:
     """Portal → 'Atualizar Foto e Perfil' (perfil.jsf). SÓ LEITURA."""
     await c.portal()
     page = await c.get(URL_PERFIL)
-    return P.parse_perfil(page.html)
+    return await rodar(P.parse_perfil, page.html)
 
 
 async def foto(c: SigaaClient) -> tuple[bytes, str]:
     """Bytes da foto do perfil (o mesmo /shared/verFoto?idFoto=..&key=.. do portal)."""
     page = await c.portal()
-    url = P.parse_portal(page.html).dados.foto_url
+    url = (await rodar(P.parse_portal, page.html)).dados.foto_url
     if not url:
         raise NaoEncontrado("O aluno não tem foto cadastrada.")
     img = await c.get(url)
@@ -100,7 +101,7 @@ async def _turmas_mobile(c: SigaaClient, semestre_atual: str | None) -> list[Tur
         todas = await c.clicar(minhas, "lnkVerTodas")
     except NavegacaoInvalida:
         todas = minhas  # sem 'Ver Todas' (poucas turmas): a própria lista basta
-    return P.parse_turmas_mobile(todas.html, semestre_atual)
+    return await rodar(P.parse_turmas_mobile, todas.html, semestre_atual)
 
 
 async def turmas(c: SigaaClient, periodo: str | None = None, so_atuais: bool = False) -> ListaTurmas:
@@ -113,13 +114,13 @@ async def turmas(c: SigaaClient, periodo: str | None = None, so_atuais: bool = F
     Se a tela mobile falhar, as turmas antigas vêm sem turma_id (só front_end_id).
     """
     inicio = await c.portal()
-    pd = P.parse_portal(inicio.html)
+    pd = await rodar(P.parse_portal, inicio.html)
     atual = pd.dados.semestre_atual
     if so_atuais:
         fontes: list[list[Turma]] = []
     else:
         classico = await c.get(URL_TURMAS)
-        fontes = [P.parse_turmas_classico(classico.html)]
+        fontes = [await rodar(P.parse_turmas_classico, classico.html)]
     try:
         fontes.append(await _turmas_mobile(c, atual))
     except SigaaError:
@@ -160,7 +161,7 @@ async def _abrir_forum(c: SigaaClient) -> Page:
 
 async def forum_curso(c: SigaaClient) -> ForumCurso:
     """Portal → 'Visualizar todos os tópicos para este fórum' (/sigaa/graduacao/ForumCurso/listar.jsf)."""
-    return P.parse_forum_curso((await _abrir_forum(c)).html)
+    return await rodar(P.parse_forum_curso, (await _abrir_forum(c)).html)
 
 
 async def topico_forum(c: SigaaClient, topico_id: int) -> TopicoForumDetalhe:
@@ -176,7 +177,7 @@ async def topico_forum(c: SigaaClient, topico_id: int) -> TopicoForumDetalhe:
     if alvo is None:
         raise NaoEncontrado(f"Tópico {topico_id} não está no fórum do curso.")
     page = await c.clicar(lista, alvo)
-    det = P.parse_topico_forum(page.html)
+    det = await rodar(P.parse_topico_forum, page.html)
     det.id = topico_id
     return det
 
@@ -186,7 +187,7 @@ async def modulos(c: SigaaClient) -> Modulos:
     """Painel 'Módulos' do cabeçalho (GET /sigaa/verMenuPrincipal.do?dialog=true)."""
     await c.portal()
     page = await c.get(URL_MODULOS)
-    return P.parse_modulos(page.html)
+    return await rodar(P.parse_modulos, page.html)
 
 
 # -------------------------------------------------------------- caixa postal
@@ -208,14 +209,14 @@ async def _abrir_caixa(c: SigaaClient) -> Page:
 
 
 async def mensagens(c: SigaaClient) -> CaixaPostal:
-    return P.parse_caixa_postal((await _abrir_caixa(c)).html)
+    return await rodar(P.parse_caixa_postal, (await _abrir_caixa(c)).html)
 
 
 async def mensagem(c: SigaaClient, mensagem_id: str) -> Mensagem:
     caixa = await _abrir_caixa(c)
     for ln in caixa.links_jsf():
         if mensagem_id in ln.params.values():
-            msg = P.parse_mensagem((await c.clicar(caixa, ln)).html)
+            msg = await rodar(P.parse_mensagem, (await c.clicar(caixa, ln)).html)
             msg.id = mensagem_id
             return msg
     raise NaoEncontrado(f"Mensagem {mensagem_id} não encontrada na caixa de entrada.")
@@ -236,7 +237,7 @@ async def _form_salas_livres(c: SigaaClient) -> Page:
 
 
 async def filtros_salas_livres(c: SigaaClient) -> FiltrosSalasLivres:
-    return P.parse_filtros_salas_livres((await _form_salas_livres(c)).html)
+    return await rodar(P.parse_filtros_salas_livres, (await _form_salas_livres(c)).html)
 
 
 def _resolver(valor: str | int | None, opcoes, extra: dict[str, str] | None = None) -> str | None:
@@ -266,7 +267,7 @@ async def salas_livres(
     """Relatório de Salas Livres. O select de prédio dispara um AJAX a4j (que carrega as salas
     no servidor) — sem ele o 'Gerar Relatório' volta pro formulário sem resultado."""
     page = await _form_salas_livres(c)
-    filtros = P.parse_filtros_salas_livres(page.html)
+    filtros = await rodar(P.parse_filtros_salas_livres, page.html)
     form = page.form("formularioDistribuicao")
     pref = "formularioDistribuicao:"
     dados = form_fields(form)
@@ -309,7 +310,7 @@ async def salas_livres(
         raise NavegacaoInvalida("Botão 'Gerar Relatório' não encontrado.")
     dados[botao["name"]] = botao["value"]
     res = await c.post(action, dados)
-    rel = P.parse_salas_livres(res.html)
+    rel = await rodar(P.parse_salas_livres, res.html)
     if not rel.salas and not P.resultado_salas_vazio(res.html) and res.form("formularioDistribuicao") is not None:
         erro = res.soup.select_one(".erros, #painel-erros")
         raise NavegacaoInvalida(erro.get_text(" ", strip=True) if erro else "O SIGAA não gerou o relatório.")
