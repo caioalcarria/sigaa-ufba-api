@@ -15,7 +15,9 @@ Backends:
 * :class:`Memoria` (padrão): LRU com limite de bytes, por processo.
 * :class:`Redis` (``SIGAA_API_CACHE_URL=redis://...``): compartilhado entre workers. Entrada
   marcada ``sensivel`` (dado de aluno) só vai pro Redis CIFRADA (Fernet com chave derivada de
-  ``SIGAA_API_CACHE_SEGREDO``); sem segredo configurado, dado de aluno fica só na memória local.
+  ``SIGAA_API_CACHE_SEGREDO``) e a cifra leva a própria CHAVE dentro (copiar o valor de um aluno
+  pra chave de outro no Redis não serve: é recusado); chave de aluno em texto claro no Redis é
+  ignorada. Sem segredo configurado, dado de aluno fica só na memória local.
 
 Chaves de aluno usam HMAC(segredo, hash do usuário) — nunca o login nem o token em claro.
 """
@@ -240,9 +242,17 @@ class Redis(Backend):
             if self._fernet is None:
                 return None
             try:
-                dados = self._fernet.decrypt(dados[1:])
+                claro = self._fernet.decrypt(dados[1:])
             except Exception:  # noqa: BLE001 - segredo trocado: trata como ausente
                 return None
+            n = int.from_bytes(claro[:4], "big")
+            if claro[4 : 4 + n] != chave.encode():  # valor cifrado de OUTRA chave (de outro aluno) copiado pra cá
+                self.erros += 1
+                log.warning("redis: entrada cifrada fora da sua chave — ignorada")
+                return None
+            dados = claro[4 + n :]
+        elif chave.startswith("u:"):
+            return None  # dado de aluno só existe cifrado: em claro numa chave de aluno = injetado
         else:
             dados = dados[1:]
         e = Entrada.de_bytes(dados)
@@ -259,7 +269,11 @@ class Redis(Backend):
             await self.local_sensivel.gravar(chave, e)  # nunca vai pro Redis em claro
             return
         dados = e.para_bytes()
-        dados = (b"F" + self._fernet.encrypt(dados)) if e.sensivel else (b"P" + dados)
+        if e.sensivel:  # a chave vai DENTRO da cifra: o valor só vale nesta chave
+            ck = chave.encode()
+            dados = b"F" + self._fernet.encrypt(len(ck).to_bytes(4, "big") + ck + dados)
+        else:
+            dados = b"P" + dados
         try:
             await self._r.set(self.prefixo + chave, dados, ex=max(1, int(e.ttl + e.swr) + 1))
         except Exception as ex:  # noqa: BLE001
