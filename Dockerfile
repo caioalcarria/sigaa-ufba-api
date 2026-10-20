@@ -20,10 +20,13 @@ COPY api /app/api
 RUN python -m compileall -q /opt/venv /app
 
 FROM ${BASE}
-# FORWARDED_ALLOW_IPS: quem pode mandar X-Forwarded-For/-Proto (o proxy reverso). Padrão: só o próprio
-# contêiner. Atrás de proxy, ponha o IP/rede DELE (nunca "*" com a porta exposta direto). Ver docs/servidor.md.
+# FORWARDED_ALLOW_IPS: de quem o uvicorn aceita X-Forwarded-For/-Proto (o proxy reverso). Dentro do
+# contêiner o proxy NUNCA é 127.0.0.1, então o padrão do uvicorn não serve pra nada aqui. Padrão da imagem:
+# VAZIO = não confia em ninguém (o IP do cliente é o da conexão; ninguém forja XFF). Atrás de proxy, passe o
+# IP DELE (-e FORWARDED_ALLOW_IPS=10.0.0.5) — senão todo aluno vira o IP do proxy e o limite de login por
+# IP vira global. Nunca "*" (o cliente escolheria o próprio IP). O docker-compose.yml já faz isso.
 ENV PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1 PYTHONPATH=/app PATH=/opt/venv/bin:$PATH \
-    FORWARDED_ALLOW_IPS=127.0.0.1
+    FORWARDED_ALLOW_IPS=""
 RUN useradd --system --uid 10001 --user-group --no-create-home --home-dir /nonexistent --shell /usr/sbin/nologin api
 COPY --from=build /opt/venv /opt/venv
 COPY --from=build /app /app

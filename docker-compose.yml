@@ -9,8 +9,10 @@ services:
       SIGAA_API_KEEPALIVE: "true"
       # CORS: vazio = nenhuma origem de navegador (padrão seguro). Front no navegador? liste a origem dele:
       # SIGAA_API_CORS: "https://meu-front.exemplo.br"
-      # atrás de proxy reverso: o IP/rede DELE (quem pode mandar X-Forwarded-For)
-      FORWARDED_ALLOW_IPS: ${FORWARDED_ALLOW_IPS:-127.0.0.1}
+      # X-Forwarded-For só vale vindo do PROXY REVERSO, que mora no IP fixo 172.31.250.10 da rede abaixo
+      # (veja o serviço "proxy" de exemplo). Nem o gateway (.1, por onde chega a porta publicada) nem outro
+      # contêiner forjam o IP do cliente. Proxy em outro lugar? FORWARDED_ALLOW_IPS=<ip dele>. Nunca "*".
+      FORWARDED_ALLOW_IPS: ${FORWARDED_ALLOW_IPS:-172.31.250.10}
       # segredos NUNCA aqui: use um .env fora do git (já está no .gitignore) ou o secret do orquestrador
       # SIGAA_API_CACHE_SEGREDO: ...
     restart: unless-stopped
@@ -22,3 +24,21 @@ services:
     ulimits:
       core: 0  # core dump teria senha/token/dado de aluno da memória
     pids_limit: 256
+    networks:
+      sigaa:
+        ipv4_address: 172.31.250.2
+
+  # proxy reverso com HTTPS (exemplo — descomente e configure; ele é o ÚNICO em quem a API confia pro XFF)
+  # proxy:
+  #   image: caddy:2
+  #   ports: ["443:443", "80:80"]
+  #   command: caddy reverse-proxy --from api.exemplo.br --to 172.31.250.2:8000
+  #   networks:
+  #     sigaa:
+  #       ipv4_address: 172.31.250.10
+
+networks:
+  sigaa:
+    ipam:
+      config:
+        - subnet: 172.31.250.0/24

@@ -257,7 +257,14 @@ _status_sigaa = _StatusSigaa()
 @app.get("/v1/status", tags=["Sistema"], summary="A API e o SIGAA estão no ar?")
 async def status():
     sigaa_ok, ms = await _status_sigaa.ler()
-    det = config.STATUS_DETALHADO  # sem ele os contadores internos vêm null (os campos continuam)
+    return _corpo_status(sigaa_ok, ms)
+
+
+def _corpo_status(sigaa_ok: bool, ms: int | None) -> dict:
+    """Resposta do /v1/status (rota SEM login). Os contadores internos (sessões ativas, conexões ao SIGAA,
+    processos de parse) só saem com SIGAA_API_STATUS_DETALHADO=true; senão vêm null — os campos do
+    contrato continuam os mesmos. (A sonda cacheada do SIGAA é o ``_StatusSigaa`` acima.)"""
+    det = config.STATUS_DETALHADO
     return {"api": "ok", "versao": __version__, "sigaa": {"url": config.SIGAA_URL, "no_ar": sigaa_ok, "latencia_ms": ms},
             "sessoes_ativas": gerenciador.total if det else None,
             "servidor": {"processos_de_parse": cpu.ativo() if det else None, "conexoes_sigaa_em_uso": _em_voo() if det else None,

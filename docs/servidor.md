@@ -137,7 +137,13 @@ uvicorn api.main:app --host 0.0.0.0 --port 8000 --proxy-headers \
     --loop uvloop --http httptools --backlog 4096 --timeout-keep-alive 30
 ```
 
-(é o `CMD` do Dockerfile). Memória: o processo da API cai de ~1,2 GB pra ~0,1 GB depois de centenas de
+(é o `CMD` do Dockerfile, que também tem `--no-server-header` e `ulimit -c 0`).
+
+**`FORWARDED_ALLOW_IPS` no contêiner:** lá dentro o proxy reverso nunca é `127.0.0.1` (o padrão do uvicorn).
+A imagem vem com ele VAZIO (não confia em ninguém: o IP do cliente é o da conexão). Atrás de proxy, passe o
+IP dele — senão todo aluno aparece com o IP do proxy e o limite de login por IP vira um limite global. O
+`docker-compose.yml` reserva `172.31.250.10` pro proxy numa rede própria e confia só nele (nem o gateway,
+por onde chega a porta publicada, consegue forjar `X-Forwarded-For`). Nunca use `*`. Memória: o processo da API cai de ~1,2 GB pra ~0,1 GB depois de centenas de
 sessões (a soup não fica retida); cada processo do pool ocupa ~60–80 MB (8 processos ≈ 0,6 GB).
 Numa VPS pequena, `SIGAA_PARSE_PROCESSOS=1` ou `2` já tira o parse do event loop.
 

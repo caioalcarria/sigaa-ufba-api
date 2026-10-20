@@ -33,7 +33,7 @@ api = [
   "cryptography>=44.0.1",
 ]
 redis = ["redis>=5"]  # cache L2 compartilhado (SIGAA_API_CACHE_URL)
-dev = ["pytest>=8", "pytest-asyncio>=0.23"]
+dev = ["pytest>=8", "pytest-asyncio>=0.23", "pyyaml>=6"]  # pyyaml: teste do compose (tests/seguranca)
 
 [tool.setuptools.packages.find]
 include = ["sigaa*", "api*"]
