@@ -47,6 +47,7 @@ from sigaa.models.consultas import (
     UnidadeConsulta,
 )
 from sigaa.parsers import consultas as P
+from ..cpu import rodar
 
 # --------------------------------------------------------------- utilidades
 
@@ -133,7 +134,7 @@ def _sem_resultado(page: Page) -> bool:
 async def listar_calendarios(c: SigaaClient) -> list[CalendarioResumo]:
     """Todos os calendários acadêmicos (1969.1 → próximo período), geral e EAD."""
     page = await c.menu("calendario.iniciarBusca")
-    return P.parse_lista_calendarios(page.content)
+    return await rodar(P.parse_lista_calendarios, page.content)
 
 
 def _semestre_atual(page: Page) -> tuple[int, int] | None:
@@ -151,7 +152,7 @@ async def calendario(
 ) -> Calendario:
     """Um calendário com todos os prazos. Sem ``ano``/``periodo``: o do semestre atual do aluno."""
     page = await c.menu("calendario.iniciarBusca")
-    lista = P.parse_lista_calendarios(page.content)
+    lista = await rodar(P.parse_lista_calendarios, page.content)
     if id_calendario is not None:
         alvo = next((x for x in lista if x.id == id_calendario), None)
     else:
@@ -170,7 +171,7 @@ async def calendario(
             "O SIGAA da UFBA quebra ('Comportamento Inesperado') ao abrir calendários de Ensino a Distância; consulta bloqueada."
         )
     det = await c.clicar(page, f"'id':'{alvo.id}'")
-    return P.parse_calendario(det.content, alvo)
+    return await rodar(P.parse_calendario, det.content, alvo)
 
 
 # =================================================================== cursos
@@ -183,13 +184,13 @@ async def buscar_cursos(c: SigaaClient, nivel: str = "G", nome: str | None = Non
     if nome:
         extra["busca:param1"] = nome
     res = await _submit(c, page, "busca", extra, botao=_botao(page, "busca", "Buscar"))
-    return P.parse_busca_cursos(res.content)
+    return await rodar(P.parse_busca_cursos, res.content)
 
 
 async def cursos_com_id(c: SigaaClient) -> list[CursoOpcao]:
     """Cursos de graduação com o id do SIGAA (combo da tela de Estrutura Curricular)."""
     page = await c.menu("curriculo.popularBuscaGeral")
-    return P.parse_opcoes_cursos(page.content, "busca:curso")
+    return await rodar(P.parse_opcoes_cursos, page.content, "busca:curso")
 
 
 # ============================================================== componentes
@@ -235,14 +236,14 @@ async def buscar_componentes(
     if modalidade:
         extra |= {"formBusca:checkModalidade": "on", "formBusca:modalidades": str(modalidade)}
     res = await _submit(c, page, f, extra, botao=_botao(page, f, "Buscar"))
-    return P.parse_busca_componentes(res.content)
+    return await rodar(P.parse_busca_componentes, res.content)
 
 
 async def componente(c: SigaaClient, id_componente: int, completo: bool = False) -> ComponenteDetalhe:
     """Detalhe pelo id (painel por GET direto). ``completo=True`` acrescenta o 'Relatório para
     impressão' (quem tem este como pré-requisito/equivalente, histórico, currículos) — +3 telas."""
     page = await c.get(f"/sigaa/graduacao/componente/view_painel.jsf?ajaxRequest=true&id={int(id_componente)}")
-    comp = P.parse_componente(page.content, id_componente)
+    comp = await rodar(P.parse_componente, page.content, id_componente)
     if comp.codigo is None and comp.nome is None:
         raise NaoEncontrado(f"Componente {id_componente} não encontrado.")
     if not completo:
@@ -261,7 +262,7 @@ async def componente(c: SigaaClient, id_componente: int, completo: bool = False)
     if alvo is None:
         return comp
     rel = await c.clicar(res, alvo)
-    return P.mesclar_componente(comp, P.parse_componente(rel.content, id_componente))
+    return P.mesclar_componente(comp, await rodar(P.parse_componente, rel.content, id_componente))
 
 
 async def programa_componente(c: SigaaClient, codigo: str) -> str | None:
@@ -287,7 +288,7 @@ async def _resultado_estruturas(c: SigaaClient, curso_id: int | None = None, cod
     page = await c.menu("curriculo.popularBuscaGeral")
     extra: dict[str, str] = {}
     if curso_id is None and codigo is None:
-        cursos = P.parse_opcoes_cursos(page.content, "busca:curso")
+        cursos = await rodar(P.parse_opcoes_cursos, page.content, "busca:curso")
         if not cursos:
             raise NaoEncontrado("Nenhum curso disponível na consulta de estruturas.")
         curso_id = cursos[0].id
@@ -309,7 +310,7 @@ async def buscar_estruturas(
     if curso_id is None and not codigo:
         raise ValueError("Informe curso_id ou codigo.")
     res = await _resultado_estruturas(c, curso_id, codigo, somente_ativas)
-    return P.parse_busca_estruturas(res.content)
+    return await rodar(P.parse_busca_estruturas, res.content)
 
 
 async def _clicar_estrutura(c: SigaaClient, res: Page, acao: str, id_estrutura: int) -> Page:
@@ -329,7 +330,7 @@ async def estrutura(c: SigaaClient, id_estrutura: int, curso_id: int | None = No
     """Estrutura completa: Relatório (semestres, tipo, natureza) + Detalhar (ids dos componentes, CH extras)."""
     res = await _resultado_estruturas(c, curso_id)
     rel_page = await _clicar_estrutura(c, res, "relatorio", id_estrutura)
-    rel = P.parse_estrutura_relatorio(rel_page.content, id_estrutura)
+    rel = await rodar(P.parse_estrutura_relatorio, rel_page.content, id_estrutura)
     if rel.codigo is None and not rel.niveis:
         raise NaoEncontrado(f"Estrutura curricular {id_estrutura} não encontrada.")
     try:
@@ -337,7 +338,7 @@ async def estrutura(c: SigaaClient, id_estrutura: int, curso_id: int | None = No
     except NavegacaoInvalida:
         res = await _resultado_estruturas(c, curso_id)
         det_page = await _clicar_estrutura(c, res, "detalhar", id_estrutura)
-    det = P.parse_estrutura_detalhar(det_page.content, id_estrutura)
+    det = await rodar(P.parse_estrutura_detalhar, det_page.content, id_estrutura)
     return P.mesclar_estrutura(rel, det)
 
 
@@ -345,7 +346,7 @@ async def declaracao_prazo_maximo(c: SigaaClient, id_estrutura: int, curso_id: i
     """'Declaração de Prazo Máximo' de integralização (documento com código de verificação)."""
     res = await _resultado_estruturas(c, curso_id)
     page = await _clicar_estrutura(c, res, "declaracaoPrazoMaximo", id_estrutura)
-    return P.parse_declaracao_prazo(page.content)
+    return await rodar(P.parse_declaracao_prazo, page.content)
 
 
 # =================================================================== turmas
@@ -413,13 +414,13 @@ async def buscar_turmas(
             e[check] = "on"
             e[campo] = str(valor).strip().upper() if campo == "form:inputCodDisciplina" else str(valor).strip()
     res = await _submit(c, page, "form", e, botao=("form:buttonBuscar", "Buscar"))
-    return P.parse_busca_turmas(res.content)
+    return await rodar(P.parse_busca_turmas, res.content)
 
 
 async def turma(c: SigaaClient, id_turma: int) -> TurmaDetalhe:
     """Painel 'Informações da Turma' (GET direto): solicitações, matriculados, vagas reservadas."""
     page = await c.get(f"/sigaa/graduacao/turma/view_painel.jsf?ajaxRequest=true&contarMatriculados=true&id={int(id_turma)}")
-    t = P.parse_turma_painel(page.content, id_turma)
+    t = await rodar(P.parse_turma_painel, page.content, id_turma)
     if t.componente_codigo is None and t.capacidade is None:
         raise NaoEncontrado(f"Turma {id_turma} não encontrada.")
     return t
@@ -429,7 +430,7 @@ async def processamento_turma(c: SigaaClient, id_turma: int, rematricula: bool =
     """Resultado do processamento da (re)matrícula — SÓ contagens (a tela lista outros alunos)."""
     url = f"/sigaa/relatorioProcessamento?idTurma={int(id_turma)}" + ("&rematricula=true" if rematricula else "")
     page = await c.get(url)
-    p = P.parse_processamento(page.content, id_turma, rematricula)
+    p = await rodar(P.parse_processamento, page.content, id_turma, rematricula)
     if p.componente is None and p.total_solicitacoes == 0:
         raise NaoEncontrado(f"Processamento da turma {id_turma} não encontrado.")
     return p
@@ -457,7 +458,7 @@ async def buscar_unidades(
         if radio is not None:
             e[radio["name"]] = "true" if ativa else "false"
     res = await _submit(c, page, "formBuscaUnidade", e, botao=("btnBuscar", "Buscar"))
-    unidades = P.parse_busca_unidades(res.content)
+    unidades = await rodar(P.parse_busca_unidades, res.content)
     if ativa is not None:  # com o filtro, o SIGAA esconde a coluna "Ativa"
         for u in unidades:
             u.ativa = ativa if u.ativa is None else u.ativa

@@ -6,6 +6,8 @@ Docs:   http://localhost:8000/docs  (Swagger)  ·  /redoc
 
 from __future__ import annotations
 
+import asyncio
+import gc
 import importlib
 import logging
 from contextlib import asynccontextmanager
@@ -13,10 +15,13 @@ from contextlib import asynccontextmanager
 import httpx
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.middleware.gzip import GZipMiddleware
 from fastapi.responses import JSONResponse
 
+from sigaa import cpu
 from sigaa import errors as E
 from sigaa import __version__
+from sigaa.client import _ssl_ctx
 
 from sigaa import cache as sigaa_cache
 
@@ -45,7 +50,8 @@ pra API relogar sozinha quando o SIGAA derrubar a sessão por inatividade.
 ### Erros
 Todo erro vem como `{"erro": {"codigo": "...", "mensagem": "..."}}` — `credenciais_invalidas` (401),
 `sessao_expirada` (401), `token_invalido` (401), `acesso_negado` (403), `nao_encontrado` (404),
-`muitas_tentativas` (429), `sigaa_erro` / `navegacao_invalida` (502), `sigaa_indisponivel` (503).
+`muitas_tentativas` (429), `sigaa_erro` / `navegacao_invalida` (502), `sigaa_indisponivel` / `sigaa_ocupado` (503,
+com `Retry-After`), `tempo_esgotado` (504).
 """
 
 #: módulos de rota (cada frente do projeto tem o seu); ausentes são ignorados com aviso
@@ -54,10 +60,45 @@ ROTAS = ["auth", "portal", "midia", "turma_virtual", "academico", "planejamento"
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
+    # parse de HTML/PDF fora do event loop, nos outros núcleos (ver sigaa/cpu.py e docs/servidor.md)
+    await asyncio.to_thread(cpu.iniciar, config.PARSE_PROCESSOS)
+    # GC: o que já está carregado (módulos, rotas, modelos) vai pra geração "permanente" e não é
+    # mais varrido; e a geração 0 roda bem menos vezes — as varreduras completas com centenas de
+    # sessões em memória chegavam a 100–200 ms com o servidor inteiro parado.
+    gc.collect()
+    gc.freeze()
+    gc.set_threshold(*config.GC_LIMIARES)
     gerenciador.iniciar()
     yield
     await gerenciador.parar()
     await sigaa_cache.cache.backend.fechar()
+    await asyncio.to_thread(cpu.parar, esperar=True)
+
+
+class Prazo:
+    """Prazo total por requisição (ASGI puro): estourou, cancela a navegação e responde 504."""
+
+    def __init__(self, app, segundos: float) -> None:
+        self.app, self.segundos = app, segundos
+
+    async def __call__(self, scope, receive, send):
+        if scope["type"] != "http" or self.segundos <= 0:
+            return await self.app(scope, receive, send)
+        iniciou = False
+
+        async def enviar(msg):
+            nonlocal iniciou
+            iniciou = iniciou or msg["type"] == "http.response.start"
+            await send(msg)
+
+        try:
+            async with asyncio.timeout(self.segundos):
+                await self.app(scope, receive, enviar)
+        except TimeoutError:
+            if iniciou:
+                raise
+            msg = f"A consulta passou de {self.segundos:g} s (o SIGAA está lento). Tente de novo."
+            await JSONResponse(status_code=504, content={"erro": {"codigo": "tempo_esgotado", "mensagem": msg}})(scope, receive, send)
 
 
 app = FastAPI(
@@ -70,6 +111,11 @@ app = FastAPI(
 )
 # cache HTTP (L1) por DENTRO do CORS: o HIT sai com os cabeçalhos de CORS também
 app.add_middleware(cache_http.CacheHTTP)
+# gzip por FORA do cache: o cache comprime o que ele serve (e marca Content-Encoding, então o GZip
+# deixa passar); o GZip pega as rotas que o cache não cobre. Por DENTRO ele quebrava: o cache guardava
+# o corpo já comprimido sem o cabeçalho. JSON do histórico: 27 KB → 4,7 KB por ~0,2 ms de CPU
+if config.GZIP_MIN_BYTES > 0:
+    app.add_middleware(GZipMiddleware, minimum_size=config.GZIP_MIN_BYTES, compresslevel=5)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=config.CORS,
@@ -77,6 +123,7 @@ app.add_middleware(
     allow_headers=["*"],
     expose_headers=["X-Cache", "Age", "X-Cache-Gerado-Em", "ETag"],
 )
+app.add_middleware(Prazo, segundos=config.TIMEOUT_REQUISICAO_S)
 
 for nome in ROTAS:
     try:
@@ -106,7 +153,8 @@ STATUS = {
 @app.exception_handler(E.SigaaError)
 async def erro_sigaa(_: Request, exc: E.SigaaError):
     status = next((s for cls, s in STATUS.items() if isinstance(exc, cls)), 502)
-    return JSONResponse(status_code=status, content={"erro": {"codigo": exc.codigo, "mensagem": str(exc)}})
+    headers = {"Retry-After": "5"} if isinstance(exc, E.SigaaOcupado) else None
+    return JSONResponse(status_code=status, content={"erro": {"codigo": exc.codigo, "mensagem": str(exc)}}, headers=headers)
 
 
 @app.exception_handler(ValueError)
@@ -139,12 +187,18 @@ async def erro_validacao(_: Request, exc: RequestValidationError):
 async def status():
     sigaa_ok, ms = False, None
     try:
-        async with httpx.AsyncClient(timeout=10) as h:
+        async with httpx.AsyncClient(timeout=10, verify=_ssl_ctx()) as h:
             r = await h.get(config.SIGAA_URL + "/sigaa/verTelaLogin.do")
             sigaa_ok, ms = r.status_code == 200, int(r.elapsed.total_seconds() * 1000)
     except httpx.HTTPError:
         pass
-    return {"api": "ok", "versao": __version__, "sigaa": {"url": config.SIGAA_URL, "no_ar": sigaa_ok, "latencia_ms": ms}, "sessoes_ativas": gerenciador.total}
+    return {"api": "ok", "versao": __version__, "sigaa": {"url": config.SIGAA_URL, "no_ar": sigaa_ok, "latencia_ms": ms}, "sessoes_ativas": gerenciador.total,
+            "servidor": {"processos_de_parse": cpu.ativo(), "conexoes_sigaa_em_uso": _em_voo(), "conexoes_sigaa_max": config.MAX_CONCORRENCIA_SIGAA}}
+
+
+def _em_voo() -> int:
+    lim = getattr(gerenciador, "_limite", None)  # o Carga (teto global) nasce com a 1ª sessão
+    return lim.em_voo if lim is not None else 0
 
 
 @app.get("/", include_in_schema=False)
