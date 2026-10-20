@@ -2,11 +2,13 @@
 
 from __future__ import annotations
 
-from urllib.parse import urlparse
+from typing import Annotated
 
-from fastapi import APIRouter, HTTPException, Response
+from fastapi import APIRouter, HTTPException, Query, Response
 
+from ..config import config
 from ..deps import Cliente
+from ..seguranca_http import foto_canonica, tipo_imagem
 
 router = APIRouter(prefix="/v1", tags=["portal"])
 
@@ -16,16 +18,19 @@ router = APIRouter(prefix="/v1", tags=["portal"])
     response_class=Response,
     responses={200: {"content": {"image/jpeg": {}}}},
     summary="Abrir uma foto do SIGAA (perfil, participantes)",
-    description="Recebe o `foto_url` que outras rotas devolvem e baixa a imagem com a sessão do aluno. Só aceita caminhos de foto do próprio SIGAA.",
+    description="Recebe o `foto_url` que outras rotas devolvem (`/shared/verFoto?idFoto=..&key=..`, relativo ou no próprio SIGAA) "
+    "e baixa a imagem com a sessão do aluno. Qualquer outro endereço é recusado com 422.",
 )
-async def foto(cli: Cliente, url: str):
-    alvo = urlparse(url)
-    if alvo.netloc and alvo.netloc != urlparse(cli.base_url).netloc:
-        raise HTTPException(422, detail={"codigo": "requisicao_invalida", "mensagem": "Só fotos do próprio SIGAA."})
-    caminho = alvo.path + (f"?{alvo.query}" if alvo.query else "")
-    if not (alvo.path.startswith("/shared/verFoto") or alvo.path.startswith("/sigaa/") and "foto" in alvo.path.lower()):
-        raise HTTPException(422, detail={"codigo": "requisicao_invalida", "mensagem": "Isto não é um endereço de foto do SIGAA."})
+async def foto(cli: Cliente, url: Annotated[str, Query(max_length=512)]):
+    # nada do que veio é repassado cru: o caminho é remontado (só /shared/verFoto com idFoto e key validados),
+    # senão o proxy viraria um GET com a sessão do aluno em QUALQUER tela do SIGAA (logoff, ações JSF por GET...)
+    caminho = foto_canonica(url, cli.base_url)
+    if caminho is None:
+        raise HTTPException(422, detail={"codigo": "requisicao_invalida", "mensagem": "Isto não é um endereço de foto do SIGAA (/shared/verFoto?idFoto=..&key=..)."})
     page = await cli.executar(lambda c: c.get(caminho))
-    if not page.content_type.startswith("image/"):
+    tipo = tipo_imagem(page.content_type)
+    if tipo is None:  # SVG/HTML no domínio da API = script; só imagem raster passa
         raise HTTPException(404, detail={"codigo": "nao_encontrado", "mensagem": "O SIGAA não devolveu uma imagem."})
-    return Response(page.content, media_type=page.content_type, headers={"Cache-Control": "private, max-age=3600"})
+    if config.FOTO_MAX_BYTES > 0 and len(page.content) > config.FOTO_MAX_BYTES:
+        raise HTTPException(502, detail={"codigo": "sigaa_erro", "mensagem": "A foto do SIGAA passa do tamanho máximo."})
+    return Response(page.content, media_type=tipo, headers={"Cache-Control": "private, max-age=3600"})
