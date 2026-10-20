@@ -10,4 +10,4 @@ EXPOSE 8000
 # que usa os outros núcleos (SIGAA_PARSE_PROCESSOS; padrão núcleos-1, de 1 a 8).
 # uvloop + httptools explícitos (o uvicorn[standard] já escolheria os dois).
 CMD ["uvicorn", "api.main:app", "--host", "0.0.0.0", "--port", "8000", "--proxy-headers", \
-     "--loop", "uvloop", "--http", "httptools", "--backlog", "4096", "--timeout-keep-alive", "30"]
+     "--loop", "uvloop", "--http", "httptools", "--backlog", "4096", "--timeout-keep-alive", "30", "--no-server-header"]

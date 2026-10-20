@@ -151,7 +151,13 @@ sequenceDiagram
 | `SIGAA_API_MAX_FALHAS_POR_USUARIO` · `_JANELA_FALHAS_USUARIO_MIN` | 5 · 15 | logins errados por conta (de qualquer IP) antes do `429`; 0 = desliga |
 | `SIGAA_API_SEM_CORE_DUMP` | true | no boot: sem core dump e sem ptrace (`PR_SET_DUMPABLE=0`); false pra usar py-spy/gdb |
 | `FORWARDED_ALLOW_IPS` (uvicorn) | `127.0.0.1,::1` | IP(s) do proxy reverso confiável pro `X-Forwarded-For` |
-| `SIGAA_API_CORS` | `*` | origens liberadas |
+| `SIGAA_API_CORS` | vazio | origens de navegador liberadas (vírgula; `*` = qualquer). Vazio = nenhuma — ver [`seguranca/http.md`](seguranca/http.md) |
+| `SIGAA_API_MAX_CORPO_BYTES` · `_MAX_URL_BYTES` | 65536 · 8192 | corpo (413) e caminho+query (414) máximos |
+| `SIGAA_API_MAX_CABECALHOS_BYTES` · `_MAX_CABECALHOS` | 32768 · 100 | cabeçalhos da requisição (431) |
+| `SIGAA_API_HSTS` | `auto` | HSTS só quando chegou por HTTPS (`true` = sempre, `false` = nunca) |
+| `SIGAA_API_HOSTS` | vazio | hosts aceitos no `Host` (vazio = qualquer) |
+| `SIGAA_API_DOCS` | true | `/docs`, `/redoc` e `/openapi.json` no ar |
+| `SIGAA_API_FOTO_MAX_BYTES` | 2097152 | maior foto repassada (502 acima) |
 | `SIGAA_ESPERA_MAX_S` | 20 | quanto esperar por vaga no teto global (`SIGAA_API_MAX_CONCORRENCIA_SIGAA`) antes do `503 sigaa_ocupado` |
 | `SIGAA_API_TIMEOUT_S` | 120 | prazo total de uma requisição (`504 tempo_esgotado`) |
 | `SIGAA_PARSE_PROCESSOS` | núcleos-1 (1–8) | processos que fazem o parse de HTML/PDF fora do event loop (0 = desliga) |

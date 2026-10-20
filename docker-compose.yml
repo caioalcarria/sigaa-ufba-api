@@ -6,5 +6,6 @@ services:
       SIGAA_URL: https://sigaa.ufba.br
       SIGAA_API_TOKEN_TTL_HORAS: "12"
       SIGAA_API_KEEPALIVE: "true"
-      SIGAA_API_CORS: "*"
+      # CORS: vazio = nenhuma origem de navegador (padrão seguro). Front no navegador? liste a origem dele:
+      # SIGAA_API_CORS: "https://meu-front.exemplo.br"
     restart: unless-stopped

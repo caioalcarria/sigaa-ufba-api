@@ -2,7 +2,9 @@
 
 from __future__ import annotations
 
-from fastapi import APIRouter, Response
+from typing import Annotated
+
+from fastapi import APIRouter, Query, Response
 from pydantic import BaseModel, Field
 
 from sigaa.models.academico import (
@@ -27,6 +29,11 @@ from sigaa.parsers.historico_pdf import calcular_cr, calcular_iap
 from sigaa.services import academico as svc
 
 from ..deps import Cliente
+from ..seguranca_http import CSP_HTML_SIGAA, TEXTO_ID, content_disposition, resposta_arquivo
+
+#: texto que só é comparado com as opções do SIGAA: curto e sem CR/LF/controle
+TextoId = Annotated[str, Query(pattern=TEXTO_ID)]
+Filtro = Annotated[str | None, Query(pattern=TEXTO_ID)]
 
 router = APIRouter(prefix="/v1", tags=["Acadêmico"])
 
@@ -59,7 +66,7 @@ async def get_historico_pdf(cli: Cliente):
     summary="Componentes cursados (filtráveis)",
     description="Só a lista de componentes do histórico. Filtros opcionais: `periodo` (2024.2), `situacao` (APR, REP, TRANC, MATR...), `natureza` (OB, OP...).",
 )
-async def get_componentes(cli: Cliente, periodo: str | None = None, situacao: str | None = None, natureza: str | None = None):
+async def get_componentes(cli: Cliente, periodo: Filtro = None, situacao: Filtro = None, natureza: Filtro = None):
     h = await cli.executar(svc.historico)
     out = h.componentes
     if periodo:
@@ -211,7 +218,13 @@ async def get_comprovante_inscricao(cli: Cliente):
 @router.get("/documentos/comprovante-inscricao/html", summary="Comprovante de inscrição (HTML original, pra imprimir)", response_class=Response)
 async def get_comprovante_inscricao_html(cli: Cliente):
     html = await cli.executar(svc.comprovante_inscricao_html)
-    return Response(html, media_type="text/html; charset=utf-8")
+    # HTML do SIGAA servido na origem da API: em sandbox (sem script, origem opaca — não lê token nem nada
+    # da API), sem carregar nada de fora; continua text/html e inline pra abrir e imprimir
+    return Response(
+        html,
+        media_type="text/html; charset=utf-8",
+        headers={"Content-Security-Policy": CSP_HTML_SIGAA, "Content-Disposition": content_disposition("comprovante-inscricao.html", inline=True)},
+    )
 
 
 @router.get("/documentos/declaracao-vinculo", response_model=DeclaracaoVinculo, summary="Declaração de vínculo (dados extraídos)")
@@ -268,12 +281,12 @@ async def get_filtros_avaliacao(cli: Cliente):
     description="Turmas do departamento no período com docente, horário e nº de discentes (e as médias da avaliação, quando a instituição publica). "
     "`departamento_id` vem de /v1/avaliacao-institucional/filtros; `periodo` = ano-período (2025.2).",
 )
-async def get_resultado_avaliacao(cli: Cliente, departamento_id: str, periodo: str):
+async def get_resultado_avaliacao(cli: Cliente, departamento_id: TextoId, periodo: TextoId):
     return await cli.executar(lambda c: svc.resultado_avaliacao(c, departamento_id, periodo))
 
 
 @router.get("/avaliacao-institucional/observacoes", response_model=ListaGenerica, summary="Observações dos docentes sobre as minhas turmas")
-async def get_observacoes(cli: Cliente, periodo: str):
+async def get_observacoes(cli: Cliente, periodo: TextoId):
     return await cli.executar(lambda c: svc.observacoes_docentes(c, periodo))
 
 
@@ -289,4 +302,5 @@ async def get_autonoma(cli: Cliente, registro_id: int):
 @router.get("/atividades-autonomas/{registro_id}/comprovante", summary="Baixar o comprovante enviado", response_class=Response)
 async def get_autonoma_comprovante(cli: Cliente, registro_id: int):
     dados, tipo, nome = await cli.executar(lambda c: svc.atividade_autonoma_comprovante(c, registro_id))
-    return Response(dados, media_type=tipo, headers={"Content-Disposition": f'inline; filename="{nome}"'})
+    # nome e tipo vêm do SIGAA: filename saneado (RFC 6266/5987) e tipo ativo (HTML/SVG...) vira download
+    return resposta_arquivo(dados, tipo, nome, inline=True, padrao=f"comprovante-{registro_id}")
