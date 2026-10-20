@@ -27,7 +27,8 @@ A tabela `REGRAS` em `api/cache.py` decide. Vale a primeira regex que casar.
 | `/v1/consultas/turmas` | compartilhado | 10 min | 1 h |
 | `/v1/consultas/turmas/{id}[/processamento]` | compartilhado | 5 min | 30 min |
 | `/v1/consultas/estruturas/{id}/declaracao-prazo-maximo` | aluno (documento emitido) | 1 h | 1 h |
-| demais `/v1/consultas/*`, `/v1/calendario/lista`, `/v1/calendario?ano&periodo` (ou `?id`) | compartilhado | 24 h | 7 d |
+| `/v1/consultas/{cursos[/ids],componentes[/filtros\|/{id}],estruturas[/{id}],turmas/filtros,unidades[/tipos]}`, `/v1/calendario/lista`, `/v1/calendario?ano&periodo` (ou `?id`) | compartilhado | 24 h | 7 d |
+| qualquer OUTRA rota sob `/v1/consultas/*` (lista fechada: rota nova é por aluno até alguém provar que é dado público) | aluno | 1 min | 30 min |
 | `/v1/calendario` sem ano/período (semestre atual DO ALUNO) | aluno | 6 h | 7 d |
 | `/v1/me/foto` | aluno | 1 d | 7 d |
 | `/v1/me/dados-pessoais`, `/v1/me/perfil` | aluno | 1 h | 1 d |

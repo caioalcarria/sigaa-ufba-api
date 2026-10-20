@@ -3,8 +3,8 @@
 Pra cada ``GET`` a :data:`REGRAS` decide o ESCOPO e o TTL:
 
 * ``publico``       — ``/v1/publico/*`` e ``/v1/horarios/*``: sem login, uma cópia pra todo mundo;
-* ``compartilhado`` — ``/v1/consultas/*``, calendário: exige login válido, mas a cópia é a mesma
-  pra todos os alunos (dado público visto de dentro do portal);
+* ``compartilhado`` — as consultas gerais de dado público (lista FECHADA em :data:`REGRAS`) e o
+  calendário com ano/período: exige login válido, mas a cópia é a mesma pra todos os alunos;
 * ``aluno``         — o resto: a chave leva HMAC(segredo, hash do aluno) — um aluno nunca vê o
   dado de outro, e dois tokens do MESMO aluno dividem o cache.
 
@@ -86,12 +86,16 @@ REGRAS: list[tuple[re.Pattern[str], Regra]] = [
         (r"^/v1/publico/(processos-seletivos|extensao|pesquisa|cursos-abertos|acordos-mobilidade)", Politica(PUBLICO, 6 * H, 1 * D)),
         (r"^/v1/publico/programas-pos/\d+/(noticias|processos-seletivos)", Politica(PUBLICO, 6 * H, 1 * D)),
         (r"^/v1/publico/", Politica(PUBLICO, 24 * H, 7 * D)),  # cursos, estruturas, componentes, docentes, unidades...
-        # ---- compartilhado entre alunos (precisa de login)
-        (r"^/v1/consultas/estruturas/\d+/declaracao", Politica(ALUNO, 1 * H, 1 * H)),  # documento emitido
-        (r"^/v1/consultas/turmas/\d+", Politica(COMPARTILHADO, 5 * M, 30 * M)),  # vagas/solicitações
+        # ---- compartilhado entre alunos (precisa de login). Lista FECHADA e ancorada: rota nova sob
+        # /v1/consultas cai no padrão POR ALUNO. Segmento de id é [^/]+ e não \d+: a rota aceita
+        # "+5", "5.0", " 5" e "5_0" como 5 — com \d+ a declaração escapava pra regra compartilhada.
+        (r"^/v1/consultas/estruturas/[^/]+/declaracao", Politica(ALUNO, 1 * H, 1 * H)),  # documento emitido
+        (r"^/v1/consultas/turmas/filtros$", Politica(COMPARTILHADO, 24 * H, 7 * D)),
+        (r"^/v1/consultas/turmas/[^/]+(/processamento)?$", Politica(COMPARTILHADO, 5 * M, 30 * M)),  # vagas/solicitações
         (r"^/v1/consultas/turmas$", Politica(COMPARTILHADO, 10 * M, 1 * H)),
-        (r"^/v1/consultas/", Politica(COMPARTILHADO, 24 * H, 7 * D)),
-        (r"^/v1/calendario/lista", Politica(COMPARTILHADO, 24 * H, 7 * D)),
+        (r"^/v1/consultas/(cursos|cursos/ids|componentes|componentes/[^/]+|estruturas|estruturas/[^/]+|unidades|unidades/tipos)$",
+         Politica(COMPARTILHADO, 24 * H, 7 * D)),
+        (r"^/v1/calendario/lista$", Politica(COMPARTILHADO, 24 * H, 7 * D)),
         (r"^/v1/calendario$", _calendario),
         # ---- por aluno
         (r"^/v1/(me/foto|foto)", Politica(ALUNO, 1 * D, 7 * D)),

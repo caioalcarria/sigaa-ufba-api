@@ -42,7 +42,7 @@ def _app(chamadas: dict[str, int], atraso: float = 0.0) -> FastAPI:
         await asyncio.sleep(atraso)
         return {"x": x, "dono": sess.usuario_hash, "vez": conta("eco")}
 
-    @app.get("/v1/consultas/coisa")
+    @app.get("/v1/consultas/unidades/tipos")
     async def coisa(sess: SessaoAtual):
         return {"vez": conta("coisa")}
 
@@ -145,11 +145,11 @@ async def test_aluno_nao_ve_dado_de_outro_mas_divide_entre_os_proprios_tokens():
 async def test_compartilhado_entre_alunos_mas_exige_login():
     ch: dict[str, int] = {}
     async with _cli(_app(ch)) as c:
-        await c.get("/v1/consultas/coisa", headers=A)
-        r = await c.get("/v1/consultas/coisa", headers=B)
+        await c.get("/v1/consultas/unidades/tipos", headers=A)
+        r = await c.get("/v1/consultas/unidades/tipos", headers=B)
         assert r.headers["x-cache"] == "HIT"
-        sem = await c.get("/v1/consultas/coisa")
-        ruim = await c.get("/v1/consultas/coisa", headers={"Authorization": "Bearer inventado"})
+        sem = await c.get("/v1/consultas/unidades/tipos")
+        ruim = await c.get("/v1/consultas/unidades/tipos", headers={"Authorization": "Bearer inventado"})
     assert sem.status_code == 401 and ruim.status_code == 401 and "x-cache" not in sem.headers
     assert ch["coisa"] == 1
 
