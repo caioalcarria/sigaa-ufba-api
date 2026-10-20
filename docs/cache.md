@@ -27,7 +27,8 @@ A tabela `REGRAS` em `api/cache.py` decide. Vale a primeira regex que casar.
 | `/v1/consultas/turmas` | compartilhado | 10 min | 1 h |
 | `/v1/consultas/turmas/{id}[/processamento]` | compartilhado | 5 min | 30 min |
 | `/v1/consultas/estruturas/{id}/declaracao-prazo-maximo` | aluno (documento emitido) | 1 h | 1 h |
-| demais `/v1/consultas/*`, `/v1/calendario/lista`, `/v1/calendario?ano&periodo` (ou `?id`) | compartilhado | 24 h | 7 d |
+| `/v1/consultas/{cursos[/ids],componentes[/filtros\|/{id}],estruturas[/{id}],turmas/filtros,unidades[/tipos]}`, `/v1/calendario/lista`, `/v1/calendario?ano&periodo` (ou `?id`) | compartilhado | 24 h | 7 d |
+| qualquer OUTRA rota sob `/v1/consultas/*` (lista fechada: rota nova é por aluno até alguém provar que é dado público) | aluno | 1 min | 30 min |
 | `/v1/calendario` sem ano/período (semestre atual DO ALUNO) | aluno | 6 h | 7 d |
 | `/v1/me/foto` | aluno | 1 d | 7 d |
 | `/v1/me/dados-pessoais`, `/v1/me/perfil` | aluno | 1 h | 1 d |
@@ -48,7 +49,12 @@ A tabela `REGRAS` em `api/cache.py` decide. Vale a primeira regex que casar.
 * **aluno**: a chave leva `HMAC(SIGAA_API_CACHE_SEGREDO, hash do usuário)`. Dois tokens do mesmo
   aluno dividem o cache. Um aluno nunca recebe o dado de outro: a identidade vem da sessão
   validada no `gerenciador`, nunca do que o cliente manda. No Basic auth, o cache só entra depois que a
-  senha já foi validada uma vez (existe a sessão `basic:` daquela credencial).
+  senha já foi validada uma vez (existe a sessão `basic:` daquela credencial). Sessão vencida OU ociosa
+  (`SIGAA_API_TOKEN_OCIOSO_MIN`) nunca recebe HIT — vale pro Bearer e pro Basic.
+* a chave é `escopo:path?query` com a query ordenada pelo NOME (valores repetidos mantêm a ordem: a rota
+  vê o último). Pedido com MAIS DE UM `Authorization` não usa o cache (a rota responde direto).
+* `DELETE /v1/cache/meu` e o logout apagam o cache do aluno, e o que já estava indo ao SIGAA naquela
+  hora (MISS, revalidação STALE, pré-aquecimento) não é regravado depois.
 
 Só entram no cache respostas **200** sem `Set-Cookie` e com até 8 MB. Erro (401, 404, 502, 503) nunca
 fica guardado.
@@ -113,8 +119,15 @@ Desligar: `SIGAA_API_PREAQUECER=false`.
   processos/workers. Tem um L0 em memória de 5 s por cima, então o HIT quente nem vai ao Redis. Se o Redis
   cair, a API segue (vira MISS) e conta os erros em `estatisticas`.
   * dado de aluno (escopo `aluno`) vai pro Redis **cifrado** (Fernet, chave derivada de
-    `SIGAA_API_CACHE_SEGREDO`). **Sem segredo configurado, dado de aluno nunca vai pro Redis**: fica
+    `SIGAA_API_CACHE_SEGREDO` por scrypt; o HMAC das chaves usa outra subchave). A cifra leva a própria
+    chave dentro: valor de um aluno copiado pra chave de outro é recusado, e chave de aluno com valor em
+    claro também. **Sem segredo configurado, dado de aluno nunca vai pro Redis**: fica
     só na memória local do processo. Público/compartilhado vai em claro (é dado público);
+  * `SIGAA_API_CACHE_SEGREDO` precisa de pelo menos `SIGAA_API_CACHE_SEGREDO_MIN` caracteres (padrão
+    16; menos que isso é IGNORADO, com erro no log) e o recomendado é 32+ aleatórios
+    (`python -c 'import secrets;print(secrets.token_urlsafe(48))'`). O mesmo valor em todos os workers;
+  * Redis fora desta máquina: use `rediss://` (TLS) e senha (`rediss://:senha@host:6380/0`) — a API
+    avisa no log quando falta. Quem escreve no Redis consegue envenenar o cache público/compartilhado;
   * as chaves de aluno são `u:<HMAC>:/rota?query`: não há login nem token em claro;
   * o TTL no Redis é TTL + SWR (+1 s): o próprio Redis expira.
 * `SIGAA_API_CACHE=false` desliga tudo: o middleware passa direto e o L2 chama a função original.

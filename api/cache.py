@@ -3,8 +3,8 @@
 Pra cada ``GET`` a :data:`REGRAS` decide o ESCOPO e o TTL:
 
 * ``publico``       — ``/v1/publico/*`` e ``/v1/horarios/*``: sem login, uma cópia pra todo mundo;
-* ``compartilhado`` — ``/v1/consultas/*``, calendário: exige login válido, mas a cópia é a mesma
-  pra todos os alunos (dado público visto de dentro do portal);
+* ``compartilhado`` — as consultas gerais de dado público (lista FECHADA em :data:`REGRAS`) e o
+  calendário com ano/período: exige login válido, mas a cópia é a mesma pra todos os alunos;
 * ``aluno``         — o resto: a chave leva HMAC(segredo, hash do aluno) — um aluno nunca vê o
   dado de outro, e dois tokens do MESMO aluno dividem o cache.
 
@@ -86,12 +86,16 @@ REGRAS: list[tuple[re.Pattern[str], Regra]] = [
         (r"^/v1/publico/(processos-seletivos|extensao|pesquisa|cursos-abertos|acordos-mobilidade)", Politica(PUBLICO, 6 * H, 1 * D)),
         (r"^/v1/publico/programas-pos/\d+/(noticias|processos-seletivos)", Politica(PUBLICO, 6 * H, 1 * D)),
         (r"^/v1/publico/", Politica(PUBLICO, 24 * H, 7 * D)),  # cursos, estruturas, componentes, docentes, unidades...
-        # ---- compartilhado entre alunos (precisa de login)
-        (r"^/v1/consultas/estruturas/\d+/declaracao", Politica(ALUNO, 1 * H, 1 * H)),  # documento emitido
-        (r"^/v1/consultas/turmas/\d+", Politica(COMPARTILHADO, 5 * M, 30 * M)),  # vagas/solicitações
+        # ---- compartilhado entre alunos (precisa de login). Lista FECHADA e ancorada: rota nova sob
+        # /v1/consultas cai no padrão POR ALUNO. Segmento de id é [^/]+ e não \d+: a rota aceita
+        # "+5", "5.0", " 5" e "5_0" como 5 — com \d+ a declaração escapava pra regra compartilhada.
+        (r"^/v1/consultas/estruturas/[^/]+/declaracao", Politica(ALUNO, 1 * H, 1 * H)),  # documento emitido
+        (r"^/v1/consultas/turmas/filtros$", Politica(COMPARTILHADO, 24 * H, 7 * D)),
+        (r"^/v1/consultas/turmas/[^/]+(/processamento)?$", Politica(COMPARTILHADO, 5 * M, 30 * M)),  # vagas/solicitações
         (r"^/v1/consultas/turmas$", Politica(COMPARTILHADO, 10 * M, 1 * H)),
-        (r"^/v1/consultas/", Politica(COMPARTILHADO, 24 * H, 7 * D)),
-        (r"^/v1/calendario/lista", Politica(COMPARTILHADO, 24 * H, 7 * D)),
+        (r"^/v1/consultas/(cursos|cursos/ids|componentes|componentes/[^/]+|estruturas|estruturas/[^/]+|unidades|unidades/tipos)$",
+         Politica(COMPARTILHADO, 24 * H, 7 * D)),
+        (r"^/v1/calendario/lista$", Politica(COMPARTILHADO, 24 * H, 7 * D)),
         (r"^/v1/calendario$", _calendario),
         # ---- por aluno
         (r"^/v1/(me/foto|foto)", Politica(ALUNO, 1 * D, 7 * D)),
@@ -122,7 +126,8 @@ def politica(path: str, q: dict[str, str]) -> Politica:
 
 
 def montar_chave(pol: Politica, path: str, q: list[tuple[str, str]], usuario_hash: str | None) -> str:
-    qs = urlencode(sorted((k, v) for k, v in q if k != "fresco"))
+    # ordena só pelo NOME (sort estável): ?a=1&a=2 ≠ ?a=2&a=1 — a rota vê o ÚLTIMO valor
+    qs = urlencode(sorted(((k, v) for k, v in q if k != "fresco"), key=lambda kv: kv[0]))
     if pol.escopo == ALUNO:
         return f"u:{cache.aluno(usuario_hash or '')}:{path}?{qs}"
     return f"{'p' if pol.escopo == PUBLICO else 'c'}:{path}?{qs}"
@@ -130,7 +135,8 @@ def montar_chave(pol: Politica, path: str, q: list[tuple[str, str]], usuario_has
 
 # ------------------------------------------------------------------ identidade
 async def identificar(headers: dict[str, str], *, tocar: bool = True) -> str | None:
-    """Hash do aluno dono do ``Authorization`` — só se a sessão existe e é válida."""
+    """Hash do aluno dono do ``Authorization`` — só se a sessão existe e é válida (nem vencida nem
+    ociosa). ``tocar=True`` conta como uso da sessão (o HIT mantém o token vivo como a rota manteria)."""
     from . import sessions as S
 
     esquema, _, valor = (headers.get("authorization") or "").partition(" ")
@@ -147,8 +153,20 @@ async def identificar(headers: dict[str, str], *, tocar: bool = True) -> str | N
         except Exception:  # noqa: BLE001
             return None
         sess = ger.espiar_basic(usuario, senha)  # só se a senha já foi validada (chave = HMAC do processo)
+        if sess is not None and tocar:
+            sess.ultimo_uso = time.time()  # o HIT conta como uso, como a rota contaria
         return getattr(sess, "usuario_hash", None)
     return None
+
+
+def _dono_do_token(headers: dict[str, str]) -> str | None:
+    """Dono do Bearer mesmo vencido/ocioso (só pro logout: quem tem o token prova que é o dono)."""
+    from . import sessions as S
+
+    esquema, _, valor = (headers.get("authorization") or "").partition(" ")
+    if esquema.lower() != "bearer" or not valor.strip():
+        return None
+    return getattr(S.gerenciador._sessoes.get(S._hash(valor.strip())), "usuario_hash", None)
 
 
 # ----------------------------------------------------------------------- ASGI
@@ -161,6 +179,20 @@ class Capturada:
 
 _GUARDAR = {"content-type", "content-disposition", "content-language"}
 _TIRAR_REQ = {b"if-none-match", b"if-modified-since", b"cache-control", b"pragma", b"accept-encoding", b"content-length", b"content-type"}
+
+
+def _cabecalhos(scope) -> dict[str, str]:
+    """Cabeçalhos em dict com a MESMA regra do Starlette (``request.headers.get``): o primeiro vale.
+    Com o último valendo, ``Authorization: Bearer B`` + ``Authorization: Bearer A`` identificava A no
+    cache enquanto a rota respondia como B — a resposta do B ia pra chave do A."""
+    h: dict[str, str] = {}
+    for k, v in scope["headers"]:
+        h.setdefault(k.decode("latin-1").lower(), v.decode("latin-1"))
+    return h
+
+
+def _n_auth(scope) -> int:
+    return sum(1 for k, _ in scope["headers"] if k.lower() == b"authorization")
 
 
 def _iso(t: float) -> str:
@@ -216,9 +248,11 @@ class CacheHTTP:
         pol = politica(path, q)
         if pol.escopo is None:
             return await self.app(scope, receive, send)
-        h = {k.decode("latin-1").lower(): v.decode("latin-1") for k, v in scope["headers"]}
+        h = _cabecalhos(scope)
         uh = None
         if pol.escopo != PUBLICO:
+            if _n_auth(scope) > 1:  # identidade ambígua: a rota responde, nada entra nem sai do cache
+                return await self.app(scope, receive, send)
             uh = await identificar(h)
             if uh is None:  # sem sessão válida: a própria rota responde (401, ou cria a sessão Basic)
                 return await self.app(scope, receive, send)
@@ -298,6 +332,7 @@ class CacheHTTP:
         """Roda a rota de verdade (o SIGAA) como LÍDER do singleflight e grava se der 200."""
         f = f or cache.sf.iniciar(chave)
         e = None
+        inicio = time.time()
         try:
             cap = await self._executar(scope, receive)
             hs = [(k.decode("latin-1").lower(), v.decode("latin-1")) for k, v in cap.headers]
@@ -308,7 +343,9 @@ class CacheHTTP:
                 )
                 # comprime JÁ (uma vez só, antes de gravar: o tamanho na memória fica certo)
                 await asyncio.to_thread(e.gz) if len(e.corpo) > 256 * 1024 else e.gz()
-                if gravar:
+                # o aluno apagou o cache (logout, DELETE /v1/cache/meu) enquanto isso estava no SIGAA: não
+                # regrava o dado dele (o resultado ainda vai pra quem pediu e pros seguidores do voo)
+                if gravar and cache.pode_gravar(chave, inicio):
                     await cache.backend.gravar(chave, e)
         except BaseException:
             cache.sf.terminar(chave, f, None)  # seguidores vão por conta própria
@@ -395,8 +432,8 @@ class CacheHTTP:
             self._tarefa(self._preaquecer(scope, token))
 
     async def _logout(self, scope, receive, send) -> None:
-        h = {k.decode("latin-1").lower(): v.decode("latin-1") for k, v in scope["headers"]}
-        uh = await identificar(h, tocar=False)
+        h = _cabecalhos(scope)
+        uh = await identificar(h, tocar=False) or _dono_do_token(h)  # token vencido/ocioso também limpa
         await self.app(scope, receive, send)
         if uh:
             # o passo de pré-aquecimento em curso morre aqui (senão terminava DEPOIS da limpeza e regravava

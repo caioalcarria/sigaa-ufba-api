@@ -15,9 +15,13 @@ Backends:
 * :class:`Memoria` (padrão): LRU com limite de bytes, por processo.
 * :class:`Redis` (``SIGAA_API_CACHE_URL=redis://...``): compartilhado entre workers. Entrada
   marcada ``sensivel`` (dado de aluno) só vai pro Redis CIFRADA (Fernet com chave derivada de
-  ``SIGAA_API_CACHE_SEGREDO``); sem segredo configurado, dado de aluno fica só na memória local.
+  ``SIGAA_API_CACHE_SEGREDO``) e a cifra leva a própria CHAVE dentro (copiar o valor de um aluno
+  pra chave de outro no Redis não serve: é recusado); chave de aluno em texto claro no Redis é
+  ignorada. Sem segredo configurado, dado de aluno fica só na memória local.
 
-Chaves de aluno usam HMAC(segredo, hash do usuário) — nunca o login nem o token em claro.
+Chaves de aluno usam HMAC(segredo, hash do usuário) — nunca o login nem o token em claro. O
+segredo passa por scrypt antes de virar chave (HMAC e Fernet com subchaves separadas); segredo
+com menos de ``SIGAA_API_CACHE_SEGREDO_MIN`` caracteres é recusado (vale o aleatório por processo).
 """
 
 from __future__ import annotations
@@ -38,6 +42,7 @@ import typing
 from collections import OrderedDict
 from dataclasses import dataclass, field
 from typing import Any, Awaitable, Callable
+from urllib.parse import urlparse
 
 log = logging.getLogger("sigaa_api.cache")
 
@@ -240,9 +245,17 @@ class Redis(Backend):
             if self._fernet is None:
                 return None
             try:
-                dados = self._fernet.decrypt(dados[1:])
+                claro = self._fernet.decrypt(dados[1:])
             except Exception:  # noqa: BLE001 - segredo trocado: trata como ausente
                 return None
+            n = int.from_bytes(claro[:4], "big")
+            if claro[4 : 4 + n] != chave.encode():  # valor cifrado de OUTRA chave (de outro aluno) copiado pra cá
+                self.erros += 1
+                log.warning("redis: entrada cifrada fora da sua chave — ignorada")
+                return None
+            dados = claro[4 + n :]
+        elif chave.startswith("u:"):
+            return None  # dado de aluno só existe cifrado: em claro numa chave de aluno = injetado
         else:
             dados = dados[1:]
         e = Entrada.de_bytes(dados)
@@ -259,7 +272,11 @@ class Redis(Backend):
             await self.local_sensivel.gravar(chave, e)  # nunca vai pro Redis em claro
             return
         dados = e.para_bytes()
-        dados = (b"F" + self._fernet.encrypt(dados)) if e.sensivel else (b"P" + dados)
+        if e.sensivel:  # a chave vai DENTRO da cifra: o valor só vale nesta chave
+            ck = chave.encode()
+            dados = b"F" + self._fernet.encrypt(len(ck).to_bytes(4, "big") + ck + dados)
+        else:
+            dados = b"P" + dados
         try:
             await self._r.set(self.prefixo + chave, dados, ex=max(1, int(e.ttl + e.swr) + 1))
         except Exception as ex:  # noqa: BLE001
@@ -346,6 +363,36 @@ def _bool(nome: str, padrao: bool) -> bool:
     return padrao if v is None else v.strip().lower() in ("1", "true", "sim", "yes", "on")
 
 
+def _int(nome: str, padrao: int) -> int:
+    try:
+        return int(os.getenv(nome) or padrao)
+    except ValueError:
+        return padrao
+
+
+#: segredo menor que isso é recusado; menor que o recomendado só gera aviso
+SEGREDO_RECOMENDADO = 32
+
+
+def derivar_segredo(seg: bytes) -> bytes:
+    """Chave-mestra do cache a partir do ``SIGAA_API_CACHE_SEGREDO``: scrypt (custo de memória),
+    pra quem tem uma cópia do Redis não conseguir testar segredos fracos em massa — com o segredo
+    em mãos ele recalcularia o HMAC dos logins (matrículas são enumeráveis) e abriria a cifra.
+    Sal fixo: todos os workers precisam chegar na mesma chave."""
+    return hashlib.scrypt(seg, salt=b"sigaa-api-cache-v1", n=2**14, r=8, p=1, dklen=32)
+
+
+def _avisar_redis(url: str, com_segredo: bool) -> None:
+    u = urlparse(url)
+    local = u.scheme == "unix" or (u.hostname or "") in ("localhost", "127.0.0.1", "::1")
+    if u.scheme == "redis" and not local:
+        log.warning("SIGAA_API_CACHE_URL sem TLS pra um Redis fora desta máquina: use rediss:// (o dado compartilhado e as chaves trafegam em claro)")
+    if not u.password and not local:
+        log.warning("SIGAA_API_CACHE_URL sem senha: qualquer um que alcance o Redis lê e ENVENENA o cache compartilhado")
+    if not com_segredo:
+        log.warning("Redis sem SIGAA_API_CACHE_SEGREDO: dado de aluno fica só na memória deste processo (não vai pro Redis)")
+
+
 class Cache:
     """Instância do processo (``cache``). Configurada por variáveis de ambiente:
 
@@ -353,20 +400,32 @@ class Cache:
     * ``SIGAA_API_CACHE_URL`` — ``redis://...`` pra compartilhar entre workers (padrão: memória);
     * ``SIGAA_API_CACHE_SEGREDO`` — segredo do HMAC das chaves de aluno e da cifra no Redis
       (sem ele: aleatório por processo e dado de aluno nunca sai da memória local);
+    * ``SIGAA_API_CACHE_SEGREDO_MIN`` (padrão 16) — segredo mais curto que isso é recusado;
     * ``SIGAA_API_CACHE_MAX_MB`` (padrão 256) — teto da memória.
     """
 
     def __init__(self) -> None:
         self.ligado = _bool("SIGAA_API_CACHE", True)
-        seg = os.getenv("SIGAA_API_CACHE_SEGREDO")
+        seg = os.getenv("SIGAA_API_CACHE_SEGREDO") or ""
+        minimo = _int("SIGAA_API_CACHE_SEGREDO_MIN", 16)
+        if seg and len(seg) < minimo:
+            log.error("SIGAA_API_CACHE_SEGREDO com %d caracteres (mínimo %d): IGNORADO — vale um aleatório por processo", len(seg), minimo)
+            seg = ""
+        elif seg and len(seg) < SEGREDO_RECOMENDADO:
+            log.warning("SIGAA_API_CACHE_SEGREDO curto (%d caracteres): use %d+ aleatórios (ex.: python -c 'import secrets;print(secrets.token_urlsafe(48))')", len(seg), SEGREDO_RECOMENDADO)
         self.segredo_configurado = bool(seg)
-        self.segredo = seg.encode() if seg else secrets.token_bytes(32)
+        mestre = derivar_segredo(seg.encode()) if seg else secrets.token_bytes(32)
+        self.segredo = hmac.new(mestre, b"sigaa-cache-hmac-aluno", hashlib.sha256).digest()  # só o HMAC das chaves
+        #: HMAC do aluno → time.time() da última limpeza (logout, DELETE /v1/cache/meu): o que saiu pro
+        #: SIGAA ANTES dela não grava depois (ver :meth:`pode_gravar`)
+        self._limpo_em: dict[str, float] = {}
         url = os.getenv("SIGAA_API_CACHE_URL", "").strip()
         max_b = int(float(os.getenv("SIGAA_API_CACHE_MAX_MB", "256")) * 1024 * 1024)
         self.backend: Backend = Memoria(max_b)
         if url:
+            _avisar_redis(url, bool(seg))
             try:
-                self.backend = Redis(url, segredo=seg.encode() if seg else None)
+                self.backend = Redis(url, segredo=mestre if seg else None)
             except Exception as e:  # noqa: BLE001 - sem o pacote redis: segue na memória
                 log.warning("SIGAA_API_CACHE_URL ignorado (%s); usando memória", e)
         self.sf = Singleflight()
@@ -380,7 +439,19 @@ class Cache:
         return hmac.new(self.segredo, usuario_hash.encode(), hashlib.sha256).hexdigest()[:32]
 
     async def limpar_aluno(self, usuario_hash: str) -> int:
-        return await self.backend.apagar_prefixo(f"u:{self.aluno(usuario_hash)}:")
+        h, agora = self.aluno(usuario_hash), time.time()
+        self._limpo_em[h] = agora
+        if len(self._limpo_em) > 10_000:  # só importa enquanto pode haver busca em voo (minutos)
+            self._limpo_em = {k: t for k, t in self._limpo_em.items() if agora - t < 900}
+        return await self.backend.apagar_prefixo(f"u:{h}:")
+
+    def pode_gravar(self, chave: str, desde: float) -> bool:
+        """Uma busca que começou em ``desde`` ainda pode gravar ``chave``? Não, se a chave é de um
+        aluno que limpou o cache depois disso (a resposta era de antes do logout/limpeza)."""
+        if not chave.startswith("u:"):
+            return True
+        t = self._limpo_em.get(chave[2:].partition(":")[0])
+        return t is None or desde > t
 
     def info(self) -> dict[str, Any]:
         return {"ligado": self.ligado, **self.backend.info(), "contadores": dict(self.stats), "singleflight_juntados": self.sf.juntados}
