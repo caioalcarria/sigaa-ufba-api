@@ -14,6 +14,7 @@ TEMPO (várias sessões do aluno) e MENOS viagens (reaproveitar o ViewState, nã
 | quantas views a sessão guarda | **10**: uma página sobrevive a 9 navegações e morre na 10ª | — |
 | usar uma view a renova? | **sim** (vira a mais recente): 25 reusos seguidos funcionam | — |
 | o que acontece com view morta | **sem erro**: o SIGAA ignora o clique e devolve o PORTAL | 39 KB em vez da tela |
+| portal guardado depois de entrar na TURMA VIRTUAL | **não vale**: o menu cai na tela atual (`/ava/index.jsf`), mesmo com só 7 navegações | achado na comparação e2e |
 | 2 cliques da mesma `turmas.jsf` / Notas + Frequência da mesma página da turma | funcionam | — |
 | GETs diretos (relatorioProcessamento, view_painel, turmas.jsf, mobile) | aceitos, até 3 ao mesmo tempo na mesma sessão | 3 GETs em 0,59 s |
 | HTTP/2 | **não** (ALPN → HTTP/1.1) | — |
@@ -102,10 +103,23 @@ respondendo em ~0,45 s, a espera por viagem cai de 0,25 s pra 0,15 s. Simulado, 
 | `/v1/planejamento/matricula` | 9,41 s | 8,66 s | 7,41 s |
 | rajada de 6 rotas | 5,75 s | 5,24 s | 4,24 s |
 
+### Mesmo resultado (SIGAA real, JSON comparado byte a byte)
+
+Antes (sequencial, 1 sessão) × depois (pool; na 2ª rodada as 8 rotas disparadas JUNTAS no mesmo token):
+`/v1/notas`, `/v1/frequencia`, `/v1/tarefas`, `/v1/avaliacoes`, `/v1/matricula/processamento`,
+`/v1/planejamento/matricula` **idênticos**; `/v1/matricula` e `/v1/historico` idênticos salvo
+`emitido_em`/`codigo_verificacao` (o SIGAA gera a cada emissão). A 1ª comparação pegou um bug real —
+o portal reaproveitado depois da turma virtual levava o menu pra `/ava/index.jsf` (404 no
+processamento) — corrigido: navegar em `/ava/` ou `/mobile/` descarta o portal guardado, e menu que
+cai lá é repetido com portal novo.
+
 ## Riscos e limites
 
 * **Mais logins no SIGAA**: cada login da API vira 2 logins (aquecimento) e até 4 sob demanda. Some
   com `SIGAA_API_POOL_MAX=1` (comportamento antigo) ou `POOL_AQUECER=1` (sem aquecimento).
+* **Contexto JSF**: além da janela, a turma virtual e o módulo mobile invalidam o portal guardado
+  (tratado). Outro módulo com o mesmo efeito ainda não visto faria o menu cair numa tela errada;
+  `REUSAR_VIEWS=0` desliga todo o reuso se aparecer algo assim.
 * **Janela de views**: o reuso assume a janela de 10 do MyFaces da UFBA (`REUSAR_VIEWS=8`). Se o SIGAA
   mudar, a view morta devolve o portal — o `menu()` e o `abrir_turma` detectam e repetem com página
   nova (custa 1 viagem), sem erro pro usuário. `REUSAR_VIEWS=0` desliga.

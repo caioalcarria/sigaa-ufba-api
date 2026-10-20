@@ -159,6 +159,11 @@ class MenuItem:
     form_id: str
 
 
+def _sai_do_portal(url: str) -> bool:
+    """URL da turma virtual (``/ava/``) ou do módulo mobile: contexto JSF diferente do portal."""
+    return "/sigaa/ava/" in url or "/sigaa/mobile/" in url
+
+
 def eh_portal(page: "Page") -> bool:
     """A resposta é a página inicial do Portal do Discente? (é o que o SIGAA devolve quando o
     clique veio de uma view que ele já descartou)."""
@@ -407,6 +412,10 @@ class SigaaClient:
         finally:
             self._ultimo = time.monotonic()
         self.navegacoes += len(r.history)  # cada redirect seguido também pode virar uma view
+        if _sai_do_portal(path) or _sai_do_portal(str(r.url)):
+            # entrar na turma virtual / no módulo mobile muda o contexto JSF da sessão: o portal guardado
+            # passa a disparar o menu pra tela atual (medido: o menu voltou /ava/index.jsf com 7 navegações)
+            self._paginas.pop(URL_PORTAL, None)
         self.ultimo_uso = time.time()
         if r.status_code >= 500:
             raise SistemaIndisponivel(f"SIGAA respondeu HTTP {r.status_code}")
@@ -648,8 +657,8 @@ class SigaaClient:
             if not reusado:
                 raise
             page = None
-        if reusado and (page is None or eh_portal(page)):
-            # a view reaproveitada já tinha saído da janela do servidor (ele devolve o portal): baixa e repete
+        if reusado and (page is None or eh_portal(page) or _sai_do_portal(page.url)):
+            # a view reaproveitada já não valia (o SIGAA devolve o portal, ou a tela em que a sessão está): baixa e repete
             self._paginas.pop(URL_PORTAL, None)
             page = await self._disparar_menu(await self.portal(), acao)
         return page

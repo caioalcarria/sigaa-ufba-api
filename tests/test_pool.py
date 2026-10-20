@@ -326,6 +326,49 @@ def test_menu_view_descartada_devolve_portal_e_o_cliente_repete():
     run(main())
 
 
+def test_menu_nao_reaproveita_portal_depois_da_turma_virtual():
+    """No SIGAA real, depois de navegar na turma virtual o portal guardado dispara o menu pra tela atual
+    (/ava/index.jsf): entrar em /ava/ ou /mobile/ descarta o portal da sessão."""
+
+    async def main():
+        log = []
+        c = SigaaClient("http://sigaa.test", transport=_sigaa_falso(log), min_interval=0, folga=0, reusar_views=8)
+        await c.menu("Atestado")
+        await c.get("/sigaa/ava/index.jsf")
+        await c.menu("Atestado")
+        await c.get("/sigaa/mobile/touch/menu.jsf")
+        await c.menu("Atestado")
+        assert [m for m, _ in log] == ["GET", "POST", "GET", "GET", "POST", "GET", "GET", "POST"]
+        await c.close()
+
+    run(main())
+
+
+def test_menu_que_cai_na_turma_virtual_baixa_portal_e_repete():
+    async def main():
+        log = []
+        n = {"post": 0}
+
+        def handler(req):
+            log.append((req.method, req.url.path))
+            if req.url.path == "/sigaa/verPortalDiscente.do":
+                return httpx.Response(200, html=PORTAL.format(n=len(log)))
+            if req.method == "GET":
+                return httpx.Response(200, html="<html><form id='formMenu'></form>turma virtual</html>")
+            n["post"] += 1
+            if n["post"] == 1:  # a 1a resposta do menu é a tela em que a sessão estava
+                return httpx.Response(302, headers={"location": "/sigaa/ava/index.jsf"})
+            return httpx.Response(200, html="<html>tela do menu</html>")
+
+        c = SigaaClient("http://sigaa.test", transport=httpx.MockTransport(handler), min_interval=0, folga=0, reusar_views=8)
+        await c.portal()
+        r = await c.menu("Atestado")
+        assert "tela do menu" in r.html and n["post"] == 2
+        await c.close()
+
+    run(main())
+
+
 def test_menu_sem_reuso_baixa_portal_sempre():
     async def main():
         log = []
