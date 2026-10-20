@@ -32,11 +32,13 @@ from .errors import (
     NavegacaoInvalida,
     SessaoExpirada,
     SigaaError,
+    SigaaOcupado,
     SistemaIndisponivel,
 )
 
-#: endereço do SIGAA — ``SIGAA_URL`` no ambiente vale também pros clientes anônimos (rotas /v1/publico)
-BASE_URL = os.getenv("SIGAA_URL", "https://sigaa.ufba.br")
+#: SIGAA alvo. Respeita SIGAA_URL em TODO SigaaClient criado sem base_url (inclusive as sessões
+#: anônimas das rotas públicas) — senão um teste contra o SIGAA simulado vazaria pro SIGAA real.
+BASE_URL = os.getenv("SIGAA_URL", "https://sigaa.ufba.br").rstrip("/")
 USER_AGENT = (
     "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) "
     "Chrome/130.0 Safari/537.36 sigaa-api"
@@ -62,6 +64,7 @@ class Page:
     headers: dict[str, str] = field(default_factory=dict, repr=False)
     _html: str | None = field(default=None, repr=False)
     _soup: BeautifulSoup | None = field(default=None, repr=False)
+    _lx: Any = field(default=None, repr=False)
 
     @property
     def html(self) -> str:
@@ -109,8 +112,23 @@ class Page:
         m = re.search(r"filename\*?=(?:UTF-8'')?\"?([^\";]+)", cd, re.I)
         return m.group(1) if m else None
 
+    def arvore_lxml(self) -> Any:
+        """A árvore do lxml (o MESMO parser libxml2 que o BeautifulSoup usa por baixo, sem a camada
+        Python dele: ~9x mais rápido). Só pra navegação (links e formulários); ``None`` se não der."""
+        if self._lx is None:
+            try:
+                import lxml.html
+
+                self._lx = lxml.html.fromstring(self.html)
+            except Exception:  # noqa: BLE001 - documento estranho: quem chamou usa a soup
+                self._lx = False
+        return None if self._lx is False else self._lx
+
     def links_jsf(self) -> list["JsfLink"]:
         """Todos os h:commandLink (jsfcljs) da página."""
+        rapido = self._links_jsf_lxml()
+        if rapido is not None:
+            return rapido
         out = []
         for el in self.soup.find_all(onclick=re.compile("jsfcljs")):
             m = _RE_JSFCLJS.search(el["onclick"])
@@ -122,6 +140,29 @@ class Page:
                     form_id=m.group(1),
                     params=dict(_RE_PARAMS.findall(m.group(2))),
                     onclick=el["onclick"],
+                    element=el,
+                )
+            )
+        return out
+
+    def _links_jsf_lxml(self) -> list["JsfLink"] | None:
+        doc = self.arvore_lxml()
+        if doc is None:
+            return None
+        out = []
+        for el in doc.iter():
+            oc = el.get("onclick") if isinstance(el.tag, str) else None
+            if not oc or "jsfcljs" not in oc:
+                continue
+            m = _RE_JSFCLJS.search(oc)
+            if not m:
+                continue
+            out.append(
+                JsfLink(
+                    texto=_texto_lxml(el) or el.get("title") or "",
+                    form_id=m.group(1),
+                    params=dict(_RE_PARAMS.findall(m.group(2))),
+                    onclick=oc,
                     element=el,
                 )
             )
@@ -175,6 +216,66 @@ def form_fields(form) -> dict[str, str]:
     return data
 
 
+def _texto_lxml(el) -> str:
+    """O ``get_text(" ", strip=True)`` do BeautifulSoup, num elemento do lxml (texto em ordem de
+    documento, sem comentários nem o conteúdo de script/style)."""
+    partes: list[str] = []
+
+    def andar(no) -> None:
+        if no.text and no.text.strip():
+            partes.append(no.text.strip())
+        for filho in no:
+            if isinstance(filho.tag, str) and filho.tag not in _SEM_TEXTO:
+                andar(filho)
+            if filho.tail and filho.tail.strip():
+                partes.append(filho.tail.strip())
+
+    if isinstance(el.tag, str):
+        andar(el)
+    return " ".join(partes)
+
+
+_SEM_TEXTO = frozenset(("script", "style", "template"))
+
+
+def _campos_lxml(page: "Page", form_id: str) -> tuple[str, dict[str, str]] | None:
+    """(action, campos) do formulário pelo lxml — o mesmo que ``form_fields(page.form(...))``.
+    ``None`` = deixa pro caminho do BeautifulSoup (form não achado, ou form ANINHADO, que só o
+    html.parser lê direito)."""
+    doc = page.arvore_lxml()
+    if doc is None:
+        return None
+    form = next((f for f in doc.iter("form") if f.get("id") == form_id), None)
+    if form is None:
+        form = next((f for f in doc.iter("form") if f.get("name") == form_id), None)
+    if form is None:
+        return None
+    campos = list(form.iter("input", "select", "textarea"))
+    if "javax.faces.ViewState" in page.html and not any(c.tag == "input" and c.get("name") == "javax.faces.ViewState" for c in campos):
+        return None
+    data: dict[str, str] = {}
+    for el in campos:
+        name = el.get("name")
+        if not name:
+            continue
+        tipo = (el.get("type") or "").lower()
+        if tipo in ("submit", "button", "image", "reset", "file"):
+            continue
+        if tipo in ("checkbox", "radio") and el.get("checked") is None:
+            continue
+        if el.tag == "select":
+            opcoes = list(el.iter("option"))
+            opt = next((o for o in opcoes if o.get("selected") is not None), None)
+            if opt is None and opcoes:  # (elemento do lxml sem filhos é "falso": nada de `or` aqui)
+                opt = opcoes[0]
+            data[name] = (opt.get("value") if opt.get("value") is not None else _texto_lxml(opt).strip()) if opt is not None else ""
+        elif el.tag == "textarea":
+            data[name] = el.text_content()
+        else:
+            data[name] = el.get("value", "")
+    return form.get("action") or "", data
+
+
 FORM_LATIN1 = "application/x-www-form-urlencoded; charset=ISO-8859-1"
 
 
@@ -185,6 +286,84 @@ def corpo_form(data: dict[str, Any]) -> bytes:
 
 
 LoginCallback = Callable[[], Awaitable[tuple[str, str]]]
+
+_SSL: Any = None
+
+#: teto GLOBAL de requisições simultâneas ao SIGAA (somando todas as sessões do processo):
+#: protege o SIGAA de rajada e vira backpressure — quem passa do teto espera na fila
+MAX_CONEXOES = int(os.getenv("SIGAA_MAX_CONEXOES", "50"))
+#: quanto uma requisição espera por vaga antes de desistir com ``SigaaOcupado`` (503)
+ESPERA_MAX_S = float(os.getenv("SIGAA_ESPERA_MAX_S", "20"))
+_vagas: dict[int, tuple[Any, asyncio.Semaphore]] = {}
+
+
+def _semaforo() -> asyncio.Semaphore | None:
+    """Um semáforo por event loop (asyncio.Semaphore se prende ao loop do 1º uso)."""
+    if MAX_CONEXOES <= 0:
+        return None
+    loop = asyncio.get_running_loop()
+    par = _vagas.get(id(loop))
+    if par is None or par[0] is not loop:
+        par = (loop, asyncio.Semaphore(MAX_CONEXOES))
+        _vagas.clear()  # um loop vivo por processo; descarta o de testes antigos
+        _vagas[id(loop)] = par
+    return par[1]
+
+
+def em_uso() -> int:
+    """Requisições ao SIGAA em andamento agora (pro /v1/status)."""
+    sem = _vagas and next(iter(_vagas.values()))[1]
+    return (MAX_CONEXOES - sem._value) if sem else 0
+
+
+def _ssl_ctx() -> Any:
+    """UM contexto SSL pro processo inteiro. Criar um por ``httpx.AsyncClient`` (o padrão)
+    carrega o bundle de CAs de novo a cada cliente: ~11 ms de CPU no event loop por login e
+    por requisição pública. O contexto é imutável depois de pronto, então dá pra dividir."""
+    global _SSL
+    if _SSL is None:
+        _SSL = httpx.create_ssl_context()  # o mesmo que o httpx faria (certifi / SSL_CERT_FILE)
+    return _SSL
+
+
+def _plano_submit(html: str, url: str, form_id: str, extra: dict | None, botao) -> tuple[str, dict]:
+    """(url do action, campos) de um submit — puro, roda no pool de CPU (``sigaa.cpu``)."""
+    page = Page(url=url, status=200, content=b"", content_type="text/html", _html=html)
+    rapido = _campos_lxml(page, form_id)
+    if rapido is not None:
+        action, data = rapido
+    else:
+        form = page.form(form_id)
+        if form is None:
+            raise NavegacaoInvalida(f"Formulário '{form_id}' não está na página.")
+        action, data = form.get("action") or "", form_fields(form)
+    if botao:
+        nome, valor = (botao, botao) if isinstance(botao, str) else botao
+        data[nome] = valor
+    if extra:
+        data.update(extra)
+    return urljoin(page.url, action or page.url), data
+
+
+def _plano_clique(html: str, url: str, alvo: str, extra: dict | None) -> tuple[str, dict]:
+    """(url do action, campos) do clique num h:commandLink — puro, roda no pool de CPU."""
+    page = Page(url=url, status=200, content=b"", content_type="text/html", _html=html)
+    return _plano_link(page, SigaaClient._achar_link(page, alvo), extra)
+
+
+def _plano_link(page: "Page", link: "JsfLink", extra: dict | None) -> tuple[str, dict]:
+    rapido = _campos_lxml(page, link.form_id)
+    if rapido is not None:
+        action, data = rapido
+    else:
+        form = page.form(link.form_id)
+        if form is None:
+            raise NavegacaoInvalida(f"Formulário '{link.form_id}' do link não está na página.")
+        action, data = form.get("action") or "", form_fields(form)
+    data.update(link.params)
+    if extra:
+        data.update(extra)
+    return urljoin(page.url, action or page.url), data
 
 
 class SigaaClient:
@@ -199,20 +378,21 @@ class SigaaClient:
 
     def __init__(
         self,
-        base_url: str = BASE_URL,
+        base_url: str | None = None,
         *,
         timeout: float = 40.0,
         min_interval: float = 0.25,
         credenciais: LoginCallback | None = None,
         cookies: dict[str, str] | None = None,
     ) -> None:
-        self.base_url = base_url.rstrip("/")
+        self.base_url = (base_url or os.getenv("SIGAA_URL") or BASE_URL).rstrip("/")
         self._http = httpx.AsyncClient(
             base_url=self.base_url,
             headers={"User-Agent": USER_AGENT, "Accept-Language": "pt-BR,pt;q=0.9"},
             timeout=timeout,
             follow_redirects=True,
             cookies=cookies,
+            verify=_ssl_ctx(),
         )
         self.lock = asyncio.Lock()
         self._credenciais = credenciais
@@ -258,11 +438,19 @@ class SigaaClient:
         espera = self._min_interval - (time.monotonic() - self._ultimo)
         if espera > 0:
             await asyncio.sleep(espera)
+        sem = _semaforo()
+        if sem is not None:
+            try:
+                await asyncio.wait_for(sem.acquire(), ESPERA_MAX_S)
+            except TimeoutError:
+                raise SigaaOcupado("A API está no limite de requisições simultâneas ao SIGAA; tente de novo em instantes.") from None
         try:
             r = await self._http.request(method, self._url(path), **kw)
         except (httpx.TimeoutException, httpx.NetworkError) as e:
             raise SistemaIndisponivel(f"SIGAA não respondeu: {e}") from e
         finally:
+            if sem is not None:
+                sem.release()
             self._ultimo = time.monotonic()
         self.ultimo_uso = time.time()
         if r.status_code >= 500:
@@ -320,6 +508,12 @@ class SigaaClient:
                 usuario, senha = await self._credenciais()
                 await self.login(usuario, senha)
                 return await fluxo(self)
+            finally:
+                # a árvore do BeautifulSoup do portal guardado é grande e cheia de ciclos: retida
+                # em centenas de sessões, cada varredura completa do GC parava o processo por
+                # ~300 ms. O HTML fica (ViewState/menu saem dele); a soup é refeita se precisar.
+                if self.portal_cache is not None:
+                    self.portal_cache._soup = None
 
     async def submit(
         self,
@@ -329,30 +523,20 @@ class SigaaClient:
         botao: str | tuple[str, str] | None = None,
     ) -> Page:
         """Submete um formulário da página (com o ViewState dela)."""
-        form = page.form(form_id)
-        if form is None:
-            raise NavegacaoInvalida(f"Formulário '{form_id}' não está na página.")
-        data = form_fields(form)
-        if botao:
-            nome, valor = (botao, botao) if isinstance(botao, str) else botao
-            data[nome] = valor
-        if extra:
-            data.update(extra)
-        action = form.get("action") or page.url
-        return await self.post(urljoin(page.url, action), data)
+        from .cpu import rodar
+
+        url, data = await rodar(_plano_submit, page.html, page.url, form_id, extra, botao)
+        return await self.post(url, data)
 
     async def clicar(self, page: Page, alvo: str | JsfLink, extra: dict[str, str] | None = None) -> Page:
         """Emula o clique num h:commandLink. ``alvo`` = trecho do onclick, texto do link, ou o JsfLink."""
-        link = alvo if isinstance(alvo, JsfLink) else self._achar_link(page, alvo)
-        form = page.form(link.form_id)
-        if form is None:
-            raise NavegacaoInvalida(f"Formulário '{link.form_id}' do link não está na página.")
-        data = form_fields(form)
-        data.update(link.params)
-        if extra:
-            data.update(extra)
-        action = form.get("action") or page.url
-        return await self.post(urljoin(page.url, action), data)
+        from .cpu import rodar
+
+        if isinstance(alvo, JsfLink):  # o link já veio da soup daqui: monta aqui mesmo
+            url, data = _plano_link(page, alvo, extra)
+        else:  # parse da página + achar o link + campos do form: no pool de CPU
+            url, data = await rodar(_plano_clique, page.html, page.url, alvo, extra)
+        return await self.post(url, data)
 
     @staticmethod
     def _achar_link(page: Page, alvo: str) -> JsfLink:
