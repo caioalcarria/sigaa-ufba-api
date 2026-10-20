@@ -16,10 +16,23 @@ dependencies = [
   "pydantic>=2.6",
   "pdfplumber>=0.11",
   "pypdfium2>=4.18",  # já vem com o pdfplumber; usado direto no extrair_texto (rápido)
+  # pisos de SEGURANÇA de dependências indiretas (o lock fixa a versão exata — requirements.lock)
+  "pdfminer.six>=20251107",  # CVE-2025-64512 (pickle no carregamento de CMap)
+  "h11>=0.16",  # CVE-2025-43859 (request smuggling)
 ]
 
 [project.optional-dependencies]
-api = ["fastapi>=0.110", "uvicorn[standard]>=0.29", "cryptography>=42"]
+# sem uvicorn[standard]: ele traz watchfiles/websockets/pyyaml/python-dotenv, que o servidor não usa.
+# uvloop + httptools são os dois que o CMD do Dockerfile pede.
+api = [
+  "fastapi>=0.115",
+  "starlette>=0.47.2",  # CVE-2025-54121 / CVE-2024-47874 (DoS em multipart)
+  "uvicorn>=0.30",
+  "uvloop>=0.19; sys_platform != 'win32'",
+  "httptools>=0.6",
+  "cryptography>=44.0.1",
+]
+redis = ["redis>=5"]  # cache L2 compartilhado (SIGAA_API_CACHE_URL)
 dev = ["pytest>=8", "pytest-asyncio>=0.23"]
 
 [tool.setuptools.packages.find]
