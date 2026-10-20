@@ -23,6 +23,9 @@ from sigaa import errors as E
 from sigaa import __version__
 from sigaa.client import MAX_CONEXOES, _ssl_ctx, em_uso
 
+from sigaa import cache as sigaa_cache
+
+from . import cache as cache_http
 from .config import config
 from .sessions import gerenciador
 
@@ -68,6 +71,7 @@ async def lifespan(app: FastAPI):
     gerenciador.iniciar()
     yield
     await gerenciador.parar()
+    await sigaa_cache.cache.backend.fechar()
     await asyncio.to_thread(cpu.parar, esperar=True)
 
 
@@ -105,13 +109,18 @@ app = FastAPI(
     contact={"name": "sigaa-api", "url": "https://github.com/"},
     license_info={"name": "MIT"},
 )
-if config.GZIP_MIN_BYTES > 0:  # JSON do histórico: 27 KB → 4,7 KB por ~0,2 ms de CPU
+# gzip por DENTRO do cache: nas rotas cacheáveis o cache tira o Accept-Encoding e comprime ele mesmo
+# (uma vez por entrada); o GZip daqui pega as outras. JSON do histórico: 27 KB → 4,7 KB por ~0,2 ms de CPU
+if config.GZIP_MIN_BYTES > 0:
     app.add_middleware(GZipMiddleware, minimum_size=config.GZIP_MIN_BYTES, compresslevel=5)
+# cache HTTP (L1) por DENTRO do CORS: o HIT sai com os cabeçalhos de CORS também
+app.add_middleware(cache_http.CacheHTTP)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=config.CORS,
     allow_methods=["*"],
     allow_headers=["*"],
+    expose_headers=["X-Cache", "Age", "X-Cache-Gerado-Em", "ETag"],
 )
 app.add_middleware(Prazo, segundos=config.TIMEOUT_REQUISICAO_S)
 
@@ -124,6 +133,10 @@ for nome in ROTAS:
             log.warning("rotas '%s' ainda não existem — pulando", nome)
         else:
             raise
+
+app.include_router(cache_http.router)
+# cache compartilhado entre alunos (L2) nas funções de serviço de dado público
+sigaa_cache.instalar()
 
 STATUS = {
     E.CredenciaisInvalidas: 401,
