@@ -1,10 +1,24 @@
 services:
   sigaa-api:
     build: .
-    ports: ["8000:8000"]
+    # só na máquina local; pra expor, ponha um proxy reverso com HTTPS na frente (docs/servidor.md)
+    ports: ["127.0.0.1:8000:8000"]
     environment:
       SIGAA_URL: https://sigaa.ufba.br
       SIGAA_API_TOKEN_TTL_HORAS: "12"
       SIGAA_API_KEEPALIVE: "true"
-      SIGAA_API_CORS: "*"
+      # CORS: sem "*" explícito aqui — vale o padrão do api/config.py (SIGAA_API_CORS). Pra liberar o
+      # seu front, liste as origens: SIGAA_API_CORS: "https://meu-front.exemplo"
+      # atrás de proxy reverso: o IP/rede DELE (quem pode mandar X-Forwarded-For)
+      FORWARDED_ALLOW_IPS: ${FORWARDED_ALLOW_IPS:-127.0.0.1}
+      # segredos NUNCA aqui: use um .env fora do git (já está no .gitignore) ou o secret do orquestrador
+      # SIGAA_API_CACHE_SEGREDO: ...
     restart: unless-stopped
+    read_only: true
+    tmpfs:
+      - /tmp:size=64m,mode=1777  # multiprocessing (pool de parse) e temporários do Python
+    cap_drop: [ALL]
+    security_opt: ["no-new-privileges:true"]
+    ulimits:
+      core: 0  # core dump teria senha/token/dado de aluno da memória
+    pids_limit: 256
