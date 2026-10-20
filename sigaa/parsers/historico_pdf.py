@@ -17,6 +17,7 @@ from __future__ import annotations
 
 import io
 import re
+import threading
 import unicodedata
 from collections import OrderedDict
 from datetime import date, datetime
@@ -172,11 +173,113 @@ def _vazio(s: str | None) -> str | None:
 
 
 def extrair_texto(pdf: bytes) -> list[str]:
-    """Texto de cada página do PDF."""
+    """Texto de cada página do PDF — o mesmo do ``page.extract_text()`` do pdfplumber.
+
+    Caminho rápido: os caracteres (texto + caixa) saem do PDFium (``pypdfium2``, que já
+    vem com o pdfplumber) e passam pelo MESMO algoritmo de layout do pdfplumber — ~12x
+    mais rápido que deixar o pdfminer interpretar o PDF. Se o PDFium faltar, falhar ou o
+    PDF tiver algo que ele não reproduz igual (página/texto girado, glifo sem unicode),
+    cai no pdfplumber puro.
+    """
+    try:
+        paginas = _extrair_texto_pdfium(pdf)
+    except Exception:
+        paginas = None
+    return paginas if paginas is not None else _extrair_texto_pdfplumber(pdf)
+
+
+def _extrair_texto_pdfplumber(pdf: bytes) -> list[str]:
     import pdfplumber
 
     with pdfplumber.open(io.BytesIO(pdf)) as doc:
         return [(p.extract_text() or "") for p in doc.pages]
+
+
+# O PDFium não é thread-safe (nem com documentos diferentes) e o ctypes solta o GIL
+# durante as chamadas — então uma chamada por vez no processo.
+_PDFIUM_LOCK = threading.Lock()
+
+
+def _extrair_texto_pdfium(pdf: bytes) -> list[str] | None:
+    """Texto por página via PDFium + layout do pdfplumber; ``None`` = use o pdfplumber."""
+    import ctypes
+
+    import pypdfium2
+    import pypdfium2.raw as R
+    from pdfplumber.utils.text import chars_to_textmap
+
+    paginas_chars: list[tuple[list[dict], float, float]] = []
+    with _PDFIUM_LOCK:
+        doc = pypdfium2.PdfDocument(pdf)
+        try:
+            for i in range(len(doc)):
+                page = doc[i]
+                try:
+                    if page.get_rotation():
+                        return None
+                    largura, altura = page.get_size()
+                    tp = page.get_textpage()
+                    try:
+                        chars = _chars_pdfium(tp, altura, R, ctypes)
+                    finally:
+                        tp.close()
+                finally:
+                    page.close()
+                if chars is None:
+                    return None
+                paginas_chars.append((chars, largura, altura))
+        finally:
+            doc.close()
+    # layout fora do lock: é Python puro
+    return [
+        chars_to_textmap(
+            chars, layout_bbox=(0, 0, w, h), layout_width=w, layout_height=h
+        ).as_string
+        for chars, w, h in paginas_chars
+    ]
+
+
+def _chars_pdfium(tp, altura: float, R, ctypes) -> list[dict] | None:
+    """Caracteres da página no formato que o pdfplumber usa (``None`` = não dá igual).
+
+    A caixa "loose" do PDFium (avanço × ascendente/descendente da fonte) é a mesma
+    geometria do ``LTChar`` do pdfminer — é ela que deixa o texto idêntico.
+    """
+    raw = tp.raw
+    n = R.FPDFText_CountChars(raw)
+    if n <= 0:
+        return []
+    buf = (ctypes.c_ushort * (n + 1))()
+    R.FPDFText_GetText(raw, 0, n, buf)
+    texto = bytes(buf)[: 2 * n].decode("utf-16-le", errors="replace")
+    if len(texto) != n:  # par substituto: perde o alinhamento índice → caractere
+        return None
+    caixa = R.FS_RECTF()
+    ref_caixa = ctypes.byref(caixa)
+    loose_box = R.FPDFText_GetLooseCharBox
+    angulo = R.FPDFText_GetCharAngle
+    gerado = R.FPDFText_IsGenerated
+    chars: list[dict] = []
+    for i, c in enumerate(texto):
+        if c.isspace():
+            if gerado(raw, i):  # espaço/quebra que o PDFium inventou (não está no PDF)
+                continue
+        elif c in "�￾￿\x00" or angulo(raw, i) != 0:
+            return None  # glifo sem unicode ou texto girado
+        loose_box(raw, i, ref_caixa)
+        top = altura - caixa.top
+        chars.append(
+            {
+                "text": c,
+                "x0": caixa.left,
+                "x1": caixa.right,
+                "top": top,
+                "bottom": altura - caixa.bottom,
+                "doctop": top,
+                "upright": True,
+            }
+        )
+    return chars
 
 
 def _limpar_paginas(paginas: list[str]) -> tuple[list[str], dict]:
