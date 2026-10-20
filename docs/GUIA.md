@@ -89,6 +89,16 @@ Junta histórico, grade do curso e oferta do semestre pra responder **"o que eu 
 | `GET /v1/consultas/turmas/historico?componente=MATC73` | todas as turmas de um componente desde 2023.1 (turma, docente, horário, vagas) + resumo de paridade e previsão |
 | `GET /v1/carga-horaria` | gestão de horas: obrigatória, optativa, complementar e extensão, com as atividades aceitas e rejeitadas |
 
+**Como ler os pré-requisitos** (em `candidatos` e `requisitos` de `/v1/planejamento/matricula` e em `requisito` de `/v1/planejamento/previsao-oferta`):
+
+- **`apto` é o veredito.** Ele já considera as **equivalências do histórico**: se a expressão pede `LETA09` e você cumpriu `LETA09` por equivalência (cursou outro código), `apto` vem `true`. A expressão em texto (`pre_requisitos`) é a do SIGAA e cita os códigos originais, então não decida por ela.
+- **`faltando` é a UNIÃO** dos códigos ausentes de **todas** as alternativas da expressão (`OU`), não a lista do que falta cursar. Com `(MATC73) OU (MATA47 E MATA53 E MATE12) OU ((MATC73) E (MATD04))` e só `MATA47` cumprido, vem `[MATC73, MATA53, MATE12, MATD04]`, mas basta `MATC73`.
+- **`alternativas`** é a expressão já parseada em caminhos (cada um é um `E`: cumprir todos os códigos dele basta). No exemplo acima: `[[MATC73], [MATA47, MATA53, MATE12], [MATC73, MATD04]]`.
+- **`faltando_minimo`** é o menor conjunto que ainda falta pra fechar **alguma** alternativa, considerando o que você já tem: no exemplo, `[MATC73]`. Vem vazio quando `apto`.
+- **`sequencia_apos`** só aparece quando o SIGAA **não** cita o antecessor no pré-requisito (I → II → III inferido pelo nome e pelo código, com `origem_sequencia="inferido"`). Ele entra em `faltando` e em `faltando_minimo`, mas não em `alternativas`.
+
+Na **previsão de oferta**, `chance_impar`/`chance_par` valem **0.0** quando a API olhou os semestres e o componente nunca abriu, e **null** quando a chance **não se aplica**: ATIVIDADE sem turma (`sem_turma=true`, ex.: TCC e estágio, cuja matrícula é feita pelo colegiado ou pelo orientador) ou nenhum semestre daquela paridade na janela.
+
 ### 🧾 Matrícula, documentos e vida acadêmica
 - Turmas solicitadas e a situação de cada uma (deferida/indeferida/trancada), e a **sua posição no ranking** de cada turma.
 - Comprovante de inscrição e declaração de vínculo, **estruturados ou no PDF original**.

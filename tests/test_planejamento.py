@@ -3,7 +3,8 @@
 from sigaa.models.academico import CargaHorariaCategoria
 from sigaa.models.consultas import HorarioAula
 from sigaa.models.planejamento import ComponenteCandidato, GradeCurricular, PlanejamentoMatricula, TurmaCandidata
-from sigaa.services.planejamento import avaliar_requisito, simular, sugerir
+from sigaa.services import planejamento as PL
+from sigaa.services.planejamento import analisar_requisito, avaliar_requisito, simular, sugerir
 
 
 def test_requisito_simples_e_composto():
@@ -18,6 +19,50 @@ def test_requisito_simples_e_composto():
     assert avaliar_requisito("(MATA55) E (MATA40 OU MATA57)", {"MATA55", "MATA57"})[0] is True
     assert avaliar_requisito("(MATA55) E (MATA40 OU MATA57)", {"MATA40"}) == (False, ["MATA55"])
 
+
+
+def test_alternativas_e_faltando_minimo():
+    expr = "(MATC73) OU (MATA47 E MATA53 E MATE12) OU ((MATC73) E (MATD04))"
+    r = analisar_requisito(expr, {"MATA47"})
+    assert r.alternativas == [["MATC73"], ["MATA47", "MATA53", "MATE12"], ["MATC73", "MATD04"]]
+    # `faltando` continua a UNIÃO (contrato antigo); o mínimo é só o que fecha um caminho
+    assert r.apto is False and r.faltando == ["MATC73", "MATA53", "MATE12", "MATD04"] and r.faltando_minimo == ["MATC73"]
+    # já tem 2 de 3 do caminho longo: falta 1 dele (empata com MATC73 → fica o 1º caminho de menor falta)
+    assert analisar_requisito(expr, {"MATA47", "MATA53"}).faltando_minimo == ["MATC73"]
+    assert analisar_requisito("(AAA11 E BBB11 E CCC11) OU (DDD11 E EEE11)", {"AAA11", "BBB11"}).faltando_minimo == ["CCC11"]
+    ok = analisar_requisito(expr, {"MATC73"})
+    assert ok.apto is True and ok.faltando == [] and ok.faltando_minimo == [] and len(ok.alternativas) == 3
+    # E distribui sobre OU; código repetido no caminho não duplica
+    r = analisar_requisito("(MATA55) E (MATA40 OU MATA57)", {"MATA40"})
+    assert r.alternativas == [["MATA55", "MATA40"], ["MATA55", "MATA57"]] and r.faltando_minimo == ["MATA55"]
+    assert analisar_requisito("(XXX11 OU YYY11) E XXX11", set()).alternativas == [["XXX11"], ["YYY11", "XXX11"]]
+    # sem expressão / lixo / mesmo veredito do avaliador clássico
+    assert analisar_requisito(None, set()) == (True, [], [], [])
+    assert analisar_requisito("???", set()) == (None, [], [], [])
+    for e, cumpridos in [(expr, {"MATA47"}), (expr, set()), ("(MATA55) E (MATA40 OU MATA57)", {"MATA57"})]:
+        assert analisar_requisito(e, cumpridos)[:2] == avaliar_requisito(e, cumpridos)
+
+
+def test_alternativas_explosivas_nao_listam_mas_mantem_veredito():
+    expr = " E ".join(f"(AAA{i}1 OU BBB{i}1)" for i in range(10))  # 2^10 caminhos > MAX_ALTERNATIVAS
+    r = analisar_requisito(expr, set())
+    assert r.apto is False and r.alternativas == [] and r.faltando_minimo == r.faltando and len(r.faltando) == 20
+
+
+def test_apto_considera_equivalencia_do_historico():
+    from types import SimpleNamespace as NS
+
+    from sigaa.models.academico import Historico
+    from sigaa.parsers.historico_pdf import APROVADO
+
+    h = Historico.model_construct(
+        componentes=[NS(codigo="LETE46", situacao=next(iter(APROVADO)), periodo="2023.1", nota=8.0, cursando=False)],
+        equivalencias=[NS(componente=NS(codigo="LETA09"), atraves_de=[NS(codigo="LETE46")], tipo="Cumpriu")],
+        obrigatorios_pendentes=[],
+    )
+    aprovados = PL._indice_historico(h)[0]
+    r = analisar_requisito("( LETA09 )", set(aprovados))  # a expressão cita LETA09; o aluno cursou LETE46
+    assert r.apto is True and r.faltando_minimo == []
 
 def _h(dia, turno, aula, ini, fim):
     return HorarioAula(dia={2: "Segunda", 3: "Terça", 4: "Quarta", 5: "Quinta"}[dia], dia_numero=dia, turno=turno, aula=aula, inicio=ini, fim=fim)

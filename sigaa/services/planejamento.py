@@ -17,6 +17,7 @@ from __future__ import annotations
 import re
 import unicodedata
 from collections import defaultdict
+from typing import NamedTuple
 
 from ..client import SigaaClient
 from ..errors import NaoEncontrado, SessaoExpirada
@@ -54,53 +55,98 @@ def _norm(s: str | None) -> str:
 _TOKEN = re.compile(r"\(|\)|\bE\b|\bOU\b|[A-Z]{2,}[A-Z0-9]*\d[A-Z0-9]*")
 
 
-def avaliar_requisito(expr: str | None, cumpridos: set[str]) -> tuple[bool | None, list[str]]:
-    """Avalia '( MATA55 ) E ( MATA40 OU MATA57 )' contra o conjunto de códigos cumpridos.
-    Devolve (cumpre?, códigos que faltam). Expressão vazia = cumpre."""
-    if not expr or not expr.strip():
-        return True, []
+#: teto de alternativas (caminhos E) ao expandir a expressão — acima disso não lista (expressão patológica)
+MAX_ALTERNATIVAS = 256
+
+
+class AnaliseRequisito(NamedTuple):
+    apto: bool | None
+    faltando: list[str]  #: UNIÃO dos códigos ausentes de todas as alternativas (contrato antigo)
+    alternativas: list[list[str]]  #: cada caminho E da expressão (forma OU-de-Es)
+    faltando_minimo: list[str]  #: o menor conjunto que ainda falta pra cumprir ALGUMA alternativa
+
+
+def _menor_falta(alternativas: list[list[str]], cumpridos: set[str]) -> list[str]:
+    faltas = [[c for c in alt if c not in cumpridos] for alt in alternativas]
+    return min(faltas, key=len) if faltas else []
+
+
+def _avaliar(expr: str, cumpridos: set[str], expandir: bool) -> tuple[bool | None, list[str], list[list[str]]]:
+    """Parser descendente da expressão: (cumpre?, união do que falta, alternativas E). Com
+    ``expandir=False`` não monta as alternativas (devolve [])."""
     toks = _TOKEN.findall(expr.upper())
     if not toks:
-        return None, []
+        return None, [], []
     pos = 0
 
     def ou():
         nonlocal pos
-        v, falt = e()
+        v, falt, alts = e()
         while pos < len(toks) and toks[pos] == "OU":
             pos += 1
-            v2, f2 = e()
+            v2, f2, a2 = e()
             if v or v2:
                 v, falt = True, []
             else:
                 falt = falt + f2
-        return v, falt
+            alts = alts + a2
+        return v, falt, alts
 
     def e():
         nonlocal pos
-        v, falt = atomo()
+        v, falt, alts = atomo()
         while pos < len(toks) and toks[pos] == "E":
             pos += 1
-            v2, f2 = atomo()
+            v2, f2, a2 = atomo()
             v, falt = v and v2, falt + f2
-        return v, falt
+            if expandir:
+                alts = [list(dict.fromkeys(x + y)) for x in alts for y in a2]
+                if len(alts) > MAX_ALTERNATIVAS:
+                    raise OverflowError
+        return v, falt, alts
 
     def atomo():
         nonlocal pos
         if pos >= len(toks):
-            return True, []
+            return True, [], [[]]
         t = toks[pos]
         pos += 1
         if t == "(":
-            v, falt = ou()
+            r = ou()
             if pos < len(toks) and toks[pos] == ")":
                 pos += 1
-            return v, falt
-        return (t in cumpridos), ([] if t in cumpridos else [t])
+            return r
+        return (t in cumpridos), ([] if t in cumpridos else [t]), [[t]]
 
+    v, falt, alts = ou()
+    alts = [list(x) for x in dict.fromkeys(tuple(a) for a in alts if a)] if expandir else []
+    return v, list(dict.fromkeys(falt)), alts
+
+
+def analisar_requisito(expr: str | None, cumpridos: set[str]) -> AnaliseRequisito:
+    """Avalia '( MATA55 ) E ( MATA40 OU MATA57 )' contra o conjunto de códigos cumpridos.
+    Além do veredito e da UNIÃO do que falta, expande a expressão em alternativas (cada uma um caminho
+    E): '(A) OU (B E C)' → [[A], [B, C]]; e devolve a menor falta entre elas. Expressão vazia = cumpre."""
+    if not expr or not expr.strip():
+        return AnaliseRequisito(True, [], [], [])
     try:
-        v, falt = ou()
-        return v, list(dict.fromkeys(falt))
+        try:
+            v, falt, alts = _avaliar(expr, cumpridos, True)
+        except OverflowError:  # expansão grande demais: mantém o veredito, sem listar caminhos
+            v, falt, alts = _avaliar(expr, cumpridos, False)
+            return AnaliseRequisito(v, falt, [], [] if v else falt)
+    except Exception:  # noqa: BLE001 - expressão estranha: não arrisca
+        return AnaliseRequisito(None, [], [], [])
+    return AnaliseRequisito(v, falt, alts, [] if v else _menor_falta(alts, cumpridos))
+
+
+def avaliar_requisito(expr: str | None, cumpridos: set[str]) -> tuple[bool | None, list[str]]:
+    """(cumpre?, UNIÃO dos códigos que faltam) — o par clássico; veja :func:`analisar_requisito`."""
+    if not expr or not expr.strip():
+        return True, []
+    try:
+        v, falt, _ = _avaliar(expr, cumpridos, False)
+        return v, falt
     except Exception:  # noqa: BLE001 - expressão estranha: não arrisca
         return None, []
 
@@ -144,10 +190,10 @@ def montar_requisito(
 ) -> RequisitoComponente:
     """Junta o pré-requisito do SIGAA com a sequência inferida (só quando o SIGAA não cita o antecessor)."""
     seq = [antecessor] if antecessor and antecessor not in _codigos_expr(pre) else []
-    apto, falt = avaliar_requisito(pre, cumpridos) if lido else (None, [])
+    apto, falt, alts, minimo = analisar_requisito(pre, cumpridos) if lido else (None, [], [], [])
     falt_seq = [a for a in seq if a not in cumpridos]
     if falt_seq:
-        apto, falt = False, list(dict.fromkeys(falt + falt_seq))
+        apto, falt, minimo = False, list(dict.fromkeys(falt + falt_seq)), list(dict.fromkeys(minimo + falt_seq))
     return RequisitoComponente(
         codigo=x.codigo,
         nome=x.nome,
@@ -161,6 +207,8 @@ def montar_requisito(
         origem_sequencia=OrigemRequisito.inferido if seq else None,
         apto=apto,
         faltando=falt,
+        alternativas=alts,
+        faltando_minimo=minimo,
     )
 
 
@@ -409,10 +457,10 @@ async def planejamento(
         if cod in aprovados or (cod in cursando and considerar_cursando_como_aprovado):
             continue
         pre, co, _tipo = reqs.get(cod, (None, None, None))
-        apto, falt = (avaliar_requisito(pre, cumpridos) if cod in reqs else (None, []))
+        apto, falt, alts, minimo = analisar_requisito(pre, cumpridos) if cod in reqs else (None, [], [], [])
         req = requisitos.get(cod)
         if req is not None:
-            apto, falt = req.apto, req.faltando
+            apto, falt, alts, minimo = req.apto, req.faltando, req.alternativas, req.faltando_minimo
         candidatos.append(
             ComponenteCandidato(
                 codigo=cod,
@@ -428,6 +476,8 @@ async def planejamento(
                 origem_sequencia=req.origem_sequencia if req else None,
                 apto=apto,
                 faltando=falt,
+                alternativas=alts,
+                faltando_minimo=minimo,
                 desbloqueia=sorted(desbloqueia.get(cod, [])),
                 reprovacoes_anteriores=g.reprovacoes if g else 0,
                 turmas=[_turma_candidata(t) for t in turmas],
@@ -529,7 +579,9 @@ async def previsao_oferta(
         atual = atual or bruto.periodo_atual
         hist = OF.montar_historico(bruto, d, a, incluir_turmas=False)
         sem_turma = atividade and not hist.resumo.periodos_com_oferta
-        prev = hist.previsao
+        resumo, prev = hist.resumo, hist.previsao
+        if sem_turma:  # ATIVIDADE sem turma: a paridade não se aplica (null), não é "nunca abriu" (0.0)
+            resumo = resumo.model_copy(update=dict.fromkeys(("frequencia", "frequencia_impar", "frequencia_par", "chance_impar", "chance_par")))
         if sem_turma and prev is not None:
             prev = prev.model_copy(update={
                 "provavel": None, "probabilidade": None,
@@ -537,7 +589,7 @@ async def previsao_oferta(
             })
         comps.append(PrevisaoComponente(
             codigo=x.codigo, nome=x.nome, natureza=x.natureza, semestre_ideal=x.semestre_ideal, tipo=tipo,
-            sem_turma=sem_turma, requisito=r, resumo=hist.resumo, previsao=prev,
+            sem_turma=sem_turma, requisito=r, resumo=resumo, previsao=prev,
         ))
     alvo_p = a or (OF.proximo(OF.ler_periodo(atual)) if atual else None)
     alvo_txt = OF.rotulo(alvo_p) if alvo_p else (alvo or "")

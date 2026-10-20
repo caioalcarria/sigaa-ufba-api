@@ -241,6 +241,10 @@ def test_montar_requisito_sigaa_e_inferido():
     assert r.apto is False and r.faltando == ["GICC0003"]
     r = PL.montar_requisito(tcc2, None, None, "ATIVIDADE", True, "GICC0003", {"GICC0003"})
     assert r.apto is True and r.faltando == []
+    # alternativas vêm só da expressão; a sequência inferida entra no mínimo que falta
+    r = PL.montar_requisito(tcc2, "( ZZZA00 ) OU ( ZZZA01 E ZZZA02 )", None, "ATIVIDADE", True, "GICC0003", {"ZZZA01"})
+    assert r.alternativas == [["ZZZA00"], ["ZZZA01", "ZZZA02"]] and r.sequencia_apos == ["GICC0003"]
+    assert r.faltando == ["ZZZA00", "ZZZA02", "GICC0003"] and r.faltando_minimo == ["ZZZA00", "GICC0003"]
     # não deu pra ler o SIGAA: apto desconhecido, a não ser que a sequência já bloqueie
     r = PL.montar_requisito(tcc2, None, None, None, False, None, set())
     assert r.apto is None and r.origem_pre_requisitos is None
@@ -335,6 +339,8 @@ def test_planejamento_traz_requisitos_dos_sem_turma_e_sequencia(planejador):
     assert req["ZZZA11"].sequencia_apos == ["ZZZA10"] and req["ZZZA11"].origem_sequencia == OrigemRequisito.inferido
     cand = {x.codigo: x for x in plano.candidatos}
     assert cand["ZZZA11"].apto is False and cand["ZZZA11"].faltando == ["ZZZA10"] and cand["ZZZA11"].origem_sequencia == OrigemRequisito.inferido
+    assert cand["ZZZA11"].alternativas == [] and cand["ZZZA11"].faltando_minimo == ["ZZZA10"]
+    assert cand["ZZZA01"].alternativas == [["ZZZA00"]] and cand["ZZZA01"].faltando_minimo == []
     assert cand["ZZZA10"].apto is True and cand["ZZZA10"].desbloqueia == ["ZZZA11"]
     assert cand["ZZZA01"].apto is True
     assert any("Atividades obrigatórias" in a and "GICC0003" in a for a in plano.avisos)
@@ -358,6 +364,11 @@ def test_previsao_oferta(planejador):
     assert por["ZZZA10"].previsao.provavel is True and por["ZZZA11"].resumo.paridade == Paridade.impar
     tcc = por["GICC0004"]
     assert tcc.sem_turma and tcc.previsao.provavel is None and tcc.requisito.pre_requisitos == "( GICC0003 )"
+    # ATIVIDADE sem turma: a paridade não se aplica (null) — 0.0 é só pra "analisou e nunca abriu"
+    assert tcc.resumo.chance_impar is None and tcc.resumo.chance_par is None and tcc.resumo.frequencia is None
+    assert tcc.previsao.probabilidade is None and tcc.resumo.periodos_analisados  # a janela continua informada
+    assert tcc.requisito.alternativas == [["GICC0003"]] and tcc.requisito.faltando_minimo == ["GICC0003"]
+    assert por["ZZZA01"].resumo.chance_impar == 0.0 and por["ZZZA01"].resumo.chance_par == 1.0  # disciplina: 0.0 de verdade
     assert por["ZZZA11"].requisito.sequencia_apos == ["ZZZA10"]
     assert set(prev.provaveis) == {"ZZZA10", "ZZZA11"} and "ZZZA01" in prev.improvaveis
     assert {"GICC0003", "GICC0004"} <= set(prev.sem_historico)

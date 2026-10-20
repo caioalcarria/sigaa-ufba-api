@@ -69,9 +69,11 @@ class ResumoOferta(BaseModel):
     frequencia_impar: float | None = None
     frequencia_par: float | None = None
     chance_impar: float | None = Field(
-        None, description="Frequência PONDERADA nos semestres ímpares: os 2 mais recentes valem o dobro (o padrão muda com o currículo)."
+        None,
+        description="Frequência PONDERADA nos semestres ímpares: os 2 mais recentes valem o dobro (o padrão muda com o currículo). "
+        "0.0 = analisou e nunca abriu; null = não se aplica (ATIVIDADE sem turma, ex.: TCC) ou sem semestre ímpar na janela.",
     )
-    chance_par: float | None = None
+    chance_par: float | None = Field(None, description="Idem `chance_impar`, nos semestres pares (0.0 = nunca abriu; null = não se aplica).")
     tendencia: Literal["impar", "par", "ambos", "irregular", "sem_oferta"] = Field(
         "sem_oferta",
         description="Pela chance ponderada (≥ 0,5 = tende a abrir): impar, par, ambos; irregular = abriu, mas abaixo de 0,5 nos dois lados.",
@@ -118,13 +120,29 @@ class RequisitoComponente(BaseModel):
     co_requisitos: str | None = None
     sequencia_apos: list[str] = Field(
         default_factory=list,
-        description="Componentes que precisam vir ANTES por SEQUÊNCIA (I → II → III do mesmo prefixo e natureza) "
-        "e que o SIGAA não lista no pré-requisito. Só aparece quando `origem_sequencia='inferido'`.",
+        description="Componentes que precisam vir ANTES por SEQUÊNCIA (I → II → III do mesmo prefixo e natureza). "
+        "Só aparece quando o SIGAA NÃO cita o antecessor no pré-requisito (se cita, já está em `alternativas`); "
+        "aí `origem_sequencia='inferido'`.",
     )
     origem_pre_requisitos: OrigemRequisito | None = Field(None, description="'sigaa' = veio do componente no SIGAA; None = não foi possível ler.")
     origem_sequencia: OrigemRequisito | None = Field(None, description="'inferido' quando `sequencia_apos` foi deduzido pelo nome/código.")
-    apto: bool | None = Field(None, description="Pré-requisitos (e sequência inferida) cumpridos? None = não deu pra verificar.")
-    faltando: list[str] = Field(default_factory=list, description="Códigos que faltam (pré-requisito e/ou sequência).")
+    apto: bool | None = Field(None, description="VEREDITO: pré-requisitos (e sequência inferida) cumpridos? Considera as equivalências do histórico (ex.: LETA09 cumprido por equivalência conta como cumprido) — leia isto, não a expressão em texto, que cita os códigos originais. None = não foi possível verificar.")
+    faltando: list[str] = Field(
+        default_factory=list,
+        description="UNIÃO dos códigos ausentes de TODAS as alternativas da expressão (OU) — não é a lista do que falta "
+        "cursar: com '(A) OU (B E C)' e nada cumprido vem [A, B, C], mas basta A. Pra isso use `faltando_minimo`/`alternativas`.",
+    )
+    alternativas: list[list[str]] = Field(
+        default_factory=list,
+        description="A expressão de pré-requisito já parseada em caminhos: cada item é uma alternativa E (cumprir todos os "
+        "códigos dela basta). Ex.: '(MATC73) OU (MATA47 E MATA53 E MATE12)' → [[MATC73], [MATA47, MATA53, MATE12]]. "
+        "Não inclui `sequencia_apos`. Vazio = sem pré-requisito (ou não lido).",
+    )
+    faltando_minimo: list[str] = Field(
+        default_factory=list,
+        description="O MENOR conjunto de códigos que ainda falta pra cumprir alguma alternativa, dado o que o aluno já tem "
+        "(mais o antecessor de `sequencia_apos`, se faltar). Vazio quando `apto`.",
+    )
 
 
 class PrevisaoComponente(BaseModel):
@@ -133,7 +151,11 @@ class PrevisaoComponente(BaseModel):
     natureza: str | None = None
     semestre_ideal: int | None = None
     tipo: str | None = None
-    sem_turma: bool = Field(False, description="ATIVIDADE (TCC, estágio...): não tem turma na consulta; a paridade não se aplica.")
+    sem_turma: bool = Field(
+        False,
+        description="ATIVIDADE (TCC, estágio...): não tem turma na consulta; a paridade não se aplica — `resumo.chance_*`, "
+        "`resumo.frequencia*` e `previsao.probabilidade` vêm null.",
+    )
     requisito: RequisitoComponente
     resumo: ResumoOferta | None = None
     previsao: PrevisaoPeriodo | None = None

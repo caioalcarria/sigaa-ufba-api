@@ -91,11 +91,27 @@ class ComponenteCandidato(BaseModel):
     co_requisitos: str | None = None
     sequencia_apos: list[str] = Field(
         default_factory=list,
-        description="Antecessor(es) por SEQUÊNCIA (I → II) que o SIGAA não lista no pré-requisito — regra inferida pelo nome/código.",
+        description="Antecessor(es) por SEQUÊNCIA (I → II), regra inferida pelo nome/código. Só aparece quando o SIGAA NÃO "
+        "cita o antecessor no pré-requisito (se cita, já está em `alternativas`).",
     )
     origem_sequencia: OrigemRequisito | None = Field(None, description="'inferido' quando `sequencia_apos` não veio do SIGAA.")
-    apto: bool | None = Field(None, description="Pré-requisitos (e sequência inferida) cumpridos? None = não foi possível verificar.")
-    faltando: list[str] = Field(default_factory=list, description="Códigos que faltam pra cumprir o pré-requisito.")
+    apto: bool | None = Field(None, description="VEREDITO: pré-requisitos (e sequência inferida) cumpridos? Considera as equivalências do histórico (ex.: LETA09 cumprido por equivalência conta como cumprido) — leia isto, não a expressão em texto, que cita os códigos originais. None = não foi possível verificar.")
+    faltando: list[str] = Field(
+        default_factory=list,
+        description="UNIÃO dos códigos ausentes de TODAS as alternativas da expressão (OU) — não é a lista do que falta "
+        "cursar: com '(A) OU (B E C)' e nada cumprido vem [A, B, C], mas basta A. Pra isso use `faltando_minimo`/`alternativas`.",
+    )
+    alternativas: list[list[str]] = Field(
+        default_factory=list,
+        description="A expressão de pré-requisito já parseada em caminhos: cada item é uma alternativa E (cumprir todos os "
+        "códigos dela basta). Ex.: '(MATC73) OU (MATA47 E MATA53 E MATE12)' → [[MATC73], [MATA47, MATA53, MATE12]]. "
+        "Não inclui `sequencia_apos`. Vazio = sem pré-requisito (ou não lido).",
+    )
+    faltando_minimo: list[str] = Field(
+        default_factory=list,
+        description="O MENOR conjunto de códigos que ainda falta pra cumprir alguma alternativa, dado o que o aluno já tem "
+        "(mais o antecessor de `sequencia_apos`, se faltar). Vazio quando `apto`.",
+    )
     desbloqueia: list[str] = Field(default_factory=list, description="Componentes pendentes que têm este como pré-requisito.")
     reprovacoes_anteriores: int = 0
     turmas: list[TurmaCandidata]
