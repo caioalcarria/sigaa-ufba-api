@@ -230,6 +230,24 @@ class CacheHTTP:
         self.espera_preaquecer = float(os.getenv("SIGAA_API_PREAQUECER_ESPERA", "0.4"))
         #: o aquecimento só usa a sessão depois de o aluno ficar esse tempo sem requisição (s)
         self.silencio_preaquecer = float(os.getenv("SIGAA_API_PREAQUECER_SILENCIO", "0.3"))
+        #: ``?fresco=true``/``no-cache`` por aluno (ou IP, no público) por minuto; passou, o pedido segue como um
+        #: pedido normal (servido do cache). Sem isso um laço de ``?fresco=true`` martelava o SIGAA. 0 = sem teto
+        self.max_fresco = int(float(os.getenv("SIGAA_API_MAX_FRESCO_POR_MIN", "20") or 0))
+        self._fresco: dict[str, list[float]] = {}
+
+    def _fresco_permitido(self, quem: str) -> bool:
+        if self.max_fresco <= 0:
+            return True
+        agora = time.monotonic()
+        if len(self._fresco) > 50_000:  # varre quem já saiu da janela (o dicionário não cresce sem limite)
+            self._fresco = {k: v for k, v in self._fresco.items() if v and agora - v[-1] < 60}
+        ev = [t for t in self._fresco.get(quem, ()) if agora - t < 60]
+        if len(ev) >= self.max_fresco:
+            self._fresco[quem] = ev
+            return False
+        ev.append(agora)
+        self._fresco[quem] = ev
+        return True
 
     # ------------------------------------------------------------------ entrada
     async def __call__(self, scope, receive, send) -> None:
@@ -258,6 +276,9 @@ class CacheHTTP:
                 return await self.app(scope, receive, send)
         chave = montar_chave(pol, path, ql, uh)
         forcar, no_store = _forcar(q, h)
+        if forcar and not self._fresco_permitido(uh or "ip:" + ((scope.get("client") or ("?",))[0])):
+            forcar = False  # teto de ?fresco=true: responde do cache como um pedido normal
+            cache.stats["bypass_negado"] = cache.stats.get("bypass_negado", 0) + 1
 
         if forcar:
             cache.stats["bypass"] += 1
