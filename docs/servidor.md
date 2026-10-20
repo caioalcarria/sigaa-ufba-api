@@ -46,7 +46,7 @@ paralelo nos outros núcleos); cai onde o motor ficou mais rápido (PDF 12x, nav
 | sonda p99 | 2677 ms | **2,2 ms** |
 
 O teto é o trade-off: protege o SIGAA (e a API) da rajada, ao custo de req/s quando o SIGAA está
-lento mas aguentando. `SIGAA_MAX_CONEXOES` ajusta (0 = sem teto, como antes).
+lento mas aguentando. `SIGAA_API_MAX_CONCORRENCIA_SIGAA` ajusta (o teto é o `Carga` da frente de sessões, 64 por padrão; as medições acima foram com o teto antigo desta frente, 50).
 
 ## Desenho
 
@@ -86,7 +86,7 @@ cliente ───► │ Prazo (504) → CORS → GZip → rotas → SigaaClient
 
 | variável | padrão | o quê |
 |---|---|---|
-| `SIGAA_MAX_CONEXOES` | 50 | teto GLOBAL de requisições simultâneas ao SIGAA (todas as sessões somadas). Protege o SIGAA de rajada. 0 = sem teto |
+| `SIGAA_API_MAX_CONCORRENCIA_SIGAA` | 64 | teto GLOBAL de requisições simultâneas ao SIGAA (o `Carga` da frente de sessões; todas as sessões somadas). Protege o SIGAA de rajada |
 | `SIGAA_ESPERA_MAX_S` | 20 | quanto uma requisição espera por vaga; passou → `503 sigaa_ocupado` com `Retry-After: 5` (falha rápido em vez de empilhar) |
 | `SIGAA_API_TIMEOUT_S` | 120 | prazo total de uma requisição na API; passou → `504 tempo_esgotado` e a navegação é cancelada (a trava da sessão é liberada) |
 | `SIGAA_PARSE_PROCESSOS` | núcleos-1 (1–8) | processos do pool de parse; respeita `docker --cpus` (cota do cgroup). 0 = desliga |
@@ -96,7 +96,7 @@ cliente ───► │ Prazo (504) → CORS → GZip → rotas → SigaaClient
 | `SIGAA_API_GC_LIMIARES` | `50000,20,20` | `gc.set_threshold` (o padrão do Python é `700,10,10`) |
 
 O teto de conexões é o que manda no req/s quando o SIGAA é o gargalo: com ~450 ms por ida/volta,
-50 vagas ≈ 110 idas/s. Subir o teto aumenta o req/s da API **e a carga no SIGAA da UFBA** — é decisão
+64 vagas ≈ 140 idas/s (50 ≈ 110 na medição). Subir o teto aumenta o req/s da API **e a carga no SIGAA da UFBA** — é decisão
 de operação, não de código. Uma rota lenta ocupa no máximo as vagas que está usando: as outras rotas
 continuam (o event loop não trava mais) e, se o SIGAA inteiro ficar lento, a fila tem prazo.
 

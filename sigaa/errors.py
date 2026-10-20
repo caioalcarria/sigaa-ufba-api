@@ -39,6 +39,6 @@ class SistemaIndisponivel(SigaaError):
 
 class SigaaOcupado(SistemaIndisponivel):
     """A API já está com o máximo de requisições simultâneas ao SIGAA e a fila não andou a
-    tempo (``SIGAA_MAX_CONEXOES`` / ``SIGAA_ESPERA_MAX_S``) — tente de novo em instantes."""
+    tempo (``SIGAA_API_MAX_CONCORRENCIA_SIGAA`` / ``SIGAA_ESPERA_MAX_S``) — tente de novo em instantes."""
 
     codigo = "sigaa_ocupado"

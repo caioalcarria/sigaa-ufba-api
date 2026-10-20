@@ -141,14 +141,16 @@ async def resultado_processamento(c: SigaaClient, turma_id: int) -> ResultadoPro
 
 async def resultados_processamento(c: SigaaClient) -> list[ResultadoProcessamento]:
     comp = await matricula(c)
-    out = []
-    for t in comp.turmas:
-        if t.turma_id is None:
-            continue
-        q = f"/sigaa/relatorioProcessamento?idTurma={t.turma_id}" + ("&rematricula=true" if t.rematricula else "")
-        page = await c.get(q)
-        out.append(await rodar(parse_resultado_processamento, page.html, t.turma_id, comp.matricula, t.rematricula))
-    return out
+
+    def fluxo(t):
+        async def f(s: SigaaClient) -> ResultadoProcessamento:
+            q = f"/sigaa/relatorioProcessamento?idTurma={t.turma_id}" + ("&rematricula=true" if t.rematricula else "")
+            page = await s.get(q)  # GET direto (sem ViewState): cada turma numa sessão do pool, ao mesmo tempo
+            return await rodar(parse_resultado_processamento, page.html, t.turma_id, comp.matricula, t.rematricula)
+
+        return f
+
+    return await c.paralelo([fluxo(t) for t in comp.turmas if t.turma_id is not None])
 
 
 # --------------------------------------------------------- outras consultas

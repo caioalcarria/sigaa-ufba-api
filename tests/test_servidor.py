@@ -66,7 +66,6 @@ def test_um_contexto_ssl_pra_todos_os_clientes():
 
 
 def test_teto_de_conexoes_vira_sigaa_ocupado(monkeypatch):
-    monkeypatch.setattr(C, "MAX_CONEXOES", 1)
     monkeypatch.setattr(C, "ESPERA_MAX_S", 0.05)
 
     async def lento(_req):
@@ -74,17 +73,19 @@ def test_teto_de_conexoes_vira_sigaa_ocupado(monkeypatch):
         return httpx.Response(200, text="<html>ok</html>", headers={"content-type": "text/html"})
 
     async def cenario():
-        a = SigaaClient("https://sigaa.teste", min_interval=0)
-        b = SigaaClient("https://sigaa.teste", min_interval=0)
+        teto = C.Carga(1)
+        a = SigaaClient("https://sigaa.teste", min_interval=0, limite=teto)
+        b = SigaaClient("https://sigaa.teste", min_interval=0, limite=teto)
         for c in (a, b):
             c._http = httpx.AsyncClient(base_url=c.base_url, transport=httpx.MockTransport(lento))
         r = await asyncio.gather(a.get("/x"), b.get("/y"), return_exceptions=True)
         await a.close(), await b.close()
-        return r
+        return r, teto.em_voo
 
-    r = asyncio.run(cenario())
+    r, em_voo = asyncio.run(cenario())
     assert sum(isinstance(x, Page) for x in r) == 1
     assert sum(isinstance(x, E.SigaaOcupado) for x in r) == 1
+    assert em_voo == 0  # quem desistiu da fila não fica contado
 
 
 def test_sigaa_ocupado_da_503_com_retry_after():

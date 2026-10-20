@@ -77,7 +77,7 @@ def _app(chamadas: dict[str, int], atraso: float = 0.0) -> FastAPI:
 def _sessao(token: str, usuario_hash: str) -> None:
     agora = time.time()
     S.gerenciador._sessoes[S._hash(token)] = S.Sessao(
-        cliente=None, usuario_hash=usuario_hash, criada_em=agora, expira_em=agora + 3600, lembrar=False
+        cliente=None, pool=None, usuario_hash=usuario_hash, criada_em=agora, expira_em=agora + 3600, lembrar=False
     )
 
 

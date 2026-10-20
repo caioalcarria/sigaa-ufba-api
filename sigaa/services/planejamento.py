@@ -19,7 +19,7 @@ import unicodedata
 from collections import defaultdict
 
 from ..client import SigaaClient
-from ..errors import NaoEncontrado
+from ..errors import NaoEncontrado, SessaoExpirada
 from ..models.academico import Historico
 from ..models.consultas import EstruturaDetalhe, TurmaOferta
 from ..models.planejamento import (
@@ -278,8 +278,8 @@ async def planejamento(
     verificar_requisitos: bool = True,
 ) -> PlanejamentoMatricula:
     h = await academico.historico(c)
-    grade = await grade_curricular(c)
-    oferta = await oferta_do_curso(c, ano, periodo)
+    # grade (estrutura curricular) e oferta são navegações independentes: uma sessão do pool pra cada
+    grade, oferta = await c.paralelo([grade_curricular, lambda s: oferta_do_curso(s, ano, periodo)])
     aprovados, _, cursando, _ = _indice_historico(h)
     cumpridos = set(aprovados) | {x.codigo for s in grade.semestres for x in s.componentes if x.status == StatusComponente.aprovado}
     cumpridos |= {x.codigo for x in grade.optativas if x.status == StatusComponente.aprovado}
@@ -298,12 +298,25 @@ async def planejamento(
     reqs: dict[str, tuple[str | None, str | None]] = {}
     avisos: list[str] = []
     if verificar_requisitos:
-        for x in pendentes:
-            if x.codigo in por_codigo or x.natureza == "OBRIGATORIO":
+        alvos = [x for x in pendentes if x.codigo in por_codigo or x.natureza == "OBRIGATORIO"]
+
+        def fluxo(x):
+            async def f(s: SigaaClient):
                 try:
-                    reqs[x.codigo] = await _requisitos(c, x.id)
+                    return await _requisitos(s, x.id)
+                except SessaoExpirada:
+                    raise  # o pool reloga/troca de sessão
                 except Exception as e:  # noqa: BLE001
-                    avisos.append(f"Não consegui ler os pré-requisitos de {x.codigo}: {e}")
+                    return e
+
+            return f
+
+        # GET direto por componente (view_painel): espalhado pelas sessões do pool, ao mesmo tempo
+        for x, r in zip(alvos, await c.paralelo([fluxo(x) for x in alvos])):
+            if isinstance(r, Exception):
+                avisos.append(f"Não consegui ler os pré-requisitos de {x.codigo}: {r}")
+            else:
+                reqs[x.codigo] = r
     desbloqueia: dict[str, list[str]] = defaultdict(list)
     for cod, (pre, _co) in reqs.items():
         for dep in set(_TOKEN.findall((pre or "").upper())) - {"E", "OU", "(", ")"}:

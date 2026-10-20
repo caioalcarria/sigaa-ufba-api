@@ -162,7 +162,7 @@ sequenceDiagram
 | `SIGAA_API_MAX_SESSOES` · `_POR_USUARIO` | 500 · 5 | |
 | `SIGAA_API_MAX_LOGINS_POR_IP` | 20 / 10 min | anti força bruta |
 | `SIGAA_API_CORS` | `*` | origens liberadas |
-| `SIGAA_MAX_CONEXOES` · `SIGAA_ESPERA_MAX_S` | 50 · 20 | teto de requisições simultâneas ao SIGAA (todas as sessões) e quanto esperar por vaga antes do `503 sigaa_ocupado` |
+| `SIGAA_ESPERA_MAX_S` | 20 | quanto esperar por vaga no teto global (`SIGAA_API_MAX_CONCORRENCIA_SIGAA`) antes do `503 sigaa_ocupado` |
 | `SIGAA_API_TIMEOUT_S` | 120 | prazo total de uma requisição (`504 tempo_esgotado`) |
 | `SIGAA_PARSE_PROCESSOS` | núcleos-1 (1–8) | processos que fazem o parse de HTML/PDF fora do event loop (0 = desliga) |
 | `SIGAA_API_GZIP_MIN_BYTES` | 2048 | gzip nas respostas maiores que isso (0 = desliga) |

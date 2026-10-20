@@ -21,7 +21,7 @@ from fastapi.responses import JSONResponse
 from sigaa import cpu
 from sigaa import errors as E
 from sigaa import __version__
-from sigaa.client import MAX_CONEXOES, _ssl_ctx, em_uso
+from sigaa.client import _ssl_ctx
 
 from sigaa import cache as sigaa_cache
 
@@ -193,7 +193,12 @@ async def status():
     except httpx.HTTPError:
         pass
     return {"api": "ok", "versao": __version__, "sigaa": {"url": config.SIGAA_URL, "no_ar": sigaa_ok, "latencia_ms": ms}, "sessoes_ativas": gerenciador.total,
-            "servidor": {"processos_de_parse": cpu.ativo(), "conexoes_sigaa_em_uso": em_uso(), "conexoes_sigaa_max": MAX_CONEXOES}}
+            "servidor": {"processos_de_parse": cpu.ativo(), "conexoes_sigaa_em_uso": _em_voo(), "conexoes_sigaa_max": config.MAX_CONCORRENCIA_SIGAA}}
+
+
+def _em_voo() -> int:
+    lim = getattr(gerenciador, "_limite", None)  # o Carga (teto global) nasce com a 1ª sessão
+    return lim.em_voo if lim is not None else 0
 
 
 @app.get("/", include_in_schema=False)

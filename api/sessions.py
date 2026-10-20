@@ -2,8 +2,12 @@
 
 Desenho:
 * o token é opaco (``secrets.token_urlsafe``) e o servidor guarda só o SHA-256 dele;
-* cada token aponta pra um ``SigaaClient`` com cookies próprios e uma trava (a navegação
-  JSF de uma sessão não pode ser paralela);
+* cada token aponta pra um POOL de sessões SIGAA do aluno (``sigaa.pool.PoolSigaa``): a sessão
+  do login + até ``POOL_MAX - 1`` sessões extras (JSESSIONIDs independentes, cada uma com a sua
+  trava, porque a navegação JSF de UMA sessão não pode ser paralela). Rotas diferentes do mesmo
+  aluno rodam ao mesmo tempo e as rotas agregadas espalham o trabalho (``c.paralelo``);
+* todas as sessões de todos os alunos dividem uma piscina de conexões HTTP keep-alive e um teto
+  global de requisições simultâneas ao SIGAA (``MAX_CONCORRENCIA_SIGAA``);
 * ``lembrar=True`` guarda a senha CIFRADA em memória (Fernet, chave gerada no boot e
   nunca gravada) — com isso, quando o SIGAA derruba a sessão por inatividade, a API
   reloga sozinha e refaz a consulta. Sem ``lembrar``, a API devolve 401
@@ -24,8 +28,11 @@ from dataclasses import dataclass, field
 
 from cryptography.fernet import Fernet
 
-from sigaa.client import SigaaClient
+import httpx
+
+from sigaa.client import Carga, SigaaClient, transporte
 from sigaa.errors import SessaoExpirada
+from sigaa.pool import PoolSigaa
 
 from .config import config
 
@@ -38,7 +45,8 @@ def _hash(valor: str) -> str:
 
 @dataclass
 class Sessao:
-    cliente: SigaaClient
+    cliente: SigaaClient  # a sessão do login (``cliente.executar`` já usa o pool inteiro)
+    pool: PoolSigaa
     usuario_hash: str
     criada_em: float
     expira_em: float
@@ -73,6 +81,22 @@ class Gerenciador:
         self._basic_lock = asyncio.Lock()
         self.limite_login = LimiteLogin(config.MAX_LOGINS_POR_IP)
         self._tarefa: asyncio.Task | None = None
+        self._transporte: httpx.AsyncHTTPTransport | None = None
+        self._limite: Carga | None = None
+        self._aquecendo: set[asyncio.Task] = set()
+
+    def _novo_cliente(self, credenciais=None) -> SigaaClient:
+        if self._transporte is None:
+            self._transporte = transporte(http2=config.HTTP2, max_conexoes=config.MAX_CONEXOES, keepalive=config.MAX_CONEXOES)
+            self._limite = Carga(config.MAX_CONCORRENCIA_SIGAA)
+        return SigaaClient(
+            config.SIGAA_URL,
+            credenciais=credenciais,
+            min_interval=config.MIN_INTERVALO,
+            transport=self._transporte,
+            limite=self._limite,
+            reusar_views=config.REUSAR_VIEWS,
+        )
 
     # ------------------------------------------------------------------ criar
     async def criar(self, usuario: str, senha: str, *, lembrar: bool = False, origem: str = "token") -> tuple[str, Sessao]:
@@ -95,16 +119,48 @@ class Gerenciador:
             u, s = self._fernet.decrypt(cred).decode().split("\x00", 1)
             return u, s
 
-        cli = SigaaClient(config.SIGAA_URL, credenciais=credenciais if lembrar else None)
+        cli = self._novo_cliente(credenciais if lembrar else None)
         try:
             await cli.login(usuario, senha)
         except Exception:
             await cli.close()
             raise
+        # o pool abre sessões extras com a mesma credencial. Sem ``lembrar``, a senha (cifrada) só
+        # vive até o aquecimento terminar; depois o pool fica com as sessões que já abriu.
+        aquecer = max(1, min(config.POOL_AQUECER, config.POOL_MAX))
+        cred_tmp = cred or (self._fernet.encrypt(f"{usuario}\x00{senha}".encode()) if aquecer > 1 else None)
+
+        async def cred_pool():
+            if not pool_cred[0]:
+                raise SessaoExpirada("Credenciais não guardadas (lembrar=false).")
+            return tuple(self._fernet.decrypt(pool_cred[0]).decode().split("\x00", 1))
+
+        pool_cred = [cred_tmp]
+        pool = PoolSigaa(
+            cli,
+            lambda: self._novo_cliente(credenciais if lembrar else None),
+            maximo=config.POOL_MAX,
+            credenciais=cred_pool if cred_tmp else None,
+            tarefas_por_sessao=config.POOL_TAREFAS_POR_SESSAO,
+            pressao_max=config.POOL_PRESSAO_MAX,
+        )
+        if aquecer > 1:
+            async def aquecimento():
+                try:
+                    await pool.aquecer(aquecer)
+                finally:
+                    if not lembrar:  # esquece a senha: o pool não abre mais sessões
+                        pool_cred[0] = None
+                        pool._credenciais = None  # noqa: SLF001
+
+            t = asyncio.create_task(aquecimento())
+            self._aquecendo.add(t)
+            t.add_done_callback(self._aquecendo.discard)
         agora = time.time()
         token = secrets.token_urlsafe(32)
         sess = Sessao(
             cliente=cli,
+            pool=pool,
             usuario_hash=uh,
             criada_em=agora,
             expira_em=agora + config.TOKEN_TTL_HORAS * 3600,
@@ -151,11 +207,7 @@ class Gerenciador:
         sess = self._sessoes.pop(chave, None)
         if not sess:
             return False
-        try:
-            await sess.cliente.logout()
-        except Exception:  # noqa: BLE001 - logout é melhor-esforço
-            pass
-        await sess.cliente.close()
+        await sess.pool.fechar()  # logout (melhor-esforço) + close de todas as sessões do aluno
         return True
 
     def _expurgar(self) -> None:
@@ -163,7 +215,7 @@ class Gerenciador:
         mortas = [k for k, s in self._sessoes.items() if agora > s.expira_em or agora - s.ultimo_uso > config.TOKEN_OCIOSO_MIN * 60]
         for k in mortas:
             sess = self._sessoes.pop(k)
-            asyncio.create_task(sess.cliente.close())
+            asyncio.create_task(sess.pool.fechar())
 
     @property
     def total(self) -> int:
@@ -180,6 +232,9 @@ class Gerenciador:
             self._tarefa = None
         for k in list(self._sessoes):
             await self.encerrar_por_chave(k)
+        if self._transporte is not None:
+            await self._transporte.aclose()
+            self._transporte = None
 
     async def _keepalive(self) -> None:
         while True:
@@ -189,12 +244,8 @@ class Gerenciador:
             for sess in list(self._sessoes.values()):
                 if agora - sess.ultimo_uso > config.KEEPALIVE_JANELA_MIN * 60:
                     continue
-                cli = sess.cliente
-                if cli.lock.locked():
-                    continue
                 try:
-                    async with cli.lock:
-                        vivo = await cli.manter_viva()
+                    vivo = await sess.pool.manter_viva() > 0 and sess.cliente.logado
                     if not vivo:
                         log.info("sessão SIGAA caiu; será relogada sob demanda" if sess.lembrar else "sessão SIGAA caiu")
                 except Exception as e:  # noqa: BLE001
