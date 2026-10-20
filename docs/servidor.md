@@ -48,6 +48,20 @@ paralelo nos outros núcleos); cai onde o motor ficou mais rápido (PDF 12x, nav
 O teto é o trade-off: protege o SIGAA (e a API) da rajada, ao custo de req/s quando o SIGAA está
 lento mas aguentando. `SIGAA_API_MAX_CONCORRENCIA_SIGAA` ajusta (o teto é o `Carga` da frente de sessões, 64 por padrão; as medições acima foram com o teto antigo desta frente, 50).
 
+**Integrado** — `perf/turbo` 95fb918 (cache + sessões + bancada, SEM esta frente) × este branch por cima
+dele (8a0dc3a), com `Cache-Control: no-cache` (toda requisição vai ao SIGAA; o HIT do cache é outra
+história). JSON idêntico nas 19 rotas.
+
+| cenário | latência calibrada: req/s · sonda p99 | sem latência: req/s |
+|---|---|---|
+| `/v1/portal`, 300 × 300 | 50,7 → **138,3** · 470 → 6,3 ms | 71,7 → **411,6** (5,7×) |
+| `/v1/historico`, 120 alunos | 45,2 s → **9,2 s** pros 120 · 10382 → 5,6 ms | 3,0 → **248,7** (83×) |
+| `/v1/turmas`, 200 × 200 | 12,3 → **26,6** · 471 → 19,8 ms | 17,3 → **76,6** (4,4×) |
+| `/v1/notas`, 100 × 100 | 6,5 → **20,1** · 1092 → 20 ms | 8,2 → **50,7** (6,2×) |
+
+Com o pool de sessões (navegações do mesmo aluno em paralelo) a CPU por requisição SOBE (mais logins e
+mais telas ao mesmo tempo) — é justamente onde parse fora do event loop rende mais.
+
 ## Desenho
 
 ```
