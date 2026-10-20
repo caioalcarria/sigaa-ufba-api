@@ -63,7 +63,7 @@ class Page:
 
     url: str
     status: int
-    content: bytes
+    content: bytes = field(repr=False)  # HTML/PDF do aluno: não vai pra repr/traceback
     content_type: str
     encoding: str = "iso-8859-1"
     headers: dict[str, str] = field(default_factory=dict, repr=False)
@@ -380,9 +380,10 @@ class Compartilhado:
     """Estado do ALUNO (não da tela) dividido entre as sessões dele: cache curto (``memo``), as
     buscas em andamento (singleflight) e dados estáveis (ex.: mapa idTurma↔frontEndIdTurma)."""
 
-    memo: dict[str, tuple[float, Any]] = field(default_factory=dict)
-    em_voo: dict[str, asyncio.Future] = field(default_factory=dict)
-    dados: dict[str, Any] = field(default_factory=dict)
+    # repr=False: é dado do aluno (não vai pra repr/traceback)
+    memo: dict[str, tuple[float, Any]] = field(default_factory=dict, repr=False)
+    em_voo: dict[str, asyncio.Future] = field(default_factory=dict, repr=False)
+    dados: dict[str, Any] = field(default_factory=dict, repr=False)
 
 _SSL: Any = None
 

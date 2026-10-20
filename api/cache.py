@@ -34,7 +34,7 @@ import logging
 import os
 import re
 import time
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from datetime import datetime, timezone
 from typing import Any, Callable
 from urllib.parse import parse_qsl, urlencode
@@ -162,8 +162,8 @@ async def identificar(headers: dict[str, str], *, tocar: bool = True) -> str | N
 @dataclass
 class Capturada:
     status: int
-    headers: list[tuple[bytes, bytes]]
-    corpo: bytes
+    headers: list[tuple[bytes, bytes]] = field(repr=False)
+    corpo: bytes = field(repr=False)  # resposta do aluno: não vai pra repr/traceback
 
 
 _GUARDAR = {"content-type", "content-disposition", "content-language"}

@@ -50,7 +50,7 @@ COMPRIMIVEIS = ("json", "text/", "xml", "javascript", "calendar")
 class Entrada:
     """Uma resposta (L1) ou um valor serializado (L2) guardado no cache."""
 
-    corpo: bytes
+    corpo: bytes = field(repr=False)  # pode ser dado de aluno: não vai pra repr/traceback
     criado: float  # time.time() de quando o dado veio do SIGAA
     ttl: float  # segundos de "fresco"
     swr: float = 0.0  # segundos extras em que ainda serve STALE (e revalida em 2º plano)
