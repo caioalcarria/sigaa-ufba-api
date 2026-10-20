@@ -115,6 +115,9 @@ class Sessao:
     #: caixinhas ([credencial cifrada]) que as closures de relogin leem; o logout esvazia
     _cofres: tuple[list, ...] = field(default=(), repr=False)
     _aquecimento: asyncio.Task | None = field(default=None, repr=False)
+    #: chave do limite de FALHAS por usuário (HMAC do login): o login e a confirmação de senha das ações
+    #: de escrita ("step-up") dividem o mesmo contador
+    chave_falhas: str = field(default="", repr=False)
 
     def valida(self, agora: float | None = None) -> bool:
         agora = time.time() if agora is None else agora
@@ -277,6 +280,7 @@ class Gerenciador:
             _cred=cred,
             _cofres=(cofre, pool_cred),
             _aquecimento=t,
+            chave_falhas=chave_usuario(usuario),
         )
         self._sessoes[_hash(token)] = sess
         return token, sess
@@ -292,6 +296,18 @@ class Gerenciador:
             return None
         sess.ultimo_uso = agora
         return sess
+
+    # ------------------------------------------------- confirmação de senha (ações de escrita)
+    def confirmacao_bloqueada(self, sess: Sessao) -> bool:
+        """A conta já estourou as falhas de senha (login + confirmações) na janela? Consulte DENTRO da trava
+        da ação, logo antes de enviar ao SIGAA — fora dela, N pedidos em paralelo passam juntos."""
+        self.limite_usuario.maximo = config.MAX_FALHAS_POR_USUARIO
+        return bool(sess.chave_falhas) and self.limite_usuario.bloqueado(sess.chave_falhas)
+
+    def falha_confirmacao(self, sess: Sessao) -> None:
+        """O SIGAA recusou a senha/CPF/data da confirmação: conta no MESMO limite das falhas de login."""
+        if sess.chave_falhas:
+            self.limite_usuario.registrar(sess.chave_falhas)
 
     def espiar(self, token: str) -> Sessao | None:
         """Como ``obter``, mas sem tocar (não renova a ociosidade nem encerra): pro cache e o pré-aquecimento."""
