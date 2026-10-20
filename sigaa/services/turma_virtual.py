@@ -6,9 +6,11 @@ Como uma turma é aberta (ver docs/mapeamento/turma_virtual.md):
 * A API expõe o ``idTurma`` NUMÉRICO (contrato com a frente 'portal'). A única tela que lista o idTurma de
   TODAS as turmas é a versão mobile (``/sigaa/mobile/touch/ava/turmas_discente.jsf``), que funciona com a
   mesma sessão do desktop. Casamos as duas listas por (período, código, horário com datas).
-* Esse mapa idTurma ↔ frontEndIdTurma é dado estável (não é estado de tela JSF), então fica guardado no
-  próprio ``SigaaClient`` (``c._tv_mapa``) pra não custar 4 requisições a cada chamada. Num id desconhecido
-  o mapa é refeito uma vez.
+* Esse mapa idTurma ↔ frontEndIdTurma é dado estável (não é estado de tela JSF), então fica guardado nos
+  dados do aluno (``c.dados``, divididos entre as sessões do pool) pra não custar 4 requisições a cada
+  chamada. Num id desconhecido o mapa é refeito uma vez.
+* As rotas AGREGADAS (notas/frequência/tarefas/avaliações de todas as turmas) abrem cada turma numa
+  sessão própria do pool, ao mesmo tempo (``c.paralelo``).
 * Toda chamada recomeça do zero: ``turmas.jsf`` → clique no frontEndIdTurma → item do menu lateral. Assim a
   ordem das rotas não importa (abrir outra turma troca o estado JSF da sessão).
 
@@ -76,34 +78,41 @@ async def _lista_mobile(c: SigaaClient) -> list[TurmaVirtualResumo]:
 
 async def listar_turmas(c: SigaaClient, *, com_ids: bool = True) -> list[TurmaVirtualResumo]:
     """Todas as turmas virtuais do aluno (semestre atual + anteriores), com o idTurma numérico."""
-    pag = await c.get(URL_TURMAS)
+
+    async def mobile_ou_nada(s: SigaaClient) -> list[TurmaVirtualResumo]:
+        try:
+            return await _lista_mobile(s)
+        except SigaaError:
+            return []
+
+    # turmas.jsf (1 viagem) e a lista mobile (3 viagens) são independentes: com pool, em sessões diferentes
+    if com_ids:
+        pag, mobile = await c.paralelo([lambda s: s.pagina(URL_TURMAS, reusar=False), mobile_ou_nada])
+    else:
+        pag, mobile = await c.pagina(URL_TURMAS, reusar=False), []
     lista = P.parse_turmas_anteriores(pag.html)
     m = re.search(r"Semestre atual:\s*(?:<[^>]+>\s*)*(\d{4}\.\d)", pag.html)
     atual = m.group(1) if m else (lista[0].periodo if lista else None)
     for t in lista:
         t.atual = t.periodo == atual
     if com_ids:
-        try:
-            mobile = await _lista_mobile(c)
-        except SigaaError:
-            mobile = []
         P.casar_turmas(lista, mobile)
-    c.__dict__["_tv_mapa"] = {t.turma_id: t for t in lista if t.turma_id}
-    c.__dict__["_tv_lista"] = lista
+    c.dados["_tv_mapa"] = {t.turma_id: t for t in lista if t.turma_id}
+    c.dados["_tv_lista"] = lista
     return lista
 
 
 async def _resumo(c: SigaaClient, turma_id: int | str) -> TurmaVirtualResumo:
     """Acha a turma pelo idTurma (ou pelo próprio frontEndIdTurma, se vier um hash)."""
     if isinstance(turma_id, str) and not turma_id.isdigit():
-        lista = c.__dict__.get("_tv_lista") or await listar_turmas(c)
+        lista = c.dados.get("_tv_lista") or await listar_turmas(c)
         achou = next((t for t in lista if t.front_end_id == turma_id.upper()), None)
         return achou or TurmaVirtualResumo(front_end_id=turma_id.upper())
     tid = int(turma_id)
-    mapa = c.__dict__.get("_tv_mapa")
+    mapa = c.dados.get("_tv_mapa")
     if not mapa or tid not in mapa:
         await listar_turmas(c)
-        mapa = c.__dict__.get("_tv_mapa", {})
+        mapa = c.dados.get("_tv_mapa", {})
     if tid not in mapa:
         raise NaoEncontrado(f"Turma {tid} não está entre as turmas virtuais deste aluno.")
     return mapa[tid]
@@ -113,14 +122,22 @@ async def abrir_turma(c: SigaaClient, turma_id: int | str) -> Page:
     """Entra na turma virtual (página principal) a partir de 'Todas as Turmas Virtuais' (turmas.jsf),
     que lista as turmas do semestre E as anteriores. Se não achar lá, tenta o portal."""
     r = await _resumo(c, turma_id)
-    pag = await c.get(URL_TURMAS)
+    pag = await c.pagina(URL_TURMAS)  # reaproveita a lista desta sessão enquanto o ViewState dela vale
     link = next((ln for ln in pag.links_jsf() if ln.params.get("frontEndIdTurma") == r.front_end_id), None)
+    if link is None and c.reusar_views:
+        pag = await c.pagina(URL_TURMAS, reusar=False)
+        link = next((ln for ln in pag.links_jsf() if ln.params.get("frontEndIdTurma") == r.front_end_id), None)
     if link is None:
         pag = await c.portal()
         link = next((ln for ln in pag.links_jsf() if ln.params.get("frontEndIdTurma") == r.front_end_id), None)
     if link is None:
         raise NaoEncontrado(f"A turma {turma_id} não aparece na lista de turmas virtuais.")
     tv = await c.clicar(pag, link)
+    if "formMenu" not in tv.html and c.reusar_views:
+        # a lista reaproveitada pode ter saído da janela de views do servidor: baixa de novo e repete
+        pag = await c.pagina(URL_TURMAS, reusar=False)
+        link = next((ln for ln in pag.links_jsf() if ln.params.get("frontEndIdTurma") == r.front_end_id), link)
+        tv = await c.clicar(pag, link)
     if "formMenu" not in tv.html:
         msgs = P.mensagens(tv.html)
         raise NavegacaoInvalida("Não foi possível abrir a turma virtual" + (f": {msgs[0]}" if msgs else "."))
@@ -400,34 +417,50 @@ async def grafico_estatisticas(c: SigaaClient, turma_id: int | str) -> tuple[byt
 
 
 # ===================================================================== agregadas
+TTL_LISTA = 600  # a lista de turmas do aluno quase não muda; 10 min poupa 4 viagens por rota agregada
+
+
 async def _do_periodo(c: SigaaClient, periodo: str | None = None) -> list[TurmaVirtualResumo]:
-    lista = await listar_turmas(c)
+    lista = await c.memo("tv_lista", TTL_LISTA, lambda: listar_turmas(c))
     return [t for t in lista if (t.periodo == periodo if periodo else t.atual)]
+
+
+async def _por_turma(c: SigaaClient, turmas: list[TurmaVirtualResumo], fn, *, pular_nao_encontrado: bool = False) -> list:
+    """``fn(sessao, turma)`` pra cada turma, em PARALELO (uma sessão do pool por turma)."""
+
+    def fluxo(t):
+        async def f(s: SigaaClient):
+            try:
+                return await fn(s, t)
+            except NaoEncontrado:
+                if pular_nao_encontrado:
+                    return None
+                raise
+
+        return f
+
+    return await c.paralelo([fluxo(t) for t in turmas])
 
 
 async def notas_todas(c: SigaaClient, periodo: str | None = None) -> list[NotasTurma]:
     """Notas de todas as turmas do semestre atual (ou do ``periodo`` pedido)."""
-    return [await notas(c, t.turma_id or t.front_end_id) for t in await _do_periodo(c, periodo)]
+    return await _por_turma(c, await _do_periodo(c, periodo), lambda s, t: notas(s, t.turma_id or t.front_end_id))
 
 
 async def frequencia_todas(c: SigaaClient, periodo: str | None = None) -> list[FrequenciaResumo]:
-    out = []
-    for t in await _do_periodo(c, periodo):
-        f = await frequencia(c, t.turma_id or t.front_end_id)
-        out.append(FrequenciaResumo(turma_id=t.turma_id, codigo=t.codigo, nome=t.nome, frequencia=f))
-    return out
+    turmas = await _do_periodo(c, periodo)
+    freqs = await _por_turma(c, turmas, lambda s, t: frequencia(s, t.turma_id or t.front_end_id))
+    return [FrequenciaResumo(turma_id=t.turma_id, codigo=t.codigo, nome=t.nome, frequencia=f) for t, f in zip(turmas, freqs)]
 
 
 async def tarefas_pendentes(c: SigaaClient, *, incluir_encerradas: bool = False) -> list[TarefaPendente]:
     """Tarefas das turmas do semestre atual ainda não enviadas (com prazo aberto, a menos que incluir_encerradas)."""
     agora = datetime.now()
     out = []
-    for t in await _do_periodo(c):
-        try:
-            lista = await tarefas(c, t.turma_id or t.front_end_id)
-        except NaoEncontrado:
-            continue
-        for tf in lista:
+    turmas = await _do_periodo(c)
+    listas = await _por_turma(c, turmas, lambda s, t: tarefas(s, t.turma_id or t.front_end_id), pular_nao_encontrado=True)
+    for t, lista in zip(turmas, listas):
+        for tf in lista or []:
             if tf.enviada:
                 continue
             if not incluir_encerradas and tf.fim and tf.fim < agora:
@@ -440,12 +473,10 @@ async def tarefas_pendentes(c: SigaaClient, *, incluir_encerradas: bool = False)
 async def avaliacoes_todas(c: SigaaClient, periodo: str | None = None) -> list[AvaliacaoAgendada]:
     """Calendário de provas: datas de avaliação de todas as turmas do semestre, em ordem de data."""
     out = []
-    for t in await _do_periodo(c, periodo):
-        try:
-            lista = await avaliacoes(c, t.turma_id or t.front_end_id)
-        except NaoEncontrado:
-            continue
-        for a in lista:
+    turmas = await _do_periodo(c, periodo)
+    listas = await _por_turma(c, turmas, lambda s, t: avaliacoes(s, t.turma_id or t.front_end_id), pular_nao_encontrado=True)
+    for t, lista in zip(turmas, listas):
+        for a in lista or []:
             out.append(AvaliacaoAgendada(**a.model_dump(), turma_id=t.turma_id, turma_codigo=t.codigo, turma_nome=t.nome))
     out.sort(key=lambda x: (x.data is None, x.data or datetime.min.date(), x.hora or ""))
     return out

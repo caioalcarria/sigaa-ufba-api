@@ -40,6 +40,27 @@ class Config:
     MAX_SESSOES_POR_USUARIO: int = int(_num("SIGAA_API_MAX_SESSOES_POR_USUARIO", 5))
     #: tentativas de login por IP numa janela de 10 min (anti força-bruta)
     MAX_LOGINS_POR_IP: int = int(_num("SIGAA_API_MAX_LOGINS_POR_IP", 20))
+    # ---- pool de sessões SIGAA por aluno (navegação em paralelo) ----
+    #: máximo de sessões SIGAA (JSESSIONIDs) simultâneas por token. 1 = sem paralelismo (como antes).
+    POOL_MAX: int = int(_num("SIGAA_API_POOL_MAX", 4))
+    #: quantas sessões deixar prontas logo após o login (abertas em segundo plano; inclui a do login)
+    POOL_AQUECER: int = int(_num("SIGAA_API_POOL_AQUECER", 2))
+    #: no paralelo, só abre sessão nova se houver ao menos N fluxos na fila por sessão nova
+    POOL_TAREFAS_POR_SESSAO: int = int(_num("SIGAA_API_POOL_TAREFAS_POR_SESSAO", 2))
+    #: só abre sessão extra se o SIGAA estiver com menos que esta fração do teto global em voo
+    POOL_PRESSAO_MAX: float = _num("SIGAA_API_POOL_PRESSAO_MAX", 0.5)
+    #: quantas navegações a página do portal/turmas.jsf pode ser reaproveitada antes de ser baixada de
+    #: novo (o MyFaces do SIGAA UFBA guarda as 10 últimas views da sessão: uma página sobrevive a 9
+    #: navegações e morre na 10ª; 8 deixa margem). 0 = sempre baixa (comportamento antigo).
+    REUSAR_VIEWS: int = int(_num("SIGAA_API_REUSAR_VIEWS", 8))
+    #: intervalo mínimo entre requisições de UMA sessão (segundos)
+    MIN_INTERVALO: float = _num("SIGAA_API_MIN_INTERVALO", 0.25)
+    #: teto GLOBAL de requisições simultâneas ao SIGAA (todas as sessões de todos os alunos)
+    MAX_CONCORRENCIA_SIGAA: int = int(_num("SIGAA_API_MAX_CONCORRENCIA_SIGAA", 64))
+    #: conexões HTTP keep-alive compartilhadas entre as sessões
+    MAX_CONEXOES: int = int(_num("SIGAA_API_MAX_CONEXOES", 128))
+    #: negociar HTTP/2 com o SIGAA (o da UFBA só fala HTTP/1.1; deixe false)
+    HTTP2: bool = _bool("SIGAA_API_HTTP2", False)
     #: origens liberadas no CORS (vírgula). "*" libera tudo.
     CORS: list[str] = [o.strip() for o in os.getenv("SIGAA_API_CORS", "*").split(",") if o.strip()]
 
