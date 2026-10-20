@@ -16,6 +16,7 @@ próprio sistema gerou. Por isso este cliente:
 from __future__ import annotations
 
 import asyncio
+import os
 import re
 import time
 from dataclasses import dataclass, field
@@ -34,7 +35,8 @@ from .errors import (
     SistemaIndisponivel,
 )
 
-BASE_URL = "https://sigaa.ufba.br"
+#: endereço do SIGAA — ``SIGAA_URL`` no ambiente vale também pros clientes anônimos (rotas /v1/publico)
+BASE_URL = os.getenv("SIGAA_URL", "https://sigaa.ufba.br")
 USER_AGENT = (
     "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) "
     "Chrome/130.0 Safari/537.36 sigaa-api"
