@@ -134,13 +134,6 @@ def montar_chave(pol: Politica, path: str, q: list[tuple[str, str]], usuario_has
 
 
 # ------------------------------------------------------------------ identidade
-def _viva(sess, agora: float) -> bool:
-    """A sessão ainda vale: nem vencida (``expira_em``) nem ociosa além de ``TOKEN_OCIOSO_MIN``."""
-    from .config import config
-
-    return sess is not None and agora <= sess.expira_em and agora - sess.ultimo_uso <= config.TOKEN_OCIOSO_MIN * 60
-
-
 async def identificar(headers: dict[str, str], *, tocar: bool = True) -> str | None:
     """Hash do aluno dono do ``Authorization`` — só se a sessão existe e é válida (nem vencida nem
     ociosa). ``tocar=True`` conta como uso da sessão (o HIT mantém o token vivo como a rota manteria)."""
@@ -151,26 +144,18 @@ async def identificar(headers: dict[str, str], *, tocar: bool = True) -> str | N
     if not valor:
         return None
     ger = S.gerenciador
-    agora = time.time()
     if esquema == "bearer":
-        if tocar:
-            sess = await ger.obter(valor)
-        else:
-            sess = ger._sessoes.get(S._hash(valor))
-            if not _viva(sess, agora):
-                sess = None
+        sess = await ger.obter(valor) if tocar else ger.espiar(valor)  # espiar: valida também a ociosidade
         return getattr(sess, "usuario_hash", None)
     if esquema == "basic":
         try:
             usuario, _, senha = base64.b64decode(valor).decode("utf-8").partition(":")
         except Exception:  # noqa: BLE001
             return None
-        sess = ger._sessoes.get("basic:" + S._hash(f"{usuario}\x00{senha}"))  # só se a senha já foi validada
-        if not _viva(sess, agora):
-            return None
-        if tocar:
-            sess.ultimo_uso = agora
-        return sess.usuario_hash
+        sess = ger.espiar_basic(usuario, senha)  # só se a senha já foi validada (chave = HMAC do processo)
+        if sess is not None and tocar:
+            sess.ultimo_uso = time.time()  # o HIT conta como uso, como a rota contaria
+        return getattr(sess, "usuario_hash", None)
     return None
 
 
@@ -451,6 +436,12 @@ class CacheHTTP:
         uh = await identificar(h, tocar=False) or _dono_do_token(h)  # token vencido/ocioso também limpa
         await self.app(scope, receive, send)
         if uh:
+            # o passo de pré-aquecimento em curso morre aqui (senão terminava DEPOIS da limpeza e regravava
+            # dado do aluno); a fila dele vê a sessão encerrada e para
+            passo = self._passo.get(uh)
+            if passo is not None and not passo[1].done():
+                passo[1].cancel()
+                await asyncio.gather(passo[1], return_exceptions=True)
             await cache.limpar_aluno(uh)
 
     async def _preaquecer(self, base: dict, token: str) -> None:

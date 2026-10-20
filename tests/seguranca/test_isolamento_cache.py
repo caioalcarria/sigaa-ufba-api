@@ -85,6 +85,8 @@ def _app(ch: dict[str, int], portao: asyncio.Event | None = None) -> FastAPI:
 
 
 class _PoolFalso:
+    sessoes: list = []
+
     async def fechar(self) -> None:
         pass
 
@@ -107,6 +109,7 @@ def limpo(monkeypatch):
         raise HTTPException(401, detail={"codigo": "credenciais_invalidas", "mensagem": "teste"})
 
     monkeypatch.setattr(S.gerenciador, "criar", criar_recusa)
+    monkeypatch.setattr(config, "PERMITIR_BASIC", True)  # (desligado por padrão) — os testes de Basic precisam dele
     SC.cache.usar(SC.Memoria())
     SC.cache.ligado = True
     getattr(SC.cache, "_limpo_em", {}).clear()
@@ -248,7 +251,7 @@ def _basic(u: str, s: str) -> dict[str, str]:
 async def test_basic_ocioso_nao_recebe_hit_nem_reaproveita_a_sessao(monkeypatch):
     """ISO-04: a sessão Basic ociosa além de TOKEN_OCIOSO_MIN ainda servia HIT (e a rota a
     reaproveitava). Agora ela é tratada como expirada: a credencial é validada de novo."""
-    chave = "basic:" + S._hash("fulano\x00senha-ficticia")
+    chave = S.chave_basic("fulano", "senha-ficticia")
     _sessao("", "aluno-a", chave=chave, ocioso_s=config.TOKEN_OCIOSO_MIN * 60 + 5)
     criadas: list[str] = []
 
@@ -266,7 +269,7 @@ async def test_basic_ocioso_nao_recebe_hit_nem_reaproveita_a_sessao(monkeypatch)
 
 
 async def test_basic_ativo_recebe_hit_e_conta_como_uso():
-    chave = "basic:" + S._hash("fulano\x00senha-ficticia")
+    chave = S.chave_basic("fulano", "senha-ficticia")
     sess = _sessao("", "aluno-a", chave=chave, ocioso_s=60)
     antes = sess.ultimo_uso
     ch: dict[str, int] = {}

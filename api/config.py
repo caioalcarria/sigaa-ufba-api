@@ -33,13 +33,21 @@ class Config:
     KEEPALIVE_JANELA_MIN: float = _num("SIGAA_API_KEEPALIVE_JANELA_MIN", 60)
     #: permitir "lembrar" (guardar a senha cifrada em memória pra relogar sozinho)
     PERMITIR_LEMBRAR: bool = _bool("SIGAA_API_PERMITIR_LEMBRAR", True)
-    #: aceitar Authorization: Basic usuario:senha (cria/reaproveita sessão por credencial)
-    PERMITIR_BASIC: bool = _bool("SIGAA_API_PERMITIR_BASIC", True)
+    #: aceitar Authorization: Basic usuario:senha (cria/reaproveita sessão por credencial). Desligado por
+    #: padrão: a senha viaja em TODA requisição (logs de proxy, histórico do shell, apps que guardam o
+    #: header). Pra scripts locais, religue com SIGAA_API_PERMITIR_BASIC=true.
+    PERMITIR_BASIC: bool = _bool("SIGAA_API_PERMITIR_BASIC", False)
     #: limites de sessões
     MAX_SESSOES: int = int(_num("SIGAA_API_MAX_SESSOES", 500))
     MAX_SESSOES_POR_USUARIO: int = int(_num("SIGAA_API_MAX_SESSOES_POR_USUARIO", 5))
     #: tentativas de login por IP numa janela de 10 min (anti força-bruta)
     MAX_LOGINS_POR_IP: int = int(_num("SIGAA_API_MAX_LOGINS_POR_IP", 20))
+    #: logins ERRADOS por usuário (qualquer IP) dentro da janela abaixo; estourou = 429 sem ir ao SIGAA
+    #: (força bruta distribuída não chega à conta do aluno). 0 = sem limite por usuário
+    MAX_FALHAS_POR_USUARIO: int = int(_num("SIGAA_API_MAX_FALHAS_POR_USUARIO", 5))
+    JANELA_FALHAS_USUARIO_MIN: float = _num("SIGAA_API_JANELA_FALHAS_USUARIO_MIN", 15)
+    #: no boot: sem core dump e sem ptrace de outro processo (a memória tem tokens e senhas cifradas)
+    SEM_CORE_DUMP: bool = _bool("SIGAA_API_SEM_CORE_DUMP", True)
     # ---- pool de sessões SIGAA por aluno (navegação em paralelo) ----
     #: máximo de sessões SIGAA (JSESSIONIDs) simultâneas por token. 1 = sem paralelismo (como antes).
     POOL_MAX: int = int(_num("SIGAA_API_POOL_MAX", 4))
@@ -71,6 +79,19 @@ class Config:
     PARSE_PROCESSOS: int | None = int(os.environ["SIGAA_PARSE_PROCESSOS"]) if os.getenv("SIGAA_PARSE_PROCESSOS") else None
     #: prazo total de uma requisição na API (s); estourou = 504 e a navegação é cancelada
     TIMEOUT_REQUISICAO_S: float = _num("SIGAA_API_TIMEOUT_S", 120)
+    #: /v1/status é público e faz um GET no SIGAA a cada chamada; sem isto um atacante usa a API pra
+    #: martelar a UFBA. O resultado da sondagem fica em cache por N segundos (0 = sem cache).
+    STATUS_CACHE_S: float = _num("SIGAA_API_STATUS_CACHE_S", 10)
+    # ---- limites de concorrência da API (anti-DoS por abuso; ver api/limites.py) ----
+    #: máximo de requisições EM VOO ao mesmo tempo por token (ou por IP nas rotas logadas sem Bearer);
+    #: excedeu → 429 muitas_tentativas. 0 = desliga.
+    CONC_POR_TOKEN: int = int(_num("SIGAA_API_CONC_POR_TOKEN", 6))
+    #: máximo de requisições em voo por IP nas rotas públicas /v1/publico/*; excedeu → 429. 0 = desliga.
+    CONC_POR_IP: int = int(_num("SIGAA_API_CONC_POR_IP", 8))
+    #: máximo de requisições em voo na API inteira; a mais espera CONC_ESPERA_S e senão → 503. 0 = desliga.
+    CONC_GLOBAL: int = int(_num("SIGAA_API_CONC_GLOBAL", 128))
+    #: quanto uma requisição espera por vaga no teto global antes de 503 sigaa_ocupado (s)
+    CONC_ESPERA_S: float = _num("SIGAA_API_CONC_ESPERA_S", 20)
     #: comprimir respostas JSON maiores que isso (bytes) com gzip quando o cliente aceita; 0 = desliga
     GZIP_MIN_BYTES: int = int(_num("SIGAA_API_GZIP_MIN_BYTES", 2048))
     #: limiares do coletor de lixo (gc.set_threshold) — o padrão do Python é 700,10,10
