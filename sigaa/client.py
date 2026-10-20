@@ -156,6 +156,13 @@ class MenuItem:
     form_id: str
 
 
+def eh_portal(page: "Page") -> bool:
+    """A resposta é a página inicial do Portal do Discente? (é o que o SIGAA devolve quando o
+    clique veio de uma view que ele já descartou)."""
+    h = page.html if page.is_html else ""
+    return 'id="turmas-portal"' in h or ("menu_form_menu_discente" in h and 'id="portal-docente"' in h)
+
+
 def form_fields(form) -> dict[str, str]:
     """Campos que um navegador enviaria ao submeter ``form`` (sem os botões)."""
     data: dict[str, str] = {}
@@ -206,8 +213,11 @@ class _Transporte(httpx.AsyncBaseTransport):
         pass
 
 
-def transporte(*, http2: bool = False, max_conexoes: int = 200, keepalive: int = 100, keepalive_s: float = 30.0) -> httpx.AsyncHTTPTransport:
-    """Transporte httpx pra compartilhar entre sessões (``SigaaClient(transport=...)``)."""
+def transporte(*, http2: bool = False, max_conexoes: int = 200, keepalive: int = 100, keepalive_s: float = 4.5) -> httpx.AsyncHTTPTransport:
+    """Transporte httpx pra compartilhar entre sessões (``SigaaClient(transport=...)``).
+
+    O SIGAA UFBA fala só HTTP/1.1 (ALPN recusa h2) e fecha conexão ociosa em 5 s
+    (``Keep-Alive: timeout=5``), daí ``keepalive_s`` = 4,5. Conexão nova custa ~0,1 s de TCP+TLS."""
     return httpx.AsyncHTTPTransport(
         http2=http2,
         limits=httpx.Limits(max_connections=max_conexoes, max_keepalive_connections=keepalive, keepalive_expiry=keepalive_s),
@@ -360,6 +370,7 @@ class SigaaClient:
             raise SistemaIndisponivel(f"SIGAA não respondeu: {e}") from e
         finally:
             self._ultimo = time.monotonic()
+        self.navegacoes += len(r.history)  # cada redirect seguido também pode virar uma view
         self.ultimo_uso = time.time()
         if r.status_code >= 500:
             raise SistemaIndisponivel(f"SIGAA respondeu HTTP {r.status_code}")
@@ -451,11 +462,17 @@ class SigaaClient:
 
     async def pagina(self, path: str, *, reusar: bool = True) -> Page:
         """GET de uma tela de PARTIDA (portal, turmas.jsf) que pode ser reaproveitada enquanto o
-        ViewState dela continua guardado no servidor (o JSF guarda as N últimas views da sessão).
-        Só reaproveita se ``reusar_views`` > 0 e se houve menos de ``reusar_views`` navegações nesta
-        sessão desde que a página foi baixada."""
+        ViewState dela continua guardado no servidor. O MyFaces do SIGAA (estado no servidor) guarda
+        as 10 últimas views da sessão; uma view que saiu da janela NÃO dá erro: o SIGAA ignora o
+        clique e devolve o portal. Por isso a conta é conservadora: só reaproveita se houve menos de
+        ``reusar_views`` requisições nesta sessão desde o último uso da página (toda requisição conta
+        como view, até as que não são JSF, e cada redirect conta mais uma)."""
         hit = self._paginas.get(path) if reusar and self.reusar_views > 0 else None
         if hit and self.navegacoes - hit[0] < self.reusar_views and time.monotonic() - hit[1] < 600:
+            # quem pede a página vai usá-la já (clique): usar uma view a torna a MAIS RECENTE do
+            # servidor de novo (medido: 25 reusos seguidos da mesma view funcionam), então a contagem
+            # recomeça a partir desse clique.
+            self._paginas[path] = (self.navegacoes + 1, hit[1], hit[2])
             return hit[2]
         page = await self.get(path)
         self._paginas[path] = (self.navegacoes, time.monotonic(), page)
@@ -590,12 +607,16 @@ class SigaaClient:
         reusado = portal is None and self.reusar_views > 0 and URL_PORTAL in self._paginas
         portal = portal or await self.pagina(URL_PORTAL)
         try:
-            return await self._disparar_menu(portal, acao)
+            page = await self._disparar_menu(portal, acao)
         except NavegacaoInvalida:
             if not reusado:
                 raise
+            page = None
+        if reusado and (page is None or eh_portal(page)):
+            # a view reaproveitada já tinha saído da janela do servidor (ele devolve o portal): baixa e repete
             self._paginas.pop(URL_PORTAL, None)
-            return await self._disparar_menu(await self.portal(), acao)
+            page = await self._disparar_menu(await self.portal(), acao)
+        return page
 
     async def _disparar_menu(self, portal: Page, acao: str) -> Page:
         itens = portal.menu_items()

@@ -126,6 +126,11 @@ async def abrir_turma(c: SigaaClient, turma_id: int | str) -> Page:
     if link is None:
         raise NaoEncontrado(f"A turma {turma_id} não aparece na lista de turmas virtuais.")
     tv = await c.clicar(pag, link)
+    if "formMenu" not in tv.html and c.reusar_views:
+        # a lista reaproveitada pode ter saído da janela de views do servidor: baixa de novo e repete
+        pag = await c.pagina(URL_TURMAS, reusar=False)
+        link = next((ln for ln in pag.links_jsf() if ln.params.get("frontEndIdTurma") == r.front_end_id), link)
+        tv = await c.clicar(pag, link)
     if "formMenu" not in tv.html:
         msgs = P.mensagens(tv.html)
         raise NavegacaoInvalida("Não foi possível abrir a turma virtual" + (f": {msgs[0]}" if msgs else "."))

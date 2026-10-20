@@ -277,7 +277,7 @@ PORTAL = (
 )
 
 
-def _sigaa_falso(log: list, recusar_vs: set[str] | None = None):
+def _sigaa_falso(log: list, recusar_vs: set[str] | None = None, como_portal: bool = False):
     n = {"v": 0}
 
     def handler(req: httpx.Request) -> httpx.Response:
@@ -288,9 +288,11 @@ def _sigaa_falso(log: list, recusar_vs: set[str] | None = None):
         if req.url.path == "/sigaa/portais/discente/discente.jsf":
             corpo = req.content.decode()
             if recusar_vs and any(f"ViewState={v}" in corpo for v in recusar_vs):
+                if como_portal:  # o SIGAA real: view fora da janela → ignora o clique e devolve o portal
+                    return httpx.Response(200, html=PORTAL.format(n=99).replace("<body>", '<body><div id="turmas-portal"></div>'))
                 return httpx.Response(200, html="<p>O endereço digitado não é válido</p>")
             return httpx.Response(200, html="<html>tela do menu</html>")
-        return httpx.Response(404)
+        return httpx.Response(200, html="<html>outra</html>")
 
     return httpx.MockTransport(handler)
 
@@ -299,9 +301,26 @@ def test_menu_reaproveita_o_portal_enquanto_a_view_vale():
     async def main():
         log = []
         c = SigaaClient("http://sigaa.test", transport=_sigaa_falso(log), min_interval=0, reusar_views=3)
-        for _ in range(4):  # GET+POST, POST, POST (2 navegações desde o portal), e a 4a: 3 navegações → baixa de novo
+        for _ in range(4):  # usar a view a renova (é o que o MyFaces faz): 4 menus seguidos = 1 GET do portal
             await c.menu("Atestado")
-        assert [m for m, _ in log] == ["GET", "POST", "POST", "POST", "GET", "POST"]
+        assert [m for m, _ in log] == ["GET", "POST", "POST", "POST", "POST"]
+        for _ in range(3):  # 3 navegações em outras telas: a view do portal sai da janela
+            await c.get("/sigaa/outra")
+        await c.menu("Atestado")
+        assert [m for m, _ in log][-2:] == ["GET", "POST"]
+        await c.close()
+
+    run(main())
+
+
+def test_menu_view_descartada_devolve_portal_e_o_cliente_repete():
+    async def main():
+        log = []
+        c = SigaaClient("http://sigaa.test", transport=_sigaa_falso(log, recusar_vs={"j_id1"}, como_portal=True), min_interval=0, reusar_views=10)
+        await c.portal()  # j_id1: o servidor "esqueceu" essa view e devolve o portal no clique
+        r = await c.menu("Atestado")
+        assert "tela do menu" in r.html
+        assert [m for m, _ in log] == ["GET", "POST", "GET", "POST"]
         await c.close()
 
     run(main())

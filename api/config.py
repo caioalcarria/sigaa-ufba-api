@@ -57,7 +57,7 @@ class Config:
     MAX_CONCORRENCIA_SIGAA: int = int(_num("SIGAA_API_MAX_CONCORRENCIA_SIGAA", 64))
     #: conexões HTTP keep-alive compartilhadas entre as sessões
     MAX_CONEXOES: int = int(_num("SIGAA_API_MAX_CONEXOES", 128))
-    #: negociar HTTP/2 com o SIGAA (só ajuda se o servidor aceitar)
+    #: negociar HTTP/2 com o SIGAA (o da UFBA só fala HTTP/1.1; deixe false)
     HTTP2: bool = _bool("SIGAA_API_HTTP2", False)
     #: origens liberadas no CORS (vírgula). "*" libera tudo.
     CORS: list[str] = [o.strip() for o in os.getenv("SIGAA_API_CORS", "*").split(",") if o.strip()]
