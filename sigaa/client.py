@@ -17,6 +17,7 @@ próprio sistema gerou. Por isso este cliente:
 from __future__ import annotations
 
 import asyncio
+import logging
 import os
 import re
 import time
@@ -39,6 +40,8 @@ from .errors import (
     SigaaOcupado,
     SistemaIndisponivel,
 )
+
+log = logging.getLogger("sigaa.client")
 
 #: SIGAA alvo. Respeita SIGAA_URL em TODO SigaaClient criado sem base_url (inclusive as sessões
 #: anônimas das rotas públicas) — senão um teste contra o SIGAA simulado vazaria pro SIGAA real.
@@ -197,6 +200,11 @@ class MenuItem:
     rotulo: str
     acao: str
     form_id: str
+
+
+def _sem_usuario(texto: str, usuario: str) -> str:
+    """Pro log: o texto do SIGAA sem o login do aluno e curto."""
+    return (texto.replace(usuario, "<usuario>") if usuario else texto)[:200]
 
 
 def _sai_do_portal(url: str) -> bool:
@@ -765,8 +773,11 @@ class SigaaClient:
         if "Usuário e/ou senha inválidos" in page.html:
             raise CredenciaisInvalidas("Usuário e/ou senha inválidos.")
         if "logar.do" in page.url and 'name="user.senha"' in page.html:
+            # qualquer recusa vira a MESMA mensagem (o texto do SIGAA — "usuário não encontrado",
+            # "bloqueado"... — diria se a conta existe e pode trazer o login); o motivo vai só pro log
             msg = page.soup.select_one(".erros, #painel-erros, .info")
-            raise CredenciaisInvalidas(msg.get_text(" ", strip=True) if msg else "Login recusado pelo SIGAA.")
+            log.info("login recusado pelo SIGAA: %s", _sem_usuario(msg.get_text(" ", strip=True) if msg else "sem mensagem", usuario))
+            raise CredenciaisInvalidas("Usuário e/ou senha inválidos.")
         page = await self._pos_login(page)
         self.logado = True
         self.portal_cache = page if "/portais/discente/" in page.url else None
