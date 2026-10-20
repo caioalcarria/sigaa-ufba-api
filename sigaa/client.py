@@ -208,8 +208,8 @@ Fluxo = Callable[["SigaaClient"], Awaitable[T]]
 
 
 class _Transporte(httpx.AsyncBaseTransport):
-    """Embrulha um transporte httpx COMPARTILHADO (várias sessões, uma piscina de conexões
-    keep-alive): fechar um cliente não fecha as conexões dos outros."""
+    """Embrulha um transporte httpx de OUTRO dono (``SigaaClient(transport=...)``): fechar o cliente
+    não fecha o transporte."""
 
     def __init__(self, inner: httpx.AsyncBaseTransport) -> None:
         self.inner = inner
@@ -221,14 +221,29 @@ class _Transporte(httpx.AsyncBaseTransport):
         pass
 
 
-def transporte(*, http2: bool = False, max_conexoes: int = 200, keepalive: int = 100, keepalive_s: float = 4.5) -> httpx.AsyncHTTPTransport:
-    """Transporte httpx pra compartilhar entre sessões (``SigaaClient(transport=...)``).
+_SSL: Any = None
 
-    O SIGAA UFBA fala só HTTP/1.1 (ALPN recusa h2) e fecha conexão ociosa em 5 s
-    (``Keep-Alive: timeout=5``), daí ``keepalive_s`` = 4,5. Conexão nova custa ~0,1 s de TCP+TLS."""
+
+def ssl_compartilhado() -> Any:
+    """UM contexto SSL pro processo (criar um por cliente custa CPU e memória a cada sessão nova)."""
+    global _SSL
+    if _SSL is None:
+        _SSL = httpx.create_ssl_context()
+    return _SSL
+
+
+def transporte(*, http2: bool = False, max_conexoes: int = 4, keepalive: int | None = None, keepalive_s: float = 4.5) -> httpx.AsyncHTTPTransport:
+    """Transporte httpx de UMA sessão (é o padrão de cada ``SigaaClient``).
+
+    Um transporte por sessão, e não um compartilhado entre todas: a piscina de conexões do httpcore
+    degrada com muita requisição simultânea (medido, servidor de 150 ms: C=64 → 356 req/s nos dois
+    desenhos; C=200 → compartilhado 76 req/s × um por sessão 793 req/s). O contexto SSL é que é
+    compartilhado. O SIGAA UFBA fala só HTTP/1.1 (ALPN recusa h2) e fecha conexão ociosa em 5 s
+    (``Keep-Alive: timeout=5``), daí ``keepalive_s`` = 4,5; conexão nova custa ~0,1 s de TCP+TLS."""
     return httpx.AsyncHTTPTransport(
         http2=http2,
-        limits=httpx.Limits(max_connections=max_conexoes, max_keepalive_connections=keepalive, keepalive_expiry=keepalive_s),
+        verify=ssl_compartilhado(),
+        limits=httpx.Limits(max_connections=max_conexoes, max_keepalive_connections=keepalive or max_conexoes, keepalive_expiry=keepalive_s),
         retries=1,
     )
 
@@ -291,6 +306,7 @@ class SigaaClient:
         cookies: dict[str, str] | None = None,
         transport: httpx.AsyncBaseTransport | None = None,
         http2: bool = False,
+        conexoes: int = 4,
         compartilhado: Compartilhado | None = None,
         limite: Carga | asyncio.Semaphore | None = None,
         reusar_views: int = 0,
@@ -299,7 +315,8 @@ class SigaaClient:
         req/s). ``folga``: pausa mínima entre o FIM de uma requisição e o início da próxima. Com o SIGAA
         respondendo em ~0,45 s, quem manda é a folga — a espera por viagem cai de 0,25 s (o antigo
         min_interval contado do fim) pra 0,15 s, sem nunca disparar colado na resposta anterior.
-        ``transport``: transporte httpx compartilhado (keep-alive entre sessões; ver ``transporte()``).
+        ``transport``: transporte httpx de outro dono (testes); sem ele cada sessão cria o seu (``transporte()``,
+        ``conexoes`` conexões keep-alive, contexto SSL compartilhado).
         ``compartilhado``: memo/dados do aluno divididos entre as sessões do pool.
         ``limite``: teto GLOBAL de requisições simultâneas ao SIGAA (``Carga``; protege o SIGAA).
         ``reusar_views``: quantas navegações uma página GET (portal, turmas.jsf) pode ser reaproveitada
@@ -311,8 +328,7 @@ class SigaaClient:
             timeout=timeout,
             follow_redirects=True,
             cookies=cookies,
-            transport=_Transporte(transport) if transport is not None else None,
-            http2=http2 if transport is None else False,
+            transport=_Transporte(transport) if transport is not None else transporte(http2=http2, max_conexoes=conexoes),
         )
         self.lock = asyncio.Lock()
         self._credenciais = credenciais

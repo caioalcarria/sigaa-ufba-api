@@ -27,9 +27,9 @@ TEMPO (várias sessões do aluno) e MENOS viagens (reaproveitar o ViewState, nã
 | arquivo | mudança |
 |---|---|
 | `sigaa/pool.py` (novo) | `PoolSigaa`: as sessões do aluno. `executar(fluxo)` na 1ª sessão livre; `paralelo(fluxos)` espalha fluxos independentes; sessões novas sob demanda (login em 2º plano) até `maximo`, só se a fila compensa o login e o SIGAA está folgado (`Carga.pressao`); relogin por sessão; sessão extra que cai sem credencial sai do pool e o fluxo dela vai pra outra |
-| `sigaa/client.py` | `c.paralelo([...])` (sem pool = serial, mesmo resultado); `Compartilhado` (memo + dados do aluno entre as sessões) e **singleflight** no `memo`; `c.pagina(path)` + `menu()` reaproveitando o ViewState do portal (conta conservadora de navegações, renovação no uso, detecção de "voltou pro portal" → baixa e repete); transporte httpx **compartilhado** (keep-alive 4,5 s) e `Carga` (teto global de requisições ao SIGAA) |
+| `sigaa/client.py` | `c.paralelo([...])` (sem pool = serial, mesmo resultado); `Compartilhado` (memo + dados do aluno entre as sessões) e **singleflight** no `memo`; `c.pagina(path)` + `menu()` reaproveitando o ViewState do portal (conta conservadora de navegações, renovação no uso, detecção de "voltou pro portal" → baixa e repete); **um transporte httpx por sessão** (keep-alive 4,5 s, contexto SSL compartilhado) e `Carga` (teto global de requisições ao SIGAA) |
 | `api/sessions.py` | token → pool (a sessão do login + extras); aquecimento de `POOL_AQUECER` sessões logo após o login; sem `lembrar` a senha cifrada só vive até o aquecimento acabar; keep-alive e logout do pool inteiro |
-| `api/config.py` | `POOL_MAX` (4), `POOL_AQUECER` (2), `POOL_TAREFAS_POR_SESSAO` (2), `POOL_PRESSAO_MAX` (0,5), `REUSAR_VIEWS` (8), `MIN_INTERVALO` (0,3 s entre INÍCIOS), `MIN_FOLGA` (0,15 s depois do FIM), `MAX_CONCORRENCIA_SIGAA` (64), `MAX_CONEXOES` (128), `HTTP2` (false) |
+| `api/config.py` | `POOL_MAX` (4), `POOL_AQUECER` (2), `POOL_TAREFAS_POR_SESSAO` (2), `POOL_PRESSAO_MAX` (0,5), `REUSAR_VIEWS` (8), `MIN_INTERVALO` (0,3 s entre INÍCIOS), `MIN_FOLGA` (0,15 s depois do FIM), `MAX_CONCORRENCIA_SIGAA` (64), `CONEXOES_POR_SESSAO` (4), `HTTP2` (false) |
 | `sigaa/services/turma_virtual.py` | agregadas (`notas_todas`, `frequencia_todas`, `tarefas_pendentes`, `avaliacoes_todas`) em paralelo, uma turma por sessão; lista de turmas memorizada 10 min (`_do_periodo`); `turmas.jsf` × lista mobile em paralelo; `abrir_turma` reaproveita `turmas.jsf`; mapa idTurma↔frontEnd em `c.dados` (era `c.__dict__`) |
 | `sigaa/services/academico.py` | `resultados_processamento`: os GETs `relatorioProcessamento` em paralelo |
 | `sigaa/services/planejamento.py` | pré-requisitos (`view_painel` por componente) em paralelo; grade × oferta em paralelo |
@@ -113,6 +113,22 @@ o portal reaproveitado depois da turma virtual levava o menu pra `/ava/index.jsf
 processamento) — corrigido: navegar em `/ava/` ou `/mobile/` descarta o portal guardado, e menu que
 cai lá é repetido com portal novo.
 
+### Transporte: um por sessão, não um compartilhado (achado da bancada)
+
+A piscina de conexões do httpcore degrada com muita requisição simultânea. Microbench (servidor local de
+150 ms, N sessões `SigaaClient`): C=16 → 103 × 99 req/s · C=64 → 356 × 360 · **C=200 → compartilhado 76 ×
+um por sessão 793 req/s**. Por isso cada sessão tem o seu `AsyncHTTPTransport` (4 conexões), e só o contexto
+SSL é dividido. Simulado, `/v1/notas`:
+
+| cenário | transporte compartilhado | um por sessão |
+|---|--:|--:|
+| 50 alunos × 50, teto 64 | p50 8,32 s · 5,5 req/s | p50 7,17 s · 5,7 req/s |
+| 200 × 200, teto 256 | p50 45,1 s · 3,9 req/s (pico no SIGAA: 128) | p50 27,3 s · 7,0 req/s (pico 256) |
+| 200 × 200, teto 64 (padrão) | — | p50 31,8 s · 5,3 req/s, 0 erro |
+
+O teto padrão continua 64 pra proteger o SIGAA real (a capacidade dele com centenas de sessões não foi
+medida); `SIGAA_API_MAX_CONCORRENCIA_SIGAA` sobe se o SIGAA aguentar.
+
 ## Riscos e limites
 
 * **Mais logins no SIGAA**: cada login da API vira 2 logins (aquecimento) e até 4 sob demanda. Some
@@ -127,5 +143,5 @@ cai lá é repetido com portal novo.
   pool. A principal caindo → 401 `sessao_expirada`, como antes.
 * `c.paralelo` exige fluxos INDEPENDENTES (cada um começa do zero na sua sessão; nada de passar uma
   `Page` de uma sessão pra outra).
-* O transporte compartilhado ignora `HTTPS_PROXY` do ambiente (transporte próprio); o alvo continua
-  sendo `SIGAA_URL`.
+* O transporte próprio de cada sessão ignora `HTTPS_PROXY` do ambiente (a trava "buraco negro" do
+  lançador da bancada não vale nele); o alvo continua sendo `SIGAA_URL`.

@@ -60,8 +60,8 @@ class Config:
     MIN_FOLGA: float = _num("SIGAA_API_MIN_FOLGA", 0.15)
     #: teto GLOBAL de requisições simultâneas ao SIGAA (todas as sessões de todos os alunos)
     MAX_CONCORRENCIA_SIGAA: int = int(_num("SIGAA_API_MAX_CONCORRENCIA_SIGAA", 64))
-    #: conexões HTTP keep-alive compartilhadas entre as sessões
-    MAX_CONEXOES: int = int(_num("SIGAA_API_MAX_CONEXOES", 128))
+    #: conexões HTTP keep-alive de CADA sessão (uma sessão navega uma tela por vez; >1 só pra GETs simultâneos)
+    CONEXOES_POR_SESSAO: int = int(_num("SIGAA_API_CONEXOES_POR_SESSAO", 4))
     #: negociar HTTP/2 com o SIGAA (o da UFBA só fala HTTP/1.1; deixe false)
     HTTP2: bool = _bool("SIGAA_API_HTTP2", False)
     #: origens liberadas no CORS (vírgula). "*" libera tudo.
