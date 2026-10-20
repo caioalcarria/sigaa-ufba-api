@@ -88,6 +88,8 @@ REGRAS: list[tuple[re.Pattern[str], Regra]] = [
         (r"^/v1/publico/", Politica(PUBLICO, 24 * H, 7 * D)),  # cursos, estruturas, componentes, docentes, unidades...
         # ---- compartilhado entre alunos (precisa de login)
         (r"^/v1/consultas/estruturas/\d+/declaracao", Politica(ALUNO, 1 * H, 1 * H)),  # documento emitido
+        # histórico de oferta: período fechado não muda; o TTL só limita o atraso de oferta nova (SWR longo)
+        (r"^/v1/consultas/turmas/historico", Politica(COMPARTILHADO, 6 * H, 7 * D)),
         (r"^/v1/consultas/turmas/\d+", Politica(COMPARTILHADO, 5 * M, 30 * M)),  # vagas/solicitações
         (r"^/v1/consultas/turmas$", Politica(COMPARTILHADO, 10 * M, 1 * H)),
         (r"^/v1/consultas/", Politica(COMPARTILHADO, 24 * H, 7 * D)),

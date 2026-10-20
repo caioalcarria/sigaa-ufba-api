@@ -25,6 +25,7 @@ A tabela `REGRAS` em `api/cache.py` decide. Vale a primeira regex que casar.
 | `/v1/publico/{processos-seletivos,extensao,pesquisa,cursos-abertos,acordos-mobilidade}` | público | 6 h | 1 d |
 | demais `/v1/publico/*` (cursos, estruturas, componentes, docentes, unidades, centros...) | público | 24 h | 7 d |
 | `/v1/consultas/turmas` | compartilhado | 10 min | 1 h |
+| `/v1/consultas/turmas/historico[/lote]` | compartilhado | 6 h | 7 d |
 | `/v1/consultas/turmas/{id}[/processamento]` | compartilhado | 5 min | 30 min |
 | `/v1/consultas/estruturas/{id}/declaracao-prazo-maximo` | aluno (documento emitido) | 1 h | 1 h |
 | demais `/v1/consultas/*`, `/v1/calendario/lista`, `/v1/calendario?ano&periodo` (ou `?id`) | compartilhado | 24 h | 7 d |
@@ -131,7 +132,10 @@ from sigaa.cache import compartilhado
 @compartilhado(ttl=24 * 3600)
 async def minha_consulta(c: SigaaClient, codigo: str) -> MeuModelo: ...
 ```
-Ou ponha `("sigaa.services.x", "minha_consulta", ttl)` em `REGISTRO_COMPARTILHADO`. O `instalar()`,
+Ou ponha `("sigaa.services.x", "minha_consulta", ttl)` em `REGISTRO_COMPARTILHADO`.
+(Exemplo direto no serviço: `sigaa/services/oferta.py` — `turmas_do_componente` e `turmas_reservadas`, 6 h. O histórico
+de um período fechado não muda; os 6 h só limitam o atraso de uma oferta recém-publicada. No L1 a rota tem
+stale-while-revalidate de 7 dias, então depois do TTL a resposta continua instantânea e é refeita em 2º plano.) O `instalar()`,
 chamado no `api/main.py`, troca o atributo do módulo pelo wrapper, sem editar o arquivo do serviço.
 **Só pra função cujo resultado não depende de quem está logado.** O primeiro argumento (a sessão) fica
 fora da chave. O valor é serializado em JSON pelo tipo de retorno anotado, então cada HIT devolve um

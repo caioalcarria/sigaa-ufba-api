@@ -22,6 +22,7 @@ from ..client import SigaaClient
 from ..errors import NaoEncontrado, SessaoExpirada
 from ..models.academico import Historico
 from ..models.consultas import EstruturaDetalhe, TurmaOferta
+from ..models.oferta import OrigemRequisito, PrevisaoComponente, PrevisaoOfertaAluno, RequisitoComponente
 from ..models.planejamento import (
     CargaHorariaGestao,
     Choque,
@@ -38,6 +39,7 @@ from ..models.planejamento import (
 )
 from ..parsers.historico_pdf import APROVADO, REPROVADO, TRANCADO
 from . import academico, consultas
+from . import oferta as OF
 
 TTL_ESTRUTURA = 6 * 3600.0
 TTL_OFERTA = 15 * 60.0
@@ -101,6 +103,65 @@ def avaliar_requisito(expr: str | None, cumpridos: set[str]) -> tuple[bool | Non
         return v, list(dict.fromkeys(falt))
     except Exception:  # noqa: BLE001 - expressão estranha: não arrisca
         return None, []
+
+
+# ------------------------------------------------------- sequência (I → II → III)
+#: sufixo de sequência no FIM do nome: "TCC ... I", "LABORATÓRIO DE ... II", "CÁLCULO 3"
+_SUFIXO_SEQ = re.compile(r"^(.*\S)\s+(VIII|VII|VI|IV|V|III|II|I|[1-8])$")
+_ROMANO = {"I": 1, "II": 2, "III": 3, "IV": 4, "V": 5, "VI": 6, "VII": 7, "VIII": 8}
+_PREFIXO = re.compile(r"^[A-Z]+")
+
+
+def inferir_sequencias(componentes) -> dict[str, str]:
+    """Regra EXPLÍCITA de sequência pra quando o SIGAA não traz o pré-requisito: dois componentes da
+    mesma estrutura com o MESMO nome-base terminado em I/II/III... (ou 1/2/3), o MESMO prefixo de
+    código (letras iniciais: GICC, MATC...) e a MESMA natureza (obrigatório/optativo) formam uma
+    sequência — o de número n vem depois do de número n−1. ``componentes``: objetos com ``codigo``,
+    ``nome`` e ``natureza``. Devolve {código: código do antecessor imediato}."""
+    grupos: dict[tuple[str, str, str], dict[int, str]] = defaultdict(dict)
+    for x in componentes:
+        m = _SUFIXO_SEQ.match(_norm(getattr(x, "nome", None)))
+        pm = _PREFIXO.match((x.codigo or "").upper())
+        if not m or not pm:
+            continue
+        num = _ROMANO.get(m.group(2)) or int(m.group(2))
+        chave = (m.group(1), pm.group(0), _norm(getattr(x, "natureza", None)))
+        grupos[chave].setdefault(num, x.codigo)  # duplicado (mesmo nome e número) → fica o 1º
+    out: dict[str, str] = {}
+    for nums in grupos.values():
+        for n, cod in nums.items():
+            if n > 1 and (n - 1) in nums:
+                out[cod] = nums[n - 1]
+    return out
+
+
+def _codigos_expr(expr: str | None) -> set[str]:
+    return set(_TOKEN.findall((expr or "").upper())) - {"E", "OU", "(", ")"}
+
+
+def montar_requisito(
+    x, pre: str | None, co: str | None, tipo: str | None, lido: bool, antecessor: str | None, cumpridos: set[str]
+) -> RequisitoComponente:
+    """Junta o pré-requisito do SIGAA com a sequência inferida (só quando o SIGAA não cita o antecessor)."""
+    seq = [antecessor] if antecessor and antecessor not in _codigos_expr(pre) else []
+    apto, falt = avaliar_requisito(pre, cumpridos) if lido else (None, [])
+    falt_seq = [a for a in seq if a not in cumpridos]
+    if falt_seq:
+        apto, falt = False, list(dict.fromkeys(falt + falt_seq))
+    return RequisitoComponente(
+        codigo=x.codigo,
+        nome=x.nome,
+        tipo=tipo,
+        natureza=getattr(x, "natureza", None),
+        semestre_ideal=getattr(x, "semestre_ideal", None),
+        pre_requisitos=pre,
+        co_requisitos=co,
+        sequencia_apos=seq,
+        origem_pre_requisitos=OrigemRequisito.sigaa if lido else None,
+        origem_sequencia=OrigemRequisito.inferido if seq else None,
+        apto=apto,
+        faltando=falt,
+    )
 
 
 # ------------------------------------------------------- estrutura do aluno
@@ -243,15 +304,28 @@ async def oferta_do_curso(c: SigaaClient, ano: int | None = None, periodo: int |
     return await c.memo(f"oferta:{cid}:{ano}:{periodo}", TTL_OFERTA, lambda: consultas.buscar_turmas(c, ano=ano, periodo=periodo, curso=cid))
 
 
-async def _requisitos(c: SigaaClient, comp_id: int | None) -> tuple[str | None, str | None]:
+async def _requisitos(c: SigaaClient, comp_id: int | None) -> tuple[str | None, str | None, str | None]:
+    """(pré-requisitos, co-requisitos, tipo) do componente — o painel vem do L2 compartilhado."""
     if not comp_id:
-        return None, None
+        return None, None, None
 
     async def carregar():
         d = await consultas.componente(c, comp_id)
-        return d.pre_requisitos.expressao, d.co_requisitos.expressao
+        return d.pre_requisitos.expressao, d.co_requisitos.expressao, d.tipo
 
     return await c.memo(f"req:{comp_id}", TTL_ESTRUTURA, carregar)
+
+
+def _fluxo_requisitos(comp_id: int | None):
+    async def f(s: SigaaClient):
+        try:
+            return await _requisitos(s, comp_id)
+        except SessaoExpirada:
+            raise  # o pool reloga/troca de sessão
+        except Exception as e:  # noqa: BLE001
+            return e
+
+    return f
 
 
 def _turma_candidata(t: TurmaOferta) -> TurmaCandidata:
@@ -295,32 +369,36 @@ async def planejamento(
 
     # pré-requisitos de TODOS os pendentes da grade (pra calcular o que cada um destrava)
     pendentes = [x for x in na_grade.values() if x.status == StatusComponente.pendente]
-    reqs: dict[str, tuple[str | None, str | None]] = {}
+    reqs: dict[str, tuple[str | None, str | None, str | None]] = {}
     avisos: list[str] = []
+    if ano and periodo and (int(ano), int(periodo)) < OF.PRIMEIRO_PERIODO_RESERVA:
+        avisos.append(
+            f"O SIGAA só registra reserva de vagas por curso a partir de {OF.rotulo(OF.PRIMEIRO_PERIODO_RESERVA)}: "
+            f"a oferta 'pro curso' de {ano}.{periodo} vem vazia. Pra ver o que abriu nesse período, use "
+            "/v1/consultas/turmas?componente=... ou /v1/consultas/turmas/historico."
+        )
     if verificar_requisitos:
         alvos = [x for x in pendentes if x.codigo in por_codigo or x.natureza == "OBRIGATORIO"]
-
-        def fluxo(x):
-            async def f(s: SigaaClient):
-                try:
-                    return await _requisitos(s, x.id)
-                except SessaoExpirada:
-                    raise  # o pool reloga/troca de sessão
-                except Exception as e:  # noqa: BLE001
-                    return e
-
-            return f
-
         # GET direto por componente (view_painel): espalhado pelas sessões do pool, ao mesmo tempo
-        for x, r in zip(alvos, await c.paralelo([fluxo(x) for x in alvos])):
+        for x, r in zip(alvos, await c.paralelo([_fluxo_requisitos(x.id) for x in alvos])):
             if isinstance(r, Exception):
                 avisos.append(f"Não consegui ler os pré-requisitos de {x.codigo}: {r}")
             else:
                 reqs[x.codigo] = r
+    sequencia = inferir_sequencias(na_grade.values())
+    requisitos = {
+        x.codigo: montar_requisito(x, *(reqs[x.codigo] if x.codigo in reqs else (None, None, None)), x.codigo in reqs, sequencia.get(x.codigo), cumpridos)
+        for x in pendentes
+        if x.codigo in reqs or x.codigo in sequencia
+    }
     desbloqueia: dict[str, list[str]] = defaultdict(list)
-    for cod, (pre, _co) in reqs.items():
-        for dep in set(_TOKEN.findall((pre or "").upper())) - {"E", "OU", "(", ")"}:
+    for cod, (pre, _co, _tipo) in reqs.items():
+        for dep in _codigos_expr(pre):
             desbloqueia[dep].append(cod)
+    for cod, r in requisitos.items():
+        for dep in r.sequencia_apos:
+            if cod not in desbloqueia[dep]:
+                desbloqueia[dep].append(cod)
 
     atual = h.vinculo.periodo_letivo_atual
     candidatos = []
@@ -330,8 +408,11 @@ async def planejamento(
             continue
         if cod in aprovados or (cod in cursando and considerar_cursando_como_aprovado):
             continue
-        pre, co = reqs.get(cod, (None, None))
+        pre, co, _tipo = reqs.get(cod, (None, None, None))
         apto, falt = (avaliar_requisito(pre, cumpridos) if cod in reqs else (None, []))
+        req = requisitos.get(cod)
+        if req is not None:
+            apto, falt = req.apto, req.faltando
         candidatos.append(
             ComponenteCandidato(
                 codigo=cod,
@@ -343,6 +424,8 @@ async def planejamento(
                 atrasado=bool(g and g.semestre_ideal and atual and g.semestre_ideal < atual),
                 pre_requisitos=pre,
                 co_requisitos=co,
+                sequencia_apos=req.sequencia_apos if req else [],
+                origem_sequencia=req.origem_sequencia if req else None,
                 apto=apto,
                 faltando=falt,
                 desbloqueia=sorted(desbloqueia.get(cod, [])),
@@ -352,9 +435,19 @@ async def planejamento(
         )
     ordem = {"OBRIGATORIO": 0, "OPTATIVO": 1, "FORA_DA_ESTRUTURA": 2}
     candidatos.sort(key=lambda x: (ordem.get(x.natureza, 3), x.apto is False, x.semestre_ideal or 99, -len(x.desbloqueia), x.codigo))
+    def _atividade(cod: str) -> bool:
+        return _norm(reqs.get(cod, (None, None, None))[2]).startswith("ATIVIDADE")
+
     nao_ofertadas = [x.codigo for x in pendentes if x.natureza == "OBRIGATORIO" and x.codigo not in por_codigo]
-    if nao_ofertadas:
-        avisos.append("Obrigatórias pendentes SEM turma reservada pro curso neste período: " + ", ".join(sorted(nao_ofertadas)))
+    atividades = sorted(x for x in nao_ofertadas if _atividade(x))
+    disciplinas = sorted(x for x in nao_ofertadas if not _atividade(x))
+    if disciplinas:
+        avisos.append("Obrigatórias pendentes SEM turma reservada pro curso neste período: " + ", ".join(disciplinas))
+    if atividades:
+        avisos.append(
+            "Atividades obrigatórias pendentes (não têm turma; a matrícula é pelo colegiado/orientador): " + ", ".join(atividades)
+            + ". Os pré-requisitos delas estão em `requisitos`."
+        )
     t0 = oferta[0] if oferta else None
     return PlanejamentoMatricula(
         ano=t0.ano if t0 else ano,
@@ -365,6 +458,97 @@ async def planejamento(
         ch_pendente=h.carga_horaria,
         candidatos=candidatos,
         total_ofertados_para_o_curso=len(por_codigo),
+        requisitos=sorted(requisitos.values(), key=lambda r: (r.semestre_ideal or 99, r.codigo)),
+        avisos=avisos,
+    )
+
+
+# ------------------------------------------------------- previsão de oferta
+async def previsao_oferta(
+    c: SigaaClient,
+    alvo: str | None = None,
+    desde: str | None = None,
+    incluir_optativas: bool = False,
+    considerar_cursando_como_aprovado: bool = True,
+) -> PrevisaoOfertaAluno:
+    """Pra cada componente PENDENTE da grade do aluno: o padrão histórico de oferta (paridade,
+    frequência, última oferta), a previsão pro ``alvo`` e os pré-requisitos (do SIGAA + sequência
+    inferida). O histórico de cada componente vem do L2 compartilhado (o mesmo pra todo aluno)."""
+    d, a = OF.ler_periodo(desde, "desde"), OF.ler_periodo(alvo, "alvo")
+    h = await academico.historico(c)
+    grade = await grade_curricular(c)
+    aprovados, _, cursando, _ = _indice_historico(h)
+    todos = [x for sm in grade.semestres for x in sm.componentes] + grade.optativas
+    cumpridos = set(aprovados) | {x.codigo for x in todos if x.status == StatusComponente.aprovado}
+    if considerar_cursando_como_aprovado:
+        cumpridos |= cursando
+    pend = [
+        x for x in todos
+        if x.status == StatusComponente.pendente and (incluir_optativas or x.natureza == "OBRIGATORIO")
+    ]
+    pend = list({x.codigo: x for x in pend}.values())
+
+    def fluxo(x):
+        async def f(s: SigaaClient):
+            try:
+                req = await _requisitos(s, x.id)
+            except SessaoExpirada:
+                raise
+            except Exception as e:  # noqa: BLE001
+                req = e
+            try:
+                bruto = await OF.turmas_do_componente(s, OF.normalizar_codigo(x.codigo))
+            except SessaoExpirada:
+                raise
+            except Exception as e:  # noqa: BLE001
+                bruto = e
+            return req, bruto
+
+        return f
+
+    resultados = await c.paralelo([fluxo(x) for x in pend])
+    sequencia = inferir_sequencias(todos)
+    avisos: list[str] = []
+    if d and d < OF.PRIMEIRO_PERIODO:
+        avisos.append(f"O SIGAA da UFBA só tem turmas a partir de {OF.rotulo(OF.PRIMEIRO_PERIODO)}; a janela começa aí.")
+    atual: str | None = None
+    comps: list[PrevisaoComponente] = []
+    for x, (req, bruto) in zip(pend, resultados):
+        lido = not isinstance(req, Exception)
+        pre, co, tipo = req if lido else (None, None, None)
+        if not lido:
+            avisos.append(f"Não consegui ler os pré-requisitos de {x.codigo}: {req}")
+        r = montar_requisito(x, pre, co, tipo, lido, sequencia.get(x.codigo), cumpridos)
+        atividade = _norm(tipo).startswith("ATIVIDADE")
+        if isinstance(bruto, Exception):
+            comps.append(PrevisaoComponente(
+                codigo=x.codigo, nome=x.nome, natureza=x.natureza, semestre_ideal=x.semestre_ideal, tipo=tipo,
+                requisito=r, erro=f"{type(bruto).__name__}: {bruto}",
+            ))
+            continue
+        atual = atual or bruto.periodo_atual
+        hist = OF.montar_historico(bruto, d, a, incluir_turmas=False)
+        sem_turma = atividade and not hist.resumo.periodos_com_oferta
+        prev = hist.previsao
+        if sem_turma and prev is not None:
+            prev = prev.model_copy(update={
+                "provavel": None, "probabilidade": None,
+                "motivo": "ATIVIDADE sem turma (TCC, estágio...): a matrícula é feita pelo colegiado/orientador, não depende de oferta.",
+            })
+        comps.append(PrevisaoComponente(
+            codigo=x.codigo, nome=x.nome, natureza=x.natureza, semestre_ideal=x.semestre_ideal, tipo=tipo,
+            sem_turma=sem_turma, requisito=r, resumo=hist.resumo, previsao=prev,
+        ))
+    alvo_p = a or (OF.proximo(OF.ler_periodo(atual)) if atual else None)
+    alvo_txt = OF.rotulo(alvo_p) if alvo_p else (alvo or "")
+    return PrevisaoOfertaAluno(
+        alvo=alvo_txt,
+        desde=OF.rotulo(max(d or OF.PRIMEIRO_PERIODO, OF.PRIMEIRO_PERIODO)),
+        periodo_atual=atual,
+        componentes=comps,
+        provaveis=[x.codigo for x in comps if x.previsao and x.previsao.provavel is True],
+        improvaveis=[x.codigo for x in comps if x.previsao and x.previsao.provavel is False],
+        sem_historico=[x.codigo for x in comps if x.resumo and not x.resumo.periodos_com_oferta],
         avisos=avisos,
     )
 

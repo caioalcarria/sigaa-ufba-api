@@ -33,6 +33,7 @@ class Pagina(BaseModel, Generic[T]):
     pagina: int = Field(1, description="Página atual (começa em 1).")
     por_pagina: int = Field(50, description="Itens por página.")
     paginas: int = Field(0, description="Total de páginas.")
+    avisos: list[str] = Field(default_factory=list, description="Observações sobre o resultado (ex.: por que veio vazio).")
 
     @classmethod
     def de(cls, itens: list, pagina: int, por_pagina: int) -> "Pagina":

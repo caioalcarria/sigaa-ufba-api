@@ -74,14 +74,22 @@ async def cliente_anonimo() -> AsyncIterator[SigaaClient]:
 
 
 async def _submit(
-    c: SigaaClient, page: Page, form_id: str, extra: dict[str, str] | None = None, botao: tuple[str, str] | None = None
+    c: SigaaClient,
+    page: Page,
+    form_id: str,
+    extra: dict[str, str] | None = None,
+    botao: tuple[str, str] | None = None,
+    remover: tuple[str, ...] = (),
 ) -> Page:
     """Como ``c.submit``, mas com o corpo em ISO-8859-1: o SIGAA decodifica o POST como latin-1 e o httpx
-    manda UTF-8 — sem isso, filtro com acento ('LÓGICA', 'JOSÉ') chega corrompido e a busca volta vazia."""
+    manda UTF-8 — sem isso, filtro com acento ('LÓGICA', 'JOSÉ') chega corrompido e a busca volta vazia.
+    ``remover``: campos que o navegador NÃO mandaria (ex.: um checkbox que vem marcado e o usuário desmarcou)."""
     form = page.form(form_id)
     if form is None:
         raise NavegacaoInvalida(f"Formulário '{form_id}' não está na página.")
     data = form_fields(form)
+    for k in remover:
+        data.pop(k, None)
     if botao:
         data[botao[0]] = botao[1]
     if extra:
