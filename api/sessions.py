@@ -43,6 +43,7 @@ from dataclasses import dataclass, field
 
 from cryptography.fernet import Fernet
 
+from sigaa import cache as sigaa_cache
 from sigaa.client import Carga, SigaaClient, transporte
 from sigaa.errors import CredenciaisInvalidas, SessaoExpirada
 from sigaa.pool import PoolSigaa
@@ -396,11 +397,20 @@ class Gerenciador:
     def _expurgar(self) -> None:
         agora = time.time()
         mortas = [k for k, s in self._sessoes.items() if not s.valida(agora)]
+        alunos: set[str] = set()
         for k in mortas:
             sess = self._sessoes.pop(k)
+            alunos.add(sess.usuario_hash)
             self._esquecer(sess)
             if sess.pool is not None:
                 t = asyncio.create_task(sess.pool.fechar())
+                self._fechando.add(t)
+                t.add_done_callback(self._fechando.discard)
+        # LGPD: token expirado leva junto o cache do aluno (como o logout), se ele não tem outro token vivo
+        if config.CACHE_APAGAR_AO_EXPIRAR and alunos:
+            vivos = {s.usuario_hash for s in self._sessoes.values()}
+            for uh in alunos - vivos:
+                t = asyncio.create_task(sigaa_cache.cache.limpar_aluno(uh))
                 self._fechando.add(t)
                 t.add_done_callback(self._fechando.discard)
 

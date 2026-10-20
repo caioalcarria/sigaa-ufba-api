@@ -1,0 +1,54 @@
+# gitleaks — varredura de segredos (CI: .github/workflows/seguranca.yml; local: `gitleaks git . --log-opts=--all`)
+# Regras padrão do gitleaks + as do projeto. Allowlist só pro que foi TRIADO como falso positivo.
+
+[extend]
+useDefault = true
+
+# --- regras do projeto -------------------------------------------------------------------------
+[[rules]]
+id = "sigaa-jsessionid"
+description = "Cookie de sessão do SIGAA (JSESSIONID) real gravado em arquivo"
+regex = '''(?i)jsessionid\s*[=:]\s*['"]?([0-9A-F]{16,}(?:\.[\w-]+)?)'''
+secretGroup = 1
+keywords = ["jsessionid"]
+  [[rules.allowlists]]
+  description = "fixtures gravadas com o cookie zerado"
+  regexes = ['''^0+$''']
+
+[[rules]]
+id = "sigaa-api-cache-segredo"
+description = "SIGAA_API_CACHE_SEGREDO (chave do cache L2 cifrado) com valor literal"
+regex = '''SIGAA_API_CACHE_SEGREDO\s*[=:]\s*['"]?([^\s'"$<{]{8,})'''
+secretGroup = 1
+keywords = ["sigaa_api_cache_segredo"]
+
+[[rules]]
+id = "sigaa-senha-literal"
+description = "SIGAA_SENHA / senha do aluno com valor literal (scripts/bench leem do ambiente)"
+regex = '''(?i)(?:SIGAA_SENHA|user\.senha)\s*[=:]\s*['"]?([^\s'"$<{&.%][^\s'"$<{&]{3,})'''
+secretGroup = 1
+keywords = ["sigaa_senha", "user.senha"]
+
+[[rules]]
+id = "fernet-token"
+description = "Token Fernet (senha 'lembrar' ou entrada de cache cifrada) gravado em arquivo"
+regex = '''\b(gAAAAA[A-Za-z0-9_-]{60,}={0,2})'''
+secretGroup = 1
+keywords = ["gaaaaa"]
+
+# --- falsos positivos triados ------------------------------------------------------------------
+[[allowlists]]
+description = "key= dos links de arquivo/foto do SIGAA nas páginas gravadas (hash de acesso ao arquivo público, não credencial da API)"
+regexTarget = "match"
+condition = "AND"  # caminho E padrão (o padrão do gitleaks é OR: liberaria o arquivo inteiro)
+paths = ['''^tests/fixtures/.*\.html$''', '''^tests/.*\.py$''']
+regexes = ['''key=[0-9a-f]{32}''']
+
+[[allowlists]]
+description = "placeholders da documentação e valores fictícios dos testes de segurança"
+regexTarget = "line"
+regexes = [
+  '''SEU_TOKEN''',
+  '''FICTICIO''',
+  '''(?i)senha\s*=\s*['"]?errada''',
+]

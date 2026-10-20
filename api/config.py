@@ -96,6 +96,14 @@ class Config:
     GZIP_MIN_BYTES: int = int(_num("SIGAA_API_GZIP_MIN_BYTES", 2048))
     #: limiares do coletor de lixo (gc.set_threshold) — o padrão do Python é 700,10,10
     GC_LIMIARES: tuple[int, ...] = tuple(int(x) for x in os.getenv("SIGAA_API_GC_LIMIARES", "50000,20,20").split(","))
+    #: /v1/status (sem login) mostra os contadores internos (sessões ativas, conexões ao SIGAA em uso,
+    #: processos de parse)? Desligado eles vêm null: é informação de operação, não de cliente, e ajuda
+    #: quem ataca a medir o efeito de uma rajada. Ligue pra monitorar (de preferência atrás de rede privada).
+    STATUS_DETALHADO: bool = _bool("SIGAA_API_STATUS_DETALHADO", False)
+    #: quando um token EXPIRA (TTL/ociosidade), apagar o cache do aluno (L1/L2) junto, como no logout —
+    #: senão o dado pessoal fica até o TTL+stale de cada entrada (até dias). false = mantém (login seguinte
+    #: já acha o cache quente). Ver docs/seguranca/privacidade.md
+    CACHE_APAGAR_AO_EXPIRAR: bool = _bool("SIGAA_API_CACHE_APAGAR_AO_EXPIRAR", True)
     # ---- camada HTTP (ver docs/seguranca/http.md) ----
     #: origens liberadas no CORS (vírgula). Vazio (padrão) = nenhuma: a API é chamada de servidor/script/app,
     #: não do navegador de outro site. "*" libera qualquer origem (nunca junto com credenciais: a API não usa cookie).

@@ -55,7 +55,7 @@ COMPRIMIVEIS = ("json", "text/", "xml", "javascript", "calendar")
 class Entrada:
     """Uma resposta (L1) ou um valor serializado (L2) guardado no cache."""
 
-    corpo: bytes
+    corpo: bytes = field(repr=False)  # pode ser dado de aluno: não vai pra repr/traceback
     criado: float  # time.time() de quando o dado veio do SIGAA
     ttl: float  # segundos de "fresco"
     swr: float = 0.0  # segundos extras em que ainda serve STALE (e revalida em 2º plano)
@@ -303,7 +303,7 @@ class Redis(Backend):
     async def fechar(self) -> None:
         try:
             await self._r.aclose()
-        except Exception:  # noqa: BLE001
+        except Exception:  # noqa: BLE001 - fechar no desligamento é melhor esforço  # nosec B110
             pass
 
 
@@ -345,7 +345,7 @@ class Singleflight:
                 v = await asyncio.shield(f)
                 if v is not _FALHOU:
                     return v
-            except Exception:  # noqa: BLE001 - o líder falhou (ex.: a sessão DELE caiu): tenta por conta própria
+            except Exception:  # noqa: BLE001 - o líder falhou (ex.: a sessão DELE caiu): tenta por conta própria  # nosec B110
                 pass
         f = self.iniciar(chave)
         try:

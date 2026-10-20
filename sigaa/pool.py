@@ -218,7 +218,7 @@ class PoolSigaa:
     async def _fechar_sessao(s: SigaaClient) -> None:
         try:
             await s.logout()
-        except Exception:  # noqa: BLE001
+        except Exception:  # noqa: BLE001 - logout no descarte é melhor esforço  # nosec B110
             pass
         await s.close()
 

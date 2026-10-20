@@ -22,7 +22,7 @@ import functools
 import logging
 import multiprocessing as mp
 import os
-import pickle
+import pickle  # só pra pegar PicklingError; nada vem de fora (o L2 é JSON)  # nosec B403
 from datetime import date, datetime
 from typing import Any, Callable, TypeVar
 
@@ -84,7 +84,7 @@ def _aquecer(pid_api: int | None = None) -> None:
     for m in ("portal", "academico", "turma_virtual", "consultas", "consultas_publico", "historico_pdf"):
         try:
             importlib.import_module(f"sigaa.parsers.{m}")
-        except Exception:  # noqa: BLE001 - parser ausente/quebrado não impede o pool
+        except Exception:  # noqa: BLE001 - parser ausente/quebrado não impede o pool  # nosec B110
             pass
 
 

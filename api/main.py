@@ -27,11 +27,14 @@ from sigaa.client import _ssl_ctx
 from sigaa import cache as sigaa_cache
 
 from . import cache as cache_http
+from . import log_seguro
 from .config import config
 from .seguranca_http import SegurancaHTTP, limitar, mensagem_publica
 from .sessions import gerenciador
 
 log = logging.getLogger("sigaa_api")
+# máscara de segredo/dado pessoal em TODO log do processo (api/log_seguro.py)
+log_seguro.instalar()
 
 DESCRICAO = """
 API **não oficial** e de **somente leitura** pros dados do aluno no SIGAA da UFBA.
@@ -256,8 +259,18 @@ _status_sigaa = _StatusSigaa()
 @app.get("/v1/status", tags=["Sistema"], summary="A API e o SIGAA estão no ar?")
 async def status():
     sigaa_ok, ms = await _status_sigaa.ler()
-    return {"api": "ok", "versao": __version__, "sigaa": {"url": config.SIGAA_URL, "no_ar": sigaa_ok, "latencia_ms": ms}, "sessoes_ativas": gerenciador.total,
-            "servidor": {"processos_de_parse": cpu.ativo(), "conexoes_sigaa_em_uso": _em_voo(), "conexoes_sigaa_max": config.MAX_CONCORRENCIA_SIGAA}}
+    return _corpo_status(sigaa_ok, ms)
+
+
+def _corpo_status(sigaa_ok: bool, ms: int | None) -> dict:
+    """Resposta do /v1/status (rota SEM login). Os contadores internos (sessões ativas, conexões ao SIGAA,
+    processos de parse) só saem com SIGAA_API_STATUS_DETALHADO=true; senão vêm null — os campos do
+    contrato continuam os mesmos. (A sonda cacheada do SIGAA é o ``_StatusSigaa`` acima.)"""
+    det = config.STATUS_DETALHADO
+    return {"api": "ok", "versao": __version__, "sigaa": {"url": config.SIGAA_URL, "no_ar": sigaa_ok, "latencia_ms": ms},
+            "sessoes_ativas": gerenciador.total if det else None,
+            "servidor": {"processos_de_parse": cpu.ativo() if det else None, "conexoes_sigaa_em_uso": _em_voo() if det else None,
+                         "conexoes_sigaa_max": config.MAX_CONCORRENCIA_SIGAA if det else None}}
 
 
 def _em_voo() -> int:

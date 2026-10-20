@@ -1,5 +1,11 @@
-.venv
-recon
-tests
+# a imagem só precisa de: requirements.lock, sigaa/, api/ (ver Dockerfile). O resto fica de fora —
+# principalmente o que pode ter dado de aluno ou segredo.
+*
+!requirements.lock
+!sigaa/
+!api/
 **/__pycache__
-.git
+**/*.pyc
+**/.env
+**/*.pem
+**/*.key

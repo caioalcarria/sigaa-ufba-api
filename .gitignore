@@ -8,3 +8,15 @@ recon/
 dist/
 *.egg-info/
 .ruff_cache/
+# segredos e capturas (nunca no git — ver docs/seguranca/privacidade.md)
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+*.har
+*.jsonl
+cookies*.txt
+core
+core.[0-9]*
