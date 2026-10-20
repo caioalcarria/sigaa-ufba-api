@@ -145,3 +145,12 @@ medida); `SIGAA_API_MAX_CONCORRENCIA_SIGAA` sobe se o SIGAA aguentar.
   `Page` de uma sessão pra outra).
 * O transporte próprio de cada sessão ignora `HTTPS_PROXY` do ambiente (a trava "buraco negro" do
   lançador da bancada não vale nele); o alvo continua sendo `SIGAA_URL`.
+
+## Integração (pro orquestrador)
+
+* `perf/turbo`, `perf/cache`, `perf/bancada`: merge sem conflito.
+* `perf/cpu`: 2 trechos em `sigaa/client.py` (função `transporte()` e o `httpx.AsyncClient` do
+  `SigaaClient`). Fique com o lado SESSÕES (um transporte por sessão: `transport=_Transporte(transport) if
+  transport is not None else transporte(http2=http2, max_conexoes=conexoes)`) e troque `ssl_compartilhado()`
+  por `_ssl_ctx()` da cpu (é a mesma ideia: um contexto SSL por processo) — ou deixe
+  `def ssl_compartilhado(): return _ssl_ctx()`.
