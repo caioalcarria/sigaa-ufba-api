@@ -63,6 +63,10 @@ def foto_canonica(url: str, base_url: str) -> str | None:
     return f"{CAMINHO_FOTO}?idFoto={q['idFoto']}&key={q['key']}"
 
 
+#: parâmetro de texto livre que vira id/opção do SIGAA: curto e sem caractere de controle (CR/LF, NUL...)
+TEXTO_ID = r"^[^\x00-\x1f\x7f]{1,64}$"
+
+
 def tipo_base(content_type: str | None) -> str:
     return (content_type or "").split(";", 1)[0].strip().lower()
 

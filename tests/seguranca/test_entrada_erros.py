@@ -120,3 +120,22 @@ def test_500_generico():
         r = cli.get("/v1/historico", headers=AUTH)
     assert r.status_code == 500 and "segredo" not in r.text and "Traceback" not in r.text
     assert r.headers.get("x-content-type-options") == "nosniff"
+
+
+@pytest.mark.parametrize(
+    "msg",
+    [
+        "O SIGAA da UFBA quebra ('Comportamento Inesperado') ao abrir calendários de Ensino a Distância; consulta bloqueada.",
+        "Informe pelo menos um filtro (codigo, nome, nivel, unidade, tipo ou modalidade).",
+        "Informe curso_id ou codigo.",
+        "Informe pelo menos um filtro além de ano/período (codigo, nome, unidade, docente, curso...).",
+        "Nível inválido: 'X'. Use um de ['G', 'S'].",
+        "tipo inválido: 'x'. Use um de ['chefes'].",
+        "departamento_id exige centro_id (o select de departamento depende do centro).",
+    ],
+)
+def test_mensagens_dos_servicos_passam_pelo_filtro(msg):
+    """Contrato: as mensagens de ``raise ValueError`` dos serviços (sigaa/services) continuam visíveis."""
+    from api.seguranca_http import mensagem_publica
+
+    assert mensagem_publica(ValueError(msg)) == msg

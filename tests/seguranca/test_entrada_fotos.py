@@ -103,3 +103,23 @@ def test_foto_url_gigante_e_recusada():
     with com_cliente(falso) as cli:
         r = cli.get("/v1/fotos", params={"url": "/shared/verFoto?idFoto=1&key=" + "a" * 3000}, headers=AUTH)
     assert r.status_code == 422 and falso.pedidos == []
+
+
+# ---------------------------------------------------------------- ids de texto repassados ao SIGAA
+@pytest.mark.parametrize(
+    "rota,params",
+    [
+        ("/v1/mensagens/" + "1" * 65, None),
+        ("/v1/mensagens/1%0d%0aX-Injetado:%201", None),
+        ("/v1/avaliacao-institucional/resultado", {"departamento_id": "1\r\nX: y", "periodo": "2025.2"}),
+        ("/v1/avaliacao-institucional/resultado", {"departamento_id": "1", "periodo": "2025.2" * 20}),
+        ("/v1/avaliacao-institucional/observacoes", {"periodo": "\x00"}),
+        ("/v1/historico/componentes", {"situacao": "APR\nREP"}),
+    ],
+)
+def test_ids_de_texto_validados(rota, params):
+    falso = ClienteFalso(resposta=[])
+    with com_cliente(falso) as cli:
+        r = cli.get(rota, params=params, headers=AUTH)
+    assert r.status_code == 422, (rota, r.status_code)
+    assert falso.pedidos == []

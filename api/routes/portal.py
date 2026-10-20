@@ -11,7 +11,7 @@ from fastapi import APIRouter, HTTPException, Path, Query, Response
 
 from api.config import config
 from api.deps import Cliente
-from api.seguranca_http import tipo_imagem
+from api.seguranca_http import TEXTO_ID, tipo_imagem
 from sigaa.models.portal import (
     Atividade,
     Atualizacao,
@@ -224,7 +224,7 @@ async def mensagens(cli: Cliente):
     summary="Caixa postal (uma mensagem)",
     description="Conteúdo de uma mensagem. Mesma limitação de rede de /v1/mensagens.",
 )
-async def mensagem(cli: Cliente, mensagem_id: str):
+async def mensagem(cli: Cliente, mensagem_id: Annotated[str, Path(pattern=TEXTO_ID)]):
     return await cli.executar(lambda c: S.mensagem(c, mensagem_id))
 
 

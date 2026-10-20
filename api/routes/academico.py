@@ -2,7 +2,9 @@
 
 from __future__ import annotations
 
-from fastapi import APIRouter, Response
+from typing import Annotated
+
+from fastapi import APIRouter, Query, Response
 from pydantic import BaseModel, Field
 
 from sigaa.models.academico import (
@@ -27,7 +29,11 @@ from sigaa.parsers.historico_pdf import calcular_cr, calcular_iap
 from sigaa.services import academico as svc
 
 from ..deps import Cliente
-from ..seguranca_http import CSP_HTML_SIGAA, content_disposition, resposta_arquivo
+from ..seguranca_http import CSP_HTML_SIGAA, TEXTO_ID, content_disposition, resposta_arquivo
+
+#: texto que só é comparado com as opções do SIGAA: curto e sem CR/LF/controle
+TextoId = Annotated[str, Query(pattern=TEXTO_ID)]
+Filtro = Annotated[str | None, Query(pattern=TEXTO_ID)]
 
 router = APIRouter(prefix="/v1", tags=["Acadêmico"])
 
@@ -60,7 +66,7 @@ async def get_historico_pdf(cli: Cliente):
     summary="Componentes cursados (filtráveis)",
     description="Só a lista de componentes do histórico. Filtros opcionais: `periodo` (2024.2), `situacao` (APR, REP, TRANC, MATR...), `natureza` (OB, OP...).",
 )
-async def get_componentes(cli: Cliente, periodo: str | None = None, situacao: str | None = None, natureza: str | None = None):
+async def get_componentes(cli: Cliente, periodo: Filtro = None, situacao: Filtro = None, natureza: Filtro = None):
     h = await cli.executar(svc.historico)
     out = h.componentes
     if periodo:
@@ -275,12 +281,12 @@ async def get_filtros_avaliacao(cli: Cliente):
     description="Turmas do departamento no período com docente, horário e nº de discentes (e as médias da avaliação, quando a instituição publica). "
     "`departamento_id` vem de /v1/avaliacao-institucional/filtros; `periodo` = ano-período (2025.2).",
 )
-async def get_resultado_avaliacao(cli: Cliente, departamento_id: str, periodo: str):
+async def get_resultado_avaliacao(cli: Cliente, departamento_id: TextoId, periodo: TextoId):
     return await cli.executar(lambda c: svc.resultado_avaliacao(c, departamento_id, periodo))
 
 
 @router.get("/avaliacao-institucional/observacoes", response_model=ListaGenerica, summary="Observações dos docentes sobre as minhas turmas")
-async def get_observacoes(cli: Cliente, periodo: str):
+async def get_observacoes(cli: Cliente, periodo: TextoId):
     return await cli.executar(lambda c: svc.observacoes_docentes(c, periodo))
 
 
