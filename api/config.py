@@ -75,6 +75,13 @@ class Config:
     GZIP_MIN_BYTES: int = int(_num("SIGAA_API_GZIP_MIN_BYTES", 2048))
     #: limiares do coletor de lixo (gc.set_threshold) — o padrão do Python é 700,10,10
     GC_LIMIARES: tuple[int, ...] = tuple(int(x) for x in os.getenv("SIGAA_API_GC_LIMIARES", "50000,20,20").split(","))
+    #: /v1/status (sem login) mostra os contadores internos (sessões ativas, conexões ao SIGAA em uso,
+    #: processos de parse)? Desligado eles vêm null: é informação de operação, não de cliente, e ajuda
+    #: quem ataca a medir o efeito de uma rajada. Ligue pra monitorar (de preferência atrás de rede privada).
+    STATUS_DETALHADO: bool = _bool("SIGAA_API_STATUS_DETALHADO", False)
+    #: por quantos segundos o /v1/status reaproveita a sonda "o SIGAA está no ar?" (uma ida ao SIGAA
+    #: por janela, não por requisição — sem isso a rota sem login vira amplificador de carga no SIGAA)
+    STATUS_CACHE_S: float = _num("SIGAA_API_STATUS_CACHE_S", 15)
     #: origens liberadas no CORS (vírgula). "*" libera tudo.
     CORS: list[str] = [o.strip() for o in os.getenv("SIGAA_API_CORS", "*").split(",") if o.strip()]
 

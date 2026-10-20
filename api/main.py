@@ -10,6 +10,7 @@ import asyncio
 import gc
 import importlib
 import logging
+import time
 from contextlib import asynccontextmanager
 
 import httpx
@@ -186,17 +187,38 @@ async def erro_validacao(_: Request, exc: RequestValidationError):
     return JSONResponse(status_code=422, content={"erro": {"codigo": "requisicao_invalida", "mensagem": "Parâmetros inválidos.", "detalhes": exc.errors()}})
 
 
-@app.get("/v1/status", tags=["Sistema"], summary="A API e o SIGAA estão no ar?")
-async def status():
-    sigaa_ok, ms = False, None
+async def _sondar_sigaa() -> tuple[bool, int | None]:
     try:
         async with httpx.AsyncClient(timeout=10, verify=_ssl_ctx()) as h:
             r = await h.get(config.SIGAA_URL + "/sigaa/verTelaLogin.do")
-            sigaa_ok, ms = r.status_code == 200, int(r.elapsed.total_seconds() * 1000)
+            return r.status_code == 200, int(r.elapsed.total_seconds() * 1000)
     except httpx.HTTPError:
-        pass
-    return {"api": "ok", "versao": __version__, "sigaa": {"url": config.SIGAA_URL, "no_ar": sigaa_ok, "latencia_ms": ms}, "sessoes_ativas": gerenciador.total,
-            "servidor": {"processos_de_parse": cpu.ativo(), "conexoes_sigaa_em_uso": _em_voo(), "conexoes_sigaa_max": config.MAX_CONCORRENCIA_SIGAA}}
+        return False, None
+
+
+#: última sonda do SIGAA (SIGAA_API_STATUS_CACHE_S) + a que está em andamento (uma só pra todo mundo)
+_SONDA: dict = {"quando": float("-inf"), "valor": (False, None), "tarefa": None}
+
+
+async def _sigaa_no_ar() -> tuple[bool, int | None]:
+    if time.monotonic() - _SONDA["quando"] < config.STATUS_CACHE_S:
+        return _SONDA["valor"]
+    t = _SONDA["tarefa"]
+    if t is None or t.done():
+        t = _SONDA["tarefa"] = asyncio.ensure_future(_sondar_sigaa())
+    valor = await asyncio.shield(t)
+    _SONDA.update(quando=time.monotonic(), valor=valor)
+    return valor
+
+
+@app.get("/v1/status", tags=["Sistema"], summary="A API e o SIGAA estão no ar?")
+async def status():
+    sigaa_ok, ms = await _sigaa_no_ar()
+    det = config.STATUS_DETALHADO  # sem ele os contadores internos vêm null (os campos continuam)
+    return {"api": "ok", "versao": __version__, "sigaa": {"url": config.SIGAA_URL, "no_ar": sigaa_ok, "latencia_ms": ms},
+            "sessoes_ativas": gerenciador.total if det else None,
+            "servidor": {"processos_de_parse": cpu.ativo() if det else None, "conexoes_sigaa_em_uso": _em_voo() if det else None,
+                         "conexoes_sigaa_max": config.MAX_CONCORRENCIA_SIGAA if det else None}}
 
 
 def _em_voo() -> int:

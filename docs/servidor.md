@@ -125,7 +125,10 @@ O teto de conexões é o que manda no req/s quando o SIGAA é o gargalo: com ~45
 de operação, não de código. Uma rota lenta ocupa no máximo as vagas que está usando: as outras rotas
 continuam (o event loop não trava mais) e, se o SIGAA inteiro ficar lento, a fila tem prazo.
 
-`/v1/status` mostra `servidor.processos_de_parse`, `conexoes_sigaa_em_uso` e `conexoes_sigaa_max`.
+`/v1/status` mostra `servidor.processos_de_parse`, `conexoes_sigaa_em_uso` e `conexoes_sigaa_max` — só com
+`SIGAA_API_STATUS_DETALHADO=true` (padrão `false`: os campos vêm `null`, junto com `sessoes_ativas`, porque a
+rota não tem login). A sonda "o SIGAA está no ar?" é reaproveitada por `SIGAA_API_STATUS_CACHE_S` (padrão 15 s):
+uma ida ao SIGAA por janela, não por requisição.
 
 ## Rodar
 
