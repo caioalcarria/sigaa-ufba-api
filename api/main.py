@@ -109,6 +109,12 @@ app = FastAPI(
     contact={"name": "sigaa-api", "url": "https://github.com/"},
     license_info={"name": "MIT"},
 )
+# limites de concorrência (anti-DoS por token/IP) — INNERMOST: um cache HIT (barato, não toca o
+# SIGAA) passa livre; só as requisições que de fato vão trabalhar contam contra os tetos. As respostas
+# 429/503 ainda saem pelo CORS (que é mais externo). Ver api/limites.py.
+from . import limites as _limites  # noqa: E402
+
+_limites.instalar(app)
 # cache HTTP (L1) por DENTRO do CORS: o HIT sai com os cabeçalhos de CORS também
 app.add_middleware(cache_http.CacheHTTP)
 # gzip por FORA do cache: o cache comprime o que ele serve (e marca Content-Encoding, então o GZip
@@ -204,15 +210,46 @@ def _sem_segredo(erros) -> list:
     return saida
 
 
-@app.get("/v1/status", tags=["Sistema"], summary="A API e o SIGAA estão no ar?")
-async def status():
-    sigaa_ok, ms = False, None
+async def _sondar_sigaa() -> tuple[bool, int | None]:
+    """Um GET no SIGAA pra ver se ele responde. Isolado pra poder ser cacheado/testado."""
     try:
         async with httpx.AsyncClient(timeout=10, verify=_ssl_ctx()) as h:
             r = await h.get(config.SIGAA_URL + "/sigaa/verTelaLogin.do")
-            sigaa_ok, ms = r.status_code == 200, int(r.elapsed.total_seconds() * 1000)
+            return r.status_code == 200, int(r.elapsed.total_seconds() * 1000)
     except httpx.HTTPError:
-        pass
+        return False, None
+
+
+class _StatusSigaa:
+    """Cacheia a sondagem do SIGAA por ``STATUS_CACHE_S`` s. /v1/status é PÚBLICO e sondava o SIGAA
+    a cada chamada: um atacante repetindo /v1/status transformava a API num martelo contra a UFBA.
+    O cache (com singleflight por trava) garante no máximo uma sondagem por janela, por mais
+    chamadas simultâneas que cheguem."""
+
+    def __init__(self) -> None:
+        self._ts = 0.0
+        self._val: tuple[bool, int | None] = (False, None)
+        self._lock = asyncio.Lock()
+
+    async def ler(self) -> tuple[bool, int | None]:
+        import time as _t
+
+        if config.STATUS_CACHE_S > 0 and _t.monotonic() - self._ts < config.STATUS_CACHE_S:
+            return self._val
+        async with self._lock:
+            if config.STATUS_CACHE_S > 0 and _t.monotonic() - self._ts < config.STATUS_CACHE_S:
+                return self._val
+            self._val = await _sondar_sigaa()
+            self._ts = _t.monotonic()
+            return self._val
+
+
+_status_sigaa = _StatusSigaa()
+
+
+@app.get("/v1/status", tags=["Sistema"], summary="A API e o SIGAA estão no ar?")
+async def status():
+    sigaa_ok, ms = await _status_sigaa.ler()
     return {"api": "ok", "versao": __version__, "sigaa": {"url": config.SIGAA_URL, "no_ar": sigaa_ok, "latencia_ms": ms}, "sessoes_ativas": gerenciador.total,
             "servidor": {"processos_de_parse": cpu.ativo(), "conexoes_sigaa_em_uso": _em_voo(), "conexoes_sigaa_max": config.MAX_CONCORRENCIA_SIGAA}}
 
