@@ -18,6 +18,9 @@ from fastapi.responses import JSONResponse
 from sigaa import errors as E
 from sigaa import __version__
 
+from sigaa import cache as sigaa_cache
+
+from . import cache as cache_http
 from .config import config
 from .sessions import gerenciador
 
@@ -54,6 +57,7 @@ async def lifespan(app: FastAPI):
     gerenciador.iniciar()
     yield
     await gerenciador.parar()
+    await sigaa_cache.cache.backend.fechar()
 
 
 app = FastAPI(
@@ -64,6 +68,8 @@ app = FastAPI(
     contact={"name": "sigaa-api", "url": "https://github.com/"},
     license_info={"name": "MIT"},
 )
+# cache HTTP (L1) por DENTRO do CORS: o HIT sai com os cabeçalhos de CORS também
+app.add_middleware(cache_http.CacheHTTP)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=config.CORS,
@@ -80,6 +86,10 @@ for nome in ROTAS:
             log.warning("rotas '%s' ainda não existem — pulando", nome)
         else:
             raise
+
+app.include_router(cache_http.router)
+# cache compartilhado entre alunos (L2) nas funções de serviço de dado público
+sigaa_cache.instalar()
 
 STATUS = {
     E.CredenciaisInvalidas: 401,
