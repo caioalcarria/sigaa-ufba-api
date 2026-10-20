@@ -194,5 +194,25 @@ async def test_query_com_parametro_repetido_nao_colide():
     assert r2.json() == {"x": 1}, "a 2ª ordem recebeu a resposta da 1ª"
 
 
+async def test_dois_authorization_nao_grava_dado_de_um_aluno_na_chave_do_outro():
+    """ISO-05: o middleware identificava pelo ÚLTIMO ``Authorization`` e a rota (Starlette) usa o
+    PRIMEIRO — a resposta do B era gravada na chave do A."""
+    ch: dict[str, int] = {}
+    async with _cli(_app(ch)) as c:
+        dois = httpx.Headers([("authorization", "Bearer tokB"), ("authorization", "Bearer tokA")])
+        r = await c.get("/v1/eco", headers=dois)
+        assert r.json()["dono"] == "aluno-b"
+        ra = await c.get("/v1/eco", headers=A)
+    assert ra.json()["dono"] == "aluno-a", "o aluno A recebeu o dado do aluno B"
+
+
+async def test_cabecalhos_que_nao_mudam_a_resposta_nao_separam_alunos():
+    ch: dict[str, int] = {}
+    async with _cli(_app(ch)) as c:
+        await c.get("/v1/eco", headers={**A, "Accept-Language": "en"})
+        rb = await c.get("/v1/eco", headers={**B, "Accept-Language": "en"})
+    assert rb.json()["dono"] == "aluno-b"
+
+
 def _basic(u: str, s: str) -> dict[str, str]:
     return {"Authorization": "Basic " + base64.b64encode(f"{u}:{s}".encode()).decode()}

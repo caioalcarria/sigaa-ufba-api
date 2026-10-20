@@ -175,6 +175,20 @@ _GUARDAR = {"content-type", "content-disposition", "content-language"}
 _TIRAR_REQ = {b"if-none-match", b"if-modified-since", b"cache-control", b"pragma", b"accept-encoding", b"content-length", b"content-type"}
 
 
+def _cabecalhos(scope) -> dict[str, str]:
+    """Cabeçalhos em dict com a MESMA regra do Starlette (``request.headers.get``): o primeiro vale.
+    Com o último valendo, ``Authorization: Bearer B`` + ``Authorization: Bearer A`` identificava A no
+    cache enquanto a rota respondia como B — a resposta do B ia pra chave do A."""
+    h: dict[str, str] = {}
+    for k, v in scope["headers"]:
+        h.setdefault(k.decode("latin-1").lower(), v.decode("latin-1"))
+    return h
+
+
+def _n_auth(scope) -> int:
+    return sum(1 for k, _ in scope["headers"] if k.lower() == b"authorization")
+
+
 def _iso(t: float) -> str:
     return datetime.fromtimestamp(t, timezone.utc).isoformat(timespec="seconds")
 
@@ -228,9 +242,11 @@ class CacheHTTP:
         pol = politica(path, q)
         if pol.escopo is None:
             return await self.app(scope, receive, send)
-        h = {k.decode("latin-1").lower(): v.decode("latin-1") for k, v in scope["headers"]}
+        h = _cabecalhos(scope)
         uh = None
         if pol.escopo != PUBLICO:
+            if _n_auth(scope) > 1:  # identidade ambígua: a rota responde, nada entra nem sai do cache
+                return await self.app(scope, receive, send)
             uh = await identificar(h)
             if uh is None:  # sem sessão válida: a própria rota responde (401, ou cria a sessão Basic)
                 return await self.app(scope, receive, send)
