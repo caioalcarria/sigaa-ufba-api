@@ -126,7 +126,7 @@ SSL é dividido. Simulado, `/v1/notas`:
 | 200 × 200, teto 256 | p50 45,1 s · 3,9 req/s (pico no SIGAA: 128) | p50 27,3 s · 7,0 req/s (pico 256) |
 | 200 × 200, teto 64 (padrão) | — | p50 31,8 s · 5,3 req/s, 0 erro |
 
-Matriz pedida pelo orquestrador — `perf/turbo` (6c5f8f8 + `SIGAA_API_TRANSPORTE_COMPARTILHADO` pra
+Matriz de comparação — `perf/turbo` (6c5f8f8 + `SIGAA_API_TRANSPORTE_COMPARTILHADO` pra
 alternar), cache DESLIGADO (`SIGAA_API_CACHE=false`, toda requisição vai ao SIGAA), 200 alunos × 200
 conexões, 400 requisições por rota, teto global 256 (pra C=200 chegar ao transporte):
 
@@ -167,7 +167,7 @@ medida); `SIGAA_API_MAX_CONCORRENCIA_SIGAA` sobe se o SIGAA aguentar.
 * O transporte próprio de cada sessão ignora `HTTPS_PROXY` do ambiente (a trava "buraco negro" do
   lançador da bancada não vale nele); o alvo continua sendo `SIGAA_URL`.
 
-## Integração (pro orquestrador)
+## Integração
 
 * `perf/turbo`, `perf/cache`, `perf/bancada`: merge sem conflito.
 * `perf/cpu`: 2 trechos em `sigaa/client.py` (função `transporte()` e o `httpx.AsyncClient` do

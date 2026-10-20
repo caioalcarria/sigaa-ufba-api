@@ -10,7 +10,7 @@ Projeto: API pública (open-source, vai pro GitHub) de **LEITURA** dos dados do 
 | modelos | `sigaa/models/<area>.py` | pydantic v2 `BaseModel`, campos `snake_case` em português, `Field(description=...)` em todos (vira a doc do Swagger). Datas `date`/`datetime`, números como `int`/`float` (nunca string), ausente = `None`, listas vazias = `[]`. Enum quando o domínio é fechado (situação APR/REP/REPF/TRANC/MATR...), mas sempre guarde também o texto cru (`situacao_texto`). |
 | parsers | `sigaa/parsers/<area>.py` | funções PURAS `parse_xxx(html: str ou bytes) -> Modelo`. Zero rede. TOLERANTES: cada aluno vê telas diferentes (campo que some, tabela vazia, "Não há...", rótulo com/sem acento, ordem diferente) — procure por RÓTULO, não por posição; nunca quebre por falta de um campo (vira `None`). |
 | serviços | `sigaa/services/<area>.py` | `async def xxx(c: SigaaClient, ...) -> Modelo` — a NAVEGAÇÃO (quais telas, quais cliques) + chama o parser. Use só a API do `sigaa/client.py`: `c.portal()`, `c.menu("bean.metodo")`, `c.clicar(page, "trecho do onclick" ou texto)`, `c.submit(page, form_id, extra, botao)`, `c.get/post`. Nunca segure estado entre chamadas (a rota pode ser chamada em qualquer ordem). |
-| rotas | `api/routes/<area>.py` | `router = APIRouter(prefix="/v1/...", tags=["..."])`. Cada rota: `async def rota(cli: Cliente, ...)` e `return await cli.executar(lambda c: servico(c, ...))` — `Cliente` vem de `from api.deps import Cliente` (o orquestrador escreve; já pode importar). `response_model` sempre, `summary` e `description` em PT. |
+| rotas | `api/routes/<area>.py` | `router = APIRouter(prefix="/v1/...", tags=["..."])`. Cada rota: `async def rota(cli: Cliente, ...)` e `return await cli.executar(lambda c: servico(c, ...))` — `Cliente` vem de `from api.deps import Cliente` . `response_model` sempre, `summary` e `description` em PT. |
 | testes | `tests/test_<area>.py` + `tests/fixtures/<area>/` | pytest dos parsers com HTML/PDF de fixture. **Fixture ANONIMIZADA** (ver abaixo). |
 | doc | `docs/mapeamento/<area>.md` | TODA tela que você viu: como chegar (passo a passo exato: link/bean/form/params), o que tem, variações, AJAX (a4j) que dispara, e os endpoints propostos/implementados. |
 
@@ -32,7 +32,9 @@ Projeto: API pública (open-source, vai pro GitHub) de **LEITURA** dos dados do 
 - Nada de dado real em `tests/fixtures`, `docs/` ou código: troque nome, matrícula, CPF, RG, nascimento, e-mail, telefone, endereço, nomes de colegas/professores por fictícios (ex.: "FULANO DE TAL", 200000000, 000.000.000-00) mantendo a ESTRUTURA do HTML intacta.
 - Nunca imprima a senha. A credencial só entra por `recon/sess.py` (`login("<area>")`) e `recon/web_login.sh`.
 
-## Ferramentas de recon
-- `recon/sess.py` (síncrono, requests) — `s, r = login("<area>")` cria sua sessão própria; `menu(s, "bean")`, `jsf_links(html)`, `jsf_click(s, html, "trecho")`, `submit(...)`, `dump(r, "pages/<area>/x.html")`. Leia o docstring.
-- `sigaa/client.py` (assíncrono, o de produção) — use pra validar o serviço de ponta a ponta: `recon/test_client.py` é um exemplo.
-- Nó web no canvas (o Caio quer VER): `web_criar` → `bash recon/web_login.sh` → `node ~/.config/dot/dot-web.js navegar|ler|snapshot|fazer|gravar ligar|mapa resumo` (o gravador mostra as chamadas AJAX a4j que o requests não vê).
+## Ferramentas de exploração
+- `recon/` (fora do git) é onde cada contribuidor guarda páginas cruas, PDFs e scripts de exploração **da própria conta**.
+  Nada dali entra no repositório.
+- `sigaa/client.py` (o cliente de verdade) serve pra validar um serviço de ponta a ponta contra o SIGAA.
+- O SIGAA simulado (`bench/mock_sigaa.py`, ver [`bench.md`](bench.md)) serve pra testar fluxos e carga **sem tocar no SIGAA da UFBA**.
+- Pra descobrir as chamadas AJAX (a4j) de uma tela, use o DevTools do navegador (aba Rede) com a sua sessão.

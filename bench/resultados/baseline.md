@@ -42,7 +42,7 @@ Mesma ordem de grandeza; o "antes × depois" vale porque as duas pontas rodam no
 ## Saída do bench
 
 - **data:** 2026-10-20T01:28:27-03:00 · **api:** http://127.0.0.1:8118 (v0.1.0) → SIGAA http://127.0.0.1:8117
-- **commit:** c0aa0f3f6ab1 (perf/bancada) · **worktree:** ~/PROJECTS/UFBA/sigaa-api-perf-bancada
+- **commit:** c0aa0f3f6ab1 (perf/bancada) · **worktree:** ~/sigaa-api-perf-bancada
 - **host:** 20 CPUs · load [3.12, 2.27, 2.62] · Python 3.12.3
 - **mock:** `{"mock": "sigaa-simulado", "fator": 1.0, "jitter": 0.1, "latencias_s": {"padrao": 0.45, "pdf": 3.5, "login": 0.7, "redirect": 0.08, "publico": 0.15, "publico_pesado": 0.45, "ajax": 0.25}, "max_concorrencia": 0, "ttl_sessao_s": 1800, "views_por_sessao": 20}`
 - **o mock viu (fase fria×quente):** 1317 req · 42 logins · pico 1 em voo · MISS=0 · ViewState inválido=0 · sessões expiradas=0

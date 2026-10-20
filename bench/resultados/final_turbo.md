@@ -1,7 +1,7 @@
 # Bench sigaa-api — turbo
 
 - **data:** 2026-10-20T02:57:15-03:00 · **api:** http://127.0.0.1:8153 (v0.1.0) → SIGAA http://127.0.0.1:8151
-- **commit:** 544740939f19 (perf/turbo) · **worktree:** ~/PROJECTS/UFBA/sigaa-api-perf
+- **commit:** 544740939f19 (perf/turbo) · **worktree:** ~/sigaa-api-perf
 - **host:** 20 CPUs · load [1.59, 1.47, 1.48] · Python 3.12.3
 - **mock:** `{"mock": "sigaa-simulado", "fator": 1.0, "jitter": 0.1, "latencias_s": {"padrao": 0.45, "pdf": 3.5, "login": 0.7, "redirect": 0.08, "publico": 0.15, "publico_pesado": 0.45, "ajax": 0.25}, "max_concorrencia": 0, "ttl_sessao_s": 1800, "views_por_sessao": 20}`
 - **o mock viu (fase fria×quente):** 715 req · 88 logins · pico 3 em voo · MISS=0 · ViewState inválido=0 · sessões expiradas=0

@@ -151,9 +151,9 @@ O `id` da unidade é o mesmo dos combos `formBusca:unidades` (componentes) e `fo
 - Os demais módulos do diálogo "Módulos" estão desabilitados pra discente (exceto Portal do Discente,
   Gerenciamento de salas e Avaliação Institucional — esta é de outra frente e altera estado).
 
-## Nó web (o Caio vendo)
+## Chamadas observadas no navegador
 
-Nó `80272484` ("SIGAA · consultas"): logado com `recon/web_login.sh`, `gravar ligar`, navegados o Calendário
+Navegando logado (DevTools, aba Rede) pelo o Calendário
 2026.2, a Consulta de Cursos (busca "SISTEMAS") e a Consulta de Turmas (MATA37 + painel da turma).
 `mapa resumo` registrou `POST /sigaa/geral/curso/busca_geral.jsf` (corpo `busca, busca:niveis, paramBusca,
 busca:param1, busca:j_id_jsp_747103860_835=Buscar, ViewState` — foi o que revelou o botão faltando),

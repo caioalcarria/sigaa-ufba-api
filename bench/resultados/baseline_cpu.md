@@ -1,7 +1,7 @@
 # Bench sigaa-api — baseline_cpu
 
 - **data:** 2026-10-20T01:38:36-03:00 · **api:** http://127.0.0.1:8118 (v0.1.0) → SIGAA http://127.0.0.1:8117
-- **commit:** c0aa0f3f6ab1 (perf/bancada) · **worktree:** ~/PROJECTS/UFBA/sigaa-api-perf-bancada
+- **commit:** c0aa0f3f6ab1 (perf/bancada) · **worktree:** ~/sigaa-api-perf-bancada
 - **host:** 20 CPUs · load [5.7, 4.33, 3.47] · Python 3.12.3
 - **mock:** `{"mock": "sigaa-simulado", "fator": 0.0, "jitter": 0.1, "latencias_s": {"padrao": 0.45, "pdf": 3.5, "login": 0.7, "redirect": 0.08, "publico": 0.15, "publico_pesado": 0.45, "ajax": 0.25}, "max_concorrencia": 0, "ttl_sessao_s": 1800, "views_por_sessao": 20}`
 - **parâmetros:** frias=3 quentes=5 C=[1, 10, 50, 200] alunos=['auto'] (máx 50) req=0 duração=20.0 timeout=120s

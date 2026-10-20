@@ -2,7 +2,7 @@
 
 Uso:
     .venv/bin/python scripts/bench_sessoes.py http://127.0.0.1:8101 [--cenarios seq,rajada] [--rotas notas,frequencia]
-          [--usuario U --senha S]   # sem isso, lê a credencial do LastPass (recon/sess.py) sem exibir
+          [--usuario U --senha S]   # sem isso, usa SIGAA_USUARIO/SIGAA_SENHA (bench/credencial.py), sem exibir
 
 Cenários:
 * ``login``   — POST /v1/auth/login
@@ -36,8 +36,8 @@ RAJADA = ["/v1/me", "/v1/turmas?atuais=true", "/v1/notas", "/v1/tarefas", "/v1/a
 
 
 def _cred() -> tuple[str, str]:
-    sys.path.insert(0, os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "recon"))
-    from sess import _cred as c  # noqa: PLC0415
+    sys.path.insert(0, os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "bench"))
+    from credencial import credencial as c  # noqa: PLC0415
 
     return c()
 
