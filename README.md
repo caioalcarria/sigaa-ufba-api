@@ -171,6 +171,42 @@ Tudo fica em memória: reiniciar o servidor invalida os tokens. Rode **1 worker*
 o parse já usa os outros núcleos pelo pool de processos. Detalhes, números e o porquê em [`docs/servidor.md`](docs/servidor.md).
 </details>
 
+## 🚀 Desempenho
+
+Medido com a bancada do projeto (`bench/`): um **SIGAA simulado** com a mesma latência do real
+(~450 ms por tela, ~3,5 s por PDF, ~3 s de login), pra testar carga sem tocar no SIGAA da UFBA.
+
+| rota | 1ª chamada antes → agora | repetida antes → agora |
+|---|--:|--:|
+| `/v1/planejamento/matricula` | 14,3 s → **3,9 s** | 2 ms → **<1 ms** |
+| `/v1/grade-curricular` | 10,9 s → **3,9 s** | 2 ms → **<1 ms** |
+| `/v1/notas` (todas as turmas) | 9,2 s → **4,8 s** | 9,2 s → **<1 ms** |
+| `/v1/frequencia` | 9,1 s → **4,9 s** | 9,1 s → **<1 ms** |
+| `/v1/historico` | 4,7 s → **3,6 s** | 1 ms → **<1 ms** |
+| `/v1/turmas` | 3,6 s → **3,0 s** | 3,5 s → **<1 ms** |
+| `/v1/matricula` | 1,4 s → **0,6 s** | 1,4 s → **<1 ms** |
+| públicas (cursos, componentes, estruturas…) | 0,2–1,3 s → **<1 ms** (cache compartilhado) | → **<1 ms** |
+
+| carga (200 conexões simultâneas) | antes | agora |
+|---|--:|--:|
+| `/v1/notas`, 50 alunos | 4,2 req/s · p50 29,6 s | **30 req/s · p50 4,9 s** |
+| `/v1/turmas`, 50 alunos | 12 req/s · p50 10,2 s | **67 req/s · p50 1,5 s** |
+| rota pública | 11 req/s · p50 9 s | **16.200 req/s · p50 7 ms** |
+
+**Como:**
+- **pool de sessões SIGAA por aluno**: até 4 navegações do mesmo aluno em paralelo, com um transporte HTTP por sessão;
+- **menos idas ao SIGAA**: reaproveita as 10 telas que o SIGAA guarda por sessão, usa GETs diretos e junta pedidos iguais;
+- **cache em duas camadas**:
+  - por aluno, com *stale-while-revalidate*;
+  - compartilhado, pro que é público;
+  - ETag/304, gzip, pré-aquecimento após o login e Redis opcional;
+- **parse de HTML/PDF em processos separados** (o event loop nunca trava; PDF 12× mais rápido);
+- **teto global de conexões ao SIGAA**, com 503 `sigaa_ocupado` + `Retry-After`, pra não derrubar a UFBA numa rajada.
+
+Detalhes e todas as variáveis: [`docs/cache.md`](docs/cache.md), [`docs/perf/sessoes.md`](docs/perf/sessoes.md),
+[`docs/servidor.md`](docs/servidor.md), [`docs/bench.md`](docs/bench.md).
+`?fresco=true` (ou `Cache-Control: no-cache`) força dado novo; o header `X-Cache` diz se veio do cache.
+
 ## 🐍 Como biblioteca
 
 ```python
