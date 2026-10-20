@@ -29,7 +29,7 @@ from dataclasses import dataclass, field
 
 from cryptography.fernet import Fernet
 
-from sigaa.client import Carga, SigaaClient
+from sigaa.client import Carga, SigaaClient, transporte
 from sigaa.errors import SessaoExpirada
 from sigaa.pool import PoolSigaa
 
@@ -82,12 +82,17 @@ class Gerenciador:
         self._tarefa: asyncio.Task | None = None
         self._limite: Carga | None = None
         self._aquecendo: set[asyncio.Task] = set()
+        self._transporte_unico = None  # só com TRANSPORTE_COMPARTILHADO (pra comparação; ver config)
 
     def _novo_cliente(self, credenciais=None) -> SigaaClient:
         if self._limite is None:
             self._limite = Carga(config.MAX_CONCORRENCIA_SIGAA)
+        if config.TRANSPORTE_COMPARTILHADO and self._transporte_unico is None:
+            n = max(config.MAX_CONCORRENCIA_SIGAA * 2, 64)
+            self._transporte_unico = transporte(http2=config.HTTP2, max_conexoes=n, keepalive=n)
         return SigaaClient(
             config.SIGAA_URL,
+            transport=self._transporte_unico,
             credenciais=credenciais,
             min_interval=config.MIN_INTERVALO,
             folga=config.MIN_FOLGA,
@@ -231,6 +236,9 @@ class Gerenciador:
             self._tarefa = None
         for k in list(self._sessoes):
             await self.encerrar_por_chave(k)
+        if self._transporte_unico is not None:
+            await self._transporte_unico.aclose()
+            self._transporte_unico = None
 
     async def _keepalive(self) -> None:
         while True:

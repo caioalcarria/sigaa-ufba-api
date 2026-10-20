@@ -126,6 +126,27 @@ SSL é dividido. Simulado, `/v1/notas`:
 | 200 × 200, teto 256 | p50 45,1 s · 3,9 req/s (pico no SIGAA: 128) | p50 27,3 s · 7,0 req/s (pico 256) |
 | 200 × 200, teto 64 (padrão) | — | p50 31,8 s · 5,3 req/s, 0 erro |
 
+Matriz pedida pelo orquestrador — `perf/turbo` (6c5f8f8 + `SIGAA_API_TRANSPORTE_COMPARTILHADO` pra
+alternar), cache DESLIGADO (`SIGAA_API_CACHE=false`, toda requisição vai ao SIGAA), 200 alunos × 200
+conexões, 400 requisições por rota, teto global 256 (pra C=200 chegar ao transporte):
+
+| `--fator` | estado | rota | compartilhado: req/s · p50 | um por sessão: req/s · p50 |
+|---|---|---|--:|--:|
+| 1 (~0,45 s/req) | frio | `/v1/turmas` | 10,9 · 16,2 s | **57,9 · 3,3 s** |
+| 1 | frio | `/v1/notas` | 7,3 · 23,8 s | **43,0 · 4,0 s** |
+| 1 | quente | `/v1/turmas` | 11,3 · 14,8 s | **57,4 · 3,4 s** |
+| 1 | quente | `/v1/notas` | 8,4 · 22,6 s | **41,5 · 4,3 s** |
+| 0 (sem latência) | frio | `/v1/turmas` | 77,3 · 2,0 s | **114,8 · 1,6 s** |
+| 0 | frio | `/v1/notas` | 37,0 · 4,3 s | **63,0 · 2,5 s** |
+| 0 | quente | `/v1/turmas` | 77,1 · 2,1 s | **113,9 · 1,7 s** |
+| 0 | quente | `/v1/notas` | 39,3 · 4,6 s | **75,3 · 2,2 s** |
+| 1, teto 64 (padrão) | frio | `/v1/turmas` | 25,6 · 7,2 s | 25,6 · 7,2 s |
+| 1, teto 64 (padrão) | frio | `/v1/notas` | 16,4 · 11,7 s | 16,4 · 11,6 s |
+
+Zero erro em todos. Com o teto 64 os dois empatam (a piscina nunca vê mais que 64 em voo); acima disso o
+compartilhado desaba (5–6× pior com latência real). Fica **um transporte por sessão** (padrão desde 530cf83);
+o compartilhado sobrevive só como `SIGAA_API_TRANSPORTE_COMPARTILHADO=true` pra reproduzir a comparação.
+
 O teto padrão continua 64 pra proteger o SIGAA real (a capacidade dele com centenas de sessões não foi
 medida); `SIGAA_API_MAX_CONCORRENCIA_SIGAA` sobe se o SIGAA aguentar.
 
@@ -154,3 +175,21 @@ medida); `SIGAA_API_MAX_CONCORRENCIA_SIGAA` sobe se o SIGAA aguentar.
   transport is not None else transporte(http2=http2, max_conexoes=conexoes)`) e troque `ssl_compartilhado()`
   por `_ssl_ctx()` da cpu (é a mesma ideia: um contexto SSL por processo) — ou deixe
   `def ssl_compartilhado(): return _ssl_ctx()`.
+
+## Prioridade baixa (pro pré-aquecimento do cache)
+
+`from sigaa.pool import prioridade_baixa` — o que roda dentro de `with prioridade_baixa():` (inclusive as
+tarefas criadas ali) só pega sessão do pool se sobrar OUTRA livre pro aluno, não recruta a última sessão
+livre no `paralelo` e nunca abre sessão nova (pool de 1 sessão: divide, como antes). Integração no cache é
+uma linha em `api/cache.py`, `_preaquecer`: `with prioridade_baixa(): await self._aquecer(...)`.
+
+Simulado, 4 alunos: login → 0,6 s → `/v1/notas` (bem no meio do aquecimento):
+
+| variante | 1ª `/v1/notas` p50 | requisições ao SIGAA |
+|---|--:|--:|
+| hoje (o aquecimento divide o pool e cede cancelando o passo) | 4,86 s | 164 |
+| `prioridade_baixa()` | 4,68 s | 160 |
+| `prioridade_baixa()` + sem cancelar o passo | 4,70 s | 160 |
+
+Ganho pequeno (o "ceder" do cache já resolvia a maior parte); vale pela garantia de que o fundo nunca
+pega a última sessão livre nem gasta login.

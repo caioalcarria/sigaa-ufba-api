@@ -22,16 +22,40 @@ login: ele usa as que foram abertas no aquecimento (enquanto a senha ainda estav
 from __future__ import annotations
 
 import asyncio
+import contextvars
 import logging
 import time
 from collections import deque
-from typing import Any, Callable, Sequence, TypeVar
+from contextlib import contextmanager
+from typing import Any, Callable, Iterator, Sequence, TypeVar
 
 from .client import Carga, Compartilhado, Fluxo, LoginCallback, SigaaClient
 from .errors import CredenciaisInvalidas, SessaoExpirada
 
 log = logging.getLogger("sigaa.pool")
 T = TypeVar("T")
+
+_baixa: contextvars.ContextVar[bool] = contextvars.ContextVar("sigaa_pool_prioridade_baixa", default=False)
+
+
+@contextmanager
+def prioridade_baixa() -> Iterator[None]:
+    """Trabalho de FUNDO (ex.: pré-aquecimento do cache logo após o login): o que rodar dentro deste
+    bloco — inclusive tarefas criadas nele — só usa sessão do pool que SOBRA (deixa sempre uma livre
+    pro aluno), não recruta a última sessão livre no ``paralelo`` e nunca abre sessão nova.
+
+        with prioridade_baixa():
+            await app(scope_interno, ...)   # a rota roda numa sessão própria, sem competir com o aluno
+    """
+    tok = _baixa.set(True)
+    try:
+        yield
+    finally:
+        _baixa.reset(tok)
+
+
+def em_prioridade_baixa() -> bool:
+    return _baixa.get()
 
 
 class PoolSigaa:
@@ -150,10 +174,13 @@ class PoolSigaa:
 
     async def _livre(self) -> SigaaClient | None:
         """Uma sessão livre, já travada pra quem pediu (prefere a usada por último: conexão quente).
-        ``acquire()`` de uma trava livre e sem fila não cede o loop, então não há corrida aqui."""
+        ``acquire()`` de uma trava livre e sem fila não cede o loop, então não há corrida aqui.
+        Em prioridade baixa só pega se sobrar outra livre (ou se o pool tem uma sessão só e nenhuma abrindo)."""
         cands = [s for s in self.sessoes if not s.lock.locked()]
         if not cands:
             return None
+        if _baixa.get() and len(cands) < 2 and len(self.sessoes) + self._criando > 1:
+            return None  # (pool de 1 sessão: divide, como antes — quem está no fundo já cede a vez por conta própria)
         s = max(cands, key=lambda x: x.ultimo_uso)
         await s.lock.acquire()
         return s
@@ -165,7 +192,7 @@ class PoolSigaa:
             s = await self._livre()
             if s is not None:
                 return s
-            if crescer and self._criando == 0:
+            if crescer and self._criando == 0 and not _baixa.get():
                 self.crescer(1)
             await self._esperar_mudanca()
 
@@ -267,7 +294,7 @@ class PoolSigaa:
                         contratar(s, True)
                     # abre sessões novas se a fila que sobra compensa o login (~3 s)
                     faltam = limite - len(trabalhando) - self._criando
-                    if faltam > 0 and len(fila) >= self.tarefas_por_sessao:
+                    if faltam > 0 and len(fila) >= self.tarefas_por_sessao and not _baixa.get():
                         self.crescer(min(faltam, len(fila) // self.tarefas_por_sessao))
                     if fila:
                         await self._esperar_mudanca(0.5)
