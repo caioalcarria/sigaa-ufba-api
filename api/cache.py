@@ -347,6 +347,7 @@ class CacheHTTP:
         """Roda a rota de verdade (o SIGAA) como LÍDER do singleflight e grava se der 200."""
         f = f or cache.sf.iniciar(chave)
         e = None
+        inicio = time.time()
         try:
             cap = await self._executar(scope, receive)
             hs = [(k.decode("latin-1").lower(), v.decode("latin-1")) for k, v in cap.headers]
@@ -357,7 +358,9 @@ class CacheHTTP:
                 )
                 # comprime JÁ (uma vez só, antes de gravar: o tamanho na memória fica certo)
                 await asyncio.to_thread(e.gz) if len(e.corpo) > 256 * 1024 else e.gz()
-                if gravar:
+                # o aluno apagou o cache (logout, DELETE /v1/cache/meu) enquanto isso estava no SIGAA: não
+                # regrava o dado dele (o resultado ainda vai pra quem pediu e pros seguidores do voo)
+                if gravar and cache.pode_gravar(chave, inicio):
                     await cache.backend.gravar(chave, e)
         except BaseException:
             cache.sf.terminar(chave, f, None)  # seguidores vão por conta própria

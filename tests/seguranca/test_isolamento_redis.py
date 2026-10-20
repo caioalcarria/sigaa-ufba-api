@@ -140,3 +140,14 @@ async def test_avisos_de_redis_sem_tls_sem_senha_sem_segredo(monkeypatch, caplog
     with caplog.at_level(logging.WARNING, "sigaa_api.cache"):
         SC.Cache()
     assert caplog.text == ""
+
+
+async def test_pode_gravar_respeita_a_limpeza_do_aluno():
+    c = SC.cache
+    uh = "aluno-fict-" + str(time.time())
+    chave = f"u:{c.aluno(uh)}:/v1/me?"
+    antes = time.time()
+    await c.limpar_aluno(uh)
+    assert c.pode_gravar(chave, antes) is False  # começou antes da limpeza
+    assert c.pode_gravar(chave, time.time() + 0.001) is True
+    assert c.pode_gravar("c:/v1/consultas/cursos?", antes) is True

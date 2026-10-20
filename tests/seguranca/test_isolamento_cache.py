@@ -277,3 +277,47 @@ async def test_basic_ativo_recebe_hit_e_conta_como_uso():
     assert sess.ultimo_uso > antes
     r = await C.identificar({"authorization": _basic("fulano", "outra-senha")["Authorization"]})
     assert r is None  # senha errada nunca acha a sessão (a chave leva a senha)
+
+
+# --------------------------------------------------------- limpeza / logout
+async def test_resposta_em_voo_durante_a_limpeza_nao_volta_pro_cache():
+    """ISO-07: um MISS (ou revalidação/pré-aquecimento) que já tinha saído pro SIGAA terminava
+    DEPOIS do ``DELETE /v1/cache/meu``/logout e gravava de novo o dado do aluno."""
+    portao = asyncio.Event()
+    ch: dict[str, int] = {}
+    async with _cli(_app(ch, portao)) as c:
+        voo = asyncio.create_task(c.get("/v1/lento", headers=A))
+        await asyncio.sleep(0.05)
+        assert (await c.delete("/v1/cache/meu", headers=A2)).status_code == 204
+        portao.set()
+        assert (await voo).status_code == 200
+        r = await c.get("/v1/lento", headers=A)
+    assert r.headers["x-cache"] == "MISS", "o dado buscado antes da limpeza voltou pro cache"
+
+
+async def test_limpar_meu_apaga_so_o_meu_inclusive_stale(monkeypatch):
+    monkeypatch.setattr(C, "REGRAS", [(C.re.compile(r"^/v1/eco"), C.Politica(C.ALUNO, 0.05, 30))] + C.REGRAS)
+    ch: dict[str, int] = {}
+    async with _cli(_app(ch)) as c:
+        await c.get("/v1/eco", headers=A)
+        await c.get("/v1/eco", headers=B)
+        await asyncio.sleep(0.1)  # as duas entradas estão STALE
+        await c.delete("/v1/cache/meu", headers=A)
+        ra = await c.get("/v1/eco", headers=A)
+        rb = await c.get("/v1/eco", headers=B)
+    assert ra.headers["x-cache"] == "MISS"
+    assert rb.headers["x-cache"] == "STALE"
+
+
+async def test_preaquecimento_para_no_logout():
+    ch: dict[str, int] = {}
+    app = _app(ch)
+    async with _cli(app) as c:
+        await c.get("/v1/eco", headers=B)
+        m = _middleware(app)
+        m.rotas_preaquecer, m.espera_preaquecer, m.silencio_preaquecer = ["/v1/eco"], 0.1, 0
+        await c.post("/v1/auth/login", json={"token": "tokA"})
+        assert (await c.delete("/v1/auth/sessao", headers=A)).status_code == 204
+        await asyncio.sleep(0.3)
+    assert ch["eco"] == 1  # só o do B: o aquecimento do A não rodou depois do logout
+    assert await SC.cache.backend.obter(C.montar_chave(C.politica("/v1/eco", {}), "/v1/eco", [], "aluno-a")) is None

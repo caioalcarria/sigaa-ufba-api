@@ -49,7 +49,12 @@ A tabela `REGRAS` em `api/cache.py` decide. Vale a primeira regex que casar.
 * **aluno**: a chave leva `HMAC(SIGAA_API_CACHE_SEGREDO, hash do usuário)`. Dois tokens do mesmo
   aluno dividem o cache. Um aluno nunca recebe o dado de outro: a identidade vem da sessão
   validada no `gerenciador`, nunca do que o cliente manda. No Basic auth, o cache só entra depois que a
-  senha já foi validada uma vez (existe a sessão `basic:` daquela credencial).
+  senha já foi validada uma vez (existe a sessão `basic:` daquela credencial). Sessão vencida OU ociosa
+  (`SIGAA_API_TOKEN_OCIOSO_MIN`) nunca recebe HIT — vale pro Bearer e pro Basic.
+* a chave é `escopo:path?query` com a query ordenada pelo NOME (valores repetidos mantêm a ordem: a rota
+  vê o último). Pedido com MAIS DE UM `Authorization` não usa o cache (a rota responde direto).
+* `DELETE /v1/cache/meu` e o logout apagam o cache do aluno, e o que já estava indo ao SIGAA naquela
+  hora (MISS, revalidação STALE, pré-aquecimento) não é regravado depois.
 
 Só entram no cache respostas **200** sem `Set-Cookie` e com até 8 MB. Erro (401, 404, 502, 503) nunca
 fica guardado.

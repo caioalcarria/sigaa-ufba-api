@@ -416,6 +416,9 @@ class Cache:
         self.segredo_configurado = bool(seg)
         mestre = derivar_segredo(seg.encode()) if seg else secrets.token_bytes(32)
         self.segredo = hmac.new(mestre, b"sigaa-cache-hmac-aluno", hashlib.sha256).digest()  # só o HMAC das chaves
+        #: HMAC do aluno → time.time() da última limpeza (logout, DELETE /v1/cache/meu): o que saiu pro
+        #: SIGAA ANTES dela não grava depois (ver :meth:`pode_gravar`)
+        self._limpo_em: dict[str, float] = {}
         url = os.getenv("SIGAA_API_CACHE_URL", "").strip()
         max_b = int(float(os.getenv("SIGAA_API_CACHE_MAX_MB", "256")) * 1024 * 1024)
         self.backend: Backend = Memoria(max_b)
@@ -436,7 +439,19 @@ class Cache:
         return hmac.new(self.segredo, usuario_hash.encode(), hashlib.sha256).hexdigest()[:32]
 
     async def limpar_aluno(self, usuario_hash: str) -> int:
-        return await self.backend.apagar_prefixo(f"u:{self.aluno(usuario_hash)}:")
+        h, agora = self.aluno(usuario_hash), time.time()
+        self._limpo_em[h] = agora
+        if len(self._limpo_em) > 10_000:  # só importa enquanto pode haver busca em voo (minutos)
+            self._limpo_em = {k: t for k, t in self._limpo_em.items() if agora - t < 900}
+        return await self.backend.apagar_prefixo(f"u:{h}:")
+
+    def pode_gravar(self, chave: str, desde: float) -> bool:
+        """Uma busca que começou em ``desde`` ainda pode gravar ``chave``? Não, se a chave é de um
+        aluno que limpou o cache depois disso (a resposta era de antes do logout/limpeza)."""
+        if not chave.startswith("u:"):
+            return True
+        t = self._limpo_em.get(chave[2:].partition(":")[0])
+        return t is None or desde > t
 
     def info(self) -> dict[str, Any]:
         return {"ligado": self.ligado, **self.backend.info(), "contadores": dict(self.stats), "singleflight_juntados": self.sf.juntados}
