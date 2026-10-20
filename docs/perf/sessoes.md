@@ -154,3 +154,21 @@ medida); `SIGAA_API_MAX_CONCORRENCIA_SIGAA` sobe se o SIGAA aguentar.
   transport is not None else transporte(http2=http2, max_conexoes=conexoes)`) e troque `ssl_compartilhado()`
   por `_ssl_ctx()` da cpu (é a mesma ideia: um contexto SSL por processo) — ou deixe
   `def ssl_compartilhado(): return _ssl_ctx()`.
+
+## Prioridade baixa (pro pré-aquecimento do cache)
+
+`from sigaa.pool import prioridade_baixa` — o que roda dentro de `with prioridade_baixa():` (inclusive as
+tarefas criadas ali) só pega sessão do pool se sobrar OUTRA livre pro aluno, não recruta a última sessão
+livre no `paralelo` e nunca abre sessão nova (pool de 1 sessão: divide, como antes). Integração no cache é
+uma linha em `api/cache.py`, `_preaquecer`: `with prioridade_baixa(): await self._aquecer(...)`.
+
+Simulado, 4 alunos: login → 0,6 s → `/v1/notas` (bem no meio do aquecimento):
+
+| variante | 1ª `/v1/notas` p50 | requisições ao SIGAA |
+|---|--:|--:|
+| hoje (o aquecimento divide o pool e cede cancelando o passo) | 4,86 s | 164 |
+| `prioridade_baixa()` | 4,68 s | 160 |
+| `prioridade_baixa()` + sem cancelar o passo | 4,70 s | 160 |
+
+Ganho pequeno (o "ceder" do cache já resolvia a maior parte); vale pela garantia de que o fundo nunca
+pega a última sessão livre nem gasta login.

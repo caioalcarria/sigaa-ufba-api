@@ -474,3 +474,61 @@ def test_ritmo_conta_do_inicio_e_tem_folga_do_fim():
         await rapido.close()
 
     run(main())
+
+
+def test_prioridade_baixa_deixa_uma_sessao_livre_pro_aluno():
+    from sigaa.pool import prioridade_baixa
+
+    async def main():
+        p = _pool(maximo=4, tarefas_por_sessao=1)
+        await p.aquecer(2)
+        usadas = []
+
+        async def fundo(s, i):
+            usadas.append(s.nome)
+            await asyncio.sleep(0.2)
+            return i
+
+        async def aquecimento():
+            with prioridade_baixa():
+                return await p.principal.executar(lambda s: s.paralelo([lambda s, i=i: fundo(s, i) for i in range(4)]))
+
+        t = asyncio.create_task(aquecimento())
+        await asyncio.sleep(0.05)
+        assert p.livres == 1  # o fundo pegou 1 das 2 sessões e não recrutou a outra
+        t0 = time.perf_counter()
+        await p.principal.executar(lambda s: asyncio.sleep(0.01))  # o aluno chega: sessão na hora
+        assert time.perf_counter() - t0 < 0.1
+        assert await t == [0, 1, 2, 3]
+        assert p.tamanho == 2 and len(set(usadas)) == 1  # não abriu sessão nova
+        await p.fechar()
+
+    run(main())
+
+
+def test_prioridade_baixa_com_pool_de_uma_sessao_divide_como_antes():
+    from sigaa.pool import prioridade_baixa
+
+    async def main():
+        p = _pool(maximo=4, cred=None)  # sem credenciais: não cresce
+        with prioridade_baixa():
+            r = await asyncio.wait_for(p.principal.executar(lambda s: asyncio.sleep(0.01, "ok")), 1)
+        assert r == "ok"
+        await p.fechar()
+
+    run(main())
+
+
+def test_prioridade_baixa_espera_a_sessao_que_esta_abrindo():
+    from sigaa.pool import prioridade_baixa
+
+    async def main():
+        p = _pool(maximo=4)
+        p.crescer(1)  # aquecimento em curso (login de 0,05 s)
+        with prioridade_baixa():
+            nome = await asyncio.wait_for(p.principal.executar(lambda s: asyncio.sleep(0, s.nome)), 1)
+        assert p.tamanho == 2 and p.livres == 2
+        assert nome in {x.nome for x in p.sessoes}
+        await p.fechar()
+
+    run(main())
