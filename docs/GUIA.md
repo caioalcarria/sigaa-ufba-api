@@ -184,6 +184,12 @@ sequenceDiagram
 | `SIGAA_PARSE_PROCESSOS` | núcleos-1 (1–8) | processos que fazem o parse de HTML/PDF fora do event loop (0 = desliga) |
 | `SIGAA_API_GZIP_MIN_BYTES` | 2048 | gzip nas respostas maiores que isso (0 = desliga) |
 
+> **Quando o 429 por token aparece:** o cache HTTP fica por fora do limitador. Resposta do cache (HIT) não conta;
+> pedidos IGUAIS simultâneos, mesmo com `?fresco=true`, viram uma busca só; e `?fresco=true` tem teto de 20/min por
+> aluno (passou, sai do cache). Então o 429 `muitas_tentativas` por token só ocorre com **mais de
+> `SIGAA_API_CONC_POR_TOKEN` rotas diferentes**, todas fora do cache, em andamento ao mesmo tempo no mesmo token —
+> igual em localhost e em produção. `SIGAA_API_IPS_CONFIAVEIS` não afeta esse limite.
+
 Tudo fica em memória: reiniciar o servidor invalida os tokens. Rode **1 worker** (ou use *sticky sessions*):
 o parse já usa os outros núcleos pelo pool de processos. Detalhes, números e o porquê em [`docs/servidor.md`](servidor.md).
 </details>
