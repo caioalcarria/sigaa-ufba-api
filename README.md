@@ -1,42 +1,74 @@
-<div align="center">
+<p align="center">
+  <img src="docs/marca/banner.png" alt="{sigaa} api: o SIGAA da UFBA agora fala JSON" width="100%">
+</p>
 
-# 🎓 SIGAA UFBA API
+<p align="center">
+  <img src="https://img.shields.io/badge/python-3.11%2B-0D0E0B?logo=python&logoColor=F4C430" alt="Python 3.11+">
+  <img src="https://img.shields.io/badge/FastAPI-0D0E0B?logo=fastapi&logoColor=8CD48A" alt="FastAPI">
+  <img src="https://img.shields.io/badge/modo-somente%20leitura-0D0E0B?labelColor=0D0E0B&color=74B7FF" alt="somente leitura">
+  <img src="https://img.shields.io/badge/licen%C3%A7a-MIT-0D0E0B?labelColor=0D0E0B&color=F4C430" alt="licença MIT">
+</p>
 
-**Seus dados do SIGAA da UFBA em JSON, prontos pra usar em qualquer app.**
+<p align="center"><b>O SIGAA nunca teve API. Agora tem.</b><br>
+Seus dados acadêmicos da UFBA em JSON, prontos pro seu app, bot, automação ou trabalho de disciplina.</p>
 
-![Python](https://img.shields.io/badge/python-3.11%2B-3776AB?logo=python&logoColor=white)
-![FastAPI](https://img.shields.io/badge/FastAPI-009688?logo=fastapi&logoColor=white)
-![somente leitura](https://img.shields.io/badge/modo-somente%20leitura-6e7781)
-![licença](https://img.shields.io/badge/licen%C3%A7a-MIT-yellow)
+---
 
-</div>
+## O muro
 
-## O que é
+Quem estuda na UFBA e já tentou automatizar a vida acadêmica conhece a história. Você quer um painel do seu CR, um aviso
+quando sai nota nova ou uma grade montada sem abrir dez abas. A ideia morre no mesmo lugar: **o SIGAA não tem API**.
 
-O SIGAA não tem API. Esta é uma API **não oficial** que entra no SIGAA com o **seu** login e devolve
-suas informações organizadas em JSON. É útil pra fazer app, bot, planilha, dashboard ou qualquer sistema
-que precise dos dados do aluno.
+Uma API é uma porta pela qual um programa conversa com outro: ele pede um dado e recebe pronto, sem ninguém clicar em
+tela nenhuma. Sem ela, tudo o que está no SIGAA (histórico, notas, frequência, matrícula) só existe em telas antigas e
+PDFs, e qualquer automação depende de alguém copiando à mão.
 
-**Ela só lê.** Não matricula, não tranca e não envia nada.
+## A ponte
 
-## O que você consegue
+```
+SIGAA  (telas, menus em JavaScript, PDFs)
+  ↓
+{sigaa} api  →  entra, navega, lê cada tela e cada PDF
+  ↓
+o seu projeto  →  recebe tudo organizado, em JSON, em qualquer linguagem
+```
 
-- 📜 **Histórico** completo, com **CR e IAP** e a evolução do CR semestre a semestre
-- 📚 **Turmas** de todos os semestres, com a grade horária (também em `.ics`, pro Google Agenda)
-- 📝 **Notas, frequência, tarefas e provas** de cada turma virtual
-- 🗺️ **Planejamento de matrícula**:
-  - o que falta pra se formar;
-  - o que você pode pegar no semestre;
-  - simulação de choque de horário;
-  - **previsão de oferta**: em que semestres cada matéria costuma abrir.
-- 🧾 **Matrícula do semestre e documentos**: comprovante, declaração de vínculo, histórico em PDF
-- 🌐 **Dados públicos sem login**: cursos, disciplinas, ementas, turmas ofertadas, professores, calendário
+<p align="center">
+  <img src="docs/marca/demo-json.gif" alt="login e índices em JSON no terminal" width="48%">
+  &nbsp;
+  <img src="docs/marca/demo-grade.gif" alt="grade montada sem choque de horário" width="48%">
+</p>
 
-São mais de 160 rotas. A lista completa está em [**docs/ENDPOINTS.md**](docs/ENDPOINTS.md).
+## Tudo isso vira dado
 
-## Como usar em 3 passos
+| | o que você recebe |
+|---|---|
+| **histórico** | cada componente cursado, **CR e IAP** e a evolução semestre a semestre (o PDF vira JSON) |
+| **semestre** | turmas, **notas, frequência, tarefas e provas** de todas as turmas |
+| **matrícula** | o que dá pra pegar, pré-requisitos, **choque de horário**, sugestão de grade e previsão de oferta |
+| **agenda** | grade horária em `.ics`, direto pro Google Agenda |
+| **turma virtual** | notícias, aulas, arquivos, fóruns e participantes |
+| **documentos** | comprovante de matrícula, declaração de vínculo, histórico em PDF |
+| **público** | cursos, ementas, oferta de turmas, docentes, biblioteca, pesquisa e extensão, **sem login** |
 
-**1. Suba a API**
+São **166 rotas**. A lista completa está em [**docs/ENDPOINTS.md**](docs/ENDPOINTS.md).
+
+## E com isso, você constrói
+
+| | ideia | rotas |
+|---|---|---|
+| 01 | **bot de prazos**: toda segunda, as tarefas e provas da semana no grupo da turma | `/v1/tarefas` · `/v1/avaliacoes` |
+| 02 | **painel do CR**: sua evolução e quanto você precisa tirar pra chegar onde quer | `/v1/indices` · `/v1/indices/simular` |
+| 03 | **montador de grade**: escolhe as matérias e ele avisa choque e pré-requisito | `/v1/planejamento/simular` |
+| 04 | **alerta de nota**: saiu nota, chegou aviso | `/v1/notas` |
+| 05 | **sala livre agora**: onde estudar entre uma aula e outra | `/v1/salas-livres` |
+| 06 | **pesquisa com dado real**: oferta histórica, ementas e cursos | `/v1/publico/componentes` · `/v1/consultas/turmas/historico` |
+
+Pega a ideia e faz melhor. Se construir alguma coisa, abre uma issue contando: quero ver.
+
+## Pra começar, 3 comandos
+
+**1 · suba a API**
 
 ```bash
 git clone https://github.com/caioalcarria/sigaa-ufba-api && cd sigaa-ufba-api
@@ -45,7 +77,7 @@ docker compose up -d
 
 Sem Docker: `pip install -e ".[api]"` e depois `uvicorn api.main:app`.
 
-**2. Faça login** com o seu usuário e a sua senha do SIGAA:
+**2 · entre** com o seu usuário e a sua senha do SIGAA
 
 ```bash
 curl -X POST localhost:8000/v1/auth/login \
@@ -55,7 +87,7 @@ curl -X POST localhost:8000/v1/auth/login \
 
 A resposta traz um `token`.
 
-**3. Use o token** nas outras rotas:
+**3 · use** o token nas outras rotas
 
 ```bash
 curl localhost:8000/v1/indices -H "Authorization: Bearer SEU_TOKEN"
@@ -75,10 +107,14 @@ Pra testar tudo pelo navegador, abra **http://localhost:8000/docs**: cada rota t
 
 ## Bom saber
 
-- **Rápida:** quando você pede o mesmo dado de novo, ele sai do cache em menos de 1 milissegundo. Pra forçar o dado
-  mais novo, use `?fresco=true`.
-- **Sessão:** com `"lembrar": true`, a API entra de novo sozinha quando o SIGAA desconecta você por inatividade.
-- **Sua senha nunca é gravada:** com `lembrar`, ela fica só na memória do servidor, cifrada.
+- **Rápida.** Um dado repetido sai do cache em menos de 1 milissegundo, e o "app" inteiro (6 consultas em paralelo) abre em
+  cerca de 6 segundos. Pra forçar o dado mais novo, use `?fresco=true`.
+- **Precisa.** CR e IAP são recalculados com a mesma regra da UFBA e batem com os oficiais até a 4ª casa decimal.
+- **Gentil com a universidade.** Tem teto de conexões com o SIGAA, e os testes de carga rodam contra um SIGAA simulado,
+  nunca contra o real.
+- **Só lê.** Não matricula, não tranca e não envia nada.
+- **Sua senha nunca é gravada.** Com `"lembrar": true`, ela fica só na memória do servidor, cifrada, pra API entrar de
+  novo sozinha quando o SIGAA derrubar a sessão por inatividade.
 - **Erros** vêm sempre no mesmo formato: `{"erro": {"codigo": "...", "mensagem": "..."}}`.
 
 ## Mais detalhes
@@ -92,10 +128,17 @@ Pra testar tudo pelo navegador, abra **http://localhost:8000/docs**: cada rota t
 | contribuir | [docs/CONTRATO.md](docs/CONTRATO.md) |
 | saber o que a API garante de segurança e configurar produção | [docs/seguranca/](docs/seguranca/README.md) · reportar falha: [SECURITY.md](SECURITY.md) |
 
+## Contribua
+
+Achou um bug? Abre uma [issue](https://github.com/caioalcarria/sigaa-ufba-api/issues). Quer ajudar? Manda um PR: o
+contrato de contribuição está em [docs/CONTRATO.md](docs/CONTRATO.md).
+
 ## Aviso
 
 Este é um projeto **independente**, sem vínculo com a UFBA nem com a UFRN, que criou o SIGAA. Use só com as **suas**
 credenciais. Se você hospedar a API pra outras pessoas, use HTTPS e deixe claro pra elas que a senha passa pelo seu
 servidor.
 
-Licença [MIT](LICENSE). Feito por estudante, pra estudante. 💙
+---
+
+<p align="center"><code>{sigaa} api</code> · licença <a href="LICENSE">MIT</a> · feito por estudante, pra estudante</p>
