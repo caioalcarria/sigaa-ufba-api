@@ -321,7 +321,7 @@ class Gerenciador:
 
     async def autenticar(self, usuario: str, senha: str, *, ip: str = "?", lembrar: bool = False, origem: str = "token") -> tuple[str, Sessao]:
         """Login com os limites: tentativas por IP e FALHAS por usuário (``MuitasTentativas`` antes de ir ao SIGAA)."""
-        if not self.limite_login.permitir(chave_ip(ip)):
+        if ip not in config.IPS_CONFIAVEIS and not self.limite_login.permitir(chave_ip(ip)):
             raise MuitasTentativas
         cu = chave_usuario(usuario)
         self.limite_usuario.maximo = config.MAX_FALHAS_POR_USUARIO

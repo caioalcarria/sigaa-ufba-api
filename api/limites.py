@@ -68,6 +68,8 @@ class Limites:
         if token:
             return "tok:" + hashlib.sha256(token).hexdigest()[:16], self.por_token
         ip = (scope.get("client") or ("desconhecido", 0))[0]
+        if ip in config.IPS_CONFIAVEIS:
+            return None, 0  # IP confiável (ver SIGAA_API_IPS_CONFIAVEIS): só o teto global vale
         if caminho.startswith("/v1/publico"):
             return "ip:" + ip, self.por_ip
         # rotas logadas sem Bearer (ex.: Basic, login): limita por IP com o teto de token

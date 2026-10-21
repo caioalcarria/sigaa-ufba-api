@@ -42,6 +42,11 @@ class Config:
     MAX_SESSOES_POR_USUARIO: int = int(_num("SIGAA_API_MAX_SESSOES_POR_USUARIO", 5))
     #: tentativas de login por IP numa janela de 10 min (anti força-bruta)
     MAX_LOGINS_POR_IP: int = int(_num("SIGAA_API_MAX_LOGINS_POR_IP", 20))
+    #: IPs que NÃO entram nos limites POR IP (login por IP e concorrência por IP) — ex.: o backend de um
+    #: sistema que chama a API em nome de muitos alunos (todas as chamadas saem do mesmo IP). Vazio por
+    #: padrão: NÃO ponha 127.0.0.1 se a API estiver atrás de um proxy no mesmo host sem proxy-headers
+    #: (aí todo cliente pareceria 127.0.0.1). Os limites POR USUÁRIO, por token e o global continuam valendo.
+    IPS_CONFIAVEIS: frozenset[str] = frozenset(i.strip() for i in os.getenv("SIGAA_API_IPS_CONFIAVEIS", "").split(",") if i.strip())
     #: logins ERRADOS por usuário (qualquer IP) dentro da janela abaixo; estourou = 429 sem ir ao SIGAA
     #: (força bruta distribuída não chega à conta do aluno). 0 = sem limite por usuário
     MAX_FALHAS_POR_USUARIO: int = int(_num("SIGAA_API_MAX_FALHAS_POR_USUARIO", 5))

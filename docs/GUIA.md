@@ -162,6 +162,7 @@ sequenceDiagram
 | `SIGAA_API_LOGIN_CIFRADO` · `_JANELA_S` | true · 300 | login com corpo cifrado (`GET /v1/auth/chave`, RSA-OAEP-256); validade do `ts` e uso único |
 | `SIGAA_API_MAX_SESSOES` · `_POR_USUARIO` | 500 · 5 | |
 | `SIGAA_API_MAX_LOGINS_POR_IP` | 20 / 10 min | anti força bruta (todas as tentativas, por IP) |
+| `SIGAA_API_IPS_CONFIAVEIS` | vazio | IPs fora dos limites **por IP** (login e concorrência): o backend de um sistema que chama a API por muitos alunos. Limites por usuário, por token e global continuam. Não use `127.0.0.1` atrás de proxy sem proxy-headers |
 | `SIGAA_API_MAX_FALHAS_POR_USUARIO` · `_JANELA_FALHAS_USUARIO_MIN` | 5 · 15 | logins errados por conta (de qualquer IP) antes do `429`; 0 = desliga |
 | `SIGAA_API_SEM_CORE_DUMP` | true | no boot: sem core dump e sem ptrace (`PR_SET_DUMPABLE=0`); false pra usar py-spy/gdb |
 | `FORWARDED_ALLOW_IPS` (uvicorn) | `127.0.0.1,::1` | IP(s) do proxy reverso confiável pro `X-Forwarded-For` |
