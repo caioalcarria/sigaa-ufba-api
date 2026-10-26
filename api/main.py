@@ -148,6 +148,12 @@ if config.CORS:
 app.add_middleware(Prazo, segundos=config.TIMEOUT_REQUISICAO_S)
 if config.HOSTS:  # Host header fora da lista = 400 (padrão: aceita qualquer, pra não quebrar quem já usa)
     app.add_middleware(TrustedHostMiddleware, allowed_hosts=config.HOSTS)
+# lista de rotas permitidas (opcional): instância de um front só expõe o que ele usa — 404 pro resto,
+# antes de CORS, cache e rotas (ver api/rotas_permitidas.py)
+if config.ROTAS_PERMITIDAS:
+    from .rotas_permitidas import RotasPermitidas  # noqa: E402
+
+    app.add_middleware(RotasPermitidas, padroes=config.ROTAS_PERMITIDAS)
 
 # cabeçalhos de segurança + limites (405/413/414/431) POR FORA de toda a pilha, inclusive do tratador de 500
 # do Starlette (ServerErrorMiddleware): vale pra HIT, 304, erros, 504 e preflight. ASGI puro.

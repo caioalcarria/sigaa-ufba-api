@@ -1,0 +1,12 @@
+{
+  "name": "sigaa-ufba-api",
+  "description": "API REST não oficial (somente leitura) do SIGAA da UFBA. Lido pelo Dokku no deploy (Rede IC): docs/deploy-rede-ic.md",
+  "formation": {
+    "web": { "quantity": 1, "max_parallel": 1 }
+  },
+  "healthchecks": {
+    "web": [
+      { "type": "startup", "name": "API respondendo", "path": "/", "attempts": 5, "timeout": 5, "wait": 3 }
+    ]
+  }
+}

@@ -129,6 +129,8 @@ class Config:
     HOSTS: list[str] = [h.strip() for h in os.getenv("SIGAA_API_HOSTS", "").split(",") if h.strip()]
     #: publicar /docs, /redoc e /openapi.json (desligue em produção se não quiser expor o mapa da API)
     DOCS: bool = _bool("SIGAA_API_DOCS", True)
+    #: caminhos liberados (vírgula; "*" no fim = prefixo). Vazio (padrão) = todas as rotas. Ver api/rotas_permitidas.py
+    ROTAS_PERMITIDAS: str = os.getenv("SIGAA_API_ROTAS_PERMITIDAS", "").strip()
     #: maior foto repassada por /v1/fotos e /v1/me/foto (bytes); passou = 502
     FOTO_MAX_BYTES: int = int(_num("SIGAA_API_FOTO_MAX_BYTES", 2 * 1024 * 1024))
     # ---- transporte da senha (ver api/login_seguro.py) ----

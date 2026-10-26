@@ -94,6 +94,8 @@ Documentos desta pasta:
 - [ ] Com Redis: `SIGAA_API_CACHE_SEGREDO` com 32+ caracteres aleatórios, o mesmo em todos os
       processos, e `rediss://` com senha. Sem segredo, o dado de aluno nunca sai do processo.
 - [ ] `SIGAA_API_HOSTS=<seu domínio>` e, se quiser esconder o mapa da API, `SIGAA_API_DOCS=false`.
+- [ ] Instância de um front só: `SIGAA_API_ROTAS_PERMITIDAS` com as rotas que ele usa (o resto, inclusive
+      `/v1/me/dados-pessoais`, dá 404). Exemplo do CADEE em [deploy-rede-ic.md](../deploy-rede-ic.md).
 - [ ] Core dump desligado (`SIGAA_API_SEM_CORE_DUMP=true`, o padrão; a imagem já faz `ulimit -c 0`)
       e swap cifrada ou desligada no host.
 - [ ] Access log com retenção curta, ou `--no-access-log` (o IP do cliente é dado pessoal).

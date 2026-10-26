@@ -172,6 +172,7 @@ sequenceDiagram
 | `SIGAA_API_HSTS` | `auto` | HSTS só quando chegou por HTTPS (`true` = sempre, `false` = nunca) |
 | `SIGAA_API_HOSTS` | vazio | hosts aceitos no `Host` (vazio = qualquer) |
 | `SIGAA_API_DOCS` | true | `/docs`, `/redoc` e `/openapi.json` no ar |
+| `SIGAA_API_ROTAS_PERMITIDAS` | (vazio) | só estes caminhos respondem (vírgula; `*` no fim = prefixo); o resto dá 404. Vazio = todas. Ver [deploy-rede-ic.md](deploy-rede-ic.md) |
 | `SIGAA_API_FOTO_MAX_BYTES` | 2097152 | maior foto repassada (502 acima) |
 | `SIGAA_API_CONC_POR_TOKEN` · `_POR_IP` · `_GLOBAL` | 6 · 8 · 128 | requisições em voo por token (429), por IP nas rotas públicas (429) e na API inteira (espera e depois 503); 0 = desliga |
 | `SIGAA_API_CONC_ESPERA_S` | 20 | espera por vaga no teto global da API antes do `503` |
